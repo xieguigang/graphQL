@@ -1,6 +1,9 @@
-﻿Imports Microsoft.VisualBasic.ApplicationServices.Development.VisualStudio
+﻿Imports System.Runtime.CompilerServices
+Imports Microsoft.VisualBasic.ApplicationServices.Development.VisualStudio
 Imports Microsoft.VisualBasic.ApplicationServices.Development.VisualStudio.vbproj
+Imports Microsoft.VisualBasic.Data.GraphTheory
 Imports Microsoft.VisualBasic.Data.NLP
+Imports Microsoft.VisualBasic.Data.visualize.Network.Graph
 Imports Microsoft.VisualBasic.Linq
 Imports Microsoft.VisualBasic.Text
 
@@ -25,14 +28,29 @@ Public Module VBGraph
     Public Function SourceTokens(file As String) As String()
         Return file _
             .SolveStream _
+            .ToLower _
             .Split(" "c, ASCII.CR, ASCII.LF, ASCII.TAB, """"c, "'"c,
                    "+"c, "-"c, "*"c, "/"c, "("c, ")"c, "["c, "]"c, "?"c,
                    "."c, "<"c, ">"c, ","c, "!"c, ":"c, "="c, "{"c, "}"c,
-                   "#"c, "\"c, "&"c, "^"c, "%"c, "$"c, "@"c
+                   "#"c, "\"c, "&"c, "^"c, "%"c, "$"c, "@"c, ";"c
              ) _
             .Where(Function(s) Not s.StringEmpty) _
+            .Where(Function(s) Not s.IsPattern("\d+")) _
             .DoCall(AddressOf StopWords.DefaultStopWords.DefaultValue.Removes) _
             .ToArray
     End Function
 
+    <Extension>
+    Public Function GetNetwork(g As Graph) As NetworkGraph
+        Dim net As New NetworkGraph
+
+        For Each node In g.vertex
+            net.CreateNode(node.label)
+        Next
+        For Each link In g.graphEdges
+            net.CreateEdge(link.U.label, link.V.label)
+        Next
+
+        Return net
+    End Function
 End Module
