@@ -25,17 +25,25 @@ Public Module VBGraph
         Return vb
     End Function
 
-    Public Function SourceTokens(file As String) As String()
+    Public Function SourceTokens(file As String, Optional maxChars As Integer = 24) As String()
         Return file _
             .SolveStream _
             .ToLower _
-            .Split(" "c, ASCII.CR, ASCII.LF, ASCII.TAB, """"c, "'"c,
+            .Where(Function(c)
+                       Dim b As Integer = AscW(c)
+
+                       Return b > 0 AndAlso b <= 255
+                   End Function) _
+            .CharString _
+            .Split(" "c, ASCII.CR, ASCII.LF, ASCII.TAB, """"c, "'"c, "`"c, "~"c,
                    "+"c, "-"c, "*"c, "/"c, "("c, ")"c, "["c, "]"c, "?"c,
                    "."c, "<"c, ">"c, ","c, "!"c, ":"c, "="c, "{"c, "}"c,
-                   "#"c, "\"c, "&"c, "^"c, "%"c, "$"c, "@"c, ";"c
+                   "#"c, "\"c, "&"c, "^"c, "%"c, "$"c, "@"c, ";"c,
+                   "_"c, "|"c, "·"c, "©"c, "°"c, "÷"c, "×"c
              ) _
             .Where(Function(s) Not s.StringEmpty) _
             .Where(Function(s) Not s.IsPattern("\d+")) _
+            .Where(Function(s) s.Length < maxChars) _
             .DoCall(AddressOf StopWords.DefaultStopWords.DefaultValue.Removes) _
             .ToArray
     End Function

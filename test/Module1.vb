@@ -14,6 +14,7 @@ Module Module1
 
         For Each source As String In vb
             Call g.TextRankGraph(VBGraph.SourceTokens(source))
+            Call Console.WriteLine(source)
         Next
 
         Dim text As New GraphMatrix(g)
