@@ -1,6 +1,7 @@
 ﻿Imports System.Runtime.CompilerServices
 Imports Microsoft.VisualBasic.ApplicationServices.Development.VisualStudio
 Imports Microsoft.VisualBasic.ApplicationServices.Development.VisualStudio.vbproj
+Imports Microsoft.VisualBasic.ComponentModel.Ranges.Model
 Imports Microsoft.VisualBasic.Data.GraphTheory
 Imports Microsoft.VisualBasic.Data.NLP
 Imports Microsoft.VisualBasic.Data.visualize.Network.Graph
@@ -49,13 +50,17 @@ Public Module VBGraph
     End Function
 
     <Extension>
-    Public Function GetNetwork(g As Graph) As NetworkGraph
+    Public Function GetNetwork(g As Graph, Optional cutoff As Double = 0.3) As NetworkGraph
         Dim net As New NetworkGraph
+        Dim w As DoubleRange = g.graphEdges _
+            .Select(Function(d) d.weight) _
+            .ToArray
+        Dim threshold As Double = w.Max * cutoff
 
         For Each node In g.vertex
             net.CreateNode(node.label)
         Next
-        For Each link In g.graphEdges
+        For Each link In g.graphEdges.Where(Function(d) d.weight >= threshold)
             net.CreateEdge(link.U.label, link.V.label)
         Next
 
