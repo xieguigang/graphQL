@@ -1,4 +1,5 @@
 ﻿Imports System.Runtime.CompilerServices
+Imports System.Text.RegularExpressions
 Imports Microsoft.VisualBasic.ApplicationServices.Development.VisualStudio
 Imports Microsoft.VisualBasic.ApplicationServices.Development.VisualStudio.vbproj
 Imports Microsoft.VisualBasic.ComponentModel.Ranges.Model
@@ -36,6 +37,7 @@ Public Module VBGraph
                        Return b > 0 AndAlso b <= 255
                    End Function) _
             .CharString _
+            .StringReplace("'.+$", "", RegexOptions.Multiline) _
             .Split(" "c, ASCII.CR, ASCII.LF, ASCII.TAB, """"c, "'"c, "`"c, "~"c,
                    "+"c, "-"c, "*"c, "/"c, "("c, ")"c, "["c, "]"c, "?"c,
                    "."c, "<"c, ">"c, ","c, "!"c, ":"c, "="c, "{"c, "}"c,
@@ -50,7 +52,7 @@ Public Module VBGraph
     End Function
 
     <Extension>
-    Public Function GetNetwork(g As Graph, Optional cutoff As Double = 0.3) As NetworkGraph
+    Public Function GetNetwork(g As Graph, Optional cutoff As Double = 0.001) As NetworkGraph
         Dim net As New NetworkGraph
         Dim w As DoubleRange = g.graphEdges _
             .Select(Function(d) d.weight) _
@@ -60,8 +62,8 @@ Public Module VBGraph
         For Each node In g.vertex
             net.CreateNode(node.label)
         Next
-        For Each link In g.graphEdges.Where(Function(d) d.weight >= threshold)
-            net.CreateEdge(link.U.label, link.V.label)
+        For Each link In g.graphEdges.Where(Function(d) d.weight > threshold)
+            net.CreateEdge(link.U.label, link.V.label, link.weight)
         Next
 
         Return net

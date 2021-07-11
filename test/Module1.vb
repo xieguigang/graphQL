@@ -21,7 +21,7 @@ Module Module1
         Dim pr As New PageRank(text)
         Dim result = text.TranslateVector(pr.ComputePageRank, True)
 
-        Dim net As NetworkGraph = g.GetNetwork
+        Dim net As NetworkGraph = g.GetNetwork(cutoff:=0)
 
         For Each node In net.vertex
             node.data.Add("PageRank", result(node.label))
