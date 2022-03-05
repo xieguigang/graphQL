@@ -53,11 +53,17 @@ Public Class GraphPool : Inherits Graph(Of Knowledge, Association, GraphPool)
     End Sub
 
     Private Function ComputeIfAbsent(term As String) As Knowledge
+        Dim vertex As Knowledge
+
         If Me.ExistVertex(term) Then
-            Return Me.vertices(term)
+            vertex = Me.vertices(term)
         Else
-            Return Me.AddVertex(term)
+            vertex = Me.AddVertex(term)
         End If
+
+        vertex.Mentions += 1
+
+        Return vertex
     End Function
 
     Public Iterator Function GetKnowledgeData(term As String) As IEnumerable(Of KnowledgeDescription)
@@ -74,7 +80,8 @@ Public Class GraphPool : Inherits Graph(Of Knowledge, Association, GraphPool)
                     .confidence = edge.weight,
                     .type = edge.type,
                     .query = edge.V.label,
-                    .relationship = Relationship.has
+                    .relationship = Relationship.has,
+                    .mentions = (edge.V.Mentions, edge.U.Mentions)
                 }
             ElseIf edge.U Is knowledge Then
                 Yield New KnowledgeDescription With {
@@ -82,7 +89,8 @@ Public Class GraphPool : Inherits Graph(Of Knowledge, Association, GraphPool)
                     .confidence = edge.weight,
                     .type = edge.type,
                     .query = edge.U.label,
-                    .relationship = Relationship.is
+                    .relationship = Relationship.is,
+                    .mentions = (edge.U.Mentions, edge.V.Mentions)
                 }
             End If
         Next
@@ -119,8 +127,21 @@ Public Class GraphPool : Inherits Graph(Of Knowledge, Association, GraphPool)
             .GroupBy(Function(i) i.type) _
             .ToDictionary(Function(i) i.Key,
                           Function(i)
-                              Return i.ToDictionary(Function(j) j.target)
+                              Return topNFactor(i, 5).ToDictionary(Function(j) j.target)
                           End Function)
+    End Function
+
+    Private Shared Iterator Function topNFactor(list As IGrouping(Of String, KnowledgeDescription), n As Integer) As IEnumerable(Of KnowledgeDescription)
+        Dim keyGroups = list _
+            .GroupBy(Function(i) i.target) _
+            .OrderByDescending(Function(i)
+                                   Return i.Sum(Function(o) o.score)
+                               End Function) _
+            .ToArray
+
+        For Each group In keyGroups.Take(n)
+            Yield group.OrderByDescending(Function(i) i.score).First
+        Next
     End Function
 
     Private Function Jaccard(x As Dictionary(Of String, KnowledgeDescription), y As Dictionary(Of String, KnowledgeDescription)) As Double
@@ -128,9 +149,14 @@ Public Class GraphPool : Inherits Graph(Of Knowledge, Association, GraphPool)
             Return 0
         End If
 
-        Dim intersect As String() = x.Values.Select(Function(i) i.target).Intersect(y.Values.Select(Function(i) i.target)).ToArray
+        Dim intersect As String() = x.Values _
+            .Select(Function(i) i.target) _
+            .Intersect(y.Values.Select(Function(i) i.target)) _
+            .ToArray
         Dim intersectScore = intersect.Select(Function(a) x(a).confidence + y(a).confidence).Sum
-        Dim unionScore = Aggregate i As KnowledgeDescription In x.Values.JoinIterates(y.Values) Into Sum(i.confidence)
+        Dim unionScore = Aggregate i As KnowledgeDescription
+                         In x.Values.JoinIterates(y.Values)
+                         Into Sum(i.confidence)
 
         Return intersectScore / unionScore
     End Function

@@ -5,7 +5,7 @@
 ''' </summary>
 Public Class Knowledge : Inherits Vertex
 
-
+    Public Property Mentions As Integer
 
 End Class
 
@@ -26,6 +26,19 @@ Public Class KnowledgeDescription
     Public Property type As String
     Public Property confidence As Double
     Public Property relationship As Relationship
+    Public Property mentions As (query As Integer, target As Integer)
+
+    Public ReadOnly Property totalMentions As Integer
+        Get
+            Return mentions.query + mentions.target
+        End Get
+    End Property
+
+    Public ReadOnly Property score As Double
+        Get
+            Return totalMentions * confidence * If(relationship = Relationship.is, 1, 0.75)
+        End Get
+    End Property
 
     Public Overrides Function ToString() As String
         If relationship = Relationship.is Then

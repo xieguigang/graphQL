@@ -1,5 +1,5 @@
 key,value
-id,CHEBI:15365
+id,ChEBI:15365
 name,acetylsalicylic acid
 name,2-(acetyloxy)benzoic acid
 name,2-(ACETYLOXY)BENZOIC ACID
@@ -11,6 +11,6 @@ name,ASA
 name,Aspirin
 name,salicylic acid acetate
 formula,C9H8O4
-xref,KEGG: C01405
-xref,HMDB: HMDB0001879
-xref,CAS: 50-78-2
+xref,C01405
+xref,HMDB0001879
+xref,50-78-2

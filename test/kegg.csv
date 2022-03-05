@@ -5,10 +5,10 @@ name,Acetylsalicylic acid
 name,2-Acetoxybenzenecarboxylic acid
 name,Acetylsalicylate
 formula,C9H8O4
-xref,CAS: 50-78-2
-xref,PubChem: 4594
-xref,ChEBI: 15365
-xref,ChEMBL: CHEMBL25
-xref,PDB-CCD: AIN[PDBj]
-xref,3DMET: B00284
-xref,NIKKAJI: J2.300K
+xref,50-78-2
+xref,PubChem:4594
+xref,ChEBI:15365
+xref,CHEMBL25
+xref,AIN[PDBj]
+xref,3DMET:B00284
+xref,NIKKAJI:J2.300K

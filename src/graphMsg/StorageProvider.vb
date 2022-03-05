@@ -42,7 +42,8 @@ Public Class StorageProvider
         For Each v As KnowledgeMsg In pack.terms
             terms(v.guid.ToString) = New Knowledge With {
                 .ID = v.guid,
-                .label = v.term
+                .label = v.term,
+                .Mentions = v.mentions
             }
         Next
         For Each l As LinkMsg In pack.links
