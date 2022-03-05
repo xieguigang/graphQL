@@ -4,12 +4,12 @@ Imports Microsoft.VisualBasic.Math.LinearAlgebra
 
 Public Class GraphPool : Inherits Graph(Of Knowledge, Association, GraphPool)
 
-    Sub New(knowledge As IEnumerable(Of Knowledge), links As IEnumerable(Of VertexEdge))
+    Sub New(knowledge As IEnumerable(Of Knowledge), links As IEnumerable(Of Association))
         For Each kb As Knowledge In knowledge
             Call AddVertex(kb)
         Next
-        For Each link As VertexEdge In links
-            Call AddEdge(link.U, link.V, link.weight)
+        For Each link As Association In links
+            Call Me.Insert(link)
         Next
     End Sub
 

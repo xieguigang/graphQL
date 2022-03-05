@@ -55,7 +55,7 @@ Public Class StorageProvider
             }
         Next
 
-        Return New GraphPool(terms, links)
+        Return New GraphPool(terms.Values, links)
     End Function
 
 End Class

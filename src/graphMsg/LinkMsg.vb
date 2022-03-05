@@ -8,6 +8,10 @@ Public Class LinkMsg
     <MessagePackMember(2)> Public Property weight As Double
     <MessagePackMember(3)> Public Property type As String
 
+    Public Overrides Function ToString() As String
+        Return $"[{u}->{v}] {type}"
+    End Function
+
     Public Shared Iterator Function GetRelationships(kb As GraphPool) As IEnumerable(Of LinkMsg)
         For Each link As Association In kb.graphEdges
             Yield New LinkMsg With {
