@@ -6,9 +6,9 @@ kegg = read.csv("./kegg.csv", row.names = None)
 hmdb = read.csv("./hmdb.csv", row.names = None)
 chebi = read.csv("./chebi.csv", row.names = None)
 
-print(kegg)
-print(hmdb)
-print(chebi)
+# print(kegg, max.print = 6)
+# print(hmdb, max.print = 6)
+# print(chebi, max.print = 6)
 
 def process_knowledge(kb, data):
     data = as.list(data, byrow = True)
@@ -26,4 +26,6 @@ process_knowledge(kb, kegg)
 process_knowledge(kb, hmdb)
 process_knowledge(kb, chebi)
 
-str(Query::query(kb, "Aspirin"))
+result = Query::query(kb, "Aspirin")
+
+print(sapply(result, x -> toString(x)))

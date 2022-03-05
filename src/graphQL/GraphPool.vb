@@ -59,7 +59,7 @@ Public Class GraphPool : Inherits Graph(Of Knowledge, Association, GraphPool)
         End If
     End Function
 
-    Public Iterator Function GetKnowledgeData(term As String) As IEnumerable(Of NamedValue(Of Double))
+    Public Iterator Function GetKnowledgeData(term As String) As IEnumerable(Of KnowledgeDescription)
         Dim knowledge As Knowledge = If(ExistVertex(term), vertices(term), Nothing)
 
         If knowledge Is Nothing Then
@@ -68,16 +68,20 @@ Public Class GraphPool : Inherits Graph(Of Knowledge, Association, GraphPool)
 
         For Each edge As Association In edges.Values
             If edge.V Is knowledge Then
-                Yield New NamedValue(Of Double) With {
-                    .Name = edge.U.label,
-                    .Value = edge.weight,
-                    .Description = edge.type
+                Yield New KnowledgeDescription With {
+                    .target = edge.U.label,
+                    .confidence = edge.weight,
+                    .type = edge.type,
+                    .query = edge.V.label,
+                    .relationship = Relationship.has
                 }
             ElseIf edge.U Is knowledge Then
-                Yield New NamedValue(Of Double) With {
-                    .Name = edge.V.label,
-                    .Value = edge.weight,
-                    .Description = edge.type
+                Yield New KnowledgeDescription With {
+                    .target = edge.V.label,
+                    .confidence = edge.weight,
+                    .type = edge.type,
+                    .query = edge.U.label,
+                    .relationship = Relationship.is
                 }
             End If
         Next
