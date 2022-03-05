@@ -1,6 +1,7 @@
 Imports graphQL
 Imports Microsoft.VisualBasic.CommandLine.Reflection
 Imports Microsoft.VisualBasic.Scripting.MetaData
+Imports SMRUCC.Rsharp.Runtime
 Imports SMRUCC.Rsharp.Runtime.Internal.Object
 
 <Package("Query")>
@@ -18,6 +19,8 @@ Public Module Query
                            Optional meta As list = Nothing,
                            Optional env As Environment = Nothing) As Object
 
+        Call kb.AddKnowledge(knowledge, meta.AsGeneric(Of String())(env))
+        Return kb
     End Function
 
 End Module
