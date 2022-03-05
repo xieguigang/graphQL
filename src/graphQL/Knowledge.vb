@@ -5,4 +5,6 @@
 ''' </summary>
 Public Class Knowledge : Inherits Vertex
 
+
+
 End Class
