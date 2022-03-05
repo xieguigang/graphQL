@@ -29,3 +29,7 @@ process_knowledge(kb, chebi)
 result = Query::query(kb, "Aspirin")
 
 print(sapply(result, x -> toString(x)))
+
+MsgFile::save(kb, file = "./Aspirin.graph")
+
+print(equals(kb, "C01405", "HMDB0001879"))

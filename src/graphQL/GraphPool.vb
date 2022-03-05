@@ -87,4 +87,8 @@ Public Class GraphPool : Inherits Graph(Of Knowledge, Association, GraphPool)
         Next
     End Function
 
+    Public Function Similar(x As String, y As String) As Double
+
+    End Function
+
 End Class

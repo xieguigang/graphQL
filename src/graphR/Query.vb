@@ -33,4 +33,8 @@ Public Module Query
         Return data
     End Function
 
+    <ExportAPI("equals")>
+    Public Function isEquals(kb As GraphPool, x As String, y As String, Optional cutoff As Double = 0.6) As Object
+        Return kb.Similar(x, y) >= cutoff
+    End Function
 End Module

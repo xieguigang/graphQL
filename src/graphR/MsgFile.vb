@@ -28,12 +28,12 @@ Module MsgFile
         End If
     End Function
 
-    <ExportAPI("save_msg")>
+    <ExportAPI("save")>
     Public Function save(kb As GraphPool, file As Object, Optional env As Environment = Nothing) As Object
         If file Is Nothing Then
             Return Internal.debug.stop("the required file resource to save data can not be nothing!", env)
         Else
-            Dim buffer = SMRUCC.Rsharp.GetFileStream(file, FileAccess.Read, env)
+            Dim buffer = SMRUCC.Rsharp.GetFileStream(file, FileAccess.Write, env)
 
             If buffer Like GetType(Message) Then
                 Return buffer.TryCast(Of Message)
