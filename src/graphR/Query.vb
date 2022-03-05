@@ -3,6 +3,7 @@ Imports Microsoft.VisualBasic.CommandLine.Reflection
 Imports Microsoft.VisualBasic.Scripting.MetaData
 Imports SMRUCC.Rsharp.Runtime
 Imports SMRUCC.Rsharp.Runtime.Internal.Object
+Imports SMRUCC.Rsharp.Runtime.Interop
 
 <Package("Query")>
 Public Module Query
@@ -34,7 +35,11 @@ Public Module Query
     End Function
 
     <ExportAPI("similarity")>
-    Public Function isEquals(kb As GraphPool, x As String, y As String) As Double
-        Return kb.Similar(x, y)
+    Public Function isEquals(kb As GraphPool, x As String, y As String,
+                             <RListObjectArgument>
+                             Optional weight As list = Nothing,
+                             Optional env As Environment = Nothing) As Double
+
+        Return kb.Similar(x, y, weight.AsGeneric(Of Double)(env))
     End Function
 End Module

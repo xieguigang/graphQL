@@ -1,6 +1,6 @@
-Imports Microsoft.VisualBasic.ComponentModel.DataSourceModel
 Imports Microsoft.VisualBasic.Data.GraphTheory
 Imports Microsoft.VisualBasic.Linq
+Imports Microsoft.VisualBasic.Math.LinearAlgebra
 
 Public Class GraphPool : Inherits Graph(Of Knowledge, Association, GraphPool)
 
@@ -88,25 +88,51 @@ Public Class GraphPool : Inherits Graph(Of Knowledge, Association, GraphPool)
         Next
     End Function
 
-    Public Function Similar(x As String, y As String) As Double
-        Dim v1 = GetKnowledgeData(x).GroupBy(Function(i) i.type).ToDictionary(Function(i) i.Key, Function(i) i.ToArray)
-        Dim v2 = GetKnowledgeData(y).GroupBy(Function(i) i.type).ToDictionary(Function(i) i.Key, Function(i) i.ToArray)
-        Dim allGroups As String() = v1.Keys.JoinIterates(v2.Keys).Distinct.ToArray
-        Dim scores As Double() = allGroups _
-            .Select(Function(i)
-                        Return Score(v1.TryGetValue(i), v2.TryGetValue(i))
-                    End Function) _
+    Public Function Similar(x As String, y As String, Optional weights As Dictionary(Of String, Double) = Nothing) As Double
+        Dim v1 = GetKnowledgeData(x).DoCall(AddressOf getVectorSet)
+        Dim v2 = GetKnowledgeData(y).DoCall(AddressOf getVectorSet)
+        Dim allGroups As String() = v1.Keys _
+            .JoinIterates(v2.Keys) _
+            .Distinct _
             .ToArray
+        Dim scores As Vector = allGroups _
+            .Select(Function(i)
+                        Return Jaccard(v1.TryGetValue(i), v2.TryGetValue(i))
+                    End Function) _
+            .AsVector
 
-        Return scores.Average
+        If weights.IsNullOrEmpty Then
+            Return scores.Average
+        Else
+            ' weighted average
+            Dim w As Vector = allGroups _
+                .Select(Function(i) weights.TryGetValue(i)) _
+                .AsVector
+            Dim score As Double = (w * scores).Sum
+
+            Return score
+        End If
     End Function
 
-    Private Function Score(x As KnowledgeDescription(), y As KnowledgeDescription()) As Double
+    Private Shared Function getVectorSet(list As IEnumerable(Of KnowledgeDescription)) As Dictionary(Of String, Dictionary(Of String, KnowledgeDescription))
+        Return list _
+            .GroupBy(Function(i) i.type) _
+            .ToDictionary(Function(i) i.Key,
+                          Function(i)
+                              Return i.ToDictionary(Function(j) j.target)
+                          End Function)
+    End Function
+
+    Private Function Jaccard(x As Dictionary(Of String, KnowledgeDescription), y As Dictionary(Of String, KnowledgeDescription)) As Double
         If x.IsNullOrEmpty OrElse y.IsNullOrEmpty Then
             Return 0
         End If
 
+        Dim intersect As String() = x.Values.Select(Function(i) i.target).Intersect(y.Values.Select(Function(i) i.target)).ToArray
+        Dim intersectScore = intersect.Select(Function(a) x(a).confidence + y(a).confidence).Sum
+        Dim unionScore = Aggregate i As KnowledgeDescription In x.Values.JoinIterates(y.Values) Into Sum(i.confidence)
 
+        Return intersectScore / unionScore
     End Function
 
 End Class
