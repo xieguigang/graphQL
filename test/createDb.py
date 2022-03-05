@@ -6,7 +6,7 @@ kegg = read.csv("./kegg.csv", row.names = None)
 hmdb = read.csv("./hmdb.csv", row.names = None)
 chebi = read.csv("./chebi.csv", row.names = None)
 
-# print(kegg, max.print = 6)
+print(kegg, max.print = 6)
 # print(hmdb, max.print = 6)
 # print(chebi, max.print = 6)
 
