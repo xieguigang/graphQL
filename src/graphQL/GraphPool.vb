@@ -147,16 +147,16 @@ Public Class GraphPool : Inherits Graph(Of Knowledge, Association, GraphPool)
     Private Function Jaccard(x As Dictionary(Of String, KnowledgeDescription), y As Dictionary(Of String, KnowledgeDescription)) As Double
         If x.IsNullOrEmpty OrElse y.IsNullOrEmpty Then
             Return 0
+        Else
+            Call x.Add(x.First.Value.query, x.Values.OrderByDescending(Function(i) i.score).First)
+            Call y.Add(y.First.Value.query, y.Values.OrderByDescending(Function(i) i.score).First)
         End If
 
-        Dim intersect As String() = x.Values _
-            .Select(Function(i) i.target) _
-            .Intersect(y.Values.Select(Function(i) i.target)) _
-            .ToArray
-        Dim intersectScore = intersect.Select(Function(a) x(a).confidence + y(a).confidence).Sum
+        Dim intersect As String() = x.Keys.Intersect(y.Keys).ToArray
+        Dim intersectScore = intersect.Select(Function(a) x(a).score + y(a).score).Sum
         Dim unionScore = Aggregate i As KnowledgeDescription
                          In x.Values.JoinIterates(y.Values)
-                         Into Sum(i.confidence)
+                         Into Sum(i.score)
 
         Return intersectScore / unionScore
     End Function

@@ -36,7 +36,7 @@ Public Class KnowledgeDescription
 
     Public ReadOnly Property score As Double
         Get
-            Return totalMentions * confidence * If(relationship = Relationship.is, 1, 0.75)
+            Return totalMentions * confidence * If(relationship = Relationship.is, 10, 1)
         End Get
     End Property
 
