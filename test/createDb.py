@@ -39,9 +39,6 @@ MsgFile::save(kb, file = "./Aspirin.graph")
 print("unweighted similarity between C01405 and HMDB0001879:")
 print(Query::similarity(kb, "C01405", "HMDB0001879"))
 
-print("weighted similarity between C01405 and HMDB0001879:")
-print(Query::similarity(kb, "C01405", "HMDB0001879", name = 0.1, formula = 0.45, xref = 0.45))
-
 print("unweighted similarity between Aspirin and ChEBI: 15365:")
 print(Query::similarity(kb, "Aspirin", "ChEBI:15365"))
 
