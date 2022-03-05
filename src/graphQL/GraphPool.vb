@@ -1,5 +1,6 @@
 Imports Microsoft.VisualBasic.ComponentModel.DataSourceModel
 Imports Microsoft.VisualBasic.Data.GraphTheory
+Imports Microsoft.VisualBasic.Linq
 
 Public Class GraphPool : Inherits Graph(Of Knowledge, Association, GraphPool)
 
@@ -88,6 +89,23 @@ Public Class GraphPool : Inherits Graph(Of Knowledge, Association, GraphPool)
     End Function
 
     Public Function Similar(x As String, y As String) As Double
+        Dim v1 = GetKnowledgeData(x).GroupBy(Function(i) i.type).ToDictionary(Function(i) i.Key, Function(i) i.ToArray)
+        Dim v2 = GetKnowledgeData(y).GroupBy(Function(i) i.type).ToDictionary(Function(i) i.Key, Function(i) i.ToArray)
+        Dim allGroups As String() = v1.Keys.JoinIterates(v2.Keys).Distinct.ToArray
+        Dim scores As Double() = allGroups _
+            .Select(Function(i)
+                        Return Score(v1.TryGetValue(i), v2.TryGetValue(i))
+                    End Function) _
+            .ToArray
+
+        Return scores.Average
+    End Function
+
+    Private Function Score(x As KnowledgeDescription(), y As KnowledgeDescription()) As Double
+        If x.IsNullOrEmpty OrElse y.IsNullOrEmpty Then
+            Return 0
+        End If
+
 
     End Function
 

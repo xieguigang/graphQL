@@ -32,4 +32,4 @@ print(sapply(result, x -> toString(x)))
 
 MsgFile::save(kb, file = "./Aspirin.graph")
 
-print(equals(kb, "C01405", "HMDB0001879"))
+print(Query::similarity(kb, "C01405", "HMDB0001879"))
