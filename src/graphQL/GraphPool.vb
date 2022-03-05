@@ -1,3 +1,4 @@
+Imports Microsoft.VisualBasic.ComponentModel.DataSourceModel
 Imports Microsoft.VisualBasic.Data.GraphTheory
 
 Public Class GraphPool : Inherits Graph(Of Knowledge, Association, GraphPool)
@@ -26,6 +27,11 @@ Public Class GraphPool : Inherits Graph(Of Knowledge, Association, GraphPool)
         For Each info As KeyValuePair(Of String, String()) In meta
             For Each data As String In info.Value
                 Dim metadata As Knowledge = ComputeIfAbsent(data)
+
+                If metadata Is term Then
+                    Continue For
+                End If
+
                 Dim refId As String = VertexEdge.EdgeKey(metadata, term)
                 Dim link As Association
 
@@ -51,6 +57,30 @@ Public Class GraphPool : Inherits Graph(Of Knowledge, Association, GraphPool)
         Else
             Return Me.AddVertex(term)
         End If
+    End Function
+
+    Public Iterator Function GetKnowledgeData(term As String) As IEnumerable(Of NamedValue(Of Double))
+        Dim knowledge As Knowledge = If(ExistVertex(term), vertices(term), Nothing)
+
+        If knowledge Is Nothing Then
+            Return
+        End If
+
+        For Each edge As Association In edges.Values
+            If edge.V Is knowledge Then
+                Yield New NamedValue(Of Double) With {
+                    .Name = edge.U.label,
+                    .Value = edge.weight,
+                    .Description = edge.type
+                }
+            ElseIf edge.U Is knowledge Then
+                Yield New NamedValue(Of Double) With {
+                    .Name = edge.V.label,
+                    .Value = edge.weight,
+                    .Description = edge.type
+                }
+            End If
+        Next
     End Function
 
 End Class

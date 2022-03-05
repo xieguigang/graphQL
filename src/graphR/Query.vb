@@ -23,4 +23,21 @@ Public Module Query
         Return kb
     End Function
 
+    <ExportAPI("query")>
+    Public Function getKnowledge(kb As GraphPool, term As String, Optional cutoff As Double = 0) As list
+        Dim data = kb _
+            .GetKnowledgeData(term) _
+            .Where(Function(i) i.Value >= cutoff) _
+            .GroupBy(Function(b) b.Description) _
+            .ToArray
+
+        Return New list With {
+           .slots = data _
+              .ToDictionary(Function(i) i.Key,
+                            Function(i)
+                                Return CObj(i.Select(Function(j) j.Name).ToArray)
+                            End Function)
+        }
+    End Function
+
 End Module

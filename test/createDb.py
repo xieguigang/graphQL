@@ -11,7 +11,13 @@ print(hmdb)
 print(chebi)
 
 def process_knowledge(kb, data):
-
+    data = as.list(data, byrow = True)
+    data = groupBy(data, x -> x[["key"]])
+    data = lapply(data, x -> sapply(x, i -> i[["value"]]), x -> x[["key"]])
+    
+    str(data)
+    
+    Query::insert(kb, data[["id"]], data)
 
 
 kb = MsgFile::open()
@@ -19,3 +25,5 @@ kb = MsgFile::open()
 process_knowledge(kb, kegg)
 process_knowledge(kb, hmdb)
 process_knowledge(kb, chebi)
+
+str(Query::query(kb, "Aspirin"))
