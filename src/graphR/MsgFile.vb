@@ -10,6 +10,13 @@ Imports SMRUCC.Rsharp.Runtime.Interop
 <Package("MsgFile")>
 Module MsgFile
 
+    ''' <summary>
+    ''' open a message pack graph database file or 
+    ''' create a new empty graph database object.
+    ''' </summary>
+    ''' <param name="file"></param>
+    ''' <param name="env"></param>
+    ''' <returns></returns>
     <ExportAPI("open")>
     Public Function open(<RRawVectorArgument>
                          Optional file As Object = Nothing,
@@ -28,6 +35,14 @@ Module MsgFile
         End If
     End Function
 
+    ''' <summary>
+    ''' save a graph database result into a file 
+    ''' in messagepack format.
+    ''' </summary>
+    ''' <param name="kb"></param>
+    ''' <param name="file"></param>
+    ''' <param name="env"></param>
+    ''' <returns></returns>
     <ExportAPI("save")>
     Public Function save(kb As GraphPool, file As Object, Optional env As Environment = Nothing) As Object
         If file Is Nothing Then

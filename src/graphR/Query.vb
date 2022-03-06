@@ -24,6 +24,13 @@ Public Module Query
         Return kb
     End Function
 
+    ''' <summary>
+    ''' query knowledge data for a given term
+    ''' </summary>
+    ''' <param name="kb"></param>
+    ''' <param name="term"></param>
+    ''' <param name="cutoff"></param>
+    ''' <returns></returns>
     <ExportAPI("query")>
     Public Function getKnowledge(kb As GraphPool, term As String, Optional cutoff As Double = 0) As KnowledgeDescription()
         Dim data = kb _
@@ -34,6 +41,15 @@ Public Module Query
         Return data
     End Function
 
+    ''' <summary>
+    ''' measure the similarity or identical between two knowledge terms.
+    ''' </summary>
+    ''' <param name="kb"></param>
+    ''' <param name="x"></param>
+    ''' <param name="y"></param>
+    ''' <param name="weight"></param>
+    ''' <param name="env"></param>
+    ''' <returns></returns>
     <ExportAPI("similarity")>
     Public Function isEquals(kb As GraphPool, x As String, y As String,
                              <RListObjectArgument>
