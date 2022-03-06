@@ -55,7 +55,7 @@ Public Class GraphPool : Inherits Graph(Of Knowledge, Association, GraphPool)
     Private Function ComputeIfAbsent(term As String) As Knowledge
         Dim vertex As Knowledge
 
-        If Me.ExistVertex(term) Then
+        If Me.vertices.ContainsKey(term) Then
             vertex = Me.vertices(term)
         Else
             vertex = Me.AddVertex(term)
