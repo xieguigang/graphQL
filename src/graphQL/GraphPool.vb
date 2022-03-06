@@ -26,7 +26,15 @@ Public Class GraphPool : Inherits Graph(Of Knowledge, Association, GraphPool)
         Dim term As Knowledge = ComputeIfAbsent(knowledge)
 
         For Each info As KeyValuePair(Of String, String()) In meta
+            If info.Value Is Nothing Then
+                Continue For
+            End If
+
             For Each data As String In info.Value
+                If data Is Nothing Then
+                    Continue For
+                End If
+
                 Dim metadata As Knowledge = ComputeIfAbsent(data)
 
                 If metadata Is term Then
