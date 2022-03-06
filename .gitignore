@@ -352,3 +352,4 @@ MigrationBackup/
 .ionide/
 .Rproj.user
 *.dll
+graphQL.zip
