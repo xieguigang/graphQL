@@ -22,12 +22,14 @@ Public Class GraphPool : Inherits Graph(Of Knowledge, Association, GraphPool)
     ''' with the given <paramref name="knowledge"/> 
     ''' term.
     ''' </param>
-    Public Sub AddKnowledge(knowledge As String, meta As Dictionary(Of String, String()))
-        Dim term As Knowledge = ComputeIfAbsent(knowledge)
+    Public Sub AddKnowledge(knowledge As String, type As String, meta As Dictionary(Of String, String()))
+        Dim term As Knowledge = ComputeIfAbsent(knowledge, type)
 
         For Each info As KeyValuePair(Of String, String()) In meta
             If info.Value Is Nothing Then
                 Continue For
+            Else
+                type = info.Key
             End If
 
             For Each data As String In info.Value
@@ -35,7 +37,7 @@ Public Class GraphPool : Inherits Graph(Of Knowledge, Association, GraphPool)
                     Continue For
                 End If
 
-                Dim metadata As Knowledge = ComputeIfAbsent(data)
+                Dim metadata As Knowledge = ComputeIfAbsent(data, type)
 
                 If metadata Is term Then
                     Continue For
@@ -60,16 +62,21 @@ Public Class GraphPool : Inherits Graph(Of Knowledge, Association, GraphPool)
         Next
     End Sub
 
-    Private Function ComputeIfAbsent(term As String) As Knowledge
+    Private Function ComputeIfAbsent(term As String, type As String) As Knowledge
         Dim vertex As Knowledge
 
         If Me.vertices.ContainsKey(term) Then
             vertex = Me.vertices(term)
         Else
             vertex = Me.AddVertex(term)
+            vertex.type = type
         End If
 
-        vertex.Mentions += 1
+        If vertex.type = type Then
+            vertex.mentions += 3
+        Else
+            vertex.mentions += 1
+        End If
 
         Return vertex
     End Function
@@ -89,7 +96,7 @@ Public Class GraphPool : Inherits Graph(Of Knowledge, Association, GraphPool)
                     .type = edge.type,
                     .query = edge.V.label,
                     .relationship = Relationship.has,
-                    .mentions = (edge.V.Mentions, edge.U.Mentions)
+                    .mentions = (edge.V.mentions, edge.U.mentions)
                 }
             ElseIf edge.U Is knowledge Then
                 Yield New KnowledgeDescription With {
@@ -98,7 +105,7 @@ Public Class GraphPool : Inherits Graph(Of Knowledge, Association, GraphPool)
                     .type = edge.type,
                     .query = edge.U.label,
                     .relationship = Relationship.is,
-                    .mentions = (edge.U.Mentions, edge.V.Mentions)
+                    .mentions = (edge.U.mentions, edge.V.mentions)
                 }
             End If
         Next

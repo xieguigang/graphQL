@@ -5,7 +5,8 @@
 ''' </summary>
 Public Class Knowledge : Inherits Vertex
 
-    Public Property Mentions As Integer
+    Public Property mentions As Integer
+    Public Property type As String
 
 End Class
 

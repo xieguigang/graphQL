@@ -16,11 +16,11 @@ Public Module Query
     ''' <param name="env"></param>
     ''' <returns></returns>
     <ExportAPI("insert")>
-    Public Function insert(kb As GraphPool, knowledge As String,
+    Public Function insert(kb As GraphPool, knowledge As String, type As String,
                            Optional meta As list = Nothing,
                            Optional env As Environment = Nothing) As Object
 
-        Call kb.AddKnowledge(knowledge, meta.AsGeneric(Of String())(env))
+        Call kb.AddKnowledge(knowledge, type, meta.AsGeneric(Of String())(env))
         Return kb
     End Function
 
