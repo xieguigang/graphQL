@@ -6,28 +6,33 @@ Imports Microsoft.VisualBasic.Data.IO.MessagePack
 Imports Microsoft.VisualBasic.Data.IO.MessagePack.Serialization
 Imports Microsoft.VisualBasic.Language
 Imports Microsoft.VisualBasic.Linq
+Imports Microsoft.VisualBasic.Serialization.JSON
 
 Public Class StorageProvider
 
     <MessagePackMember(0)> Public Property terms As KnowledgeMsg()
     <MessagePackMember(1)> Public Property links As LinkMsg()
 
-    Private Shared Sub SaveTerms(terms As KnowledgeMsg(), zip As ZipArchive)
+    Private Shared Function SaveTerms(terms As KnowledgeMsg(), zip As ZipArchive) As Dictionary(Of String, Integer)
         Dim blocks = terms _
             .GroupBy(Function(t) Mid(t.term, 1, 3)) _
             .GroupBy(Function(g) g.Key.MD5.Substring(0, 2)) _
             .ToArray
         Dim buffer As Stream
+        Dim summary As New Dictionary(Of String, Integer)
 
         For Each block In blocks
             terms = block.IteratesALL.ToArray
             buffer = zip.CreateEntry($"terms/{block.Key}.dat").Open
 
             Call MsgPackSerializer.SerializeObject(terms, buffer, closeFile:=True)
+            Call summary.Add(block.Key, terms.Length)
         Next
-    End Sub
 
-    Private Shared Sub SaveNetwork(links As LinkMsg(), zip As ZipArchive)
+        Return summary
+    End Function
+
+    Private Shared Function SaveNetwork(links As LinkMsg(), zip As ZipArchive) As Integer
         Dim blocks = links.OrderByDescending(Function(d) d.weight).Split(4096)
         Dim buffer As Stream
         Dim i As Integer = 0
@@ -38,7 +43,9 @@ Public Class StorageProvider
 
             Call MsgPackSerializer.SerializeObject(block, buffer, closeFile:=True)
         Next
-    End Sub
+
+        Return blocks.Length
+    End Function
 
     ''' <summary>
     ''' save as zip file
@@ -51,14 +58,32 @@ Public Class StorageProvider
         Dim linkTypes As New List(Of String)
         Dim terms = KnowledgeMsg.GetTerms(kb, termTypes).ToArray
         Dim links = LinkMsg.GetRelationships(kb, linkTypes).ToArray
+        Dim info As New Dictionary(Of String, String)
+
+        Call info.Add("knowledge_terms", terms.Length)
+        Call info.Add("graph_size", links.Length)
+        Call info.Add("knowledge_types", termTypes.Count)
+        Call info.Add("link_types", links.Count)
 
         Using zip As New ZipArchive(file, ZipArchiveMode.Create, leaveOpen:=False)
             ' save graph types
             Call MsgPackSerializer.SerializeObject(termTypes.ToArray, zip.CreateEntry("meta/keywords.msg").Open, closeFile:=True)
             Call MsgPackSerializer.SerializeObject(linkTypes.ToArray, zip.CreateEntry("meta/associations.msg").Open, closeFile:=True)
 
-            Call SaveTerms(terms, zip)
-            Call SaveNetwork(links, zip)
+            Call SaveTerms(terms, zip) _
+                .GetJson _
+                .FlushTo(
+                    out:=New StreamWriter(zip.CreateEntry("knowledge_blocks.json").Open),
+                    closeFile:=True
+                )
+
+            Call info.Add("graph_blocks", SaveNetwork(links, zip))
+            Call info _
+                .GetJson _
+                .FlushTo(
+                    out:=New StreamWriter(zip.CreateEntry("summary.json").Open),
+                    closeFile:=True
+                )
         End Using
 
         Return True
