@@ -72,12 +72,14 @@ Public Class StorageProvider
         End If
     End Function
 
-    Public Shared Function CreateQuery(pack As ZipArchive) As GraphPool
+    Public Shared Function GetKeywords(res As String, pack As ZipArchive) As String()
+        Return MsgPackSerializer.Deserialize(Of String())(pack.GetEntry(res).Open)
+    End Function
+
+    Public Shared Function GetKnowledges(pack As ZipArchive) As Dictionary(Of String, Knowledge)
         Dim terms As New Dictionary(Of String, Knowledge)
-        Dim links As New List(Of Association)
+        Dim termTypes As String() = GetKeywords("meta/keywords.msg", pack)
         Dim files = pack.Entries
-        Dim termTypes As String() = MsgPackSerializer.Deserialize(Of String())(pack.GetEntry("meta/keywords.msg").Open)
-        Dim linkTypes As String() = MsgPackSerializer.Deserialize(Of String())(pack.GetEntry("meta/associations.msg").Open)
 
         For Each item In files.Where(Function(t) t.FullName.StartsWith("terms"))
             Dim list = MsgPackSerializer.Deserialize(Of KnowledgeMsg())(item.Open)
@@ -92,11 +94,18 @@ Public Class StorageProvider
             Next
         Next
 
+        Return terms
+    End Function
+
+    Public Shared Iterator Function GetNetwork(pack As ZipArchive, terms As Dictionary(Of String, Knowledge)) As IEnumerable(Of Association)
+        Dim linkTypes As String() = GetKeywords("meta/associations.msg", pack)
+        Dim files = pack.Entries
+
         For Each item In files.Where(Function(t) t.FullName.StartsWith("graph"))
             Dim list = MsgPackSerializer.Deserialize(Of LinkMsg())(item.Open)
 
             For Each l As LinkMsg In list
-                links += New Association With {
+                Yield New Association With {
                     .type = linkTypes(l.type),
                     .U = terms(l.u.ToString),
                     .V = terms(l.v.ToString),
@@ -104,6 +113,13 @@ Public Class StorageProvider
                 }
             Next
         Next
+    End Function
+
+    Public Shared Function CreateQuery(pack As ZipArchive) As GraphPool
+        Dim terms As Dictionary(Of String, Knowledge) = GetKnowledges(pack)
+        Dim links As Association() = GetNetwork(pack, terms).ToArray
+
+        Call pack.Dispose()
 
         Return New GraphPool(terms.Values, links)
     End Function

@@ -155,7 +155,9 @@ Public Class GraphPool : Inherits Graph(Of Knowledge, Association, GraphPool)
             .ToArray
 
         For Each group In keyGroups.Take(n)
-            Yield group.OrderByDescending(Function(i) i.score).First
+            Yield group _
+                .OrderByDescending(Function(i) i.score) _
+                .First
         Next
     End Function
 
