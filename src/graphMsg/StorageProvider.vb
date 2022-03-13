@@ -101,6 +101,12 @@ Public Class StorageProvider
         Return MsgPackSerializer.Deserialize(Of String())(pack.GetEntry(res).Open)
     End Function
 
+    Public Shared Function GetKnowledges(file As Stream) As Knowledge()
+        Using zip As New ZipArchive(file, ZipArchiveMode.Read, leaveOpen:=False)
+            Return GetKnowledges(zip).Values.ToArray
+        End Using
+    End Function
+
     Public Shared Function GetKnowledges(pack As ZipArchive) As Dictionary(Of String, Knowledge)
         Dim terms As New Dictionary(Of String, Knowledge)
         Dim termTypes As String() = GetKeywords("meta/keywords.msg", pack)
