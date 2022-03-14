@@ -16,6 +16,7 @@ Public Class StorageProvider
     Private Shared Function SaveTerms(terms As KnowledgeMsg(), zip As ZipArchive) As Dictionary(Of String, Integer)
         Dim blocks = terms _
             .GroupBy(Function(t) Mid(t.term, 1, 3)) _
+            .Where(Function(g) g.Key <> "") _
             .GroupBy(Function(g) g.Key.MD5.Substring(0, 2)) _
             .ToArray
         Dim buffer As Stream
