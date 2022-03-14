@@ -33,7 +33,7 @@ Public Class GraphPool : Inherits Graph(Of Knowledge, Association, GraphPool)
             End If
 
             For Each data As String In info.Value
-                If data Is Nothing Then
+                If data.StringEmpty Then
                     Continue For
                 End If
 
