@@ -7,6 +7,7 @@ Public Class KnowledgeMsg
     <MessagePackMember(1)> Public Property term As String
     <MessagePackMember(2)> Public Property mentions As Integer
     <MessagePackMember(3)> Public Property type As Integer
+    <MessagePackMember(4)> Public Property isMaster As Boolean
 
     Public Overrides Function ToString() As String
         Return term
@@ -25,7 +26,8 @@ Public Class KnowledgeMsg
                 .guid = v.ID,
                 .term = v.label,
                 .mentions = v.mentions,
-                .type = allTypes.IndexOf(v.type)
+                .type = allTypes.IndexOf(v.type),
+                .isMaster = v.isMaster
             }
         Next
     End Function

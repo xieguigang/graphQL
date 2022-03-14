@@ -1,0 +1,42 @@
+.\" man page create by R# package system.
+.TH QUERY 1 2000-01-01 "knowledgeCommunity" "knowledgeCommunity"
+.SH NAME
+knowledgeCommunity \- export knowledge terms based on the network community algorithm
+.SH SYNOPSIS
+\fIknowledgeCommunity(\fBg\fR as <generic> NetworkGraph, 
+\fBcommon_type\fR as any = \fB<NULL>\fR, 
+\fBeps\fR as double = 0.001);\fR
+.SH DESCRIPTION
+.PP
+export knowledge terms based on the network community algorithm
+.PP
+.SH OPTIONS
+.PP
+\fBg\fB \fR\- -. 
+.PP
+.PP
+\fBcommon_type\fB \fR\- 
+ all of the type defined from this parameter will be removed from 
+ the community algorithm due to the reason of common type always 
+ be a hub node in the network, will create a false knowledge community 
+ result. example as formula string in chemical data knowledges 
+ will groups all Isomer compounds with the same formula string as 
+ one identical metabolite.
+. 
+.PP
+.SH VALUE
+.PP
+this function returns a tuple list with two elements inside:
+ 
+ 1. \fBgraph\fR - is the knowledge network graph data with community 
+                tags and trimmed data.
+ 2. \fBknowledges\fR - a table dataset that contains knowledge data 
+                     entities that detects from the network graph 
+                     community data result.
+.PP
+.SH SEE ALSO
+Query
+.SH FILES
+.PP
+graphR.dll
+.PP

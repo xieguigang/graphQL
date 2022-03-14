@@ -121,7 +121,8 @@ Public Class StorageProvider
                     .ID = v.guid,
                     .label = v.term,
                     .mentions = v.mentions,
-                    .type = termTypes(v.type)
+                    .type = termTypes(v.type),
+                    .isMaster = v.isMaster
                 }
             Next
         Next
