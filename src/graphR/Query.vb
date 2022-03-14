@@ -108,7 +108,19 @@ Public Module Query
             .ToArray
 
         For Each term In communityList
+            Dim metadata = term.GroupBy(Function(v) v.data("knowledge_type")).ToArray
+            Dim props As New Dictionary(Of String, String)
 
+            For Each p In metadata
+                Call props.Add(p.Key, p.Select(Function(v) v.label).JoinBy("; "))
+            Next
+
+            Call knowledges.Add(New EntityObject With {
+                .ID = term.Key,
+                .Properties = props
+            })
         Next
+
+        Return knowledges.ToArray
     End Function
 End Module
