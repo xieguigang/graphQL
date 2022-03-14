@@ -144,7 +144,7 @@ Public Module Query
         Next
 
         Dim knowledges As New List(Of EntityObject)
-        Dim communityList = Communities.Analysis(g, eps:=eps) _
+        Dim communityList = Communities.Analysis(copy, eps:=eps) _
             .vertex _
             .GroupBy(Function(v)
                          Return v.data(NamesOf.REFLECTION_ID_MAPPING_NODETYPE)
@@ -167,7 +167,7 @@ Public Module Query
 
         Dim rtvl As New list With {
             .slots = New Dictionary(Of String, Object) From {
-                {"graph", g},
+                {"graph", copy},
                 {"knowledges", knowledges.ToArray}
             }
         }
