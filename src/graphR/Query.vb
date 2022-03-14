@@ -98,9 +98,9 @@ Public Module Query
     ''' <param name="g"></param>
     ''' <returns></returns>
     <ExportAPI("knowledgeCommunity")>
-    Public Function knowledgeCommunity(g As NetworkGraph) As EntityObject()
+    Public Function knowledgeCommunity(g As NetworkGraph, Optional eps As Double = 0.001) As EntityObject()
         Dim knowledges As New List(Of EntityObject)
-        Dim communityList = Communities.Analysis(g) _
+        Dim communityList = Communities.Analysis(g, eps:=eps) _
             .vertex _
             .GroupBy(Function(v)
                          Return v.data(NamesOf.REFLECTION_ID_MAPPING_NODETYPE)
