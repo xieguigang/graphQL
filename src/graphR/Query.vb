@@ -6,6 +6,9 @@ Imports SMRUCC.Rsharp.Runtime
 Imports SMRUCC.Rsharp.Runtime.Internal.Object
 Imports SMRUCC.Rsharp.Runtime.Interop
 
+''' <summary>
+''' graph database knowledge data query and insert
+''' </summary>
 <Package("Query")>
 Public Module Query
 
@@ -52,7 +55,9 @@ Public Module Query
     End Function
 
     ''' <summary>
-    ''' measure the similarity or identical between two knowledge terms.
+    ''' measure the similarity or identical between two 
+    ''' knowledge terms based on the knowledge network 
+    ''' that we've build.
     ''' </summary>
     ''' <param name="kb"></param>
     ''' <param name="x"></param>
@@ -67,5 +72,9 @@ Public Module Query
                              Optional env As Environment = Nothing) As Double
 
         Return kb.Similar(x, y, weight.AsGeneric(Of Double)(env))
+    End Function
+
+    Public Function networkGraph()
+
     End Function
 End Module

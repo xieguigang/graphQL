@@ -8,6 +8,9 @@ Imports SMRUCC.Rsharp.Runtime.Components
 Imports SMRUCC.Rsharp.Runtime.Internal.Object
 Imports SMRUCC.Rsharp.Runtime.Interop
 
+''' <summary>
+''' the graph database file I/O handler
+''' </summary>
 <Package("MsgFile")>
 Module MsgFile
 
@@ -36,6 +39,12 @@ Module MsgFile
         End If
     End Function
 
+    ''' <summary>
+    ''' fetch the knowledge terms table from the graph database file.
+    ''' </summary>
+    ''' <param name="file"></param>
+    ''' <param name="env"></param>
+    ''' <returns></returns>
     <ExportAPI("read.knowledge_table")>
     <RApiReturn(GetType(dataframe))>
     Public Function getKnowledgeTable(<RRawVectorArgument> file As Object, Optional env As Environment = Nothing) As Object
