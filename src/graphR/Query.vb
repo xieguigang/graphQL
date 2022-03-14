@@ -131,11 +131,11 @@ Public Module Query
         Next
 
         For Each edge As Edge In g.graphEdges
-            If edge.U.data("knowledge_type") Like commons OrElse edge.V.data("knowledge_type") Like commons Then
+            If (edge.U.data("knowledge_type") Like commons) OrElse (edge.V.data("knowledge_type") Like commons) Then
                 Continue For
             End If
 
-            Call g.CreateEdge(
+            Call copy.CreateEdge(
                 u:=g.GetElementByID(edge.U.label),
                 v:=g.GetElementByID(edge.V.label),
                 weight:=edge.weight,
