@@ -137,8 +137,8 @@ Public Module Query
                 End If
 
                 Call copy.CreateEdge(
-                    u:=g.GetElementByID(edge.U.label),
-                    v:=g.GetElementByID(edge.V.label),
+                    u:=copy.GetElementByID(edge.U.label),
+                    v:=copy.GetElementByID(edge.V.label),
                     weight:=edge.weight,
                     data:=edge.data.Clone
                 )
