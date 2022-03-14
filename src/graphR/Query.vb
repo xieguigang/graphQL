@@ -124,24 +124,28 @@ Public Module Query
         Dim commons As Index(Of String) = DirectCast(REnv.asVector(Of String)(common_type), String()).Indexing
         Dim copy As New NetworkGraph
 
-        For Each v As Node In g.vertex.ToArray
-            If Not v.data("knowledge_type") Like commons Then
-                Call copy.CreateNode(v.label, v.data.Clone)
-            End If
-        Next
+        If commons.Count > 0 Then
+            For Each v As Node In g.vertex.ToArray
+                If Not v.data("knowledge_type") Like commons Then
+                    Call copy.CreateNode(v.label, v.data.Clone)
+                End If
+            Next
 
-        For Each edge As Edge In g.graphEdges
-            If (edge.U.data("knowledge_type") Like commons) OrElse (edge.V.data("knowledge_type") Like commons) Then
-                Continue For
-            End If
+            For Each edge As Edge In g.graphEdges
+                If (edge.U.data("knowledge_type") Like commons) OrElse (edge.V.data("knowledge_type") Like commons) Then
+                    Continue For
+                End If
 
-            Call copy.CreateEdge(
-                u:=g.GetElementByID(edge.U.label),
-                v:=g.GetElementByID(edge.V.label),
-                weight:=edge.weight,
-                data:=edge.data.Clone
-            )
-        Next
+                Call copy.CreateEdge(
+                    u:=g.GetElementByID(edge.U.label),
+                    v:=g.GetElementByID(edge.V.label),
+                    weight:=edge.weight,
+                    data:=edge.data.Clone
+                )
+            Next
+        Else
+            copy = g
+        End If
 
         Dim knowledges As New List(Of EntityObject)
         Dim communityList = Communities.Analysis(copy, eps:=eps) _
