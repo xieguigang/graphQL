@@ -1,6 +1,7 @@
 Imports graphQL
 Imports Microsoft.VisualBasic.ApplicationServices.Debugging.Logging
 Imports Microsoft.VisualBasic.CommandLine.Reflection
+Imports Microsoft.VisualBasic.Data.visualize.Network.Graph
 Imports Microsoft.VisualBasic.Scripting.MetaData
 Imports SMRUCC.Rsharp.Runtime
 Imports SMRUCC.Rsharp.Runtime.Internal.Object
@@ -74,7 +75,15 @@ Public Module Query
         Return kb.Similar(x, y, weight.AsGeneric(Of Double)(env))
     End Function
 
-    Public Function networkGraph()
-
+    ''' <summary>
+    ''' export the graph database as the 
+    ''' network graph model for run 
+    ''' algorithm debug.
+    ''' </summary>
+    ''' <param name="kb"></param>
+    ''' <returns></returns>
+    <ExportAPI("networkGraph")>
+    Public Function networkGraph(kb As GraphPool) As NetworkGraph
+        Return kb.createGraph
     End Function
 End Module
