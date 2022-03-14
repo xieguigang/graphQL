@@ -23,8 +23,6 @@ Module MsgFile
                          Optional file As Object = Nothing,
                          Optional env As Environment = Nothing) As Object
 
-        Throw New NotImplementedException("test for exception")
-
         If file Is Nothing Then
             Return New GraphPool({}, {})
         Else
