@@ -169,9 +169,13 @@ Public Module Query
             })
         Next
 
+        For Each v As Node In copy.vertex
+            g.GetElementByID(v.label).data(NamesOf.REFLECTION_ID_MAPPING_NODETYPE) = v.data(NamesOf.REFLECTION_ID_MAPPING_NODETYPE)
+        Next
+
         Dim rtvl As New list With {
             .slots = New Dictionary(Of String, Object) From {
-                {"graph", copy},
+                {"graph", g},
                 {"knowledges", knowledges.ToArray}
             }
         }

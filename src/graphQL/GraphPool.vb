@@ -23,7 +23,7 @@ Public Class GraphPool : Inherits Graph(Of Knowledge, Association, GraphPool)
     ''' term.
     ''' </param>
     Public Sub AddKnowledge(knowledge As String, type As String, meta As Dictionary(Of String, String()))
-        Dim term As Knowledge = ComputeIfAbsent(knowledge, type)
+        Dim term As Knowledge = ComputeIfAbsent(knowledge, type, isSource:=True)
 
         For Each info As KeyValuePair(Of String, String()) In meta
             If info.Value Is Nothing Then
@@ -37,7 +37,7 @@ Public Class GraphPool : Inherits Graph(Of Knowledge, Association, GraphPool)
                     Continue For
                 End If
 
-                Dim metadata As Knowledge = ComputeIfAbsent(data, type)
+                Dim metadata As Knowledge = ComputeIfAbsent(data, type, isSource:=False)
 
                 If metadata Is term Then
                     Continue For
@@ -62,7 +62,7 @@ Public Class GraphPool : Inherits Graph(Of Knowledge, Association, GraphPool)
         Next
     End Sub
 
-    Private Function ComputeIfAbsent(term As String, type As String) As Knowledge
+    Private Function ComputeIfAbsent(term As String, type As String, isSource As Boolean) As Knowledge
         Dim vertex As Knowledge
 
         If Me.vertices.ContainsKey(term) Then
@@ -76,6 +76,10 @@ Public Class GraphPool : Inherits Graph(Of Knowledge, Association, GraphPool)
             vertex.mentions += 3
         Else
             vertex.mentions += 1
+        End If
+
+        If isSource Then
+            vertex.isMaster = True
         End If
 
         Return vertex
