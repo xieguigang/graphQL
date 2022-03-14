@@ -119,6 +119,10 @@
       <Project>{fecce1fd-e1d4-49e3-a668-60bb5e7aed99}</Project>
       <Name>47-dotnet_Microsoft.VisualBasic</Name>
     </ProjectReference>
+    <ProjectReference Include="..\graphQL\graphQL_net48.vbproj">
+      <Project>{3af9af3c-4db5-428d-a692-8412c8e29b3c}</Project>
+      <Name>graphQL_net48</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
