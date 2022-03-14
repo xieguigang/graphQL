@@ -6,6 +6,7 @@ Imports Microsoft.VisualBasic.Data.csv.IO
 Imports Microsoft.VisualBasic.Data.visualize.Network.Analysis
 Imports Microsoft.VisualBasic.Data.visualize.Network.FileStream.Generic
 Imports Microsoft.VisualBasic.Data.visualize.Network.Graph
+Imports Microsoft.VisualBasic.Linq
 Imports Microsoft.VisualBasic.Scripting.MetaData
 Imports SMRUCC.Rsharp.Runtime
 Imports SMRUCC.Rsharp.Runtime.Internal.Object
@@ -147,16 +148,35 @@ Public Module Query
             copy = g
         End If
 
+        Call Communities.Analysis(copy, eps:=eps)
+
+        If commons.Count > 0 Then
+            For Each v As Node In copy.vertex
+                g.GetElementByID(v.label).data(NamesOf.REFLECTION_ID_MAPPING_NODETYPE) = v.data(NamesOf.REFLECTION_ID_MAPPING_NODETYPE)
+            Next
+        End If
+
         Dim knowledges As New List(Of EntityObject)
-        Dim communityList = Communities.Analysis(copy, eps:=eps) _
-            .vertex _
+        Dim communityList = g.vertex _
             .GroupBy(Function(v)
                          Return v.data(NamesOf.REFLECTION_ID_MAPPING_NODETYPE)
                      End Function) _
             .ToArray
 
         For Each term In communityList
-            Dim metadata = term.GroupBy(Function(v) v.data("knowledge_type")).ToArray
+            Dim hits As Index(Of String) = term.Select(Function(v) v.label).Indexing
+            Dim metadata = g.graphEdges _
+                .Where(Function(url)
+                           Return url.U.label Like hits OrElse url.V.label Like hits
+                       End Function) _
+                .Select(Function(url) {url.U, url.V}) _
+                .IteratesALL _
+                .GroupBy(Function(v) v.label) _
+                .Select(Function(v) v.First) _
+                .GroupBy(Function(v)
+                             Return v.data("knowledge_type")
+                         End Function) _
+                .ToArray
             Dim props As New Dictionary(Of String, String)
 
             For Each p In metadata
@@ -167,10 +187,6 @@ Public Module Query
                 .ID = term.Key,
                 .Properties = props
             })
-        Next
-
-        For Each v As Node In copy.vertex
-            g.GetElementByID(v.label).data(NamesOf.REFLECTION_ID_MAPPING_NODETYPE) = v.data(NamesOf.REFLECTION_ID_MAPPING_NODETYPE)
         Next
 
         Dim rtvl As New list With {
