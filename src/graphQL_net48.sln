@@ -29,9 +29,16 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "GraphTheory", "..\..\GCMode
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "math-core", "..\..\GCModeller\src\runtime\sciBASIC#\Data_science\Mathematica\Math\Math\math-core.vbproj", "{E3367B88-5D0C-495A-8273-331656D4B5AA}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "JsonHelper", "..\..\GCModeller\src\R-sharp\Library\JsonHelper\JsonHelper.shproj", "{B2AE1422-D7DA-4053-A386-EB2EA9326D68}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Rstudio.common", "..\..\GCModeller\src\R-sharp\studio\Rstudio.common\Rstudio.common.shproj", "{14010B90-BC3B-42D9-A52C-30CA537D3C11}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		..\..\GCModeller\src\R-sharp\studio\Rstudio.common\Rstudio.common.projitems*{14010b90-bc3b-42d9-a52c-30ca537d3c11}*SharedItemsImports = 13
 		..\..\GCModeller\src\R-sharp\studio\Rstudio.common\Rstudio.common.projitems*{3a35ac34-f313-4f72-89e9-eacca217bc8d}*SharedItemsImports = 4
+		..\..\GCModeller\src\R-sharp\Library\JsonHelper\JsonHelper.projitems*{b2ae1422-d7da-4053-a386-eb2ea9326d68}*SharedItemsImports = 13
+		..\..\GCModeller\src\R-sharp\Library\JsonHelper\JsonHelper.projitems*{e0c77914-2f63-41c9-8a79-e17b9e7b3a57}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		BioDeep_database|Any CPU = BioDeep_database|Any CPU
@@ -2395,6 +2402,8 @@ Global
 		{3A35AC34-F313-4F72-89E9-EACCA217BC8D} = {1C14847A-803B-466D-A4EC-3B6AC7328B8F}
 		{203BC68F-A0CD-443A-AB62-4AF4110F752F} = {7FAB77D2-DF1B-45E3-BD86-FD692FD14E83}
 		{E3367B88-5D0C-495A-8273-331656D4B5AA} = {7FAB77D2-DF1B-45E3-BD86-FD692FD14E83}
+		{B2AE1422-D7DA-4053-A386-EB2EA9326D68} = {1C14847A-803B-466D-A4EC-3B6AC7328B8F}
+		{14010B90-BC3B-42D9-A52C-30CA537D3C11} = {1C14847A-803B-466D-A4EC-3B6AC7328B8F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA312054-2A35-4FFA-8041-147896943ACE}

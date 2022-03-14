@@ -46,6 +46,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.IO.Compression" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -140,5 +141,6 @@
       <Name>graphQL_net48</Name>
     </ProjectReference>
   </ItemGroup>
+  <Import Project="..\..\..\GCModeller\src\R-sharp\Library\JsonHelper\JsonHelper.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
