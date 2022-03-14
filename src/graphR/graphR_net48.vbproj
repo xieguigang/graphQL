@@ -64,7 +64,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.vb" />
+    <Compile Include="MsgFile.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -80,6 +80,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Query.vb" />
+    <Compile Include="zzz.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">
@@ -99,6 +101,44 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\GCModeller\src\R-sharp\R#\R.vbproj">
+      <Project>{0c2eb77c-39f2-460d-a3f8-ce905f867637}</Project>
+      <Name>R</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\GCModeller\src\runtime\sciBASIC#\Data\BinaryData\BinaryData\BinaryData.vbproj">
+      <Project>{487d7c92-d05a-4908-bf81-e6baba0bf592}</Project>
+      <Name>BinaryData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\GCModeller\src\runtime\sciBASIC#\Data\BinaryData\msgpack\MessagePack.vbproj">
+      <Project>{c473d2d3-65b3-0220-32a8-1e0687d9ae6b}</Project>
+      <Name>MessagePack</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\GCModeller\src\runtime\sciBASIC#\Data_science\Graph\GraphTheory.vbproj">
+      <Project>{203bc68f-a0cd-443a-ab62-4af4110f752f}</Project>
+      <Name>GraphTheory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\GCModeller\src\runtime\sciBASIC#\Data_science\Mathematica\Math\Math\math-core.vbproj">
+      <Project>{e3367b88-5d0c-495a-8273-331656d4b5aa}</Project>
+      <Name>math-core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\GCModeller\src\runtime\sciBASIC#\Microsoft.VisualBasic.Core\src\47-dotnet_Microsoft.VisualBasic.vbproj">
+      <Project>{fecce1fd-e1d4-49e3-a668-60bb5e7aed99}</Project>
+      <Name>47-dotnet_Microsoft.VisualBasic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\GCModeller\src\runtime\sciBASIC#\mime\application%25json\application.json.vbproj">
+      <Project>{32228818-26f1-44df-8d40-347136c743cd}</Project>
+      <Name>application.json</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\graphMsg\graphMsg_net48.vbproj">
+      <Project>{06db0d70-4686-4347-8a33-f04b08366c52}</Project>
+      <Name>graphMsg_net48</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\graphQL\graphQL_net48.vbproj">
+      <Project>{3af9af3c-4db5-428d-a692-8412c8e29b3c}</Project>
+      <Name>graphQL_net48</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
