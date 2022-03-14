@@ -19,7 +19,7 @@ Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "graph-netcore5", "..\..\GCM
 EndProject
 Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "Math.NET5", "..\..\GCModeller\src\runtime\sciBASIC#\Data_science\Mathematica\Math\Math\Math.NET5.vbproj", "{04BC4117-6563-4F16-91E7-8A172AA6A51C}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "graphR", "graphR\graphR.vbproj", "{8C9347D9-1313-4A27-A392-97AB97DAD2CA}"
+Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "graphR", "graphR\graphR.vbproj", "{8C9347D9-1313-4A27-A392-97AB97DAD2CA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "renv", "renv", "{EE77C209-B415-469F-B5A5-2182A4C0B62A}"
 EndProject
@@ -27,8 +27,12 @@ Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "Rsharp-netcore5", "..\..\GC
 EndProject
 Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "R-cmd.NET5", "..\..\GCModeller\src\R-sharp\studio\R-terminal\R-cmd.NET5.vbproj", "{BC8075FE-2769-4870-AD54-0A3957555174}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "JsonHelper", "..\..\GCModeller\src\R-sharp\Library\JsonHelper\JsonHelper.shproj", "{B2AE1422-D7DA-4053-A386-EB2EA9326D68}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		..\..\GCModeller\src\R-sharp\Library\JsonHelper\JsonHelper.projitems*{8c9347d9-1313-4a27-a392-97ab97dad2ca}*SharedItemsImports = 5
+		..\..\GCModeller\src\R-sharp\Library\JsonHelper\JsonHelper.projitems*{b2ae1422-d7da-4053-a386-eb2ea9326d68}*SharedItemsImports = 13
 		..\..\GCModeller\src\R-sharp\studio\Rstudio.common\Rstudio.common.projitems*{bc8075fe-2769-4870-ad54-0a3957555174}*SharedItemsImports = 5
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -340,6 +344,7 @@ Global
 		{04BC4117-6563-4F16-91E7-8A172AA6A51C} = {AB597F93-6613-4A75-8951-7D1735D1E9FA}
 		{DD7B5C63-DB3A-4982-89D8-A96185F99AC1} = {EE77C209-B415-469F-B5A5-2182A4C0B62A}
 		{BC8075FE-2769-4870-AD54-0A3957555174} = {EE77C209-B415-469F-B5A5-2182A4C0B62A}
+		{B2AE1422-D7DA-4053-A386-EB2EA9326D68} = {EE77C209-B415-469F-B5A5-2182A4C0B62A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA312054-2A35-4FFA-8041-147896943ACE}

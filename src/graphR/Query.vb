@@ -1,4 +1,5 @@
 Imports graphQL
+Imports Microsoft.VisualBasic.ApplicationServices.Debugging.Logging
 Imports Microsoft.VisualBasic.CommandLine.Reflection
 Imports Microsoft.VisualBasic.Scripting.MetaData
 Imports SMRUCC.Rsharp.Runtime
@@ -19,6 +20,15 @@ Public Module Query
     Public Function insert(kb As GraphPool, knowledge As String, type As String,
                            Optional meta As list = Nothing,
                            Optional env As Environment = Nothing) As Object
+
+        If knowledge.StringEmpty Then
+            Call env.AddMessage({
+                $"empty reference term of the knowledge data!",
+                $"type: {type}",
+                $"meta: {jsonlite.toJSON(meta, env)}"
+            }, MSG_TYPES.WRN)
+            Return Nothing
+        End If
 
         Call kb.AddKnowledge(knowledge, type, meta.AsGeneric(Of String())(env))
         Return kb
