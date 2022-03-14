@@ -21,7 +21,7 @@ Module debugHandler
                     .origID = knowledge.label,
                     .mass = knowledge.mentions,
                     .Properties = New Dictionary(Of String, String) From {
-                        {NamesOf.REFLECTION_ID_MAPPING_NODETYPE, knowledge.type}
+                        {"knowledge_type", knowledge.type}
                     }
                 }
             }

@@ -1,6 +1,9 @@
 Imports graphQL
 Imports Microsoft.VisualBasic.ApplicationServices.Debugging.Logging
 Imports Microsoft.VisualBasic.CommandLine.Reflection
+Imports Microsoft.VisualBasic.Data.csv.IO
+Imports Microsoft.VisualBasic.Data.visualize.Network.Analysis
+Imports Microsoft.VisualBasic.Data.visualize.Network.FileStream.Generic
 Imports Microsoft.VisualBasic.Data.visualize.Network.Graph
 Imports Microsoft.VisualBasic.Scripting.MetaData
 Imports SMRUCC.Rsharp.Runtime
@@ -81,9 +84,31 @@ Public Module Query
     ''' algorithm debug.
     ''' </summary>
     ''' <param name="kb"></param>
-    ''' <returns></returns>
+    ''' <returns>
+    ''' nodes meta: knowledge_type
+    ''' </returns>
     <ExportAPI("networkGraph")>
     Public Function networkGraph(kb As GraphPool) As NetworkGraph
         Return kb.createGraph
+    End Function
+
+    ''' <summary>
+    ''' export knowledge terms based on the network community algorithm
+    ''' </summary>
+    ''' <param name="g"></param>
+    ''' <returns></returns>
+    <ExportAPI("knowledgeCommunity")>
+    Public Function knowledgeCommunity(g As NetworkGraph) As EntityObject()
+        Dim knowledges As New List(Of EntityObject)
+        Dim communityList = Communities.Analysis(g) _
+            .vertex _
+            .GroupBy(Function(v)
+                         Return v.data(NamesOf.REFLECTION_ID_MAPPING_NODETYPE)
+                     End Function) _
+            .ToArray
+
+        For Each term In communityList
+
+        Next
     End Function
 End Module
