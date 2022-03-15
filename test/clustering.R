@@ -13,3 +13,7 @@ g = igraph::graph(from = data[, "from"], to = data[, "to"]);
 print(g);
 
 g = graphUMAP(g);
+
+print(g, max.print = 13);
+
+write.csv(g, file = "./cluster.csv", row.names = TRUE);

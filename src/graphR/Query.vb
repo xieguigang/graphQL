@@ -15,6 +15,7 @@ Imports Microsoft.VisualBasic.Scripting.MetaData
 Imports SMRUCC.Rsharp.Runtime
 Imports SMRUCC.Rsharp.Runtime.Internal.Object
 Imports SMRUCC.Rsharp.Runtime.Interop
+Imports dataframe = SMRUCC.Rsharp.Runtime.Internal.Object.dataframe
 Imports REnv = SMRUCC.Rsharp.Runtime
 
 ''' <summary>
@@ -100,7 +101,7 @@ Public Module Query
     End Function
 
     <ExportAPI("graphUMAP")>
-    Public Function graphUMAP(g As NetworkGraph) As Object
+    Public Function graphUMAP(g As NetworkGraph, Optional eps As Double = 0.1) As Object
         Dim labels As String() = Nothing
         Dim umap As Umap = g.RunUMAP(labels)
         Dim embedding = umap.GetEmbedding
@@ -118,9 +119,32 @@ Public Module Query
 
         ' run dbscan
         Dim dbscan As New DbscanAlgorithm(Of ClusterEntity)(Function(x, y) x.entityVector.EuclideanDistance(y.entityVector))
-        Dim result = dbscan.ComputeClusterDBSCAN(raw, 2, 5)
+        Dim result = dbscan.ComputeClusterDBSCAN(raw, eps, 5)
+        Dim mat As New List(Of ClusterEntity)
+        Dim idx As Integer = 0
 
-        Return result
+        For Each group In result
+            idx += 1
+
+            For Each x In group
+                x.cluster = idx
+            Next
+
+            mat.AddRange(group)
+        Next
+
+        Dim frame As New dataframe With {
+            .rownames = mat.Select(Function(r) r.uid).ToArray,
+            .columns = New Dictionary(Of String, Array) From {
+                {"group", mat.Select(Function(r) r.cluster).ToArray}
+            }
+        }
+
+        frame.columns("x") = mat.Select(Function(r) r.entityVector(0)).ToArray
+        frame.columns("y") = mat.Select(Function(r) r.entityVector(1)).ToArray
+        frame.columns("z") = mat.Select(Function(r) r.entityVector(2)).ToArray
+
+        Return frame
     End Function
 
     ''' <summary>
