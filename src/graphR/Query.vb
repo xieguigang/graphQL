@@ -6,7 +6,11 @@ Imports Microsoft.VisualBasic.Data.csv.IO
 Imports Microsoft.VisualBasic.Data.visualize.Network.Analysis
 Imports Microsoft.VisualBasic.Data.visualize.Network.FileStream.Generic
 Imports Microsoft.VisualBasic.Data.visualize.Network.Graph
+Imports Microsoft.VisualBasic.DataMining.DBSCAN
+Imports Microsoft.VisualBasic.DataMining.KMeans
+Imports Microsoft.VisualBasic.DataMining.UMAP
 Imports Microsoft.VisualBasic.Linq
+Imports Microsoft.VisualBasic.Math.Correlations
 Imports Microsoft.VisualBasic.Scripting.MetaData
 Imports SMRUCC.Rsharp.Runtime
 Imports SMRUCC.Rsharp.Runtime.Internal.Object
@@ -93,6 +97,30 @@ Public Module Query
     <ExportAPI("networkGraph")>
     Public Function networkGraph(kb As GraphPool) As NetworkGraph
         Return kb.createGraph
+    End Function
+
+    <ExportAPI("graphUMAP")>
+    Public Function graphUMAP(g As NetworkGraph) As Object
+        Dim labels As String() = Nothing
+        Dim umap As Umap = g.RunUMAP(labels)
+        Dim embedding = umap.GetEmbedding
+        Dim raw As ClusterEntity() = labels _
+            .Select(Function(id, i)
+                        Dim vec = embedding(i)
+                        Dim point As New ClusterEntity With {
+                            .uid = id,
+                            .entityVector = vec
+                        }
+
+                        Return point
+                    End Function) _
+            .ToArray
+
+        ' run dbscan
+        Dim dbscan As New DbscanAlgorithm(Of ClusterEntity)(Function(x, y) x.entityVector.EuclideanDistance(y.entityVector))
+        Dim result = dbscan.ComputeClusterDBSCAN(raw, 5, 5)
+
+        Return result
     End Function
 
     ''' <summary>
