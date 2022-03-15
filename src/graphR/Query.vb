@@ -6,6 +6,11 @@ Imports Microsoft.VisualBasic.Data.csv.IO
 Imports Microsoft.VisualBasic.Data.visualize.Network.Analysis
 Imports Microsoft.VisualBasic.Data.visualize.Network.FileStream.Generic
 Imports Microsoft.VisualBasic.Data.visualize.Network.Graph
+Imports Microsoft.VisualBasic.DataMining.DBSCAN
+Imports Microsoft.VisualBasic.DataMining.KMeans
+Imports Microsoft.VisualBasic.DataMining.UMAP
+Imports Microsoft.VisualBasic.Linq
+Imports Microsoft.VisualBasic.Math.Correlations
 Imports Microsoft.VisualBasic.Scripting.MetaData
 Imports SMRUCC.Rsharp.Runtime
 Imports SMRUCC.Rsharp.Runtime.Internal.Object
@@ -94,6 +99,30 @@ Public Module Query
         Return kb.createGraph
     End Function
 
+    <ExportAPI("graphUMAP")>
+    Public Function graphUMAP(g As NetworkGraph) As Object
+        Dim labels As String() = Nothing
+        Dim umap As Umap = g.RunUMAP(labels)
+        Dim embedding = umap.GetEmbedding
+        Dim raw As ClusterEntity() = labels _
+            .Select(Function(id, i)
+                        Dim vec = embedding(i)
+                        Dim point As New ClusterEntity With {
+                            .uid = id,
+                            .entityVector = vec
+                        }
+
+                        Return point
+                    End Function) _
+            .ToArray
+
+        ' run dbscan
+        Dim dbscan As New DbscanAlgorithm(Of ClusterEntity)(Function(x, y) x.entityVector.EuclideanDistance(y.entityVector))
+        Dim result = dbscan.ComputeClusterDBSCAN(raw, 5, 5)
+
+        Return result
+    End Function
+
     ''' <summary>
     ''' export knowledge terms based on the network community algorithm
     ''' </summary>
@@ -119,7 +148,8 @@ Public Module Query
     Public Function knowledgeCommunity(g As NetworkGraph,
                                        <RRawVectorArgument(GetType(String))>
                                        Optional common_type As Object = Nothing,
-                                       Optional eps As Double = 0.001) As list
+                                       Optional eps As Double = 0.001,
+                                       Optional unweighted As Boolean = False) As list
 
         Dim commons As Index(Of String) = DirectCast(REnv.asVector(Of String)(common_type), String()).Indexing
         Dim copy As New NetworkGraph
@@ -147,16 +177,39 @@ Public Module Query
             copy = g
         End If
 
+        If unweighted Then
+            Call Communities.AnalysisUnweighted(copy)
+        Else
+            Call Communities.Analysis(copy, eps:=eps)
+        End If
+
+        If commons.Count > 0 Then
+            For Each v As Node In copy.vertex
+                g.GetElementByID(v.label).data(NamesOf.REFLECTION_ID_MAPPING_NODETYPE) = v.data(NamesOf.REFLECTION_ID_MAPPING_NODETYPE)
+            Next
+        End If
+
         Dim knowledges As New List(Of EntityObject)
-        Dim communityList = Communities.Analysis(copy, eps:=eps) _
-            .vertex _
+        Dim communityList = g.vertex _
             .GroupBy(Function(v)
                          Return v.data(NamesOf.REFLECTION_ID_MAPPING_NODETYPE)
                      End Function) _
             .ToArray
 
         For Each term In communityList
-            Dim metadata = term.GroupBy(Function(v) v.data("knowledge_type")).ToArray
+            Dim hits As Index(Of String) = term.Select(Function(v) v.label).Indexing
+            Dim metadata = g.graphEdges _
+                .Where(Function(url)
+                           Return url.U.label Like hits OrElse url.V.label Like hits
+                       End Function) _
+                .Select(Function(url) {url.U, url.V}) _
+                .IteratesALL _
+                .GroupBy(Function(v) v.label) _
+                .Select(Function(v) v.First) _
+                .GroupBy(Function(v)
+                             Return v.data("knowledge_type")
+                         End Function) _
+                .ToArray
             Dim props As New Dictionary(Of String, String)
 
             For Each p In metadata
@@ -167,10 +220,6 @@ Public Module Query
                 .ID = term.Key,
                 .Properties = props
             })
-        Next
-
-        For Each v As Node In copy.vertex
-            g.GetElementByID(v.label).data(NamesOf.REFLECTION_ID_MAPPING_NODETYPE) = v.data(NamesOf.REFLECTION_ID_MAPPING_NODETYPE)
         Next
 
         Dim rtvl As New list With {

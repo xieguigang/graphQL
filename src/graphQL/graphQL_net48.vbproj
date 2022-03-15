@@ -103,6 +103,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Association.vb" />
     <Compile Include="GraphPool.vb" />
     <Compile Include="Knowledge.vb" />
     <Compile Include="KnowledgeDescription.vb" />
