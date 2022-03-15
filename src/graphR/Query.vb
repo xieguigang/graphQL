@@ -120,7 +120,8 @@ Public Module Query
     Public Function knowledgeCommunity(g As NetworkGraph,
                                        <RRawVectorArgument(GetType(String))>
                                        Optional common_type As Object = Nothing,
-                                       Optional eps As Double = 0.001) As list
+                                       Optional eps As Double = 0.001,
+                                       Optional unweighted As Boolean = False) As list
 
         Dim commons As Index(Of String) = DirectCast(REnv.asVector(Of String)(common_type), String()).Indexing
         Dim copy As New NetworkGraph
@@ -148,7 +149,11 @@ Public Module Query
             copy = g
         End If
 
-        Call Communities.Analysis(copy, eps:=eps)
+        If unweighted Then
+            Call Communities.AnalysisUnweighted(copy)
+        Else
+            Call Communities.Analysis(copy, eps:=eps)
+        End If
 
         If commons.Count > 0 Then
             For Each v As Node In copy.vertex
