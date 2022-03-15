@@ -118,7 +118,7 @@ Public Module Query
 
         ' run dbscan
         Dim dbscan As New DbscanAlgorithm(Of ClusterEntity)(Function(x, y) x.entityVector.EuclideanDistance(y.entityVector))
-        Dim result = dbscan.ComputeClusterDBSCAN(raw, 5, 5)
+        Dim result = dbscan.ComputeClusterDBSCAN(raw, 2, 5)
 
         Return result
     End Function

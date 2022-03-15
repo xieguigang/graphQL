@@ -1,4 +1,5 @@
 ﻿Imports System.Runtime.CompilerServices
+Imports Microsoft.VisualBasic.CommandLine.InteropService.Pipeline
 Imports Microsoft.VisualBasic.ComponentModel.Collection
 Imports Microsoft.VisualBasic.Data.visualize.Network.Graph
 Imports Microsoft.VisualBasic.DataMining.UMAP
@@ -29,7 +30,7 @@ Module umapKnowledge
 
     <Extension>
     Public Function RunUMAP(g As NetworkGraph, ByRef labels As String()) As Umap
-        Dim umap As New Umap(dimensions:=3)
+        Dim umap As New Umap(dimensions:=3, progressReporter:=AddressOf RunSlavePipeline.SendProgress)
         Dim nEpochs As Integer
         Dim matrix As Double()() = g.toFullMatrix(labels)
 
