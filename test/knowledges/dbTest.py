@@ -1,6 +1,6 @@
 import graphQL
 
-kb = MsgFile::open(`${@dir}/Aspirin.graph`)
+kb = MsgFile::open(`${@dir}/aspirin.graph`)
 
 print("unweighted similarity between C01405 and HMDB0001879:")
 print(Query::similarity(kb, "C01405", "HMDB0001879"))

@@ -11,6 +11,6 @@ name,ASA
 name,Aspirin
 name,salicylic acid acetate
 formula,C9H8O4
-xref,C01405
-xref,HMDB0001879
-xref,50-78-2
+kegg,C01405
+hmdb,HMDB0001879
+cas,50-78-2

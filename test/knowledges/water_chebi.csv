@@ -8,6 +8,6 @@ name,acqua
 name,dihydridooxygen
 name,dihydrogen oxide
 name,hydrogen hydroxide
-xref,C00001
-xref,HMDB0002111
-xref,7732-18-5
+kegg,C00001
+hmdb,HMDB0002111
+cas,7732-18-5

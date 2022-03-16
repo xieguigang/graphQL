@@ -18,7 +18,7 @@ name,Rhodine
 name,Aloxiprimum
 name,Micristin
 formula,C9H8O4
-xref,50-78-2
-xref,C01405
-xref,PubChem:2244
-xref,ChEBI:15365
+cas,50-78-2
+kegg,C01405
+pubchem,PubChem:2244
+chebi,ChEBI:15365
