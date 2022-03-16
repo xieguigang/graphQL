@@ -1,0 +1,45 @@
+key,value
+id,HMDB0000687
+name,L-Leucine
+name,(2S)-2-Amino-4-methylpentanoic acid
+name,(2S)-alpha-2-Amino-4-methylvaleric acid
+name,(2S)-alpha-Leucine
+name,(S)-(+)-Leucine
+name,(S)-Leucine
+name,2-Amino-4-methylvaleric acid
+name,L
+name,L-Leucin
+name,L-Leuzin
+name,Leu
+name,LEUCINE
+name,(2S)-2-Amino-4-methylpentanoate
+name,(2S)-a-2-Amino-4-methylvalerate
+name,(2S)-a-2-Amino-4-methylvaleric acid
+name,(2S)-alpha-2-Amino-4-methylvalerate
+name,(2S)-¦¡-2-amino-4-methylvalerate
+name,(2S)-¦¡-2-amino-4-methylvaleric acid
+name,(2S)-a-Leucine
+name,(2S)-¦¡-leucine
+name,2-Amino-4-methylvalerate
+name,(S)-2-Amino-4-methylpentanoate
+name,(S)-2-Amino-4-methylpentanoic acid
+name,(S)-2-Amino-4-methylvalerate
+name,(S)-2-Amino-4-methylvaleric acid
+name,4-Methyl-L-norvaline
+name,L-(+)-Leucine
+name,L-a-Aminoisocaproate
+name,L-a-Aminoisocaproic acid
+name,L-alpha-Aminoisocaproate
+name,L-alpha-Aminoisocaproic acid
+name,"Leucine, L-isomer"
+name,L-Isomer leucine
+name,"Leucine, L isomer"
+formula,C6H13NO2
+name,(2S)-2-amino-4-methylpentanoic acid
+cas,61-90-5
+knapsack,C00001377
+kegg,C00123
+biocyc,LEU
+wikipedia,Leucine
+pubchem,PubChem:6106
+chebi,ChEBI:15603

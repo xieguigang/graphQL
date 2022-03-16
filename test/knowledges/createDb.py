@@ -28,6 +28,10 @@ process_knowledge(kb, chebi,"chebi")
 process_knowledge(kb, read.csv("./water.csv", row.names = None),"kegg")
 process_knowledge(kb, read.csv("./water_chebi.csv", row.names = None),"chebi")
 
+process_knowledge(kb, read.csv("./leucine/hmdb.csv", row.names = None), "hmdb")
+process_knowledge(kb, read.csv("./leucine/kegg.csv", row.names = None), "kegg")
+
+
 result = Query::query(kb, "Aspirin")
 
 print(sapply(result, x -> toString(x)))
