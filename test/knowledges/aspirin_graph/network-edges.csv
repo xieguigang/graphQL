@@ -1,0 +1,70 @@
+﻿fromNode,toNode,value,interaction_type,selfLoop,label,guid
+C01405,HMDB0001879,1,kegg,False,,[0]C01405 -> [13]HMDB0001879
+C01405,ChEBI:15365,1,kegg,False,,[0]C01405 -> [8]ChEBI:15365
+Aspirin,C01405,1,name,False,,[1]Aspirin -> [0]C01405
+Aspirin,HMDB0001879,1,name,False,,[1]Aspirin -> [13]HMDB0001879
+Aspirin,ChEBI:15365,1,name,False,,[1]Aspirin -> [8]ChEBI:15365
+AIN[PDBj],C01405,1,pdb,False,,[10]AIN[PDBj] -> [0]C01405
+3DMET:B00284,C01405,1,3dmet,False,,[11]3DMET:B00284 -> [0]C01405
+NIKKAJI:J2.300K,C01405,1,nikkaji,False,,[12]NIKKAJI:J2.300K -> [0]C01405
+HMDB0001879,ChEBI:15365,1,hmdb,False,,[13]HMDB0001879 -> [8]ChEBI:15365
+2-(ACETYLOXY)benzoIC ACID,HMDB0001879,1,name,False,,[14]2-(ACETYLOXY)benzoIC ACID -> [13]HMDB0001879
+ASA,HMDB0001879,1,name,False,,[15]ASA -> [13]HMDB0001879
+ASA,ChEBI:15365,1,name,False,,[15]ASA -> [8]ChEBI:15365
+Easprin,HMDB0001879,1,name,False,,[16]Easprin -> [13]HMDB0001879
+Durlaza,HMDB0001879,1,name,False,,[17]Durlaza -> [13]HMDB0001879
+Aspalon,HMDB0001879,1,name,False,,[18]Aspalon -> [13]HMDB0001879
+Salicylic acid acetate,HMDB0001879,1,name,False,,[19]Salicylic acid acetate -> [13]HMDB0001879
+Acetylsalicylic acid,C01405,1,name,False,,[2]Acetylsalicylic acid -> [0]C01405
+Acetylsalicylic acid,HMDB0001879,1,name,False,,[2]Acetylsalicylic acid -> [13]HMDB0001879
+Acetylsalicylic acid,ChEBI:15365,1,name,False,,[2]Acetylsalicylic acid -> [8]ChEBI:15365
+Acetyonyl,HMDB0001879,1,name,False,,[20]Acetyonyl -> [13]HMDB0001879
+Acetosal,HMDB0001879,1,name,False,,[21]Acetosal -> [13]HMDB0001879
+Ecolen,HMDB0001879,1,name,False,,[22]Ecolen -> [13]HMDB0001879
+Persistin,HMDB0001879,1,name,False,,[23]Persistin -> [13]HMDB0001879
+Rhodine,HMDB0001879,1,name,False,,[24]Rhodine -> [13]HMDB0001879
+Aloxiprimum,HMDB0001879,1,name,False,,[25]Aloxiprimum -> [13]HMDB0001879
+Micristin,HMDB0001879,1,name,False,,[26]Micristin -> [13]HMDB0001879
+PubChem:2244,HMDB0001879,1,pubchem,False,,[27]PubChem:2244 -> [13]HMDB0001879
+acetylsalicylic acid,ChEBI:15365,1,name,False,,[28]acetylsalicylic acid -> [8]ChEBI:15365
+2-(acetyloxy)benzoic acid,ChEBI:15365,1,name,False,,[29]2-(acetyloxy)benzoic acid -> [8]ChEBI:15365
+2-Acetoxybenzenecarboxylic acid,C01405,1,name,False,,[3]2-Acetoxybenzenecarboxylic acid -> [0]C01405
+2-Acetoxybenzenecarboxylic acid,HMDB0001879,1,name,False,,[3]2-Acetoxybenzenecarboxylic acid -> [13]HMDB0001879
+2-Acetoxybenzenecarboxylic acid,ChEBI:15365,1,name,False,,[3]2-Acetoxybenzenecarboxylic acid -> [8]ChEBI:15365
+2-(ACETYLOXY)BENZOIC ACID,ChEBI:15365,1,name,False,,[30]2-(ACETYLOXY)BENZOIC ACID -> [8]ChEBI:15365
+2-acetoxybenzoic acid,ChEBI:15365,1,name,False,,[31]2-acetoxybenzoic acid -> [8]ChEBI:15365
+salicylic acid acetate,ChEBI:15365,1,name,False,,[32]salicylic acid acetate -> [8]ChEBI:15365
+C00001,CHEBI:15377,1,kegg,False,,[33]C00001 -> [44]CHEBI:15377
+H2O,C00001,2,name,False,,[34]H2O -> [33]C00001
+H2O,CHEBI:15377,1,formula,False,,[34]H2O -> [44]CHEBI:15377
+water,C00001,1,name,False,,[35]water -> [33]C00001
+water,CHEBI:15377,1,name,False,,[35]water -> [44]CHEBI:15377
+7732-18-5,C00001,1,cas,False,,[36]7732-18-5 -> [33]C00001
+7732-18-5,CHEBI:15377,1,cas,False,,[36]7732-18-5 -> [44]CHEBI:15377
+PubChem:3303,C00001,1,pubchem,False,,[37]PubChem:3303 -> [33]C00001
+ChEBI:15377,C00001,1,chebi,False,,[38]ChEBI:15377 -> [33]C00001
+CHEMBL1098659,C00001,1,chembl,False,,[39]CHEMBL1098659 -> [33]C00001
+Acetylsalicylate,C01405,1,name,False,,[4]Acetylsalicylate -> [0]C01405
+Acetylsalicylate,HMDB0001879,1,name,False,,[4]Acetylsalicylate -> [13]HMDB0001879
+Acetylsalicylate,ChEBI:15365,1,name,False,,[4]Acetylsalicylate -> [8]ChEBI:15365
+HOH[PDBj],C00001,1,pdb,False,,[40]HOH[PDBj] -> [33]C00001
+O[PDBj],C00001,1,pdb,False,,[41]O[PDBj] -> [33]C00001
+3DMET:B01124,C00001,1,3dmet,False,,[42]3DMET:B01124 -> [33]C00001
+NIKKAJI:J43.587B,C00001,1,nikkaji,False,,[43]NIKKAJI:J43.587B -> [33]C00001
+[OH2],CHEBI:15377,1,name,False,,[45][OH2] -> [44]CHEBI:15377
+oxidane,CHEBI:15377,1,name,False,,[46]oxidane -> [44]CHEBI:15377
+acqua,CHEBI:15377,1,name,False,,[47]acqua -> [44]CHEBI:15377
+dihydridooxygen,CHEBI:15377,1,name,False,,[48]dihydridooxygen -> [44]CHEBI:15377
+dihydrogen oxide,CHEBI:15377,1,name,False,,[49]dihydrogen oxide -> [44]CHEBI:15377
+C9H8O4,C01405,1,formula,False,,[5]C9H8O4 -> [0]C01405
+C9H8O4,HMDB0001879,1,formula,False,,[5]C9H8O4 -> [13]HMDB0001879
+C9H8O4,ChEBI:15365,1,formula,False,,[5]C9H8O4 -> [8]ChEBI:15365
+hydrogen hydroxide,CHEBI:15377,1,name,False,,[50]hydrogen hydroxide -> [44]CHEBI:15377
+HMDB0002111,CHEBI:15377,1,hmdb,False,,[51]HMDB0002111 -> [44]CHEBI:15377
+50-78-2,C01405,1,cas,False,,[6]50-78-2 -> [0]C01405
+50-78-2,HMDB0001879,1,cas,False,,[6]50-78-2 -> [13]HMDB0001879
+50-78-2,ChEBI:15365,1,cas,False,,[6]50-78-2 -> [8]ChEBI:15365
+PubChem:4594,C01405,1,pubchem,False,,[7]PubChem:4594 -> [0]C01405
+ChEBI:15365,C01405,1,chebi,False,,[8]ChEBI:15365 -> [0]C01405
+ChEBI:15365,HMDB0001879,1,chebi,False,,[8]ChEBI:15365 -> [13]HMDB0001879
+CHEMBL25,C01405,1,chembl,False,,[9]CHEMBL25 -> [0]C01405
