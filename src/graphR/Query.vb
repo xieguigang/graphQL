@@ -100,6 +100,24 @@ Public Module Query
         Return kb.createGraph
     End Function
 
+    <ExportAPI("Kosaraju.SCCs")>
+    Public Function KosarajuSCCs(g As NetworkGraph) As NetworkGraph
+        Dim result = Kosaraju.StronglyConnectedComponents(g)
+        Dim sccs = result.GetComponents.ToArray
+        Dim i As Integer = 0
+
+        For Each block In sccs
+            i += 1
+
+            For Each link In block
+                link.U.data(NamesOf.REFLECTION_ID_MAPPING_NODETYPE) = i
+                link.V.data(NamesOf.REFLECTION_ID_MAPPING_NODETYPE) = i
+            Next
+        Next
+
+        Return g
+    End Function
+
     <ExportAPI("graphUMAP")>
     Public Function graphUMAP(g As NetworkGraph, Optional eps As Double = 0.1) As Object
         Dim labels As String() = Nothing
