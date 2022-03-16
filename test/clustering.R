@@ -12,8 +12,14 @@ g = igraph::graph(from = data[, "from"], to = data[, "to"]);
 
 print(g);
 
-g = graphUMAP(g);
+c = graphUMAP(g);
 
-print(g, max.print = 13);
+print(c, max.print = 13);
 
-write.csv(g, file = "./cluster.csv", row.names = TRUE);
+write.csv(c, file = "./cluster.csv", row.names = TRUE);
+
+result = g |> knowledgeCommunity();
+
+g = result$g;
+
+save.network(g, file = "./graph/");
