@@ -18,8 +18,14 @@ print(c, max.print = 13);
 
 write.csv(c, file = "./cluster.csv", row.names = TRUE);
 
-result = g |> knowledgeCommunity();
+g = g |> louvain_cluster();
 
-g = result$g;
+
+v = V(g);
+
+type = igraph::class(v);
+id = igraph::xref(v);
 
 save.network(g, file = "./graph/");
+
+write.csv(data.frame(id, type), file = "./node_types.csv", row.names = FALSE);
