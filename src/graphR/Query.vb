@@ -1,7 +1,9 @@
+Imports System.Drawing
 Imports graphQL
 Imports Microsoft.VisualBasic.ApplicationServices.Debugging.Logging
 Imports Microsoft.VisualBasic.CommandLine.Reflection
 Imports Microsoft.VisualBasic.ComponentModel.Collection
+Imports Microsoft.VisualBasic.ComponentModel.DataStructures
 Imports Microsoft.VisualBasic.Data.csv.IO
 Imports Microsoft.VisualBasic.Data.visualize.Network.Analysis
 Imports Microsoft.VisualBasic.Data.visualize.Network.FileStream.Generic
@@ -9,6 +11,7 @@ Imports Microsoft.VisualBasic.Data.visualize.Network.Graph
 Imports Microsoft.VisualBasic.DataMining.DBSCAN
 Imports Microsoft.VisualBasic.DataMining.KMeans
 Imports Microsoft.VisualBasic.DataMining.UMAP
+Imports Microsoft.VisualBasic.Imaging
 Imports Microsoft.VisualBasic.Linq
 Imports Microsoft.VisualBasic.Math.Correlations
 Imports Microsoft.VisualBasic.Scripting.MetaData
@@ -112,6 +115,16 @@ Public Module Query
             For Each link In block
                 link.U.data(NamesOf.REFLECTION_ID_MAPPING_NODETYPE) = i
                 link.V.data(NamesOf.REFLECTION_ID_MAPPING_NODETYPE) = i
+            Next
+        Next
+
+        Dim colors As LoopArray(Of Color) = GDIColors.AllDotNetPrefixColors
+
+        For Each group In g.vertex.GroupBy(Function(v) v.data(NamesOf.REFLECTION_ID_MAPPING_NODETYPE))
+            Dim color As String = colors.Next.ToHtmlColor
+
+            For Each v In group
+                v.data(NamesOf.REFLECTION_ID_MAPPING_NODECOLOR) = color
             Next
         Next
 
