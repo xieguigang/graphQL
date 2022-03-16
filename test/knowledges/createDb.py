@@ -15,7 +15,7 @@ def process_knowledge(kb, data, type):
     data = groupBy(data, x -> x[["key"]])
     data = lapply(data, x -> sapply(x, i -> i[["value"]]), x -> x[["key"]])
     
-    print(data)
+    str(data)
     
     Query::insert(kb, data[["id"]], type, data)
 
