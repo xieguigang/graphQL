@@ -104,6 +104,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IndexByRef.vb" />
     <Compile Include="KnowledgeMsg.vb" />
     <Compile Include="LinkMsg.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
