@@ -106,6 +106,7 @@
     <Compile Include="Association.vb" />
     <Compile Include="GraphPool.vb" />
     <Compile Include="Knowledge.vb" />
+    <Compile Include="KnowledgeBuilder\KnowledgeAlignment.vb" />
     <Compile Include="KnowledgeBuilder\KnowledgeFrameRow.vb" />
     <Compile Include="KnowledgeBuilder\CreateKnowledge.vb" />
     <Compile Include="KnowledgeBuilder\CreateNetwork.vb" />
@@ -146,6 +147,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\GCModeller\src\runtime\sciBASIC#\Data_science\DataMining\BinaryTree\BinaryTree.vbproj">
+      <Project>{3d5402e3-72cd-4e40-a68e-a919250ab5ee}</Project>
+      <Name>BinaryTree</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\GCModeller\src\runtime\sciBASIC#\Data_science\Graph\GraphTheory.vbproj">
       <Project>{203bc68f-a0cd-443a-ab62-4af4110f752f}</Project>
       <Name>GraphTheory</Name>

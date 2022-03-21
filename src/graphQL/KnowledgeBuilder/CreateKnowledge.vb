@@ -1,7 +1,5 @@
 ﻿Imports System.Runtime.CompilerServices
 Imports Microsoft.VisualBasic.ComponentModel.Collection
-Imports Microsoft.VisualBasic.ComponentModel.Collection.Generic
-Imports Microsoft.VisualBasic.ComponentModel.DataSourceModel
 Imports Microsoft.VisualBasic.Data.GraphTheory.Network
 Imports Microsoft.VisualBasic.Data.visualize.Network.Analysis
 Imports Microsoft.VisualBasic.Data.visualize.Network.FileStream.Generic
@@ -44,7 +42,7 @@ Public Module CreateKnowledge
                 Dim props As New Dictionary(Of String, String())
 
                 For Each p In metadata
-                    Call props.Add(p.Key, p.Select(Function(v) v.label).ToArray)
+                    Call props.Add(p.Key, (From v As Node In p Select v.label).ToArray)
                 Next
 
                 Yield New KnowledgeFrameRow With {

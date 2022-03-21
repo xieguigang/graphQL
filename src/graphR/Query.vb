@@ -206,7 +206,7 @@ Public Module Query
                                        Optional eps As Double = 0.001,
                                        Optional unweighted As Boolean = False) As list
 
-        Dim knowledges = g.ExtractKnowledges(Of EntityObject)(eps).ToArray
+        Dim knowledges = g.ExtractKnowledges(eps).ToArray
 
 
 
