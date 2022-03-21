@@ -55,21 +55,21 @@ Public Class StorageProvider
     ''' <param name="file"></param>
     ''' <returns></returns>
     Public Shared Function Save(kb As GraphPool, file As Stream) As Boolean
-        Dim termTypes As New List(Of String)
-        Dim linkTypes As New List(Of String)
-        Dim terms = KnowledgeMsg.GetTerms(kb, termTypes).ToArray
-        Dim links = LinkMsg.GetRelationships(kb, linkTypes).ToArray
+        Dim termRef As New IndexByRef
+        Dim linkRef As New IndexByRef
+        Dim terms = KnowledgeMsg.GetTerms(kb, termRef).ToArray
+        Dim links = LinkMsg.GetRelationships(kb, linkRef).ToArray
         Dim info As New Dictionary(Of String, String)
 
         Call info.Add("knowledge_terms", terms.Length)
         Call info.Add("graph_size", links.Length)
-        Call info.Add("knowledge_types", termTypes.Count)
+        Call info.Add("knowledge_types", termRef.types.Length)
         Call info.Add("link_types", links.Count)
 
         Using zip As New ZipArchive(file, ZipArchiveMode.Create, leaveOpen:=False)
             ' save graph types
-            Call MsgPackSerializer.SerializeObject(termTypes.ToArray, zip.CreateEntry("meta/keywords.msg").Open, closeFile:=True)
-            Call MsgPackSerializer.SerializeObject(linkTypes.ToArray, zip.CreateEntry("meta/associations.msg").Open, closeFile:=True)
+            Call MsgPackSerializer.SerializeObject(termRef, zip.CreateEntry("meta/keywords.msg").Open, closeFile:=True)
+            Call MsgPackSerializer.SerializeObject(linkRef, zip.CreateEntry("meta/associations.msg").Open, closeFile:=True)
 
             Call SaveTerms(terms, zip) _
                 .GetJson _
