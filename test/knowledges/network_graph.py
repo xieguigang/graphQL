@@ -5,7 +5,7 @@ setwd(@dir)
 
 kb = MsgFile::open(`${@dir}/aspirin.graph`)
 # g = networkGraph(kb)
-result = knowledgeCommunity(kb, indexBy = ["kegg","chembl","chebi","cas","formula","hmdb","pubchem"], eps = 1e-8)
+result = knowledgeCommunity(kb, indexBy = ["kegg","chembl","chebi","cas","hmdb","pubchem"], eps = 1e-8)
 
 g = result$graph
 
