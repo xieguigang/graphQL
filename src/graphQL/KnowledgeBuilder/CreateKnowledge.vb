@@ -17,7 +17,7 @@ Public Module CreateKnowledge
         Dim islandId As i32 = 1
 
         ' 并行计算知识分区
-        For Each gc As NetworkGraph In island.Select(Function(g) g.ComputeKnowlegdes(eps))
+        For Each gc As NetworkGraph In island.AsParallel.Select(Function(g) g.ComputeKnowlegdes(eps))
             Dim knowledges = gc.vertex _
                 .GroupBy(Function(i)
                              Return i.data(NamesOf.REFLECTION_ID_MAPPING_NODETYPE)
