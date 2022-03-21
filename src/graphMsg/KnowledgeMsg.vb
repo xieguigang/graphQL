@@ -35,7 +35,7 @@ Public Class KnowledgeMsg
                 .mentions = v.mentions,
                 .type = allTypes.IndexOf(v.type),
                 .isMaster = v.isMaster,
-                .referenceSources = allSources.IndexOf(v.source)
+                .referenceSources = allSources.IndexOf(v.source.Distinct)
             }
         Next
     End Function

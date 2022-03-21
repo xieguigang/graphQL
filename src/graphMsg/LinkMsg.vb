@@ -33,7 +33,7 @@ Public Class LinkMsg
                 .u = link.U.ID,
                 .v = link.V.ID,
                 .weight = link.weight,
-                .referenceSources = allSources.IndexOf(link.source)
+                .referenceSources = allSources.IndexOf(link.source.Distinct)
             }
         Next
     End Function
