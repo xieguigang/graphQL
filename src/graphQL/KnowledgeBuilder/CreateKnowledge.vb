@@ -6,6 +6,7 @@ Imports Microsoft.VisualBasic.Data.GraphTheory.Network
 Imports Microsoft.VisualBasic.Data.visualize.Network.Analysis
 Imports Microsoft.VisualBasic.Data.visualize.Network.FileStream.Generic
 Imports Microsoft.VisualBasic.Data.visualize.Network.Graph
+Imports Microsoft.VisualBasic.Language
 Imports Microsoft.VisualBasic.Linq
 Imports Node = Microsoft.VisualBasic.Data.visualize.Network.Graph.Node
 
@@ -15,6 +16,7 @@ Public Module CreateKnowledge
     Public Iterator Function ExtractKnowledges(Of Knowledge As {New, INamedValue, DynamicPropertyBase(Of String)})(graph As NetworkGraph, Optional eps As Double = 0.00000001) As IEnumerable(Of Knowledge)
         ' 解析出所有的信息孤岛
         Dim island = IteratesSubNetworks(Of Node, Edge, NetworkGraph)(graph, singleNodeAsGraph:=False)
+        Dim islandId As i32 = 1
 
         ' 并行计算知识分区
         For Each gc As NetworkGraph In island.Select(Function(g) g.ComputeKnowlegdes(eps))
@@ -23,6 +25,7 @@ Public Module CreateKnowledge
                              Return i.data(NamesOf.REFLECTION_ID_MAPPING_NODETYPE)
                          End Function) _
                 .ToArray
+            Dim mainID As String = ++islandId
 
             For Each term As IGrouping(Of String, Node) In knowledges
                 Dim hits As Index(Of String) = term.Select(Function(v) v.label).Indexing
@@ -45,7 +48,7 @@ Public Module CreateKnowledge
                 Next
 
                 Yield New Knowledge With {
-                    .Key = term.Key,
+                    .Key = $"{mainID}-{term.Key}",
                     .Properties = props
                 }
             Next
@@ -54,8 +57,24 @@ Public Module CreateKnowledge
 
     <Extension>
     Public Function ComputeKnowlegdes(graph As NetworkGraph, eps As Double) As NetworkGraph
-        Call Communities.Analysis(graph, eps:=eps)
+        ' rebuild graph for fix id reference
+        ' to run communities analysis
+        Dim rebuild As New NetworkGraph
 
-        Return graph
+        For Each g In graph.vertex
+            Call rebuild.CreateNode(g.label, g.data)
+        Next
+        For Each l In graph.graphEdges
+            rebuild.AddEdge(rebuild.CreateEdge(
+                rebuild.GetElementByID(l.U.label),
+                rebuild.GetElementByID(l.V.label),
+                l.weight,
+                l.data
+            ))
+        Next
+
+        Call Communities.Analysis(rebuild, eps:=eps)
+
+        Return rebuild
     End Function
 End Module
