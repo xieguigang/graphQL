@@ -29,6 +29,9 @@ Public Class GraphPool : Inherits Graph(Of Knowledge, Association, GraphPool)
     ''' </param>
     Public Sub AddKnowledge(knowledge As String, type As String, meta As Dictionary(Of String, String()))
         Dim term As Knowledge = ComputeIfAbsent(knowledge, type, isSource:=True)
+        Dim dbName As String = type
+
+        Call term.AddReferenceSource(dbName)
 
         For Each info As KeyValuePair(Of String, String()) In meta
             If info.Value Is Nothing Then
@@ -46,6 +49,8 @@ Public Class GraphPool : Inherits Graph(Of Knowledge, Association, GraphPool)
 
                 If metadata Is term Then
                     Continue For
+                Else
+                    Call metadata.AddReferenceSource(source:=dbName)
                 End If
 
                 Dim refId As String = VertexEdge.EdgeKey(metadata, term)
@@ -63,6 +68,8 @@ Public Class GraphPool : Inherits Graph(Of Knowledge, Association, GraphPool)
                     }
                     Call Me.Insert(link)
                 End If
+
+                Call link.AddReferenceSource(dbName)
             Next
         Next
     End Sub

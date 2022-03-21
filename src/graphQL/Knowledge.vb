@@ -1,4 +1,5 @@
-﻿Imports Microsoft.VisualBasic.Data.GraphTheory
+﻿Imports System.Runtime.CompilerServices
+Imports Microsoft.VisualBasic.Data.GraphTheory
 
 ''' <summary>
 ''' A knowledge node in this graph database
@@ -33,6 +34,11 @@ Public Class Knowledge : Inherits Vertex
     ''' </summary>
     ''' <returns></returns>
     Public Property source As New List(Of String)
+
+    <MethodImpl(MethodImplOptions.AggressiveInlining)>
+    Public Sub AddReferenceSource(source As String)
+        Call Me.source.Add(source)
+    End Sub
 
 End Class
 
