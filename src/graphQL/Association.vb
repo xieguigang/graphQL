@@ -8,4 +8,11 @@ Public Class Association : Inherits Edge(Of Knowledge)
     ''' <returns></returns>
     Public Property type As String
 
+    ''' <summary>
+    ''' the data source of this knowledge term 
+    ''' association data.
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property source As New List(Of String)
+
 End Class

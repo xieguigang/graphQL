@@ -17,6 +17,12 @@ Public Class Knowledge : Inherits Vertex
     ''' </returns>
     Public Property isMaster As Boolean
 
+    ''' <summary>
+    ''' the data source of this knowledge term node
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property source As New List(Of String)
+
 End Class
 
 

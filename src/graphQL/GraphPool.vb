@@ -22,6 +22,11 @@ Public Class GraphPool : Inherits Graph(Of Knowledge, Association, GraphPool)
     ''' with the given <paramref name="knowledge"/> 
     ''' term.
     ''' </param>
+    ''' <param name="type">
+    ''' the source reference of the <paramref name="knowledge"/> term,
+    ''' and it also will be used as the data source of the other
+    ''' meta data knowledge term and the association links.
+    ''' </param>
     Public Sub AddKnowledge(knowledge As String, type As String, meta As Dictionary(Of String, String()))
         Dim term As Knowledge = ComputeIfAbsent(knowledge, type, isSource:=True)
 
