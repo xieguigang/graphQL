@@ -11,48 +11,90 @@
 (2S)-alpha-2-Amino-4-methylvalerate,,3,(2S)-alpha-2-Amino-4-methylvalerate
 (2S)-alpha-2-Amino-4-methylvaleric acid,,6,(2S)-alpha-2-Amino-4-methylvaleric acid
 (2S)-alpha-Leucine,,6,(2S)-alpha-Leucine
+"(2S,3S)-2-Amino-3-methylpentanoate",,3,"(2S,3S)-2-Amino-3-methylpentanoate"
+"(2S,3S)-2-Amino-3-methyl-pentanoate",,3,"(2S,3S)-2-Amino-3-methyl-pentanoate"
+"(2S,3S)-2-amino-3-methylpentanoic acid",,6,"(2S,3S)-2-amino-3-methylpentanoic acid"
+"(2S,3S)-2-Amino-3-methylpentanoic acid",,3,"(2S,3S)-2-Amino-3-methylpentanoic acid"
+"(2S,3S)-2-Amino-3-methyl-pentanoic acid",,3,"(2S,3S)-2-Amino-3-methyl-pentanoic acid"
+"(2S,3S)-a-Amino-b-methyl-N-valerate",,3,"(2S,3S)-a-Amino-b-methyl-N-valerate"
+"(2S,3S)-a-Amino-b-methyl-N-valeric acid",,3,"(2S,3S)-a-Amino-b-methyl-N-valeric acid"
+"(2S,3S)-a-Amino-b-methylvalerate",,3,"(2S,3S)-a-Amino-b-methylvalerate"
+"(2S,3S)-a-Amino-b-methylvaleric acid",,3,"(2S,3S)-a-Amino-b-methylvaleric acid"
+"(2S,3S)-alpha-Amino-beta-merthyl-N-valerate",,3,"(2S,3S)-alpha-Amino-beta-merthyl-N-valerate"
+"(2S,3S)-alpha-Amino-beta-merthyl-N-valeric acid",,3,"(2S,3S)-alpha-Amino-beta-merthyl-N-valeric acid"
+"(2S,3S)-alpha-Amino-beta-merthylvalerate",,3,"(2S,3S)-alpha-Amino-beta-merthylvalerate"
+"(2S,3S)-alpha-Amino-beta-merthylvaleric acid",,3,"(2S,3S)-alpha-Amino-beta-merthylvaleric acid"
+"(2S,3S)-alpha-Amino-beta-methyl-N-valerate",,3,"(2S,3S)-alpha-Amino-beta-methyl-N-valerate"
+"(2S,3S)-alpha-Amino-beta-methyl-N-valeric acid",,3,"(2S,3S)-alpha-Amino-beta-methyl-N-valeric acid"
+"(2S,3S)-alpha-Amino-beta-methylvalerate",,3,"(2S,3S)-alpha-Amino-beta-methylvalerate"
+"(2S,3S)-alpha-Amino-beta-methylvaleric acid",,3,"(2S,3S)-alpha-Amino-beta-methylvaleric acid"
+"(2S,3S)-Alph-amino-beta-methylvalerate",,3,"(2S,3S)-Alph-amino-beta-methylvalerate"
+"(2S,3S)-Alph-amino-beta-methylvaleric acid",,3,"(2S,3S)-Alph-amino-beta-methylvaleric acid"
 (S)-(+)-Leucine,,3,(S)-(+)-Leucine
 (S)-2-Amino-4-methylpentanoate,,3,(S)-2-Amino-4-methylpentanoate
 (S)-2-Amino-4-methylpentanoic acid,,3,(S)-2-Amino-4-methylpentanoic acid
 (S)-2-Amino-4-methylvalerate,,3,(S)-2-Amino-4-methylvalerate
 (S)-2-Amino-4-methylvaleric acid,,3,(S)-2-Amino-4-methylvaleric acid
+(S)-Isoleucine,,3,(S)-Isoleucine
 (S)-Leucine,,3,(S)-Leucine
+"(S,S)-Isoleucine",,3,"(S,S)-Isoleucine"
+?-amino-?-methylvalerate,,3,?-amino-?-methylvalerate
+?-amino-?-methylvaleric acid,,6,?-amino-?-methylvaleric acid
 [OH2],,3,[OH2]
+"[S-(R*,r*)]-2-amino-3-methylpentanoate",,3,"[S-(R*,r*)]-2-amino-3-methylpentanoate"
+"[S-(R*,r*)]-2-amino-3-methylpentanoic acid",,3,"[S-(R*,r*)]-2-amino-3-methylpentanoic acid"
 2-(acetyloxy)benzoic acid,,3,2-(acetyloxy)benzoic acid
 2-(ACETYLOXY)benzoIC ACID,,3,2-(ACETYLOXY)benzoIC ACID
 2-(ACETYLOXY)BENZOIC ACID,,3,2-(ACETYLOXY)BENZOIC ACID
 2-Acetoxybenzenecarboxylic acid,,9,2-Acetoxybenzenecarboxylic acid
 2-acetoxybenzoic acid,,3,2-acetoxybenzoic acid
+2-Amino-3-methylpentanoate,,3,2-Amino-3-methylpentanoate
+2-Amino-3-methylpentanoic acid,,3,2-Amino-3-methylpentanoic acid
+2-Amino-3-methylvalerate,,3,2-Amino-3-methylvalerate
+2-Amino-3-methylvaleric acid,,9,2-Amino-3-methylvaleric acid
 2-Amino-4-methylvalerate,,3,2-Amino-4-methylvalerate
 2-Amino-4-methylvaleric acid,,6,2-Amino-4-methylvaleric acid
+"2S,3S-Isoleucine",,3,"2S,3S-Isoleucine"
+2S-Amino-3S-methylpentanoate,,3,2S-Amino-3S-methylpentanoate
 3DMET:B00284,,3,3DMET:B00284
 3DMET:B01124,,3,3DMET:B01124
 4-Methyl-L-norvaline,,3,4-Methyl-L-norvaline
 50-78-2,,9,50-78-2
 61-90-5,,6,61-90-5
+73-32-5,,6,73-32-5
 7732-18-5,,6,7732-18-5
+a-Amino-b-methylvalerate,,3,a-Amino-b-methylvalerate
+a-Amino-b-methylvaleric acid,,3,a-Amino-b-methylvaleric acid
 Acetosal,,3,Acetosal
 Acetylsalicylate,,9,Acetylsalicylate
 acetylsalicylic acid,,3,acetylsalicylic acid
 Acetylsalicylic acid,,9,Acetylsalicylic acid
 Acetyonyl,,3,Acetyonyl
 acqua,,3,acqua
+AGPKZVBTJJNPAG-WHFBIAKZSA-N,,6,AGPKZVBTJJNPAG-WHFBIAKZSA-N
 AIN[PDBj],,3,AIN[PDBj]
+Alloisoleucine,,3,Alloisoleucine
 Aloxiprimum,,3,Aloxiprimum
+alpha-Amino-beta-methylvalerate,,3,alpha-Amino-beta-methylvalerate
+alpha-Amino-beta-methylvaleric acid,,3,alpha-Amino-beta-methylvaleric acid
 ASA,,6,ASA
 Aspalon,,3,Aspalon
 Aspirin,,9,Aspirin
 B00034,,3,B00034
 C00001,,7,C00001
+C00001374,,9,C00001374
 C00001377,,6,C00001377
 C00123,,7,C00123
+C00407,,10,C00407
 C01405,,10,C01405
-C6H13NO2,,6,C6H13NO2
+C6H13NO2,,15,C6H13NO2
 C9H8O4,,9,C9H8O4
+CC[C@H](C)[C@H](N)C(O)=O,,3,CC[C@H](C)[C@H](N)C(O)=O
 ChEBI:15365,,10,ChEBI:15365
 ChEBI:15377,,3,ChEBI:15377
 CHEBI:15377,,4,CHEBI:15377
 ChEBI:15603,,6,ChEBI:15603
+ChEBI:17191,,10,ChEBI:17191
 CHEMBL1098659,,3,CHEMBL1098659
 CHEMBL25,,3,CHEMBL25
 CHEMBL291962,,3,CHEMBL291962
@@ -61,14 +103,26 @@ dihydrogen oxide,,3,dihydrogen oxide
 Durlaza,,3,Durlaza
 Easprin,,3,Easprin
 Ecolen,,3,Ecolen
+Erythro-L-isoleucine,,3,Erythro-L-isoleucine
 H2O,,5,H2O
+HMDB0000172,,7,HMDB0000172
 HMDB0000687,,4,HMDB0000687
 HMDB0001879,,7,HMDB0001879
 HMDB0002111,,3,HMDB0002111
 HOH[PDBj],,3,HOH[PDBj]
 hydrogen hydroxide,,3,hydrogen hydroxide
+I,,6,I
+Ile,,6,Ile
+ILE,,6,ILE
+"InChI=1S/C6H13NO2/c1-3-4(2)5(7)6(8)9/h4-5H,3,7H2,1-2H3,(H,8,9)/t4-,5-/m0/s1",,6,"InChI=1S/C6H13NO2/c1-3-4(2)5(7)6(8)9/h4-5H,3,7H2,1-2H3,(H,8,9)/t4-,5-/m0/s1"
+Isoleucine,,6,Isoleucine
+Iso-leucine,,3,Iso-leucine
+ISOLEUCINE,,6,ISOLEUCINE
+"Isoleucine, L isomer",,3,"Isoleucine, L isomer"
+"Isoleucine, L-isomer",,3,"Isoleucine, L-isomer"
 J1.167C,,3,J1.167C
 L,,3,L
+L-(+)-Isoleucine,,3,L-(+)-Isoleucine
 L-(+)-Leucine,,3,L-(+)-Leucine
 L-a-Aminoisocaproate,,3,L-a-Aminoisocaproate
 L-a-Aminoisocaproic acid,,3,L-a-Aminoisocaproic acid
@@ -81,6 +135,10 @@ Leucine,,3,Leucine
 LEUCINE,,3,LEUCINE
 "Leucine, L isomer",,3,"Leucine, L isomer"
 "Leucine, L-isomer",,3,"Leucine, L-isomer"
+L-Ile,,3,L-Ile
+L-isoleucine,,3,L-isoleucine
+L-Isoleucine,,9,L-Isoleucine
+L-Isomer isoleucine,,3,L-Isomer isoleucine
 L-Isomer leucine,,3,L-Isomer leucine
 L-Leucin,,3,L-Leucin
 L-Leucine,,6,L-Leucine
@@ -89,13 +147,16 @@ Micristin,,3,Micristin
 NIKKAJI:J2.300K,,3,NIKKAJI:J2.300K
 NIKKAJI:J43.587B,,3,NIKKAJI:J43.587B
 O[PDBj],,3,O[PDBj]
+OC([C@H]([C@H](CC)C)N)=O,,3,OC([C@H]([C@H](CC)C)N)=O
 oxidane,,3,oxidane
 Persistin,,3,Persistin
 PubChem:2244,,3,PubChem:2244
 PubChem:3303,,3,PubChem:3303
 PubChem:3423,,3,PubChem:3423
+PubChem:3697,,3,PubChem:3697
 PubChem:4594,,3,PubChem:4594
 PubChem:6106,,3,PubChem:6106
+PubChem:6306,,3,PubChem:6306
 Rhodine,,3,Rhodine
 salicylic acid acetate,,3,salicylic acid acetate
 Salicylic acid acetate,,3,Salicylic acid acetate
