@@ -206,76 +206,80 @@ Public Module Query
                                        Optional eps As Double = 0.001,
                                        Optional unweighted As Boolean = False) As list
 
-        Dim commons As Index(Of String) = DirectCast(REnv.asVector(Of String)(common_type), String()).Indexing
-        Dim copy As New NetworkGraph
+        Dim knowledges = g.ExtractKnowledges(Of EntityObject)(eps).ToArray
 
-        If commons.Count > 0 Then
-            For Each v As Node In g.vertex.ToArray
-                If Not v.data("knowledge_type") Like commons Then
-                    Call copy.CreateNode(v.label, v.data.Clone)
-                End If
-            Next
 
-            For Each edge As Edge In g.graphEdges
-                If (edge.U.data("knowledge_type") Like commons) OrElse (edge.V.data("knowledge_type") Like commons) Then
-                    Continue For
-                End If
 
-                Call copy.CreateEdge(
-                    u:=copy.GetElementByID(edge.U.label),
-                    v:=copy.GetElementByID(edge.V.label),
-                    weight:=edge.weight,
-                    data:=edge.data.Clone
-                )
-            Next
-        Else
-            copy = g
-        End If
+        'Dim commons As Index(Of String) = DirectCast(REnv.asVector(Of String)(common_type), String()).Indexing
+        'Dim copy As New NetworkGraph
 
-        If unweighted Then
-            Call Communities.AnalysisUnweighted(copy)
-        Else
-            Call Communities.Analysis(copy, eps:=eps)
-        End If
+        'If commons.Count > 0 Then
+        '    For Each v As Node In g.vertex.ToArray
+        '        If Not v.data("knowledge_type") Like commons Then
+        '            Call copy.CreateNode(v.label, v.data.Clone)
+        '        End If
+        '    Next
 
-        If commons.Count > 0 Then
-            For Each v As Node In copy.vertex
-                g.GetElementByID(v.label).data(NamesOf.REFLECTION_ID_MAPPING_NODETYPE) = v.data(NamesOf.REFLECTION_ID_MAPPING_NODETYPE)
-            Next
-        End If
+        '    For Each edge As Edge In g.graphEdges
+        '        If (edge.U.data("knowledge_type") Like commons) OrElse (edge.V.data("knowledge_type") Like commons) Then
+        '            Continue For
+        '        End If
 
-        Dim knowledges As New List(Of EntityObject)
-        Dim communityList = g.vertex _
-            .GroupBy(Function(v)
-                         Return v.data(NamesOf.REFLECTION_ID_MAPPING_NODETYPE)
-                     End Function) _
-            .ToArray
+        '        Call copy.CreateEdge(
+        '            u:=copy.GetElementByID(edge.U.label),
+        '            v:=copy.GetElementByID(edge.V.label),
+        '            weight:=edge.weight,
+        '            data:=edge.data.Clone
+        '        )
+        '    Next
+        'Else
+        '    copy = g
+        'End If
 
-        For Each term In communityList
-            Dim hits As Index(Of String) = term.Select(Function(v) v.label).Indexing
-            Dim metadata = g.graphEdges _
-                .Where(Function(url)
-                           Return url.U.label Like hits OrElse url.V.label Like hits
-                       End Function) _
-                .Select(Function(url) {url.U, url.V}) _
-                .IteratesALL _
-                .GroupBy(Function(v) v.label) _
-                .Select(Function(v) v.First) _
-                .GroupBy(Function(v)
-                             Return v.data("knowledge_type")
-                         End Function) _
-                .ToArray
-            Dim props As New Dictionary(Of String, String)
+        'If unweighted Then
+        '    Call Communities.AnalysisUnweighted(copy)
+        'Else
+        '    Call Communities.Analysis(copy, eps:=eps)
+        'End If
 
-            For Each p In metadata
-                Call props.Add(p.Key, p.Select(Function(v) v.label).JoinBy("; "))
-            Next
+        'If commons.Count > 0 Then
+        '    For Each v As Node In copy.vertex
+        '        g.GetElementByID(v.label).data(NamesOf.REFLECTION_ID_MAPPING_NODETYPE) = v.data(NamesOf.REFLECTION_ID_MAPPING_NODETYPE)
+        '    Next
+        'End If
 
-            Call knowledges.Add(New EntityObject With {
-                .ID = term.Key,
-                .Properties = props
-            })
-        Next
+
+        'Dim communityList = g.vertex _
+        '    .GroupBy(Function(v)
+        '                 Return v.data(NamesOf.REFLECTION_ID_MAPPING_NODETYPE)
+        '             End Function) _
+        '    .ToArray
+
+        'For Each term In communityList
+        '    Dim hits As Index(Of String) = term.Select(Function(v) v.label).Indexing
+        '    Dim metadata = g.graphEdges _
+        '        .Where(Function(url)
+        '                   Return url.U.label Like hits OrElse url.V.label Like hits
+        '               End Function) _
+        '        .Select(Function(url) {url.U, url.V}) _
+        '        .IteratesALL _
+        '        .GroupBy(Function(v) v.label) _
+        '        .Select(Function(v) v.First) _
+        '        .GroupBy(Function(v)
+        '                     Return v.data("knowledge_type")
+        '                 End Function) _
+        '        .ToArray
+        '    Dim props As New Dictionary(Of String, String)
+
+        '    For Each p In metadata
+        '        Call props.Add(p.Key, p.Select(Function(v) v.label).JoinBy("; "))
+        '    Next
+
+        '    'Call knowledges.Add(New EntityObject With {
+        '    '    .ID = term.Key,
+        '    '    .Properties = props
+        '    '})
+        'Next
 
         Dim rtvl As New list With {
             .slots = New Dictionary(Of String, Object) From {
