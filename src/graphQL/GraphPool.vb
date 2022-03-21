@@ -13,6 +13,10 @@ Public Class GraphPool : Inherits Graph(Of Knowledge, Association, GraphPool)
         Next
     End Sub
 
+    Public Function GetElementById(ref As String) As Knowledge
+        Return vertices(ref)
+    End Function
+
     ''' <summary>
     ''' 
     ''' </summary>

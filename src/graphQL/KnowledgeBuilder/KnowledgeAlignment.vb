@@ -7,6 +7,12 @@ Public Class KnowledgeAlignment : Inherits ComparisonProvider
     ReadOnly all As Dictionary(Of String, KnowledgeFrameRow)
     ReadOnly fieldSet As String()
 
+    Public ReadOnly Property AllUniqueTerms As IEnumerable(Of String)
+        Get
+            Return all.Keys
+        End Get
+    End Property
+
     ''' <summary>
     ''' 
     ''' </summary>
@@ -22,6 +28,10 @@ Public Class KnowledgeAlignment : Inherits ComparisonProvider
         Me.fieldSet = fieldSet
         Me.all = all.ToDictionary(Function(i) i.UniqeId)
     End Sub
+
+    Public Function GetMembers(ref As BTreeCluster) As KnowledgeFrameRow()
+        Return (From id As String In ref.members Select all(id)).ToArray
+    End Function
 
     Protected Overrides Function GetSimilarity(x As String, y As String) As Double
         Dim a As KnowledgeFrameRow = all(x)
@@ -44,6 +54,23 @@ Public Class KnowledgeAlignment : Inherits ComparisonProvider
     Private Shared Sub getScoreXy(a As KnowledgeFrameRow, b As KnowledgeFrameRow, ref As String, ByRef x As Double, ByRef y As Double)
         Dim v1 As String() = a(ref)
         Dim v2 As String() = b(ref)
+        Dim nil1 = v1.IsNullOrEmpty
+        Dim nil2 = v2.IsNullOrEmpty
+
+        If nil1 AndAlso nil2 Then
+            x = 0
+            y = 0
+            Return
+        ElseIf nil1 Then
+            x = 0
+            y = 1
+            Return
+        ElseIf nil2 Then
+            x = 1
+            y = 0
+            Return
+        End If
+
         Dim jaccard As Double = v1.Intersect(v2).Count / v1.Union(v2).Count
 
         If jaccard = 0 Then

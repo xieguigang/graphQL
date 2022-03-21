@@ -100,7 +100,7 @@ Public Module Query
     ''' </returns>
     <ExportAPI("networkGraph")>
     Public Function networkGraph(kb As GraphPool) As NetworkGraph
-        Return kb.createGraph
+        Return kb.CreateGraph
     End Function
 
     <ExportAPI("Kosaraju.SCCs")>
@@ -181,7 +181,7 @@ Public Module Query
     ''' <summary>
     ''' export knowledge terms based on the network community algorithm
     ''' </summary>
-    ''' <param name="g"></param>
+    ''' <param name="kb"></param>
     ''' <param name="common_type">
     ''' all of the type defined from this parameter will be removed from 
     ''' the community algorithm due to the reason of common type always 
@@ -200,14 +200,17 @@ Public Module Query
     '''                     community data result.
     ''' </returns>
     <ExportAPI("knowledgeCommunity")>
-    Public Function knowledgeCommunity(g As NetworkGraph,
+    Public Function knowledgeCommunity(kb As GraphPool,
+                                       <RRawVectorArgument(GetType(String))> indexBy As Object,
                                        <RRawVectorArgument(GetType(String))>
                                        Optional common_type As Object = Nothing,
                                        Optional eps As Double = 0.001,
                                        Optional unweighted As Boolean = False) As list
 
+        Dim g As NetworkGraph = kb.CreateGraph
         Dim knowledges = g.ExtractKnowledges(eps).ToArray
-
+        Dim index As String() = DirectCast(REnv.asVector(Of String)(indexBy), String())
+        Dim unique As KnowledgeFrameRow() = KnowledgeFrameRow.CorrectKnowledges(kb, KnowledgeFrameRow.GroupBy(knowledges, fieldSet:=index), index).ToArray
 
 
         'Dim commons As Index(Of String) = DirectCast(REnv.asVector(Of String)(common_type), String()).Indexing
@@ -284,7 +287,8 @@ Public Module Query
         Dim rtvl As New list With {
             .slots = New Dictionary(Of String, Object) From {
                 {"graph", g},
-                {"knowledges", knowledges.ToArray}
+                {"knowledges", unique},
+                {"raw", knowledges}
             }
         }
 
