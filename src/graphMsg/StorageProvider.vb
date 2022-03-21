@@ -98,8 +98,8 @@ Public Class StorageProvider
         End If
     End Function
 
-    Public Shared Function GetKeywords(res As String, pack As ZipArchive) As String()
-        Return MsgPackSerializer.Deserialize(Of String())(pack.GetEntry(res).Open)
+    Public Shared Function GetKeywords(res As String, pack As ZipArchive) As IndexByRef
+        Return MsgPackSerializer.Deserialize(Of IndexByRef)(pack.GetEntry(res).Open)
     End Function
 
     Public Shared Function GetKnowledges(file As Stream) As Knowledge()
@@ -110,7 +110,7 @@ Public Class StorageProvider
 
     Public Shared Function GetKnowledges(pack As ZipArchive) As Dictionary(Of String, Knowledge)
         Dim terms As New Dictionary(Of String, Knowledge)
-        Dim termTypes As String() = GetKeywords("meta/keywords.msg", pack)
+        Dim termTypes As IndexByRef = GetKeywords("meta/keywords.msg", pack)
         Dim files = pack.Entries
 
         For Each item In files.Where(Function(t) t.FullName.StartsWith("terms"))
@@ -121,8 +121,11 @@ Public Class StorageProvider
                     .ID = v.guid,
                     .label = v.term,
                     .mentions = v.mentions,
-                    .type = termTypes(v.type),
-                    .isMaster = v.isMaster
+                    .type = termTypes.types(v.type),
+                    .isMaster = v.isMaster,
+                    .source = v.referenceSources _
+                        .Select(Function(i) termTypes.source(i)) _
+                        .AsList
                 }
             Next
         Next
@@ -131,7 +134,7 @@ Public Class StorageProvider
     End Function
 
     Public Shared Iterator Function GetNetwork(pack As ZipArchive, terms As Dictionary(Of String, Knowledge)) As IEnumerable(Of Association)
-        Dim linkTypes As String() = GetKeywords("meta/associations.msg", pack)
+        Dim linkTypes As IndexByRef = GetKeywords("meta/associations.msg", pack)
         Dim files = pack.Entries
 
         For Each item In files.Where(Function(t) t.FullName.StartsWith("graph"))
@@ -139,15 +142,23 @@ Public Class StorageProvider
 
             For Each l As LinkMsg In list
                 Yield New Association With {
-                    .type = linkTypes(l.type),
+                    .type = linkTypes.types(l.type),
                     .U = terms(l.u.ToString),
                     .V = terms(l.v.ToString),
-                    .weight = l.weight
+                    .weight = l.weight,
+                    .source = l.referenceSources _
+                        .Select(Function(i) linkTypes.source(i)) _
+                        .AsList
                 }
             Next
         Next
     End Function
 
+    ''' <summary>
+    ''' load knowledge database
+    ''' </summary>
+    ''' <param name="pack"></param>
+    ''' <returns></returns>
     Public Shared Function CreateQuery(pack As ZipArchive) As GraphPool
         Dim terms As Dictionary(Of String, Knowledge) = GetKnowledges(pack)
         Dim links As Association() = GetNetwork(pack, terms).ToArray
