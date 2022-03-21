@@ -1,0 +1,19 @@
+key,value
+name,L-isoleucine
+chebi,ChEBI:17191
+formula,C6H13NO2
+inchi,"InChI=1S/C6H13NO2/c1-3-4(2)5(7)6(8)9/h4-5H,3,7H2,1-2H3,(H,8,9)/t4-,5-/m0/s1"
+inchikey,AGPKZVBTJJNPAG-WHFBIAKZSA-N
+smiles,OC([C@H]([C@H](CC)C)N)=O
+name,"(2S,3S)-2-amino-3-methylpentanoic acid"
+name,2-Amino-3-methylvaleric acid
+name,?-amino-?-methylvaleric acid
+name,I
+name,Ile
+name,ISOLEUCINE
+name,L-Isoleucine
+knapsack,C00001374
+kegg,C00407
+hmdb,HMDB0000172
+biocyc,ILE
+wikipedia,Isoleucine

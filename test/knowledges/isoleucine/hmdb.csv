@@ -1,0 +1,60 @@
+key,value
+hmdb,HMDB0000172
+name,L-Isoleucine
+name,"(2S,3S)-2-Amino-3-methylpentanoic acid"
+name,2-Amino-3-methylvaleric acid
+name,alpha-Amino-beta-methylvaleric acid
+name,I
+name,Ile
+name,ISOLEUCINE
+name,"(2S,3S)-2-Amino-3-methylpentanoate"
+name,2-Amino-3-methylvalerate
+name,a-Amino-b-methylvalerate
+name,a-Amino-b-methylvaleric acid
+name,alpha-Amino-beta-methylvalerate
+name,?-amino-?-methylvalerate
+name,?-amino-?-methylvaleric acid
+name,"(2S,3S)-2-Amino-3-methyl-pentanoate"
+name,"(2S,3S)-2-Amino-3-methyl-pentanoic acid"
+name,"(2S,3S)-a-Amino-b-methyl-N-valerate"
+name,"(2S,3S)-a-Amino-b-methyl-N-valeric acid"
+name,"(2S,3S)-a-Amino-b-methylvalerate"
+name,"(2S,3S)-a-Amino-b-methylvaleric acid"
+name,"(2S,3S)-Alph-amino-beta-methylvalerate"
+name,"(2S,3S)-Alph-amino-beta-methylvaleric acid"
+name,"(2S,3S)-alpha-Amino-beta-merthyl-N-valerate"
+name,"(2S,3S)-alpha-Amino-beta-merthyl-N-valeric acid"
+name,"(2S,3S)-alpha-Amino-beta-merthylvalerate"
+name,"(2S,3S)-alpha-Amino-beta-merthylvaleric acid"
+name,"(2S,3S)-alpha-Amino-beta-methyl-N-valerate"
+name,"(2S,3S)-alpha-Amino-beta-methyl-N-valeric acid"
+name,"(2S,3S)-alpha-Amino-beta-methylvalerate"
+name,"(2S,3S)-alpha-Amino-beta-methylvaleric acid"
+name,(S)-Isoleucine
+name,"(S,S)-Isoleucine"
+name,2-Amino-3-methylpentanoate
+name,2-Amino-3-methylpentanoic acid
+name,"2S,3S-Isoleucine"
+name,Erythro-L-isoleucine
+name,Iso-leucine
+name,L-(+)-Isoleucine
+name,L-Ile
+name,"[S-(R*,r*)]-2-amino-3-methylpentanoate"
+name,"[S-(R*,r*)]-2-amino-3-methylpentanoic acid"
+name,"Isoleucine, L-isomer"
+name,Alloisoleucine
+name,"Isoleucine, L isomer"
+name,L-Isomer isoleucine
+name,2S-Amino-3S-methylpentanoate
+formula,C6H13NO2
+name,"(2S,3S)-2-amino-3-methylpentanoic acid"
+cas,73-32-5
+smiles,CC[C@H](C)[C@H](N)C(O)=O
+inchi,"InChI=1S/C6H13NO2/c1-3-4(2)5(7)6(8)9/h4-5H,3,7H2,1-2H3,(H,8,9)/t4-,5-/m0/s1"
+inchikey,AGPKZVBTJJNPAG-WHFBIAKZSA-N
+knapsack,C00001374
+kegg,C00407
+biocyc,ILE
+wikipedia,Isoleucine
+pubchem,PubChem:6306
+chebi,ChEBI:17191
