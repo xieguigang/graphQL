@@ -59,12 +59,20 @@ Public Class KnowledgeFrameRow : Inherits DynamicPropertyBase(Of String())
                 Dim top As New List(Of (ref As String, score As Double))
 
                 For Each term As KnowledgeFrameRow In data
+                    If term(ref) Is Nothing Then
+                        Continue For
+                    End If
+
                     For Each refId As String In term(ref)
                         Call top.Add((refId, kb.GetElementById(refId).mentions))
                     Next
                 Next
 
-                corrected(ref) = {top.OrderByDescending(Function(i) i.score).First.ref}
+                If top.Count = 0 Then
+                    corrected(ref) = {}
+                Else
+                    corrected(ref) = {top.OrderByDescending(Function(i) i.score).First.ref}
+                End If
             Else
                 ' just union 
                 corrected(ref) = (From str As String

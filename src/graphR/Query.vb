@@ -1,4 +1,5 @@
 Imports System.Drawing
+Imports System.Runtime.CompilerServices
 Imports graphQL
 Imports Microsoft.VisualBasic.ApplicationServices.Debugging.Logging
 Imports Microsoft.VisualBasic.CommandLine.Reflection
@@ -287,11 +288,27 @@ Public Module Query
         Dim rtvl As New list With {
             .slots = New Dictionary(Of String, Object) From {
                 {"graph", g},
-                {"knowledges", unique},
-                {"raw", knowledges}
+                {"knowledges", unique.castTable},
+                {"raw", knowledges.castTable}
             }
         }
 
         Return rtvl
+    End Function
+
+    <Extension>
+    Private Function castTable(data As IEnumerable(Of KnowledgeFrameRow)) As EntityObject()
+        Return data _
+            .Select(Function(i)
+                        Return New EntityObject With {
+                            .ID = i.UniqeId,
+                            .Properties = i.Properties _
+                                .ToDictionary(Function(a) a.Key,
+                                              Function(a)
+                                                  Return a.Value.JoinBy("; ")
+                                              End Function)
+                        }
+                    End Function) _
+            .ToArray
     End Function
 End Module
