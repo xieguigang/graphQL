@@ -31,6 +31,10 @@ process_knowledge(kb, read.csv("./water_chebi.csv", row.names = None),"chebi")
 process_knowledge(kb, read.csv("./leucine/hmdb.csv", row.names = None), "hmdb")
 process_knowledge(kb, read.csv("./leucine/kegg.csv", row.names = None), "kegg")
 
+process_knowledge(kb, read.csv("./isoleucine/chebi.csv", row.names = None), "chebi")
+process_knowledge(kb, read.csv("./isoleucine/kegg.csv", row.names = None), "kegg")
+process_knowledge(kb, read.csv("./isoleucine/hmdb.csv", row.names = None), "hmdb")
+
 
 result = Query::query(kb, "Aspirin")
 
