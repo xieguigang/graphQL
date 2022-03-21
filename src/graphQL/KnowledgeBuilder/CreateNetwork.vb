@@ -1,12 +1,11 @@
 ﻿Imports System.Runtime.CompilerServices
-Imports graphQL
 Imports Microsoft.VisualBasic.Data.visualize.Network.FileStream.Generic
 Imports Microsoft.VisualBasic.Data.visualize.Network.Graph
 
-Module debugHandler
+Public Module CreateNetwork
 
     <Extension>
-    Public Function createGraph(kb As GraphPool) As NetworkGraph
+    Public Function CreateGraph(kb As GraphPool) As NetworkGraph
         Dim g As New NetworkGraph
         Dim node As Node
         Dim link As Edge
