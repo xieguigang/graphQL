@@ -1,4 +1,5 @@
-﻿Imports Microsoft.VisualBasic.Data.GraphTheory
+﻿Imports System.Runtime.CompilerServices
+Imports Microsoft.VisualBasic.Data.GraphTheory
 
 Public Class Association : Inherits Edge(Of Knowledge)
 
@@ -7,5 +8,17 @@ Public Class Association : Inherits Edge(Of Knowledge)
     ''' </summary>
     ''' <returns></returns>
     Public Property type As String
+
+    ''' <summary>
+    ''' the data source of this knowledge term 
+    ''' association data.
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property source As New List(Of String)
+
+    <MethodImpl(MethodImplOptions.AggressiveInlining)>
+    Public Sub AddReferenceSource(source As String)
+        Call Me.source.Add(source)
+    End Sub
 
 End Class

@@ -1,5 +1,6 @@
 ﻿Imports graphQL
 Imports Microsoft.VisualBasic.Data.IO.MessagePack.Serialization
+Imports Microsoft.VisualBasic.Linq
 
 Public Class LinkMsg
 
@@ -7,17 +8,23 @@ Public Class LinkMsg
     <MessagePackMember(1)> Public Property v As Integer
     <MessagePackMember(2)> Public Property weight As Double
     <MessagePackMember(3)> Public Property type As Integer
+    <MessagePackMember(4)> Public Property referenceSources As Integer()
 
     Public Overrides Function ToString() As String
         Return $"[{u}->{v}] {type}"
     End Function
 
-    Public Shared Iterator Function GetRelationships(kb As GraphPool, Optional types As List(Of String) = Nothing) As IEnumerable(Of LinkMsg)
+    Public Shared Iterator Function GetRelationships(kb As GraphPool, Optional ref As IndexByRef = Nothing) As IEnumerable(Of LinkMsg)
         Dim allTypes = kb.graphEdges.Select(Function(i) i.type).Distinct.Indexing
+        Dim allSources = kb.graphEdges _
+            .Select(Function(i) i.source) _
+            .IteratesALL _
+            .Distinct _
+            .Indexing
 
-        If Not types Is Nothing Then
-            Call types.Clear()
-            Call types.AddRange(allTypes.Objects)
+        If Not ref Is Nothing Then
+            ref.types = allTypes.Objects
+            ref.source = allTypes.Objects
         End If
 
         For Each link As Association In kb.graphEdges
@@ -25,7 +32,8 @@ Public Class LinkMsg
                 .type = allTypes.IndexOf(link.type),
                 .u = link.U.ID,
                 .v = link.V.ID,
-                .weight = link.weight
+                .weight = link.weight,
+                .referenceSources = allSources.IndexOf(link.source.Distinct)
             }
         Next
     End Function

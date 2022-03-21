@@ -1,4 +1,5 @@
 Imports System.Drawing
+Imports System.Runtime.CompilerServices
 Imports graphQL
 Imports Microsoft.VisualBasic.ApplicationServices.Debugging.Logging
 Imports Microsoft.VisualBasic.CommandLine.Reflection
@@ -100,7 +101,7 @@ Public Module Query
     ''' </returns>
     <ExportAPI("networkGraph")>
     Public Function networkGraph(kb As GraphPool) As NetworkGraph
-        Return kb.createGraph
+        Return kb.CreateGraph
     End Function
 
     <ExportAPI("Kosaraju.SCCs")>
@@ -181,7 +182,7 @@ Public Module Query
     ''' <summary>
     ''' export knowledge terms based on the network community algorithm
     ''' </summary>
-    ''' <param name="g"></param>
+    ''' <param name="kb"></param>
     ''' <param name="common_type">
     ''' all of the type defined from this parameter will be removed from 
     ''' the community algorithm due to the reason of common type always 
@@ -200,90 +201,114 @@ Public Module Query
     '''                     community data result.
     ''' </returns>
     <ExportAPI("knowledgeCommunity")>
-    Public Function knowledgeCommunity(g As NetworkGraph,
+    Public Function knowledgeCommunity(kb As GraphPool,
+                                       <RRawVectorArgument(GetType(String))> indexBy As Object,
                                        <RRawVectorArgument(GetType(String))>
                                        Optional common_type As Object = Nothing,
                                        Optional eps As Double = 0.001,
                                        Optional unweighted As Boolean = False) As list
 
-        Dim commons As Index(Of String) = DirectCast(REnv.asVector(Of String)(common_type), String()).Indexing
-        Dim copy As New NetworkGraph
+        Dim g As NetworkGraph = kb.CreateGraph
+        Dim knowledges = g.ExtractKnowledges(eps).ToArray
+        Dim index As String() = DirectCast(REnv.asVector(Of String)(indexBy), String())
+        Dim unique As KnowledgeFrameRow() = KnowledgeFrameRow.CorrectKnowledges(kb, KnowledgeFrameRow.GroupBy(knowledges, fieldSet:=index), index).ToArray
 
-        If commons.Count > 0 Then
-            For Each v As Node In g.vertex.ToArray
-                If Not v.data("knowledge_type") Like commons Then
-                    Call copy.CreateNode(v.label, v.data.Clone)
-                End If
-            Next
 
-            For Each edge As Edge In g.graphEdges
-                If (edge.U.data("knowledge_type") Like commons) OrElse (edge.V.data("knowledge_type") Like commons) Then
-                    Continue For
-                End If
+        'Dim commons As Index(Of String) = DirectCast(REnv.asVector(Of String)(common_type), String()).Indexing
+        'Dim copy As New NetworkGraph
 
-                Call copy.CreateEdge(
-                    u:=copy.GetElementByID(edge.U.label),
-                    v:=copy.GetElementByID(edge.V.label),
-                    weight:=edge.weight,
-                    data:=edge.data.Clone
-                )
-            Next
-        Else
-            copy = g
-        End If
+        'If commons.Count > 0 Then
+        '    For Each v As Node In g.vertex.ToArray
+        '        If Not v.data("knowledge_type") Like commons Then
+        '            Call copy.CreateNode(v.label, v.data.Clone)
+        '        End If
+        '    Next
 
-        If unweighted Then
-            Call Communities.AnalysisUnweighted(copy)
-        Else
-            Call Communities.Analysis(copy, eps:=eps)
-        End If
+        '    For Each edge As Edge In g.graphEdges
+        '        If (edge.U.data("knowledge_type") Like commons) OrElse (edge.V.data("knowledge_type") Like commons) Then
+        '            Continue For
+        '        End If
 
-        If commons.Count > 0 Then
-            For Each v As Node In copy.vertex
-                g.GetElementByID(v.label).data(NamesOf.REFLECTION_ID_MAPPING_NODETYPE) = v.data(NamesOf.REFLECTION_ID_MAPPING_NODETYPE)
-            Next
-        End If
+        '        Call copy.CreateEdge(
+        '            u:=copy.GetElementByID(edge.U.label),
+        '            v:=copy.GetElementByID(edge.V.label),
+        '            weight:=edge.weight,
+        '            data:=edge.data.Clone
+        '        )
+        '    Next
+        'Else
+        '    copy = g
+        'End If
 
-        Dim knowledges As New List(Of EntityObject)
-        Dim communityList = g.vertex _
-            .GroupBy(Function(v)
-                         Return v.data(NamesOf.REFLECTION_ID_MAPPING_NODETYPE)
-                     End Function) _
-            .ToArray
+        'If unweighted Then
+        '    Call Communities.AnalysisUnweighted(copy)
+        'Else
+        '    Call Communities.Analysis(copy, eps:=eps)
+        'End If
 
-        For Each term In communityList
-            Dim hits As Index(Of String) = term.Select(Function(v) v.label).Indexing
-            Dim metadata = g.graphEdges _
-                .Where(Function(url)
-                           Return url.U.label Like hits OrElse url.V.label Like hits
-                       End Function) _
-                .Select(Function(url) {url.U, url.V}) _
-                .IteratesALL _
-                .GroupBy(Function(v) v.label) _
-                .Select(Function(v) v.First) _
-                .GroupBy(Function(v)
-                             Return v.data("knowledge_type")
-                         End Function) _
-                .ToArray
-            Dim props As New Dictionary(Of String, String)
+        'If commons.Count > 0 Then
+        '    For Each v As Node In copy.vertex
+        '        g.GetElementByID(v.label).data(NamesOf.REFLECTION_ID_MAPPING_NODETYPE) = v.data(NamesOf.REFLECTION_ID_MAPPING_NODETYPE)
+        '    Next
+        'End If
 
-            For Each p In metadata
-                Call props.Add(p.Key, p.Select(Function(v) v.label).JoinBy("; "))
-            Next
 
-            Call knowledges.Add(New EntityObject With {
-                .ID = term.Key,
-                .Properties = props
-            })
-        Next
+        'Dim communityList = g.vertex _
+        '    .GroupBy(Function(v)
+        '                 Return v.data(NamesOf.REFLECTION_ID_MAPPING_NODETYPE)
+        '             End Function) _
+        '    .ToArray
+
+        'For Each term In communityList
+        '    Dim hits As Index(Of String) = term.Select(Function(v) v.label).Indexing
+        '    Dim metadata = g.graphEdges _
+        '        .Where(Function(url)
+        '                   Return url.U.label Like hits OrElse url.V.label Like hits
+        '               End Function) _
+        '        .Select(Function(url) {url.U, url.V}) _
+        '        .IteratesALL _
+        '        .GroupBy(Function(v) v.label) _
+        '        .Select(Function(v) v.First) _
+        '        .GroupBy(Function(v)
+        '                     Return v.data("knowledge_type")
+        '                 End Function) _
+        '        .ToArray
+        '    Dim props As New Dictionary(Of String, String)
+
+        '    For Each p In metadata
+        '        Call props.Add(p.Key, p.Select(Function(v) v.label).JoinBy("; "))
+        '    Next
+
+        '    'Call knowledges.Add(New EntityObject With {
+        '    '    .ID = term.Key,
+        '    '    .Properties = props
+        '    '})
+        'Next
 
         Dim rtvl As New list With {
             .slots = New Dictionary(Of String, Object) From {
                 {"graph", g},
-                {"knowledges", knowledges.ToArray}
+                {"knowledges", unique.castTable},
+                {"raw", knowledges.castTable}
             }
         }
 
         Return rtvl
+    End Function
+
+    <Extension>
+    Private Function castTable(data As IEnumerable(Of KnowledgeFrameRow)) As EntityObject()
+        Return data _
+            .Select(Function(i)
+                        Return New EntityObject With {
+                            .ID = i.UniqeId,
+                            .Properties = i.Properties _
+                                .ToDictionary(Function(a) a.Key,
+                                              Function(a)
+                                                  Return a.Value.JoinBy("; ")
+                                              End Function)
+                        }
+                    End Function) _
+            .ToArray
     End Function
 End Module
