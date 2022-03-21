@@ -121,7 +121,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="networkGraph\debugHandler.vb" />
     <Compile Include="networkGraph\umapKnowledge.vb" />
     <Compile Include="Query.vb" />
     <Compile Include="zzz.vb" />
