@@ -13,7 +13,7 @@ Imports Node = Microsoft.VisualBasic.Data.visualize.Network.Graph.Node
 Public Module CreateKnowledge
 
     <Extension>
-    Public Iterator Function ExtractKnowledges(Of Knowledge As {New, INamedValue, DynamicPropertyBase(Of String)})(graph As NetworkGraph, Optional eps As Double = 0.00000001) As IEnumerable(Of Knowledge)
+    Public Iterator Function ExtractKnowledges(graph As NetworkGraph, Optional eps As Double = 0.00000001) As IEnumerable(Of KnowledgeFrameRow)
         ' 解析出所有的信息孤岛
         Dim island = IteratesSubNetworks(Of Node, Edge, NetworkGraph)(graph, singleNodeAsGraph:=False)
         Dim islandId As i32 = 1
@@ -41,14 +41,14 @@ Public Module CreateKnowledge
                                  Return v.data("knowledge_type")
                              End Function) _
                     .ToArray
-                Dim props As New Dictionary(Of String, String)
+                Dim props As New Dictionary(Of String, String())
 
                 For Each p In metadata
-                    Call props.Add(p.Key, p.Select(Function(v) v.label).JoinBy("; "))
+                    Call props.Add(p.Key, p.Select(Function(v) v.label).ToArray)
                 Next
 
-                Yield New Knowledge With {
-                    .Key = $"{mainID}-{term.Key}",
+                Yield New KnowledgeFrameRow With {
+                    .UniqeId = $"{mainID}-{term.Key}",
                     .Properties = props
                 }
             Next
