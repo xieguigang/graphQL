@@ -10,8 +10,8 @@ Public Module GraphActions
 
                 kold.isMaster = kold.isMaster OrElse kn.isMaster
                 kold.source.AddRange(kn.source)
-                kold.mentions += kn.mentions
                 kold.type = If(kold.mentions > kn.mentions, kold.type, kn.type)
+                kold.mentions += kn.mentions
             Else
                 Dim knew = k1.AddVertex(kn.label)
 
@@ -35,6 +35,11 @@ Public Module GraphActions
                     v:=k1.GetElementById(ln.V.label),
                     weight:=ln.weight
                 )
+
+                Dim edge As Association = k1.QueryEdge(ln.ID)
+
+                edge.type = ln.type
+                edge.source = ln.source
             End If
         Next
 
