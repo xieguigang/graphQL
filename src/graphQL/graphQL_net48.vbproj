@@ -111,6 +111,7 @@
     <Compile Include="KnowledgeBuilder\CreateKnowledge.vb" />
     <Compile Include="KnowledgeBuilder\CreateNetwork.vb" />
     <Compile Include="KnowledgeDescription.vb" />
+    <Compile Include="GraphActions.vb" />
     <Compile Include="Relationship.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">

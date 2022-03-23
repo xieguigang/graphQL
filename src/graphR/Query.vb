@@ -55,7 +55,7 @@ Public Module Query
 
     <ExportAPI("join")>
     Public Function join(kb1 As GraphPool, kb2 As GraphPool) As GraphPool
-
+        Return kb1.JoinGraph(kb2)
     End Function
 
     ''' <summary>
