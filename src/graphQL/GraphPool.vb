@@ -5,6 +5,11 @@ Imports Microsoft.VisualBasic.Math.LinearAlgebra
 
 Public Class GraphPool : Inherits Graph(Of Knowledge, Association, GraphPool)
 
+    ''' <summary>
+    ''' ???????????????????????
+    ''' </summary>
+    ReadOnly linkIndex As New Dictionary(Of String, Association)
+
     Sub New(knowledge As IEnumerable(Of Knowledge), links As IEnumerable(Of Association))
         For Each kb As Knowledge In knowledge
             Call AddVertex(kb)
@@ -21,7 +26,12 @@ Public Class GraphPool : Inherits Graph(Of Knowledge, Association, GraphPool)
 
     <MethodImpl(MethodImplOptions.AggressiveInlining)>
     Public Function QueryEdge(ref As String) As Association
-        Return edges(ref)
+        Return linkIndex(ref)
+    End Function
+
+    Public Overrides Function Insert(edge As Association) As GraphPool
+        linkIndex($"{edge.U.label}+{edge.V.label}") = edge
+        Return MyBase.Insert(edge)
     End Function
 
     ''' <summary>
