@@ -29,8 +29,3 @@ Public Class KnowledgeDescription
     End Function
 
 End Class
-
-Public Enum Relationship
-    [is]
-    [has]
-End Enum

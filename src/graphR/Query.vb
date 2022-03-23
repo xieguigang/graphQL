@@ -53,6 +53,11 @@ Public Module Query
         Return kb
     End Function
 
+    <ExportAPI("join")>
+    Public Function join(kb1 As GraphPool, kb2 As GraphPool) As GraphPool
+
+    End Function
+
     ''' <summary>
     ''' query knowledge data for a given term
     ''' </summary>
