@@ -1,3 +1,4 @@
+Imports System.Runtime.CompilerServices
 Imports Microsoft.VisualBasic.Data.GraphTheory
 Imports Microsoft.VisualBasic.Linq
 Imports Microsoft.VisualBasic.Math.LinearAlgebra
@@ -13,8 +14,14 @@ Public Class GraphPool : Inherits Graph(Of Knowledge, Association, GraphPool)
         Next
     End Sub
 
+    <MethodImpl(MethodImplOptions.AggressiveInlining)>
     Public Function GetElementById(ref As String) As Knowledge
         Return vertices(ref)
+    End Function
+
+    <MethodImpl(MethodImplOptions.AggressiveInlining)>
+    Public Function QueryEdge(ref As String) As Association
+        Return edges(ref)
     End Function
 
     ''' <summary>
@@ -41,40 +48,42 @@ Public Class GraphPool : Inherits Graph(Of Knowledge, Association, GraphPool)
             If info.Value Is Nothing Then
                 Continue For
             Else
-                type = info.Key
+                Call addMetaData(term, info.Key, dbName, info.Value)
+            End If
+        Next
+    End Sub
+
+    Private Sub addMetaData(term As Knowledge, type As String, dbName As String, info As String())
+        For Each data As String In info
+            If data.StringEmpty Then
+                Continue For
             End If
 
-            For Each data As String In info.Value
-                If data.StringEmpty Then
-                    Continue For
-                End If
+            Dim metadata As Knowledge = ComputeIfAbsent(data, type, isSource:=False)
 
-                Dim metadata As Knowledge = ComputeIfAbsent(data, type, isSource:=False)
+            If metadata Is term Then
+                Continue For
+            Else
+                Call metadata.AddReferenceSource(source:=dbName)
+            End If
 
-                If metadata Is term Then
-                    Continue For
-                Else
-                    Call metadata.AddReferenceSource(source:=dbName)
-                End If
+            Dim refId As String = VertexEdge.EdgeKey(metadata, term)
+            Dim link As Association
 
-                Dim refId As String = VertexEdge.EdgeKey(metadata, term)
-                Dim link As Association
+            If edges.ContainsKey(refId) Then
+                link = edges(refId)
+                link.weight += 1
+            Else
+                link = New Association With {
+                    .type = type,
+                    .U = metadata,
+                    .V = term,
+                    .weight = 1
+                }
+                Call Me.Insert(link)
+            End If
 
-                If edges.ContainsKey(refId) Then
-                    link = edges(refId)
-                    link.weight += 1
-                Else
-                    link = New Association With {
-                        .type = info.Key,
-                        .U = metadata,
-                        .V = term,
-                        .weight = 1
-                    }
-                    Call Me.Insert(link)
-                End If
-
-                Call link.AddReferenceSource(dbName)
-            Next
+            Call link.AddReferenceSource(dbName)
         Next
     End Sub
 

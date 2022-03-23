@@ -55,7 +55,13 @@ Public Module Query
 
     <ExportAPI("join")>
     Public Function join(kb1 As GraphPool, kb2 As GraphPool) As GraphPool
-        Return kb1.JoinGraph(kb2)
+        If kb1 Is Nothing Then
+            Return kb2
+        ElseIf kb2 Is Nothing Then
+            Return kb1
+        Else
+            Return kb1.JoinGraph(kb2)
+        End If
     End Function
 
     ''' <summary>
