@@ -48,7 +48,7 @@ cat("\n\n")
 MsgFile::save(kb, file = "./kb1.graph")
 MsgFile::save(kb2, file = "./kb2.graph")
 
-kb = Query::join(kb, kb2);
+kb = Query::join(kb2, kb);
 
 print("unweighted similarity between C01405 and HMDB0001879:")
 print(Query::similarity(kb, "C01405", "HMDB0001879"))
