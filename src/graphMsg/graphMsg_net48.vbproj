@@ -107,6 +107,7 @@
     <Compile Include="IndexByRef.vb" />
     <Compile Include="KnowledgeMsg.vb" />
     <Compile Include="LinkMsg.vb" />
+    <Compile Include="JSONDump.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
