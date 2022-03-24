@@ -2,7 +2,6 @@
 Imports System.Runtime.CompilerServices
 Imports graphQL
 Imports Microsoft.VisualBasic.ApplicationServices
-Imports Microsoft.VisualBasic.ComponentModel.Collection
 Imports Microsoft.VisualBasic.Serialization.JSON
 
 Public Module JSONDump
@@ -22,12 +21,12 @@ Public Module JSONDump
 
             Using tmp As Stream = tmpKnowledges.Open(FileMode.OpenOrCreate, doClear:=True, [readOnly]:=False),
                 buffer As New StreamWriter(tmp)
-                knowledges = kb.vertex.WriteJSON(writer)
+                knowledges = kb.WriteTermsJSON(writer)
             End Using
 
             Using tmp As Stream = tmpLinks.Open(FileMode.OpenOrCreate, doClear:=True, [readOnly]:=False),
                 buffer As New StreamWriter(tmp)
-                links = kb.graphEdges.WriteJSON(writer)
+                links = kb.WriteGraphJSON(writer)
             End Using
 
             Call writer.WriteLine("{")
@@ -56,34 +55,31 @@ Public Module JSONDump
 
             Call writer.WriteLine("   ]")
             Call writer.WriteLine("}")
+            Call writer.Flush()
         End Using
 
         Return True
     End Function
 
     <Extension>
-    Private Function WriteJSON(links As IEnumerable(Of Association), file As StreamWriter) As IndexByRef
-        Dim types As New Index(Of String)
-        Dim sources As New Index(Of String)
+    Private Function WriteGraphJSON(links As GraphPool, file As StreamWriter) As IndexByRef
+        Dim index As New IndexByRef
 
-        Return New IndexByRef With {
-            .types = types.Objects,
-            .source = sources.Objects
-        }
+        For Each link As LinkMsg In LinkMsg.GetRelationships(links, ref:=index)
+            Call file.WriteLine(link.GetJson & ",")
+        Next
+
+        Return index
     End Function
 
     <Extension>
-    Private Function WriteJSON(knowledges As IEnumerable(Of Knowledge), file As StreamWriter) As IndexByRef
-        Dim types As New Index(Of String)
-        Dim sources As New Index(Of String)
+    Private Function WriteTermsJSON(knowledges As GraphPool, file As StreamWriter) As IndexByRef
+        Dim index As New IndexByRef
 
-        For Each term As Knowledge In knowledges
-
+        For Each term As KnowledgeMsg In KnowledgeMsg.GetTerms(knowledges, ref:=index)
+            Call file.WriteLine(term.GetJson & ",")
         Next
 
-        Return New IndexByRef With {
-            .types = types.Objects,
-            .source = sources.Objects
-        }
+        Return index
     End Function
 End Module
