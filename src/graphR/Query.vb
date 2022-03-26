@@ -17,6 +17,7 @@ Imports Microsoft.VisualBasic.Linq
 Imports Microsoft.VisualBasic.Math.Correlations
 Imports Microsoft.VisualBasic.Scripting.MetaData
 Imports SMRUCC.Rsharp.Runtime
+Imports SMRUCC.Rsharp.Runtime.Components
 Imports SMRUCC.Rsharp.Runtime.Internal.Object
 Imports SMRUCC.Rsharp.Runtime.Interop
 Imports dataframe = SMRUCC.Rsharp.Runtime.Internal.Object.dataframe
@@ -49,7 +50,15 @@ Public Module Query
             Return Nothing
         End If
 
-        Call kb.AddKnowledge(knowledge, type, meta.AsGeneric(Of String())(env))
+        Dim err As Message = Nothing
+        Dim metadata As Dictionary(Of String, String()) = meta.AsGeneric(Of String())(env, err:=err)
+
+        If Not err Is Nothing Then
+            Return err
+        Else
+            Call kb.AddKnowledge(knowledge, type, metadata)
+        End If
+
         Return kb
     End Function
 
