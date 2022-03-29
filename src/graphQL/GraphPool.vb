@@ -116,7 +116,7 @@ Public Class GraphPool : Inherits Graph(Of Knowledge, Association, GraphPool)
             Return
         End If
 
-        For Each edge As Association In edges
+        For Each edge As Association In graphEdges
             If edge.V Is knowledge Then
                 Yield New KnowledgeDescription With {
                     .target = edge.U.label,
