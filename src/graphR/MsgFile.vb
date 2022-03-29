@@ -62,6 +62,8 @@ Module MsgFile
             Call table.add(NameOf(Knowledge.label), terms.Select(Function(t) t.label).ToArray)
             Call table.add(NameOf(Knowledge.type), terms.Select(Function(t) t.type).ToArray)
             Call table.add(NameOf(Knowledge.mentions), terms.Select(Function(t) t.mentions).ToArray)
+            Call table.add(NameOf(Knowledge.isMaster), terms.Select(Function(t) t.isMaster).ToArray)
+            Call table.add(NameOf(Knowledge.source), terms.Select(Function(t) t.source.JoinBy("; ")).ToArray)
 
             Return table
         End If
