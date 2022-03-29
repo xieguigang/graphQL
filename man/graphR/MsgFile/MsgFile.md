@@ -1,4 +1,4 @@
-﻿# MsgFile
+# MsgFile
 
 the graph database file I/O handler
 
