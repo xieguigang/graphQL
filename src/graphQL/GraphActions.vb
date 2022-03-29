@@ -23,10 +23,8 @@ Public Module GraphActions
         Next
 
         For Each ln As Association In k2.graphEdges
-            Dim ref As String = $"{ln.U.label}+{ln.V.label}"
-
             If k1.ExistEdge(ln) Then
-                Dim edge As Association = k1.QueryEdge(ref)
+                Dim edge As Association = k1.QueryEdge(ln.U.label, ln.V.label)
 
                 edge.type = If(edge.weight > ln.weight, edge.type, ln.type)
                 edge.weight += ln.weight
@@ -38,7 +36,7 @@ Public Module GraphActions
                     weight:=ln.weight
                 )
 
-                Dim edge As Association = k1.QueryEdge(ref)
+                Dim edge As Association = k1.QueryEdge(ln.U.label, ln.V.label)
 
                 edge.type = ln.type
                 edge.source = ln.source

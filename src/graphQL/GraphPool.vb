@@ -5,33 +5,23 @@ Imports Microsoft.VisualBasic.Math.LinearAlgebra
 
 Public Class GraphPool : Inherits Graph(Of Knowledge, Association, GraphPool)
 
-    ''' <summary>
-    ''' ???????????????????????
-    ''' </summary>
-    ReadOnly linkIndex As New Dictionary(Of String, Association)
-
     Sub New(knowledge As IEnumerable(Of Knowledge), links As IEnumerable(Of Association))
         For Each kb As Knowledge In knowledge
             Call AddVertex(kb)
         Next
         For Each link As Association In links
-            Call Me.Insert(link)
+            Call Insert(link)
         Next
     End Sub
 
+    ''' <summary>
+    ''' get knowledge node element by id
+    ''' </summary>
+    ''' <param name="ref"></param>
+    ''' <returns></returns>
     <MethodImpl(MethodImplOptions.AggressiveInlining)>
     Public Function GetElementById(ref As String) As Knowledge
         Return vertices(ref)
-    End Function
-
-    <MethodImpl(MethodImplOptions.AggressiveInlining)>
-    Public Function QueryEdge(ref As String) As Association
-        Return linkIndex(ref)
-    End Function
-
-    Public Overrides Function Insert(edge As Association) As GraphPool
-        linkIndex($"{edge.U.label}+{edge.V.label}") = edge
-        Return MyBase.Insert(edge)
     End Function
 
     ''' <summary>
@@ -77,11 +67,10 @@ Public Class GraphPool : Inherits Graph(Of Knowledge, Association, GraphPool)
                 Call metadata.AddReferenceSource(source:=dbName)
             End If
 
-            Dim refId As String = VertexEdge.EdgeKey(metadata, term)
-            Dim link As Association
+            ' metadata -> term
+            Dim link As Association = QueryEdge(metadata.label, term.label)
 
-            If edges.ContainsKey(refId) Then
-                link = edges(refId)
+            If Not link Is Nothing Then
                 link.weight += 1
             Else
                 link = New Association With {
@@ -127,7 +116,7 @@ Public Class GraphPool : Inherits Graph(Of Knowledge, Association, GraphPool)
             Return
         End If
 
-        For Each edge As Association In edges.Values
+        For Each edge As Association In edges
             If edge.V Is knowledge Then
                 Yield New KnowledgeDescription With {
                     .target = edge.U.label,
