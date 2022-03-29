@@ -76,7 +76,7 @@ Module MsgFile
     ''' <param name="env"></param>
     ''' <returns></returns>
     <ExportAPI("save")>
-    Public Function save(kb As GraphPool, file As Object, Optional env As Environment = Nothing) As Object
+    Public Function save(kb As GraphPool, file As Object, Optional json_dump As Boolean = False, Optional env As Environment = Nothing) As Object
         If file Is Nothing Then
             Return Internal.debug.stop("the required file resource to save data can not be nothing!", env)
         Else
@@ -85,7 +85,11 @@ Module MsgFile
             If buffer Like GetType(Message) Then
                 Return buffer.TryCast(Of Message)
             Else
-                Return StorageProvider.Save(kb, buffer)
+                If json_dump Then
+                    Return JSONDump.WriteJSON(kb, buffer.TryCast(Of Stream))
+                Else
+                    Return StorageProvider.Save(kb, buffer)
+                End If
             End If
         End If
     End Function
