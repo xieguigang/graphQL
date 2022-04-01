@@ -104,9 +104,9 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IndexByRef.vb" />
-    <Compile Include="KnowledgeMsg.vb" />
-    <Compile Include="LinkMsg.vb" />
+    <Compile Include="Message\IndexByRef.vb" />
+    <Compile Include="Message\KnowledgeMsg.vb" />
+    <Compile Include="Message\LinkMsg.vb" />
     <Compile Include="JSONDump.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
