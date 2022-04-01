@@ -54,7 +54,7 @@ Module MsgFile
         If buffer Like GetType(Message) Then
             Return buffer.TryCast(Of Message)
         Else
-            Return StorageProvider.Open(buffer)
+            Return GraphReader.LoadGraph(buffer)
         End If
     End Function
 
