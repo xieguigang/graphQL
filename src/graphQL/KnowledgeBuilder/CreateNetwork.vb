@@ -5,13 +5,11 @@ Imports Microsoft.VisualBasic.Data.visualize.Network.Graph
 Public Module CreateNetwork
 
     <Extension>
-    Public Function CreateGraph(kb As GraphPool) As NetworkGraph
-        Dim g As New NetworkGraph
+    Public Function LoadNodeTable(vertexList As IEnumerable(Of Knowledge)) As Dictionary(Of String, Node)
         Dim node As Node
-        Dim link As Edge
         Dim nodeTable As New Dictionary(Of String, Node)
 
-        For Each knowledge As Knowledge In kb.vertex
+        For Each knowledge As Knowledge In vertexList
             node = New Node With {
                 .ID = knowledge.ID,
                 .label = knowledge.label,
@@ -26,11 +24,15 @@ Public Module CreateNetwork
             }
 
             Call nodeTable.Add(node.label, node)
-            Call g.AddNode(node, assignId:=False)
         Next
 
-        For Each url As Association In kb.graphEdges
-            link = New Edge With {
+        Return nodeTable
+    End Function
+
+    <Extension>
+    Public Iterator Function AssembleLinks(links As IEnumerable(Of Association), nodeTable As Dictionary(Of String, Node)) As IEnumerable(Of Edge)
+        For Each url As Association In links
+            Yield New Edge With {
                 .U = nodeTable(url.U.label),
                 .V = nodeTable(url.V.label),
                 .weight = url.weight,
@@ -41,7 +43,19 @@ Public Module CreateNetwork
                     }
                 }
             }
+        Next
+    End Function
 
+    <Extension>
+    Public Function CreateGraph(kb As GraphPool) As NetworkGraph
+        Dim nodeTable = kb.vertex.LoadNodeTable
+        Dim g As New NetworkGraph
+
+        For Each node As Node In nodeTable.Values
+            Call g.AddNode(node, assignId:=False)
+        Next
+
+        For Each link As Edge In kb.graphEdges.AssembleLinks(nodeTable)
             Call g.AddEdge(link)
         Next
 
