@@ -104,6 +104,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="StreamEmit.vb" />
     <Compile Include="Message\IndexByRef.vb" />
     <Compile Include="Message\KnowledgeMsg.vb" />
     <Compile Include="Message\LinkMsg.vb" />
