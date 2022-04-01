@@ -1,13 +1,16 @@
 ﻿Imports Microsoft.VisualBasic.Data.IO.MessagePack.Serialization
 Imports Microsoft.VisualBasic.Serialization.JSON
 
-Public Class IndexByRef
+Namespace Message
 
-    <MessagePackMember(0)> Public Property types As String()
-    <MessagePackMember(1)> Public Property source As String()
+    Public Class IndexByRef
 
-    Public Overrides Function ToString() As String
-        Return Me.GetJson
-    End Function
+        <MessagePackMember(0)> Public Property types As String()
+        <MessagePackMember(1)> Public Property source As String()
 
-End Class
+        Public Overrides Function ToString() As String
+            Return Me.GetJson
+        End Function
+
+    End Class
+End Namespace
