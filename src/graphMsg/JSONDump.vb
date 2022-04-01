@@ -1,5 +1,6 @@
 ﻿Imports System.IO
 Imports System.Runtime.CompilerServices
+Imports graphMsg.Message
 Imports graphQL
 Imports Microsoft.VisualBasic.ApplicationServices
 Imports Microsoft.VisualBasic.Serialization.JSON
