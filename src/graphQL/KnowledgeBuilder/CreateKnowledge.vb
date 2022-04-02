@@ -79,12 +79,13 @@ Public Module CreateKnowledge
         Call KnowledgeFrameRow.SaveData(rooTree, save:=poll)
 
         Dim meltGroupId As Integer = 1
+        Dim hubTable = hubs.ToDictionary(Function(v) v.label)
 
         For Each node As BTreeCluster In poll
             Dim groupKeys = node.members
 
             For Each key As String In groupKeys
-                For Each v As Node In groups(key)
+                For Each v As Node In groups(hubTable(key).data(NamesOf.REFLECTION_ID_MAPPING_NODETYPE))
                     v.data(NamesOf.REFLECTION_ID_MAPPING_NODETYPE) = meltGroupId
                 Next
             Next
