@@ -7,4 +7,4 @@ g = "./joinTest\aspirin.graph"
 |> MsgFile::read.graph()
 ;
 
-save.network(g, file = "./network/");
+save.network(g, file = "./network/", properties = ["knowledge_type", "source"]);
