@@ -25,7 +25,7 @@ rendering = function(graph, savefile) {
 			fill = ggraph::map("group", "paper"))
 		) 
 		+ geom_node_text(aes(size = ggraph::map("degree", [4, 9]))) 
-		+ layout_springforce(iterations = 10000)
+		+ layout_springforce(iterations = 100)
 		;
 	}
 }

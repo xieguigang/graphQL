@@ -1,163 +1,111 @@
-﻿ID,NodeType,weight,knowledge_type,source,label
-(2S)-??-2-amino-4-methylvalerate,,3,name,hmdb,(2S)-??-2-amino-4-methylvalerate
-(2S)-??-2-amino-4-methylvaleric acid,,3,name,hmdb,(2S)-??-2-amino-4-methylvaleric acid
-(2S)-??-leucine,,3,name,hmdb,(2S)-??-leucine
-(2S)-2-Amino-4-methylpentanoate,,3,name,hmdb,(2S)-2-Amino-4-methylpentanoate
-(2S)-2-amino-4-methylpentanoic acid,,3,name,hmdb,(2S)-2-amino-4-methylpentanoic acid
-(2S)-2-Amino-4-methylpentanoic acid,,3,name,hmdb,(2S)-2-Amino-4-methylpentanoic acid
-(2S)-a-2-Amino-4-methylvalerate,,3,name,hmdb,(2S)-a-2-Amino-4-methylvalerate
-(2S)-a-2-Amino-4-methylvaleric acid,,3,name,hmdb,(2S)-a-2-Amino-4-methylvaleric acid
-(2S)-a-Leucine,,3,name,hmdb,(2S)-a-Leucine
-(2S)-alpha-2-Amino-4-methylvalerate,,3,name,hmdb,(2S)-alpha-2-Amino-4-methylvalerate
-(2S)-alpha-2-Amino-4-methylvaleric acid,,6,name,hmdb; kegg,(2S)-alpha-2-Amino-4-methylvaleric acid
-(2S)-alpha-Leucine,,6,name,hmdb; kegg,(2S)-alpha-Leucine
-"(2S,3S)-2-Amino-3-methylpentanoate",,3,name,hmdb,"(2S,3S)-2-Amino-3-methylpentanoate"
-"(2S,3S)-2-Amino-3-methyl-pentanoate",,3,name,hmdb,"(2S,3S)-2-Amino-3-methyl-pentanoate"
-"(2S,3S)-2-amino-3-methylpentanoic acid",,6,name,chebi; hmdb,"(2S,3S)-2-amino-3-methylpentanoic acid"
-"(2S,3S)-2-Amino-3-methylpentanoic acid",,3,name,hmdb,"(2S,3S)-2-Amino-3-methylpentanoic acid"
-"(2S,3S)-2-Amino-3-methyl-pentanoic acid",,3,name,hmdb,"(2S,3S)-2-Amino-3-methyl-pentanoic acid"
-"(2S,3S)-a-Amino-b-methyl-N-valerate",,3,name,hmdb,"(2S,3S)-a-Amino-b-methyl-N-valerate"
-"(2S,3S)-a-Amino-b-methyl-N-valeric acid",,3,name,hmdb,"(2S,3S)-a-Amino-b-methyl-N-valeric acid"
-"(2S,3S)-a-Amino-b-methylvalerate",,3,name,hmdb,"(2S,3S)-a-Amino-b-methylvalerate"
-"(2S,3S)-a-Amino-b-methylvaleric acid",,3,name,hmdb,"(2S,3S)-a-Amino-b-methylvaleric acid"
-"(2S,3S)-alpha-Amino-beta-merthyl-N-valerate",,3,name,hmdb,"(2S,3S)-alpha-Amino-beta-merthyl-N-valerate"
-"(2S,3S)-alpha-Amino-beta-merthyl-N-valeric acid",,3,name,hmdb,"(2S,3S)-alpha-Amino-beta-merthyl-N-valeric acid"
-"(2S,3S)-alpha-Amino-beta-merthylvalerate",,3,name,hmdb,"(2S,3S)-alpha-Amino-beta-merthylvalerate"
-"(2S,3S)-alpha-Amino-beta-merthylvaleric acid",,3,name,hmdb,"(2S,3S)-alpha-Amino-beta-merthylvaleric acid"
-"(2S,3S)-alpha-Amino-beta-methyl-N-valerate",,3,name,hmdb,"(2S,3S)-alpha-Amino-beta-methyl-N-valerate"
-"(2S,3S)-alpha-Amino-beta-methyl-N-valeric acid",,3,name,hmdb,"(2S,3S)-alpha-Amino-beta-methyl-N-valeric acid"
-"(2S,3S)-alpha-Amino-beta-methylvalerate",,3,name,hmdb,"(2S,3S)-alpha-Amino-beta-methylvalerate"
-"(2S,3S)-alpha-Amino-beta-methylvaleric acid",,3,name,hmdb,"(2S,3S)-alpha-Amino-beta-methylvaleric acid"
-"(2S,3S)-Alph-amino-beta-methylvalerate",,3,name,hmdb,"(2S,3S)-Alph-amino-beta-methylvalerate"
-"(2S,3S)-Alph-amino-beta-methylvaleric acid",,3,name,hmdb,"(2S,3S)-Alph-amino-beta-methylvaleric acid"
-(S)-(+)-Leucine,,3,name,hmdb,(S)-(+)-Leucine
-(S)-2-Amino-4-methylpentanoate,,3,name,hmdb,(S)-2-Amino-4-methylpentanoate
-(S)-2-Amino-4-methylpentanoic acid,,3,name,hmdb,(S)-2-Amino-4-methylpentanoic acid
-(S)-2-Amino-4-methylvalerate,,3,name,hmdb,(S)-2-Amino-4-methylvalerate
-(S)-2-Amino-4-methylvaleric acid,,3,name,hmdb,(S)-2-Amino-4-methylvaleric acid
-(S)-Isoleucine,,3,name,hmdb,(S)-Isoleucine
-(S)-Leucine,,3,name,hmdb,(S)-Leucine
-"(S,S)-Isoleucine",,3,name,hmdb,"(S,S)-Isoleucine"
-?-amino-?-methylvalerate,,3,name,hmdb,?-amino-?-methylvalerate
-?-amino-?-methylvaleric acid,,6,name,chebi; hmdb,?-amino-?-methylvaleric acid
-[OH2],,3,name,chebi,[OH2]
-"[S-(R*,r*)]-2-amino-3-methylpentanoate",,3,name,hmdb,"[S-(R*,r*)]-2-amino-3-methylpentanoate"
-"[S-(R*,r*)]-2-amino-3-methylpentanoic acid",,3,name,hmdb,"[S-(R*,r*)]-2-amino-3-methylpentanoic acid"
-2-(acetyloxy)benzoic acid,,3,name,chebi,2-(acetyloxy)benzoic acid
-2-(ACETYLOXY)benzoIC ACID,,3,name,hmdb,2-(ACETYLOXY)benzoIC ACID
-2-(ACETYLOXY)BENZOIC ACID,,3,name,chebi,2-(ACETYLOXY)BENZOIC ACID
-2-Acetoxybenzenecarboxylic acid,,9,name,kegg; hmdb; chebi,2-Acetoxybenzenecarboxylic acid
-2-acetoxybenzoic acid,,3,name,chebi,2-acetoxybenzoic acid
-2-Amino-3-methylpentanoate,,3,name,hmdb,2-Amino-3-methylpentanoate
-2-Amino-3-methylpentanoic acid,,3,name,hmdb,2-Amino-3-methylpentanoic acid
-2-Amino-3-methylvalerate,,3,name,hmdb,2-Amino-3-methylvalerate
-2-Amino-3-methylvaleric acid,,9,name,chebi; kegg; hmdb,2-Amino-3-methylvaleric acid
-2-Amino-4-methylvalerate,,3,name,hmdb,2-Amino-4-methylvalerate
-2-Amino-4-methylvaleric acid,,6,name,hmdb; kegg,2-Amino-4-methylvaleric acid
-"2S,3S-Isoleucine",,3,name,hmdb,"2S,3S-Isoleucine"
-2S-Amino-3S-methylpentanoate,,3,name,hmdb,2S-Amino-3S-methylpentanoate
-3DMET:B00284,,3,3dmet,kegg,3DMET:B00284
-3DMET:B01124,,3,3dmet,kegg,3DMET:B01124
-4-Methyl-L-norvaline,,3,name,hmdb,4-Methyl-L-norvaline
-50-78-2,,9,cas,kegg; hmdb; chebi,50-78-2
-61-90-5,,6,cas,hmdb; kegg,61-90-5
-73-32-5,,6,cas,kegg; hmdb,73-32-5
-7732-18-5,,6,cas,kegg; chebi,7732-18-5
-a-Amino-b-methylvalerate,,3,name,hmdb,a-Amino-b-methylvalerate
-a-Amino-b-methylvaleric acid,,3,name,hmdb,a-Amino-b-methylvaleric acid
-Acetosal,,3,name,hmdb,Acetosal
-Acetylsalicylate,,9,name,kegg; hmdb; chebi,Acetylsalicylate
-acetylsalicylic acid,,3,name,chebi,acetylsalicylic acid
-Acetylsalicylic acid,,9,name,kegg; hmdb; chebi,Acetylsalicylic acid
-Acetyonyl,,3,name,hmdb,Acetyonyl
-acqua,,3,name,chebi,acqua
-AGPKZVBTJJNPAG-WHFBIAKZSA-N,,6,inchikey,chebi; hmdb,AGPKZVBTJJNPAG-WHFBIAKZSA-N
-AIN[PDBj],,3,pdb,kegg,AIN[PDBj]
-Alloisoleucine,,3,name,hmdb,Alloisoleucine
-Aloxiprimum,,3,name,hmdb,Aloxiprimum
-alpha-Amino-beta-methylvalerate,,3,name,hmdb,alpha-Amino-beta-methylvalerate
-alpha-Amino-beta-methylvaleric acid,,3,name,hmdb,alpha-Amino-beta-methylvaleric acid
-ASA,,6,name,hmdb; chebi,ASA
-Aspalon,,3,name,hmdb,Aspalon
-Aspirin,,9,name,kegg; hmdb; chebi,Aspirin
-B00034,,3,3dmet,kegg,B00034
-C00001,,7,kegg,kegg; chebi,C00001
-C00001374,,9,knapsack,chebi; kegg; hmdb,C00001374
-C00001377,,6,knapsack,hmdb; kegg,C00001377
-C00123,,7,kegg,hmdb; kegg,C00123
-C00407,,10,kegg,chebi; kegg; hmdb,C00407
-C01405,,10,kegg,kegg; hmdb; chebi,C01405
-C6H13NO2,,15,formula,chebi; kegg; hmdb,C6H13NO2
-C9H8O4,,9,formula,kegg; hmdb; chebi,C9H8O4
-CC[C@H](C)[C@H](N)C(O)=O,,3,smiles,hmdb,CC[C@H](C)[C@H](N)C(O)=O
-ChEBI:15365,,10,chebi,kegg; hmdb; chebi,ChEBI:15365
-ChEBI:15377,,3,chebi,kegg,ChEBI:15377
-CHEBI:15377,,4,chebi,chebi,CHEBI:15377
-ChEBI:15603,,6,chebi,hmdb; kegg,ChEBI:15603
-ChEBI:17191,,10,chebi,chebi; kegg; hmdb,ChEBI:17191
-CHEMBL1098659,,3,chembl,kegg,CHEMBL1098659
-CHEMBL25,,3,chembl,kegg,CHEMBL25
-CHEMBL291962,,3,chembl,kegg,CHEMBL291962
-dihydridooxygen,,3,name,chebi,dihydridooxygen
-dihydrogen oxide,,3,name,chebi,dihydrogen oxide
-Durlaza,,3,name,hmdb,Durlaza
-Easprin,,3,name,hmdb,Easprin
-Ecolen,,3,name,hmdb,Ecolen
-Erythro-L-isoleucine,,3,name,hmdb,Erythro-L-isoleucine
-H2O,,5,name,kegg; chebi,H2O
-HMDB0000172,,7,hmdb,chebi; hmdb,HMDB0000172
-HMDB0000687,,4,hmdb,hmdb,HMDB0000687
-HMDB0001879,,7,hmdb,hmdb; chebi,HMDB0001879
-HMDB0002111,,3,hmdb,chebi,HMDB0002111
-HOH[PDBj],,3,pdb,kegg,HOH[PDBj]
-hydrogen hydroxide,,3,name,chebi,hydrogen hydroxide
-I,,6,name,chebi; hmdb,I
-Ile,,6,name,chebi; hmdb,Ile
-ILE,,6,biocyc,chebi; hmdb,ILE
-"InChI=1S/C6H13NO2/c1-3-4(2)5(7)6(8)9/h4-5H,3,7H2,1-2H3,(H,8,9)/t4-,5-/m0/s1",,6,inchi,chebi; hmdb,"InChI=1S/C6H13NO2/c1-3-4(2)5(7)6(8)9/h4-5H,3,7H2,1-2H3,(H,8,9)/t4-,5-/m0/s1"
-Isoleucine,,6,wikipedia,chebi; hmdb,Isoleucine
-Iso-leucine,,3,name,hmdb,Iso-leucine
-ISOLEUCINE,,6,name,chebi; hmdb,ISOLEUCINE
-"Isoleucine, L isomer",,3,name,hmdb,"Isoleucine, L isomer"
-"Isoleucine, L-isomer",,3,name,hmdb,"Isoleucine, L-isomer"
-J1.167C,,3,nikkaji,kegg,J1.167C
-L,,3,name,hmdb,L
-L-(+)-Isoleucine,,3,name,hmdb,L-(+)-Isoleucine
-L-(+)-Leucine,,3,name,hmdb,L-(+)-Leucine
-L-a-Aminoisocaproate,,3,name,hmdb,L-a-Aminoisocaproate
-L-a-Aminoisocaproic acid,,3,name,hmdb,L-a-Aminoisocaproic acid
-L-alpha-Aminoisocaproate,,3,name,hmdb,L-alpha-Aminoisocaproate
-L-alpha-Aminoisocaproic acid,,3,name,hmdb,L-alpha-Aminoisocaproic acid
-Leu,,3,name,hmdb,Leu
-LEU,,3,biocyc,hmdb,LEU
-LEU[PDBj],,3,pdb,kegg,LEU[PDBj]
-Leucine,,3,wikipedia,hmdb,Leucine
-LEUCINE,,3,name,hmdb,LEUCINE
-"Leucine, L isomer",,3,name,hmdb,"Leucine, L isomer"
-"Leucine, L-isomer",,3,name,hmdb,"Leucine, L-isomer"
-L-Ile,,3,name,hmdb,L-Ile
-L-isoleucine,,3,name,chebi,L-isoleucine
-L-Isoleucine,,9,name,chebi; kegg; hmdb,L-Isoleucine
-L-Isomer isoleucine,,3,name,hmdb,L-Isomer isoleucine
-L-Isomer leucine,,3,name,hmdb,L-Isomer leucine
-L-Leucin,,3,name,hmdb,L-Leucin
-L-Leucine,,6,name,hmdb; kegg,L-Leucine
-L-Leuzin,,3,name,hmdb,L-Leuzin
-Micristin,,3,name,hmdb,Micristin
-NIKKAJI:J2.300K,,3,nikkaji,kegg,NIKKAJI:J2.300K
-NIKKAJI:J43.587B,,3,nikkaji,kegg,NIKKAJI:J43.587B
-O[PDBj],,3,pdb,kegg,O[PDBj]
-OC([C@H]([C@H](CC)C)N)=O,,3,smiles,chebi,OC([C@H]([C@H](CC)C)N)=O
-oxidane,,3,name,chebi,oxidane
-Persistin,,3,name,hmdb,Persistin
-PubChem:2244,,3,pubchem,hmdb,PubChem:2244
-PubChem:3303,,3,pubchem,kegg,PubChem:3303
-PubChem:3423,,3,pubchem,kegg,PubChem:3423
-PubChem:3697,,3,pubchem,kegg,PubChem:3697
-PubChem:4594,,3,pubchem,kegg,PubChem:4594
-PubChem:6106,,3,pubchem,hmdb,PubChem:6106
-PubChem:6306,,3,pubchem,hmdb,PubChem:6306
-Rhodine,,3,name,hmdb,Rhodine
-salicylic acid acetate,,3,name,chebi,salicylic acid acetate
-Salicylic acid acetate,,3,name,hmdb,Salicylic acid acetate
-water,,6,name,kegg; chebi,water
+﻿ID,NodeType,weight,x,y,color,knowledge_type,source,degree,degree.in,degreeCentrality,BetweenessCentrality,RelativeBetweenessCentrality,label,degree.out,OutDegreeCentrality
+(2S)-??-2-amino-4-methylvalerate,,3,-177.195422074303,-53.1251209193583,#D02823,name,hmdb,1,1,0.00241545893719807,1,0.000856164383561644,(2S)-??-2-amino-4-methylvalerate,,
+(2S)-??-2-amino-4-methylvaleric acid,,3,-81.2799067503999,-78.5164520260798,#D02823,name,hmdb,1,1,0.00241545893719807,1,0.000856164383561644,(2S)-??-2-amino-4-methylvaleric acid,,
+(2S)-??-leucine,,3,-128.622692991102,-131.90895059055,#D02823,name,hmdb,1,1,0.00241545893719807,1,0.000856164383561644,(2S)-??-leucine,,
+(2S)-2-Amino-4-methylpentanoate,,3,-205.52943527737,-129.780112961659,#D02823,name,hmdb,1,1,0.00241545893719807,1,0.000856164383561644,(2S)-2-Amino-4-methylpentanoate,,
+(2S)-2-amino-4-methylpentanoic acid,,3,-68.1382987984852,-48.8218929189577,#D02823,name,hmdb,1,1,0.00241545893719807,1,0.000856164383561644,(2S)-2-amino-4-methylpentanoic acid,,
+(2S)-2-Amino-4-methylpentanoic acid,,3,-157.95060543671,-148.787740789525,#D02823,name,hmdb,1,1,0.00241545893719807,1,0.000856164383561644,(2S)-2-Amino-4-methylpentanoic acid,,
+(2S)-a-2-Amino-4-methylvalerate,,3,-112.611107570822,-105.54237532907,#D02823,name,hmdb,1,1,0.00241545893719807,1,0.000856164383561644,(2S)-a-2-Amino-4-methylvalerate,,
+(2S)-a-2-Amino-4-methylvaleric acid,,3,-195.736565719769,-103.61059233404,#D02823,name,hmdb,1,1,0.00241545893719807,1,0.000856164383561644,(2S)-a-2-Amino-4-methylvaleric acid,,
+(2S)-a-Leucine,,3,-152.046628476263,-121.330472582222,#D02823,name,hmdb,1,1,0.00241545893719807,1,0.000856164383561644,(2S)-a-Leucine,,
+(2S)-alpha-2-Amino-4-methylvalerate,,3,-74.4421877355997,-129.934530777509,#D02823,name,hmdb,1,1,0.00241545893719807,1,0.000856164383561644,(2S)-alpha-2-Amino-4-methylvalerate,,
+(2S)-alpha-2-Amino-4-methylvaleric acid,,6,-144.458643299395,-16.2288550999081,#D02823,name,hmdb; kegg,2,2,0.00483091787439614,2,0.00171232876712329,(2S)-alpha-2-Amino-4-methylvaleric acid,,
+(2S)-alpha-Leucine,,6,-165.874477569865,-18.6720872613401,#D02823,name,hmdb; kegg,2,2,0.00483091787439614,2,0.00171232876712329,(2S)-alpha-Leucine,,
+"(2S,3S)-2-Amino-3-methylpentanoate",,3,-21.9033229268579,152.333844370798,#D02823,name,hmdb,1,1,0.00241545893719807,3,0.00256849315068493,"(2S,3S)-2-Amino-3-methylpentanoate",,
+"(2S,3S)-2-Amino-3-methyl-pentanoate",,3,16.9629803107662,88.5257078311874,#D02823,name,hmdb,1,1,0.00241545893719807,3,0.00256849315068493,"(2S,3S)-2-Amino-3-methyl-pentanoate",,
+"(2S,3S)-2-amino-3-methylpentanoic acid",,6,35.845341312582,169.253935057938,#D02823,name,chebi; hmdb,2,2,0.00483091787439614,3,0.00256849315068493,"(2S,3S)-2-amino-3-methylpentanoic acid",,
+"(2S,3S)-2-Amino-3-methylpentanoic acid",,3,-6.08071928457295,97.9752801906186,#D02823,name,hmdb,1,1,0.00241545893719807,3,0.00256849315068493,"(2S,3S)-2-Amino-3-methylpentanoic acid",,
+"(2S,3S)-2-Amino-3-methyl-pentanoic acid",,3,-78.0895275534349,157.465789696665,#D02823,name,hmdb,1,1,0.00241545893719807,3,0.00256849315068493,"(2S,3S)-2-Amino-3-methyl-pentanoic acid",,
+"(2S,3S)-a-Amino-b-methyl-N-valerate",,3,0.102427532219785,197.677387604547,#D02823,name,hmdb,1,1,0.00241545893719807,3,0.00256849315068493,"(2S,3S)-a-Amino-b-methyl-N-valerate",,
+"(2S,3S)-a-Amino-b-methyl-N-valeric acid",,3,3.09424817747435,226.857480852079,#D02823,name,hmdb,1,1,0.00241545893719807,3,0.00256849315068493,"(2S,3S)-a-Amino-b-methyl-N-valeric acid",,
+"(2S,3S)-a-Amino-b-methylvalerate",,3,26.7707258553743,233.456725155851,#D02823,name,hmdb,1,1,0.00241545893719807,3,0.00256849315068493,"(2S,3S)-a-Amino-b-methylvalerate",,
+"(2S,3S)-a-Amino-b-methylvaleric acid",,3,-39.5434698899072,124.310898918632,#D02823,name,hmdb,1,1,0.00241545893719807,3,0.00256849315068493,"(2S,3S)-a-Amino-b-methylvaleric acid",,
+"(2S,3S)-alpha-Amino-beta-merthyl-N-valerate",,3,-55.5158353431948,142.333332082823,#D02823,name,hmdb,1,1,0.00241545893719807,3,0.00256849315068493,"(2S,3S)-alpha-Amino-beta-merthyl-N-valerate",,
+"(2S,3S)-alpha-Amino-beta-merthyl-N-valeric acid",,3,-60.5372336625943,206.240184136579,#D02823,name,hmdb,1,1,0.00241545893719807,3,0.00256849315068493,"(2S,3S)-alpha-Amino-beta-merthyl-N-valeric acid",,
+"(2S,3S)-alpha-Amino-beta-merthylvalerate",,3,34.651574578563,36.7248783140936,#D02823,name,hmdb,1,1,0.00241545893719807,3,0.00256849315068493,"(2S,3S)-alpha-Amino-beta-merthylvalerate",,
+"(2S,3S)-alpha-Amino-beta-merthylvaleric acid",,3,-32.9060875003421,73.9146213912744,#D02823,name,hmdb,1,1,0.00241545893719807,3,0.00256849315068493,"(2S,3S)-alpha-Amino-beta-merthylvaleric acid",,
+"(2S,3S)-alpha-Amino-beta-methyl-N-valerate",,3,-42.7072012540795,165.217334197993,#D02823,name,hmdb,1,1,0.00241545893719807,3,0.00256849315068493,"(2S,3S)-alpha-Amino-beta-methyl-N-valerate",,
+"(2S,3S)-alpha-Amino-beta-methyl-N-valeric acid",,3,58.1029321799623,43.1328303905489,#D02823,name,hmdb,1,1,0.00241545893719807,3,0.00256849315068493,"(2S,3S)-alpha-Amino-beta-methyl-N-valeric acid",,
+"(2S,3S)-alpha-Amino-beta-methylvalerate",,3,24.1984833628847,201.286959331433,#D02823,name,hmdb,1,1,0.00241545893719807,3,0.00256849315068493,"(2S,3S)-alpha-Amino-beta-methylvalerate",,
+"(2S,3S)-alpha-Amino-beta-methylvaleric acid",,3,-104.00312010129,121.651926908885,#D02823,name,hmdb,1,1,0.00241545893719807,3,0.00256849315068493,"(2S,3S)-alpha-Amino-beta-methylvaleric acid",,
+"(2S,3S)-Alph-amino-beta-methylvalerate",,3,67.0474721433442,216.208609623752,#D02823,name,hmdb,1,1,0.00241545893719807,3,0.00256849315068493,"(2S,3S)-Alph-amino-beta-methylvalerate",,
+"(2S,3S)-Alph-amino-beta-methylvaleric acid",,3,-63.5328415040782,78.6967497795161,#D02823,name,hmdb,1,1,0.00241545893719807,3,0.00256849315068493,"(2S,3S)-Alph-amino-beta-methylvaleric acid",,
+(S)-(+)-Leucine,,3,-150.407919658832,-172.697214663816,#D02823,name,hmdb,1,1,0.00241545893719807,1,0.000856164383561644,(S)-(+)-Leucine,,
+(S)-2-Amino-4-methylpentanoate,,3,-216.187364603411,-56.656822154585,#D02823,name,hmdb,1,1,0.00241545893719807,1,0.000856164383561644,(S)-2-Amino-4-methylpentanoate,,
+(S)-2-Amino-4-methylpentanoic acid,,3,-61.5610279450567,-102.913543208299,#D02823,name,hmdb,1,1,0.00241545893719807,1,0.000856164383561644,(S)-2-Amino-4-methylpentanoic acid,,
+(S)-2-Amino-4-methylvalerate,,3,-220.496199871132,-101.473884815993,#D02823,name,hmdb,1,1,0.00241545893719807,1,0.000856164383561644,(S)-2-Amino-4-methylvalerate,,
+(S)-2-Amino-4-methylvaleric acid,,3,-117.942882796549,-49.2018622203547,#D02823,name,hmdb,1,1,0.00241545893719807,1,0.000856164383561644,(S)-2-Amino-4-methylvaleric acid,,
+(S)-Isoleucine,,3,-15.7114514621907,119.251994345572,#D02823,name,hmdb,1,1,0.00241545893719807,3,0.00256849315068493,(S)-Isoleucine,,
+(S)-Leucine,,3,-142.830628328658,-50.9719933969482,#D02823,name,hmdb,1,1,0.00241545893719807,1,0.000856164383561644,(S)-Leucine,,
+"(S,S)-Isoleucine",,3,-86.271156437161,98.0539434970571,#D02823,name,hmdb,1,1,0.00241545893719807,3,0.00256849315068493,"(S,S)-Isoleucine",,
+?-amino-?-methylvalerate,,3,-63.3624497627638,108.483402973495,#D02823,name,hmdb,1,1,0.00241545893719807,3,0.00256849315068493,?-amino-?-methylvalerate,,
+?-amino-?-methylvaleric acid,,6,27.0136975229719,131.400113809301,#D02823,name,chebi; hmdb,2,2,0.00483091787439614,3,0.00256849315068493,?-amino-?-methylvaleric acid,,
+"[S-(R*,r*)]-2-amino-3-methylpentanoate",,3,-7.16909774042289,70.6675475074979,#D02823,name,hmdb,1,1,0.00241545893719807,3,0.00256849315068493,"[S-(R*,r*)]-2-amino-3-methylpentanoate",,
+"[S-(R*,r*)]-2-amino-3-methylpentanoic acid",,3,69.1559866537741,62.992418251223,#D02823,name,hmdb,1,1,0.00241545893719807,3,0.00256849315068493,"[S-(R*,r*)]-2-amino-3-methylpentanoic acid",,
+2-Amino-3-methylpentanoate,,3,-49.8428065799047,226.168608759642,#D02823,name,hmdb,1,1,0.00241545893719807,3,0.00256849315068493,2-Amino-3-methylpentanoate,,
+2-Amino-3-methylpentanoic acid,,3,-107.708347645424,146.86332069339,#D02823,name,hmdb,1,1,0.00241545893719807,3,0.00256849315068493,2-Amino-3-methylpentanoic acid,,
+2-Amino-3-methylvalerate,,3,-2.72561026309555,172.890656323582,#D02823,name,hmdb,1,1,0.00241545893719807,3,0.00256849315068493,2-Amino-3-methylvalerate,,
+2-Amino-3-methylvaleric acid,,9,76.1072227968136,137.29172493865,#D02823,name,chebi; kegg; hmdb,3,3,0.0072463768115942,3,0.00256849315068493,2-Amino-3-methylvaleric acid,,
+2-Amino-4-methylvalerate,,3,-178.693094333966,-127.166297872232,#D02823,name,hmdb,1,1,0.00241545893719807,1,0.000856164383561644,2-Amino-4-methylvalerate,,
+2-Amino-4-methylvaleric acid,,6,-127.111792444298,-4.94522216902202,#D02823,name,hmdb; kegg,2,2,0.00483091787439614,2,0.00171232876712329,2-Amino-4-methylvaleric acid,,
+"2S,3S-Isoleucine",,3,89.3176202514173,74.4894643022201,#D02823,name,hmdb,1,1,0.00241545893719807,3,0.00256849315068493,"2S,3S-Isoleucine",,
+2S-Amino-3S-methylpentanoate,,3,41.842707430476,70.3171477954293,#D02823,name,hmdb,1,1,0.00241545893719807,3,0.00256849315068493,2S-Amino-3S-methylpentanoate,,
+4-Methyl-L-norvaline,,3,-91.2071771768388,-153.995512329811,#D02823,name,hmdb,1,1,0.00241545893719807,1,0.000856164383561644,4-Methyl-L-norvaline,,
+61-90-5,,6,-186.34474626218,-10.285960103582,#D02823,cas,hmdb; kegg,2,2,0.00483091787439614,2,0.00171232876712329,61-90-5,,
+73-32-5,,6,95.5378085182155,103.218663517626,#D02823,cas,kegg; hmdb,2,2,0.00483091787439614,3,0.00256849315068493,73-32-5,,
+a-Amino-b-methylvalerate,,3,-86.7405791933932,205.608031225184,#D02823,name,hmdb,1,1,0.00241545893719807,3,0.00256849315068493,a-Amino-b-methylvalerate,,
+a-Amino-b-methylvaleric acid,,3,-29.7557161816016,187.099154163589,#D02823,name,hmdb,1,1,0.00241545893719807,3,0.00256849315068493,a-Amino-b-methylvaleric acid,,
+AGPKZVBTJJNPAG-WHFBIAKZSA-N,,6,55.0766662024125,156.871307923334,#D02823,inchikey,chebi; hmdb,2,2,0.00483091787439614,3,0.00256849315068493,AGPKZVBTJJNPAG-WHFBIAKZSA-N,,
+Alloisoleucine,,3,-80.2103661689689,130.393296474595,#D02823,name,hmdb,1,1,0.00241545893719807,3,0.00256849315068493,Alloisoleucine,,
+alpha-Amino-beta-methylvalerate,,3,9.18266745762986,33.6687868848163,#D02823,name,hmdb,1,1,0.00241545893719807,3,0.00256849315068493,alpha-Amino-beta-methylvalerate,,
+alpha-Amino-beta-methylvaleric acid,,3,-14.1351171185162,44.7010496712636,#D02823,name,hmdb,1,1,0.00241545893719807,3,0.00256849315068493,alpha-Amino-beta-methylvaleric acid,,
+B00034,,3,-170.965935767193,67.3586755885834,#D02823,3dmet,kegg,1,1,0.00241545893719807,2,0.00171232876712329,B00034,,
+C00001374,,9,73.7023119682786,114.354086268473,#D02823,knapsack,chebi; kegg; hmdb,3,3,0.0072463768115942,3,0.00256849315068493,C00001374,,
+C00001377,,6,-186.577881758846,7.32537671728423,#D02823,knapsack,hmdb; kegg,2,2,0.00483091787439614,2,0.00171232876712329,C00001377,,
+C00123,,7,-164.783139048645,25.1621548426803,#D02823,kegg,hmdb; kegg,14,1,0.0338164251207729,24,0.0205479452054795,C00123,13,0.0628019323671498
+C00407,,10,67.7048113458084,102.121916832592,#D02823,kegg,chebi; kegg; hmdb,9,2,0.0217391304347826,69,0.0590753424657534,C00407,7,0.0338164251207729
+C6H13NO2,,15,-43.055050538148,49.9739046874434,#D02823,formula,chebi; kegg; hmdb,5,5,0.0120772946859903,5,0.00428082191780822,C6H13NO2,,
+CC[C@H](C)[C@H](N)C(O)=O,,3,-38.8144505413145,96.7493069951805,#D02823,smiles,hmdb,1,1,0.00241545893719807,3,0.00256849315068493,CC[C@H](C)[C@H](N)C(O)=O,,
+ChEBI:15603,,6,-141.228824978701,10.0143156119538,#D02823,chebi,hmdb; kegg,2,2,0.00483091787439614,2,0.00171232876712329,ChEBI:15603,,
+ChEBI:17191,,10,61.6018627241531,136.700049539243,#D02823,chebi,chebi; kegg; hmdb,19,2,0.0458937198067633,175,0.149828767123288,ChEBI:17191,17,0.0821256038647343
+CHEMBL291962,,3,-213.329412420631,75.9091733997253,#D02823,chembl,kegg,1,1,0.00241545893719807,2,0.00171232876712329,CHEMBL291962,,
+Erythro-L-isoleucine,,3,-25.1304865516019,210.125492155292,#D02823,name,hmdb,1,1,0.00241545893719807,3,0.00256849315068493,Erythro-L-isoleucine,,
+HMDB0000172,,7,1.19085480556965,137.626193178766,#D02823,hmdb,chebi; hmdb,59,1,0.142512077294686,231,0.19777397260274,HMDB0000172,58,0.280193236714976
+HMDB0000687,,4,-142.793114875982,-76.123131280464,#D02823,hmdb,hmdb,43,,0.103864734299517,48,0.0410958904109589,HMDB0000687,43,0.207729468599034
+I,,6,44.6121977723829,105.118613949507,#D02823,name,chebi; hmdb,2,2,0.00483091787439614,3,0.00256849315068493,I,,
+Ile,,6,31.7349678709461,150.531394243272,#D02823,name,chebi; hmdb,2,2,0.00483091787439614,3,0.00256849315068493,Ile,,
+ILE,,6,57.6019876087393,177.656151907102,#D02823,biocyc,chebi; hmdb,2,2,0.00483091787439614,3,0.00256849315068493,ILE,,
+"InChI=1S/C6H13NO2/c1-3-4(2)5(7)6(8)9/h4-5H,3,7H2,1-2H3,(H,8,9)/t4-,5-/m0/s1",,6,76.9886678066431,169.544356572351,#D02823,inchi,chebi; hmdb,2,2,0.00483091787439614,3,0.00256849315068493,"InChI=1S/C6H13NO2/c1-3-4(2)5(7)6(8)9/h4-5H,3,7H2,1-2H3,(H,8,9)/t4-,5-/m0/s1",,
+Isoleucine,,6,92.5145024451154,157.109227525114,#D02823,wikipedia,chebi; hmdb,2,2,0.00483091787439614,3,0.00256849315068493,Isoleucine,,
+Iso-leucine,,3,-89.4935846930015,181.103090341368,#D02823,name,hmdb,1,1,0.00241545893719807,3,0.00256849315068493,Iso-leucine,,
+ISOLEUCINE,,6,42.4892926854439,123.492789136407,#D02823,name,chebi; hmdb,2,2,0.00483091787439614,3,0.00256849315068493,ISOLEUCINE,,
+"Isoleucine, L isomer",,3,-111.229210661631,171.457022973304,#D02823,name,hmdb,1,1,0.00241545893719807,3,0.00256849315068493,"Isoleucine, L isomer",,
+"Isoleucine, L-isomer",,3,17.6052764858303,60.0497621097203,#D02823,name,hmdb,1,1,0.00241545893719807,3,0.00256849315068493,"Isoleucine, L-isomer",,
+J1.167C,,3,-188.779124640569,86.429174960369,#D02823,nikkaji,kegg,1,1,0.00241545893719807,2,0.00171232876712329,J1.167C,,
+L,,3,-228.224716323281,-75.4823409682219,#D02823,name,hmdb,1,1,0.00241545893719807,1,0.000856164383561644,L,,
+L-(+)-Isoleucine,,3,-61.1302490450034,181.885418840468,#D02823,name,hmdb,1,1,0.00241545893719807,3,0.00256849315068493,L-(+)-Isoleucine,,
+L-(+)-Leucine,,3,-183.676294227944,-153.650479030822,#D02823,name,hmdb,1,1,0.00241545893719807,1,0.000856164383561644,L-(+)-Leucine,,
+L-a-Aminoisocaproate,,3,-225.398175625656,-31.1380346495291,#D02823,name,hmdb,1,1,0.00241545893719807,1,0.000856164383561644,L-a-Aminoisocaproate,,
+L-a-Aminoisocaproic acid,,3,-167.326322120913,-74.5544364743227,#D02823,name,hmdb,1,1,0.00241545893719807,1,0.000856164383561644,L-a-Aminoisocaproic acid,,
+L-alpha-Aminoisocaproate,,3,-196.301745550941,-76.9563032541376,#D02823,name,hmdb,1,1,0.00241545893719807,1,0.000856164383561644,L-alpha-Aminoisocaproate,,
+L-alpha-Aminoisocaproic acid,,3,-102.913349623903,-132.030487413977,#D02823,name,hmdb,1,1,0.00241545893719807,1,0.000856164383561644,L-alpha-Aminoisocaproic acid,,
+Leu,,3,-110.123537776629,-78.1539013515465,#D02823,name,hmdb,1,1,0.00241545893719807,1,0.000856164383561644,Leu,,
+LEU,,3,-200.240523986062,-38.6659770190645,#D02823,biocyc,hmdb,1,1,0.00241545893719807,1,0.000856164383561644,LEU,,
+LEU[PDBj],,3,-222.506303506291,46.9922477961948,#D02823,pdb,kegg,1,1,0.00241545893719807,2,0.00171232876712329,LEU[PDBj],,
+Leucine,,3,-111.757996152575,-171.74929324484,#D02823,wikipedia,hmdb,1,1,0.00241545893719807,1,0.000856164383561644,Leucine,,
+LEUCINE,,3,-94.1524306409407,-29.1729373155883,#D02823,name,hmdb,1,1,0.00241545893719807,1,0.000856164383561644,LEUCINE,,
+"Leucine, L isomer",,3,-129.470069074586,-157.218208478666,#D02823,name,hmdb,1,1,0.00241545893719807,1,0.000856164383561644,"Leucine, L isomer",,
+"Leucine, L-isomer",,3,-136.457147467261,-99.5108474370226,#D02823,name,hmdb,1,1,0.00241545893719807,1,0.000856164383561644,"Leucine, L-isomer",,
+L-Ile,,3,-21.1975739945666,234.629335398837,#D02823,name,hmdb,1,1,0.00241545893719807,3,0.00256849315068493,L-Ile,,
+L-isoleucine,,3,137.476094812555,168.247965355862,#D02823,name,chebi,1,1,0.00241545893719807,3,0.00256849315068493,L-isoleucine,,
+L-Isoleucine,,9,86.1776900009834,126.007287293454,#D02823,name,chebi; kegg; hmdb,3,3,0.0072463768115942,3,0.00256849315068493,L-Isoleucine,,
+L-Isomer isoleucine,,3,88.9181120209214,200.018254870231,#D02823,name,hmdb,1,1,0.00241545893719807,3,0.00256849315068493,L-Isomer isoleucine,,
+L-Isomer leucine,,3,-169.0118139187,-99.6400485877131,#D02823,name,hmdb,1,1,0.00241545893719807,1,0.000856164383561644,L-Isomer leucine,,
+L-Leucin,,3,-55.8932070417025,-74.3042318856929,#D02823,name,hmdb,1,1,0.00241545893719807,1,0.000856164383561644,L-Leucin,,
+L-Leucine,,6,-161.252688946221,1.74557746782422,#D02823,name,hmdb; kegg,2,2,0.00483091787439614,2,0.00171232876712329,L-Leucine,,
+L-Leuzin,,3,-87.58116010833,-104.877582727444,#D02823,name,hmdb,1,1,0.00241545893719807,1,0.000856164383561644,L-Leuzin,,
+OC([C@H]([C@H](CC)C)N)=O,,3,142.043650412269,140.0188010298,#D02823,smiles,chebi,1,1,0.00241545893719807,3,0.00256849315068493,OC([C@H]([C@H](CC)C)N)=O,,
+PubChem:3423,,3,-197.30343705482,55.5468046569456,#D02823,pubchem,kegg,1,1,0.00241545893719807,2,0.00171232876712329,PubChem:3423,,
+PubChem:3697,,3,133.812583646645,85.0176174006505,#D02823,pubchem,kegg,1,1,0.00241545893719807,3,0.00256849315068493,PubChem:3697,,
+PubChem:6106,,3,-93.7043591947863,-54.5089845890765,#D02823,pubchem,hmdb,1,1,0.00241545893719807,1,0.000856164383561644,PubChem:6106,,
+PubChem:6306,,3,44.5763260777057,215.770156008299,#D02823,pubchem,hmdb,1,1,0.00241545893719807,3,0.00256849315068493,PubChem:6306,,
