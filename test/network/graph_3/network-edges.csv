@@ -1,49 +1,49 @@
 ﻿fromNode,toNode,value,interaction_type,selfLoop,label,guid
-AIN[PDBj],C01405,0,,False,,[100]AIN[PDBj] -> [109]C01405
-Aspirin,C01405,0,,False,,[104]Aspirin -> [109]C01405
-C01405,ChEBI:15365,0,,False,,[109]C01405 -> [111]ChEBI:15365
-C01405,HMDB0001879,0,,False,,[109]C01405 -> [125]HMDB0001879
-C9H8O4,C01405,0,,False,,[110]C9H8O4 -> [109]C01405
-ChEBI:15365,C01405,0,,False,,[111]ChEBI:15365 -> [109]C01405
-CHEMBL25,C01405,0,,False,,[116]CHEMBL25 -> [109]C01405
-NIKKAJI:J2.300K,C01405,0,,False,,[148]NIKKAJI:J2.300K -> [109]C01405
-PubChem:4594,C01405,0,,False,,[156]PubChem:4594 -> [109]C01405
-2-Acetoxybenzenecarboxylic acid,C01405,0,,False,,[84]2-Acetoxybenzenecarboxylic acid -> [109]C01405
-3DMET:B00284,C01405,0,,False,,[88]3DMET:B00284 -> [109]C01405
-50-78-2,C01405,0,,False,,[91]50-78-2 -> [109]C01405
-Acetylsalicylate,C01405,0,,False,,[95]Acetylsalicylate -> [109]C01405
-Acetylsalicylic acid,C01405,0,,False,,[97]Acetylsalicylic acid -> [109]C01405
-Aspirin,ChEBI:15365,0,,False,,[104]Aspirin -> [111]ChEBI:15365
-Aspirin,HMDB0001879,0,,False,,[104]Aspirin -> [125]HMDB0001879
-ASA,ChEBI:15365,0,,False,,[102]ASA -> [111]ChEBI:15365
-C9H8O4,ChEBI:15365,0,,False,,[110]C9H8O4 -> [111]ChEBI:15365
-ChEBI:15365,HMDB0001879,0,,False,,[111]ChEBI:15365 -> [125]HMDB0001879
-HMDB0001879,ChEBI:15365,0,,False,,[125]HMDB0001879 -> [111]ChEBI:15365
-salicylic acid acetate,ChEBI:15365,0,,False,,[159]salicylic acid acetate -> [111]ChEBI:15365
-2-(acetyloxy)benzoic acid,ChEBI:15365,0,,False,,[81]2-(acetyloxy)benzoic acid -> [111]ChEBI:15365
-2-(ACETYLOXY)BENZOIC ACID,ChEBI:15365,0,,False,,[83]2-(ACETYLOXY)BENZOIC ACID -> [111]ChEBI:15365
-2-Acetoxybenzenecarboxylic acid,ChEBI:15365,0,,False,,[84]2-Acetoxybenzenecarboxylic acid -> [111]ChEBI:15365
-2-acetoxybenzoic acid,ChEBI:15365,0,,False,,[85]2-acetoxybenzoic acid -> [111]ChEBI:15365
-50-78-2,ChEBI:15365,0,,False,,[91]50-78-2 -> [111]ChEBI:15365
-Acetylsalicylate,ChEBI:15365,0,,False,,[95]Acetylsalicylate -> [111]ChEBI:15365
-acetylsalicylic acid,ChEBI:15365,0,,False,,[96]acetylsalicylic acid -> [111]ChEBI:15365
-Acetylsalicylic acid,ChEBI:15365,0,,False,,[97]Acetylsalicylic acid -> [111]ChEBI:15365
-Aloxiprimum,HMDB0001879,0,,False,,[101]Aloxiprimum -> [125]HMDB0001879
-ASA,HMDB0001879,0,,False,,[102]ASA -> [125]HMDB0001879
-Aspalon,HMDB0001879,0,,False,,[103]Aspalon -> [125]HMDB0001879
-C9H8O4,HMDB0001879,0,,False,,[110]C9H8O4 -> [125]HMDB0001879
-Durlaza,HMDB0001879,0,,False,,[120]Durlaza -> [125]HMDB0001879
-Easprin,HMDB0001879,0,,False,,[121]Easprin -> [125]HMDB0001879
-Ecolen,HMDB0001879,0,,False,,[122]Ecolen -> [125]HMDB0001879
-Micristin,HMDB0001879,0,,False,,[147]Micristin -> [125]HMDB0001879
-Persistin,HMDB0001879,0,,False,,[152]Persistin -> [125]HMDB0001879
-PubChem:2244,HMDB0001879,0,,False,,[153]PubChem:2244 -> [125]HMDB0001879
-Rhodine,HMDB0001879,0,,False,,[158]Rhodine -> [125]HMDB0001879
-Salicylic acid acetate,HMDB0001879,0,,False,,[160]Salicylic acid acetate -> [125]HMDB0001879
-2-(ACETYLOXY)benzoIC ACID,HMDB0001879,0,,False,,[82]2-(ACETYLOXY)benzoIC ACID -> [125]HMDB0001879
-2-Acetoxybenzenecarboxylic acid,HMDB0001879,0,,False,,[84]2-Acetoxybenzenecarboxylic acid -> [125]HMDB0001879
-50-78-2,HMDB0001879,0,,False,,[91]50-78-2 -> [125]HMDB0001879
-Acetosal,HMDB0001879,0,,False,,[94]Acetosal -> [125]HMDB0001879
-Acetylsalicylate,HMDB0001879,0,,False,,[95]Acetylsalicylate -> [125]HMDB0001879
-Acetylsalicylic acid,HMDB0001879,0,,False,,[97]Acetylsalicylic acid -> [125]HMDB0001879
-Acetyonyl,HMDB0001879,0,,False,,[98]Acetyonyl -> [125]HMDB0001879
+AIN[PDBj],C01405,0,,False,,0
+Aspirin,C01405,0,,False,,1
+C01405,ChEBI:15365,0,,False,,2
+C01405,HMDB0001879,0,,False,,3
+C9H8O4,C01405,0,,False,,4
+ChEBI:15365,C01405,0,,False,,5
+CHEMBL25,C01405,0,,False,,6
+NIKKAJI:J2.300K,C01405,0,,False,,7
+PubChem:4594,C01405,0,,False,,8
+2-Acetoxybenzenecarboxylic acid,C01405,0,,False,,9
+3DMET:B00284,C01405,0,,False,,10
+50-78-2,C01405,0,,False,,11
+Acetylsalicylate,C01405,0,,False,,12
+Acetylsalicylic acid,C01405,0,,False,,13
+Aspirin,ChEBI:15365,0,,False,,14
+Aspirin,HMDB0001879,0,,False,,15
+ASA,ChEBI:15365,0,,False,,16
+C9H8O4,ChEBI:15365,0,,False,,17
+ChEBI:15365,HMDB0001879,0,,False,,18
+HMDB0001879,ChEBI:15365,0,,False,,19
+salicylic acid acetate,ChEBI:15365,0,,False,,20
+2-(acetyloxy)benzoic acid,ChEBI:15365,0,,False,,21
+2-(ACETYLOXY)BENZOIC ACID,ChEBI:15365,0,,False,,22
+2-Acetoxybenzenecarboxylic acid,ChEBI:15365,0,,False,,23
+2-acetoxybenzoic acid,ChEBI:15365,0,,False,,24
+50-78-2,ChEBI:15365,0,,False,,25
+Acetylsalicylate,ChEBI:15365,0,,False,,26
+acetylsalicylic acid,ChEBI:15365,0,,False,,27
+Acetylsalicylic acid,ChEBI:15365,0,,False,,28
+Aloxiprimum,HMDB0001879,0,,False,,29
+ASA,HMDB0001879,0,,False,,30
+Aspalon,HMDB0001879,0,,False,,31
+C9H8O4,HMDB0001879,0,,False,,32
+Durlaza,HMDB0001879,0,,False,,33
+Easprin,HMDB0001879,0,,False,,34
+Ecolen,HMDB0001879,0,,False,,35
+Micristin,HMDB0001879,0,,False,,36
+Persistin,HMDB0001879,0,,False,,37
+PubChem:2244,HMDB0001879,0,,False,,38
+Rhodine,HMDB0001879,0,,False,,39
+Salicylic acid acetate,HMDB0001879,0,,False,,40
+2-(ACETYLOXY)benzoIC ACID,HMDB0001879,0,,False,,41
+2-Acetoxybenzenecarboxylic acid,HMDB0001879,0,,False,,42
+50-78-2,HMDB0001879,0,,False,,43
+Acetosal,HMDB0001879,0,,False,,44
+Acetylsalicylate,HMDB0001879,0,,False,,45
+Acetylsalicylic acid,HMDB0001879,0,,False,,46
+Acetyonyl,HMDB0001879,0,,False,,47

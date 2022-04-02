@@ -14,10 +14,11 @@ rendering = function(graph, savefile) {
 	require(JSON);
 	
 	let g = graph
-	|> compute.network()
+	|> louvain_cluster()
+	|> compute.network()	
 	;
 
-	bitmap(file = savefile, size = [1920, 1200], dpi = 300) {
+	bitmap(file = savefile, size = [1920, 1440], dpi = 300) {
 		ggplot(g) 
 		+ geom_edge_link() 
 		+ geom_node_point(aes(

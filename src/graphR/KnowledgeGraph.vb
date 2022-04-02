@@ -117,7 +117,30 @@ Module KnowledgeGraph
 
     <ExportAPI("knowledgeIslands")>
     Public Function knowledgeIslands(graph As NetworkGraph) As NetworkGraph()
-        Return IteratesSubNetworks(Of Node, Edge, NetworkGraph)(graph, singleNodeAsGraph:=False).ToArray
+        Dim list = IteratesSubNetworks(Of Node, Edge, NetworkGraph)(graph, singleNodeAsGraph:=False).ToArray
+        Dim g As NetworkGraph
+        Dim rebuild As NetworkGraph
+
+        For i As Integer = 0 To list.Length - 1
+            g = list(i)
+            rebuild = New NetworkGraph
+
+            For Each v As Node In g.vertex
+                Call rebuild.AddNode(v, assignId:=True)
+            Next
+            For Each link As Edge In g.graphEdges
+                Call rebuild.CreateEdge(
+                    u:=rebuild.GetElementByID(link.U.label),
+                    v:=rebuild.GetElementByID(link.V.label),
+                    weight:=link.weight,
+                    data:=link.data
+                )
+            Next
+
+            list(i) = rebuild
+        Next
+
+        Return list
     End Function
 
     ''' <summary>
