@@ -2,6 +2,7 @@
 Imports graphMsg
 Imports graphQL
 Imports Microsoft.VisualBasic.CommandLine.Reflection
+Imports Microsoft.VisualBasic.Data.visualize.Network.Graph
 Imports Microsoft.VisualBasic.Scripting.MetaData
 Imports SMRUCC.Rsharp.Runtime
 Imports SMRUCC.Rsharp.Runtime.Components
@@ -36,6 +37,24 @@ Module MsgFile
             Else
                 Return StorageProvider.Open(buffer)
             End If
+        End If
+    End Function
+
+    ''' <summary>
+    ''' read target graph database as network graph object
+    ''' </summary>
+    ''' <param name="file"></param>
+    ''' <param name="env"></param>
+    ''' <returns></returns>
+    <ExportAPI("read.graph")>
+    <RApiReturn(GetType(NetworkGraph))>
+    Public Function readGraph(<RRawVectorArgument> file As Object, Optional env As Environment = Nothing) As Object
+        Dim buffer = SMRUCC.Rsharp.GetFileStream(file, FileAccess.Read, env)
+
+        If buffer Like GetType(Message) Then
+            Return buffer.TryCast(Of Message)
+        Else
+            Return GraphReader.LoadGraph(buffer)
         End If
     End Function
 
