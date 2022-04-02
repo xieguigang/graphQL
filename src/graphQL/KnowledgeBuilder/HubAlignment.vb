@@ -11,6 +11,6 @@ Public Class HubAlignment : Inherits ComparisonProvider
     End Sub
 
     Protected Overrides Function GetSimilarity(x As String, y As String) As Double
-        Throw New NotImplementedException()
+        Return matrix(x)(y)
     End Function
 End Class
