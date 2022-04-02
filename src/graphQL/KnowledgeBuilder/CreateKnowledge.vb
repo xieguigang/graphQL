@@ -38,8 +38,8 @@ Public Module CreateKnowledge
     ''' </param>
     ''' <returns></returns>
     Public Function GroupMeltdown(gc As NetworkGraph,
-                                  Optional equals As Double = 0.25,
-                                  Optional gt As Double = 0.1) As NetworkGraph
+                                  Optional equals As Double = 0.75,
+                                  Optional gt As Double = 0.5) As NetworkGraph
         ' 找出所有的hub节点
         ' 将hub节点定义为每一个分组中degree值最高的那个节点
         Dim groups = gc.vertex _
@@ -101,8 +101,8 @@ Public Module CreateKnowledge
     ''' 
     <Extension>
     Public Iterator Function SplitKnowledges(gc As NetworkGraph,
-                                             Optional equals As Double = 0.25,
-                                             Optional gt As Double = 0.1) As IEnumerable(Of KnowledgeFrameRow)
+                                             Optional equals As Double = 0.75,
+                                             Optional gt As Double = 0.5) As IEnumerable(Of KnowledgeFrameRow)
 
         Dim groups = GroupMeltdown(gc, equals, gt).vertex _
             .GroupBy(Function(i)
