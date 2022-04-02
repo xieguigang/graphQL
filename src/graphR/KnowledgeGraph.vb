@@ -5,6 +5,7 @@ Imports Microsoft.VisualBasic.CommandLine.Reflection
 Imports Microsoft.VisualBasic.ComponentModel.Collection
 Imports Microsoft.VisualBasic.ComponentModel.DataStructures
 Imports Microsoft.VisualBasic.Data.csv.IO
+Imports Microsoft.VisualBasic.Data.GraphTheory.Network
 Imports Microsoft.VisualBasic.Data.visualize.Network.Analysis
 Imports Microsoft.VisualBasic.Data.visualize.Network.FileStream.Generic
 Imports Microsoft.VisualBasic.Data.visualize.Network.Graph
@@ -12,12 +13,14 @@ Imports Microsoft.VisualBasic.DataMining.DBSCAN
 Imports Microsoft.VisualBasic.DataMining.KMeans
 Imports Microsoft.VisualBasic.DataMining.UMAP
 Imports Microsoft.VisualBasic.Imaging
+Imports Microsoft.VisualBasic.Language
 Imports Microsoft.VisualBasic.Linq
 Imports Microsoft.VisualBasic.Math.Correlations
 Imports Microsoft.VisualBasic.Scripting.MetaData
 Imports SMRUCC.Rsharp.Runtime.Internal.Object
 Imports SMRUCC.Rsharp.Runtime.Interop
 Imports dataframe = SMRUCC.Rsharp.Runtime.Internal.Object.dataframe
+Imports Node = Microsoft.VisualBasic.Data.visualize.Network.Graph.Node
 Imports REnv = SMRUCC.Rsharp.Runtime
 
 <Package("KnowledgeGraph")>
@@ -112,6 +115,51 @@ Module KnowledgeGraph
         Return frame
     End Function
 
+    <ExportAPI("knowledgeIslands")>
+    Public Function knowledgeIslands(graph As NetworkGraph) As NetworkGraph()
+        Dim list = IteratesSubNetworks(Of Node, Edge, NetworkGraph)(graph, singleNodeAsGraph:=False).ToArray
+        Dim g As NetworkGraph
+        Dim rebuild As NetworkGraph
+
+        For i As Integer = 0 To list.Length - 1
+            g = list(i)
+            rebuild = New NetworkGraph
+
+            For Each v As Node In g.vertex
+                Call rebuild.AddNode(v, assignId:=True)
+            Next
+            For Each link As Edge In g.graphEdges
+                Call rebuild.CreateEdge(
+                    u:=rebuild.GetElementByID(link.U.label),
+                    v:=rebuild.GetElementByID(link.V.label),
+                    weight:=link.weight,
+                    data:=link.data
+                )
+            Next
+
+            list(i) = rebuild
+        Next
+
+        Return list
+    End Function
+
+    <ExportAPI("extractKnowledgeTerms")>
+    Public Function extractKnowledgeTerms(island As NetworkGraph, Optional equals As Double = 0.5) As KnowledgeFrameRow()
+        Return island.SplitKnowledges(equals).ToArray
+    End Function
+
+    <ExportAPI("correctKnowledges")>
+    Public Function correctKnowledges(kb As GraphPool,
+                                      knowledges As KnowledgeFrameRow(),
+                                      <RRawVectorArgument(GetType(String))>
+                                      indexBy As Object) As KnowledgeFrameRow()
+
+        Dim index As String() = DirectCast(REnv.asVector(Of String)(indexBy), String())
+        Dim result = KnowledgeFrameRow.CorrectKnowledges(kb, knowledges, index).ToArray
+
+        Return result
+    End Function
+
     ''' <summary>
     ''' export knowledge terms based on the network community algorithm
     ''' </summary>
@@ -139,12 +187,14 @@ Module KnowledgeGraph
                                        <RRawVectorArgument(GetType(String))>
                                        Optional common_type As Object = Nothing,
                                        Optional eps As Double = 0.001,
-                                       Optional unweighted As Boolean = False) As List
+                                       Optional unweighted As Boolean = False) As list
+
+        Throw New NotImplementedException
 
         Dim g As NetworkGraph = kb.CreateGraph
-        Dim knowledges = g.ExtractKnowledges(eps).ToArray
+        Dim knowledges As KnowledgeFrameRow() = g.ExtractKnowledges(eps).ToArray
         Dim index As String() = DirectCast(REnv.asVector(Of String)(indexBy), String())
-        Dim unique As KnowledgeFrameRow() = KnowledgeFrameRow.CorrectKnowledges(kb, KnowledgeFrameRow.GroupBy(knowledges, fieldSet:=index), index).ToArray
+
 
 
         'Dim commons As Index(Of String) = DirectCast(REnv.asVector(Of String)(common_type), String()).Indexing
@@ -218,15 +268,15 @@ Module KnowledgeGraph
         '    '})
         'Next
 
-        Dim rtvl As New List With {
-            .slots = New Dictionary(Of String, Object) From {
-                {"graph", g},
-                {"knowledges", unique.castTable},
-                {"raw", knowledges.castTable}
-            }
-        }
+        'Dim rtvl As New list With {
+        '    .slots = New Dictionary(Of String, Object) From {
+        '        {"graph", g},
+        '        {"knowledges", unique.castTable},
+        '        {"raw", knowledges.castTable}
+        '    }
+        '}
 
-        Return rtvl
+        'Return rtvl
     End Function
 
     <Extension>

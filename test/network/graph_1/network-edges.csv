@@ -1,0 +1,22 @@
+﻿fromNode,toNode,value,interaction_type,selfLoop,label,guid
+H2O,C00001,0,,False,,0
+H2O,CHEBI:15377,0,,False,,1
+C00001,CHEBI:15377,0,,False,,2
+ChEBI:15377,C00001,0,,False,,3
+CHEMBL1098659,C00001,0,,False,,4
+HOH[PDBj],C00001,0,,False,,5
+NIKKAJI:J43.587B,C00001,0,,False,,6
+O[PDBj],C00001,0,,False,,7
+PubChem:3303,C00001,0,,False,,8
+water,C00001,0,,False,,9
+3DMET:B01124,C00001,0,,False,,10
+7732-18-5,C00001,0,,False,,11
+dihydridooxygen,CHEBI:15377,0,,False,,12
+dihydrogen oxide,CHEBI:15377,0,,False,,13
+HMDB0002111,CHEBI:15377,0,,False,,14
+hydrogen hydroxide,CHEBI:15377,0,,False,,15
+oxidane,CHEBI:15377,0,,False,,16
+water,CHEBI:15377,0,,False,,17
+[OH2],CHEBI:15377,0,,False,,18
+7732-18-5,CHEBI:15377,0,,False,,19
+acqua,CHEBI:15377,0,,False,,20

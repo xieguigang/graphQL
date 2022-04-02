@@ -18,7 +18,8 @@ Public Module CreateNetwork
                     .origID = knowledge.label,
                     .mass = knowledge.mentions,
                     .Properties = New Dictionary(Of String, String) From {
-                        {"knowledge_type", knowledge.type}
+                        {"knowledge_type", knowledge.type},
+                        {"source", knowledge.source.JoinBy("; ")}
                     }
                 }
             }
@@ -39,7 +40,8 @@ Public Module CreateNetwork
                 .isDirected = True,
                 .data = New EdgeData With {
                     .Properties = New Dictionary(Of String, String) From {
-                        {NamesOf.REFLECTION_ID_MAPPING_INTERACTION_TYPE, url.type}
+                        {NamesOf.REFLECTION_ID_MAPPING_INTERACTION_TYPE, url.type},
+                        {"source", url.source.JoinBy("; ")}
                     }
                 }
             }
