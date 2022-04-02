@@ -87,7 +87,7 @@ Public Class KnowledgeFrameRow : Inherits DynamicPropertyBase(Of String())
         Return corrected
     End Function
 
-    Private Shared Sub SaveData(tree As BTreeCluster, ByRef save As List(Of BTreeCluster))
+    Friend Shared Sub SaveData(tree As BTreeCluster, ByRef save As List(Of BTreeCluster))
         Call save.Add(tree)
 
         If Not tree.left Is Nothing Then Call SaveData(tree.left, save)

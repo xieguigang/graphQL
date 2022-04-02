@@ -106,6 +106,7 @@
     <Compile Include="Graph\Association.vb" />
     <Compile Include="Graph\GraphPool.vb" />
     <Compile Include="Graph\Knowledge.vb" />
+    <Compile Include="KnowledgeBuilder\HubAlignment.vb" />
     <Compile Include="KnowledgeBuilder\KnowledgeAlignment.vb" />
     <Compile Include="KnowledgeBuilder\KnowledgeFrameRow.vb" />
     <Compile Include="KnowledgeBuilder\CreateKnowledge.vb" />
