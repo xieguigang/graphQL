@@ -103,15 +103,15 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Association.vb" />
-    <Compile Include="GraphPool.vb" />
-    <Compile Include="Knowledge.vb" />
+    <Compile Include="Graph\Association.vb" />
+    <Compile Include="Graph\GraphPool.vb" />
+    <Compile Include="Graph\Knowledge.vb" />
     <Compile Include="KnowledgeBuilder\KnowledgeAlignment.vb" />
     <Compile Include="KnowledgeBuilder\KnowledgeFrameRow.vb" />
     <Compile Include="KnowledgeBuilder\CreateKnowledge.vb" />
     <Compile Include="KnowledgeBuilder\CreateNetwork.vb" />
     <Compile Include="KnowledgeDescription.vb" />
-    <Compile Include="GraphActions.vb" />
+    <Compile Include="Graph\GraphActions.vb" />
     <Compile Include="Relationship.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
