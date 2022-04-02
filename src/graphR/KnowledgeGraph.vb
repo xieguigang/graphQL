@@ -144,11 +144,8 @@ Module KnowledgeGraph
     End Function
 
     <ExportAPI("extractKnowledgeTerms")>
-    Public Function extractKnowledgeTerms(island As NetworkGraph,
-                                          Optional equals As Double = 0.9,
-                                          Optional gt As Double = 0.75) As KnowledgeFrameRow()
-
-        Return island.SplitKnowledges(equals, gt).ToArray
+    Public Function extractKnowledgeTerms(island As NetworkGraph, Optional equals As Double = 0.5) As KnowledgeFrameRow()
+        Return island.SplitKnowledges(equals).ToArray
     End Function
 
     <ExportAPI("correctKnowledges")>

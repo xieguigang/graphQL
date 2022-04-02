@@ -37,9 +37,7 @@ Public Module CreateKnowledge
     ''' 2. degree计算
     ''' </param>
     ''' <returns></returns>
-    Public Function GroupMeltdown(gc As NetworkGraph,
-                                  Optional equals As Double = 0.75,
-                                  Optional gt As Double = 0.5) As NetworkGraph
+    Public Function GroupMeltdown(gc As NetworkGraph, Optional equals As Double = 0.75) As NetworkGraph
         ' 找出所有的hub节点
         ' 将hub节点定义为每一个分组中degree值最高的那个节点
         Dim groups = gc.vertex _
@@ -72,10 +70,11 @@ Public Module CreateKnowledge
 
         ' 计算一下分位数
         Dim q = shareMatrix.Values.Select(Function(r) r.Values).IteratesALL.GKQuantile
-        Dim alignment As New HubAlignment(shareMatrix, equals:=q.Query(equals), gt:=q.Query(gt))
+        Dim alignment As New HubAlignment(shareMatrix, equals:=q.Query(equals) + 1, gt:=1)
         Dim rooTree As BTreeCluster = shareMatrix.Keys.BTreeCluster(alignment)
         Dim poll As New List(Of BTreeCluster)
 
+        Call Console.WriteLine(q.ToString)
         Call KnowledgeFrameRow.SaveData(rooTree, save:=poll)
 
         Dim meltGroupId As Integer = 1
@@ -108,11 +107,8 @@ Public Module CreateKnowledge
     ''' <returns></returns>
     ''' 
     <Extension>
-    Public Iterator Function SplitKnowledges(gc As NetworkGraph,
-                                             Optional equals As Double = 0.75,
-                                             Optional gt As Double = 0.5) As IEnumerable(Of KnowledgeFrameRow)
-
-        Dim groups = GroupMeltdown(gc, equals, gt).vertex _
+    Public Iterator Function SplitKnowledges(gc As NetworkGraph, Optional equals As Double = 0.75) As IEnumerable(Of KnowledgeFrameRow)
+        Dim groups = GroupMeltdown(gc, equals).vertex _
             .GroupBy(Function(i)
                          Return i.data(NamesOf.REFLECTION_ID_MAPPING_NODETYPE)
                      End Function) _
