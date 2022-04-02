@@ -151,6 +151,18 @@ Module KnowledgeGraph
         Return island.SplitKnowledges(equals, gt).ToArray
     End Function
 
+    <ExportAPI("correctKnowledges")>
+    Public Function correctKnowledges(kb As GraphPool,
+                                      knowledges As KnowledgeFrameRow(),
+                                      <RRawVectorArgument(GetType(String))>
+                                      indexBy As Object) As KnowledgeFrameRow()
+
+        Dim index As String() = DirectCast(REnv.asVector(Of String)(indexBy), String())
+        Dim result = KnowledgeFrameRow.CorrectKnowledges(kb, knowledges, index).ToArray
+
+        Return result
+    End Function
+
     ''' <summary>
     ''' export knowledge terms based on the network community algorithm
     ''' </summary>
@@ -180,10 +192,12 @@ Module KnowledgeGraph
                                        Optional eps As Double = 0.001,
                                        Optional unweighted As Boolean = False) As list
 
+        Throw New NotImplementedException
+
         Dim g As NetworkGraph = kb.CreateGraph
-        Dim knowledges = g.ExtractKnowledges(eps).ToArray
+        Dim knowledges As KnowledgeFrameRow() = g.ExtractKnowledges(eps).ToArray
         Dim index As String() = DirectCast(REnv.asVector(Of String)(indexBy), String())
-        Dim unique As KnowledgeFrameRow() = KnowledgeFrameRow.CorrectKnowledges(kb, KnowledgeFrameRow.GroupBy(knowledges, fieldSet:=index), index).ToArray
+
 
 
         'Dim commons As Index(Of String) = DirectCast(REnv.asVector(Of String)(common_type), String()).Indexing
@@ -257,15 +271,15 @@ Module KnowledgeGraph
         '    '})
         'Next
 
-        Dim rtvl As New list With {
-            .slots = New Dictionary(Of String, Object) From {
-                {"graph", g},
-                {"knowledges", unique.castTable},
-                {"raw", knowledges.castTable}
-            }
-        }
+        'Dim rtvl As New list With {
+        '    .slots = New Dictionary(Of String, Object) From {
+        '        {"graph", g},
+        '        {"knowledges", unique.castTable},
+        '        {"raw", knowledges.castTable}
+        '    }
+        '}
 
-        Return rtvl
+        'Return rtvl
     End Function
 
     <Extension>
