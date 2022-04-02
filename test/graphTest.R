@@ -18,6 +18,11 @@ rendering = function(graph, savefile) {
 	|> compute.network()	
 	;
 
+	g 
+	|> extractKnowledgeTerms()
+	|> write.csv(file = `${dirname(savefile)}/${basename(savefile)}_terms.csv`)
+	;
+
 	bitmap(file = savefile, size = [1920, 1440], dpi = 300) {
 		ggplot(g) 
 		+ geom_edge_link() 
@@ -29,11 +34,6 @@ rendering = function(graph, savefile) {
 		+ layout_springforce(iterations = 100)
 		;
 	}
-	
-	g 
-	|> extractKnowledgeTerms()
-	|> write.csv(file = `${dirname(savefile)}/${basename(savefile)}_terms.csv`)
-	;
 }
 
 
