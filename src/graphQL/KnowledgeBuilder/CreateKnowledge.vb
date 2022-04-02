@@ -4,12 +4,11 @@ Imports Microsoft.VisualBasic.Data.GraphTheory.Network
 Imports Microsoft.VisualBasic.Data.visualize.Network.Analysis
 Imports Microsoft.VisualBasic.Data.visualize.Network.FileStream.Generic
 Imports Microsoft.VisualBasic.Data.visualize.Network.Graph
+Imports Microsoft.VisualBasic.DataMining.BinaryTree
 Imports Microsoft.VisualBasic.Language
 Imports Microsoft.VisualBasic.Linq
-Imports Node = Microsoft.VisualBasic.Data.visualize.Network.Graph.Node
-Imports Microsoft.VisualBasic.ComponentModel.DataSourceModel
 Imports Microsoft.VisualBasic.Math.Quantile
-Imports Microsoft.VisualBasic.DataMining.BinaryTree
+Imports Node = Microsoft.VisualBasic.Data.visualize.Network.Graph.Node
 
 Public Module CreateKnowledge
 
@@ -21,37 +20,9 @@ Public Module CreateKnowledge
 
         ' 并行计算知识分区
         For Each gc As NetworkGraph In island.AsParallel.Select(Function(g) g.ComputeKnowlegdes(eps))
-            Dim knowledges = gc.vertex _
-                .GroupBy(Function(i)
-                             Return i.data(NamesOf.REFLECTION_ID_MAPPING_NODETYPE)
-                         End Function) _
-                .ToArray
-            Dim mainID As String = ++islandId
-
-            For Each term As IGrouping(Of String, Node) In knowledges
-                Dim hits As Index(Of String) = term.Select(Function(v) v.label).Indexing
-                Dim metadata = gc.graphEdges _
-                    .Where(Function(url)
-                               Return url.U.label Like hits OrElse url.V.label Like hits
-                           End Function) _
-                    .Select(Function(url) {url.U, url.V}) _
-                    .IteratesALL _
-                    .GroupBy(Function(v) v.label) _
-                    .Select(Function(v) v.First) _
-                    .GroupBy(Function(v)
-                                 Return v.data("knowledge_type")
-                             End Function) _
-                    .ToArray
-                Dim props As New Dictionary(Of String, String())
-
-                For Each p In metadata
-                    Call props.Add(p.Key, (From v As Node In p Select v.label).ToArray)
-                Next
-
-                Yield New KnowledgeFrameRow With {
-                    .UniqeId = $"{mainID}-{term.Key}",
-                    .Properties = props
-                }
+            For Each term As KnowledgeFrameRow In gc.SplitKnowledges()
+                term.UniqeId = ++islandId
+                Yield term
             Next
         Next
     End Function
@@ -66,9 +37,9 @@ Public Module CreateKnowledge
     ''' 2. degree计算
     ''' </param>
     ''' <returns></returns>
-    Public Iterator Function SplitKnowledges(gc As NetworkGraph,
-                                             Optional equals As Double = 0.25,
-                                             Optional gt As Double = 0.1) As IEnumerable(Of KnowledgeFrameRow)
+    Public Function GroupMeltdown(gc As NetworkGraph,
+                                  Optional equals As Double = 0.25,
+                                  Optional gt As Double = 0.1) As NetworkGraph
         ' 找出所有的hub节点
         ' 将hub节点定义为每一个分组中degree值最高的那个节点
         Dim groups = gc.vertex _
@@ -109,9 +80,63 @@ Public Module CreateKnowledge
 
         For Each node As BTreeCluster In poll
             Dim groupKeys = node.members
-            Dim knowledge As New KnowledgeFrameRow
 
-            Yield knowledge
+
+
+        Next
+
+        Return gc
+    End Function
+
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="gc">
+    ''' 假设目标节点已经是完成了:
+    ''' 
+    ''' 1. 社区分组计算操作
+    ''' 2. degree计算
+    ''' </param>
+    ''' <returns></returns>
+    ''' 
+    <Extension>
+    Public Iterator Function SplitKnowledges(gc As NetworkGraph,
+                                             Optional equals As Double = 0.25,
+                                             Optional gt As Double = 0.1) As IEnumerable(Of KnowledgeFrameRow)
+
+        Dim groups = GroupMeltdown(gc, equals, gt).vertex _
+            .GroupBy(Function(i)
+                         Return i.data(NamesOf.REFLECTION_ID_MAPPING_NODETYPE)
+                     End Function) _
+            .ToDictionary(Function(v) v.Key,
+                          Function(v)
+                              Return v.ToArray
+                          End Function)
+
+        For Each group In groups
+            Dim hits As Index(Of String) = group.Value.Select(Function(v) v.label).Indexing
+            Dim metadata = gc.graphEdges _
+                .Where(Function(url)
+                           Return url.U.label Like hits OrElse url.V.label Like hits
+                       End Function) _
+                .Select(Function(url) {url.U, url.V}) _
+                .IteratesALL _
+                .GroupBy(Function(v) v.label) _
+                .Select(Function(v) v.First) _
+                .GroupBy(Function(v)
+                             Return v.data("knowledge_type")
+                         End Function) _
+                .ToArray
+            Dim props As New Dictionary(Of String, String())
+
+            For Each p In metadata
+                Call props.Add(p.Key, (From v As Node In p Select v.label).ToArray)
+            Next
+
+            Yield New KnowledgeFrameRow With {
+                .UniqeId = group.Key,
+                .Properties = props
+            }
         Next
     End Function
 
