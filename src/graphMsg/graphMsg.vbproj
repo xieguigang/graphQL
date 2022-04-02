@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <RootNamespace>graphMsg</RootNamespace>
-    <TargetFramework>net5.0</TargetFramework>
+	  <TargetFrameworks>net5.0;net6.0;net48</TargetFrameworks>
     <Platforms>AnyCPU;x64</Platforms>
     <Configurations>Debug;Release;Rsharp_app_release</Configurations>
     <Description>store a graph database in messagepack data format</Description>
