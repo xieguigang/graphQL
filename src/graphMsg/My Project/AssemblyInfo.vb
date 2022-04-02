@@ -7,12 +7,12 @@ Imports System.Runtime.InteropServices
 ' 与程序集关联的信息。
 
 '查看程序集特性的值
-#if netcore5=0 then 
+#If netcore5 = 0 Then
 <Assembly: AssemblyTitle("graphMsg")>
-<Assembly: AssemblyDescription("")>
-<Assembly: AssemblyCompany("微软中国")>
+<Assembly: AssemblyDescription("MessagePack I/O handler for the graph database file.")>
+<Assembly: AssemblyCompany("I@xieguigang.me")>
 <Assembly: AssemblyProduct("graphMsg")>
-<Assembly: AssemblyCopyright("Copyright © 微软中国 2022")>
+<Assembly: AssemblyCopyright("Copyright © I@xieguigang.me 2022")>
 <Assembly: AssemblyTrademark("")>
 
 <Assembly: ComVisible(False)>
@@ -33,4 +33,4 @@ Imports System.Runtime.InteropServices
 
 <Assembly: AssemblyVersion("1.0.0.0")>
 <Assembly: AssemblyFileVersion("1.0.0.0")>
-#end if
+#End If
