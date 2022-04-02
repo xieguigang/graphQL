@@ -5,6 +5,7 @@ Imports Microsoft.VisualBasic.CommandLine.Reflection
 Imports Microsoft.VisualBasic.ComponentModel.Collection
 Imports Microsoft.VisualBasic.ComponentModel.DataStructures
 Imports Microsoft.VisualBasic.Data.csv.IO
+Imports Microsoft.VisualBasic.Data.GraphTheory.Network
 Imports Microsoft.VisualBasic.Data.visualize.Network.Analysis
 Imports Microsoft.VisualBasic.Data.visualize.Network.FileStream.Generic
 Imports Microsoft.VisualBasic.Data.visualize.Network.Graph
@@ -12,12 +13,14 @@ Imports Microsoft.VisualBasic.DataMining.DBSCAN
 Imports Microsoft.VisualBasic.DataMining.KMeans
 Imports Microsoft.VisualBasic.DataMining.UMAP
 Imports Microsoft.VisualBasic.Imaging
+Imports Microsoft.VisualBasic.Language
 Imports Microsoft.VisualBasic.Linq
 Imports Microsoft.VisualBasic.Math.Correlations
 Imports Microsoft.VisualBasic.Scripting.MetaData
 Imports SMRUCC.Rsharp.Runtime.Internal.Object
 Imports SMRUCC.Rsharp.Runtime.Interop
 Imports dataframe = SMRUCC.Rsharp.Runtime.Internal.Object.dataframe
+Imports Node = Microsoft.VisualBasic.Data.visualize.Network.Graph.Node
 Imports REnv = SMRUCC.Rsharp.Runtime
 
 <Package("KnowledgeGraph")>
@@ -112,6 +115,11 @@ Module KnowledgeGraph
         Return frame
     End Function
 
+    <ExportAPI("knowledgeIslands")>
+    Public Function knowledgeIslands(graph As NetworkGraph) As NetworkGraph()
+        Return IteratesSubNetworks(Of Node, Edge, NetworkGraph)(graph, singleNodeAsGraph:=False).ToArray
+    End Function
+
     ''' <summary>
     ''' export knowledge terms based on the network community algorithm
     ''' </summary>
@@ -139,7 +147,7 @@ Module KnowledgeGraph
                                        <RRawVectorArgument(GetType(String))>
                                        Optional common_type As Object = Nothing,
                                        Optional eps As Double = 0.001,
-                                       Optional unweighted As Boolean = False) As List
+                                       Optional unweighted As Boolean = False) As list
 
         Dim g As NetworkGraph = kb.CreateGraph
         Dim knowledges = g.ExtractKnowledges(eps).ToArray
@@ -218,7 +226,7 @@ Module KnowledgeGraph
         '    '})
         'Next
 
-        Dim rtvl As New List With {
+        Dim rtvl As New list With {
             .slots = New Dictionary(Of String, Object) From {
                 {"graph", g},
                 {"knowledges", unique.castTable},

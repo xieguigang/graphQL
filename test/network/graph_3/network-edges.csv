@@ -1,0 +1,208 @@
+﻿fromNode,toNode,value,interaction_type,selfLoop,label,guid,source
+H2O,C00001,2,name,False,,[123]H2O -> [106]C00001,chebi
+ChEBI:17191,C00407,1,chebi,False,,[0]ChEBI:17191 -> [14]C00407,chebi
+ChEBI:17191,HMDB0000172,1,chebi,False,,[0]ChEBI:17191 -> [15]HMDB0000172,name
+L-isoleucine,ChEBI:17191,1,name,False,,[1]L-isoleucine -> [0]ChEBI:17191,inchi
+"InChI=1S/C6H13NO2/c1-3-4(2)5(7)6(8)9/h4-5H,3,7H2,1-2H3,(H,8,9)/t4-,5-/m0/s1",ChEBI:17191,1,inchi,False,,"[10]InChI=1S/C6H13NO2/c1-3-4(2)5(7)6(8)9/h4-5H,3,7H2,1-2H3,(H,8,9)/t4-,5-/m0/s1 -> [0]ChEBI:17191",inchi
+"InChI=1S/C6H13NO2/c1-3-4(2)5(7)6(8)9/h4-5H,3,7H2,1-2H3,(H,8,9)/t4-,5-/m0/s1",HMDB0000172,1,inchi,False,,"[10]InChI=1S/C6H13NO2/c1-3-4(2)5(7)6(8)9/h4-5H,3,7H2,1-2H3,(H,8,9)/t4-,5-/m0/s1 -> [15]HMDB0000172",name
+AIN[PDBj],C01405,1,pdb,False,,[100]AIN[PDBj] -> [109]C01405,chebi
+Aloxiprimum,HMDB0001879,1,name,False,,[101]Aloxiprimum -> [125]HMDB0001879,name
+ASA,ChEBI:15365,1,name,False,,[102]ASA -> [111]ChEBI:15365,inchi
+ASA,HMDB0001879,1,name,False,,[102]ASA -> [125]HMDB0001879,name
+Aspalon,HMDB0001879,1,name,False,,[103]Aspalon -> [125]HMDB0001879,name
+Aspirin,C01405,1,name,False,,[104]Aspirin -> [109]C01405,chebi
+Aspirin,ChEBI:15365,1,name,False,,[104]Aspirin -> [111]ChEBI:15365,inchi
+Aspirin,HMDB0001879,1,name,False,,[104]Aspirin -> [125]HMDB0001879,name
+B00034,C00123,1,3dmet,False,,[105]B00034 -> [108]C00123,chebi
+C00001,CHEBI:15377,1,kegg,False,,[106]C00001 -> [113]CHEBI:15377,inchi
+C00001377,C00123,1,knapsack,False,,[107]C00001377 -> [108]C00123,chebi
+C00001377,HMDB0000687,1,knapsack,False,,[107]C00001377 -> [124]HMDB0000687,name
+C00123,HMDB0000687,1,kegg,False,,[108]C00123 -> [124]HMDB0000687,name
+C01405,ChEBI:15365,1,kegg,False,,[109]C01405 -> [111]ChEBI:15365,inchi
+C01405,HMDB0001879,1,kegg,False,,[109]C01405 -> [125]HMDB0001879,name
+AGPKZVBTJJNPAG-WHFBIAKZSA-N,ChEBI:17191,1,inchikey,False,,[11]AGPKZVBTJJNPAG-WHFBIAKZSA-N -> [0]ChEBI:17191,inchi
+AGPKZVBTJJNPAG-WHFBIAKZSA-N,HMDB0000172,1,inchikey,False,,[11]AGPKZVBTJJNPAG-WHFBIAKZSA-N -> [15]HMDB0000172,name
+C9H8O4,C01405,1,formula,False,,[110]C9H8O4 -> [109]C01405,chebi
+C9H8O4,ChEBI:15365,1,formula,False,,[110]C9H8O4 -> [111]ChEBI:15365,inchi
+C9H8O4,HMDB0001879,1,formula,False,,[110]C9H8O4 -> [125]HMDB0001879,name
+ChEBI:15365,C01405,1,chebi,False,,[111]ChEBI:15365 -> [109]C01405,chebi
+ChEBI:15365,HMDB0001879,1,chebi,False,,[111]ChEBI:15365 -> [125]HMDB0001879,name
+ChEBI:15377,C00001,1,chebi,False,,[112]ChEBI:15377 -> [106]C00001,chebi
+ChEBI:15603,C00123,1,chebi,False,,[114]ChEBI:15603 -> [108]C00123,chebi
+ChEBI:15603,HMDB0000687,1,chebi,False,,[114]ChEBI:15603 -> [124]HMDB0000687,name
+CHEMBL1098659,C00001,1,chembl,False,,[115]CHEMBL1098659 -> [106]C00001,chebi
+CHEMBL25,C01405,1,chembl,False,,[116]CHEMBL25 -> [109]C01405,chebi
+CHEMBL291962,C00123,1,chembl,False,,[117]CHEMBL291962 -> [108]C00123,chebi
+dihydridooxygen,CHEBI:15377,1,name,False,,[118]dihydridooxygen -> [113]CHEBI:15377,inchi
+dihydrogen oxide,CHEBI:15377,1,name,False,,[119]dihydrogen oxide -> [113]CHEBI:15377,inchi
+OC([C@H]([C@H](CC)C)N)=O,ChEBI:17191,1,smiles,False,,[12]OC([C@H]([C@H](CC)C)N)=O -> [0]ChEBI:17191,inchi
+Durlaza,HMDB0001879,1,name,False,,[120]Durlaza -> [125]HMDB0001879,name
+Easprin,HMDB0001879,1,name,False,,[121]Easprin -> [125]HMDB0001879,name
+Ecolen,HMDB0001879,1,name,False,,[122]Ecolen -> [125]HMDB0001879,name
+H2O,CHEBI:15377,1,formula,False,,[123]H2O -> [113]CHEBI:15377,inchi
+HMDB0001879,ChEBI:15365,1,hmdb,False,,[125]HMDB0001879 -> [111]ChEBI:15365,inchi
+HMDB0002111,CHEBI:15377,1,hmdb,False,,[126]HMDB0002111 -> [113]CHEBI:15377,inchi
+HOH[PDBj],C00001,1,pdb,False,,[127]HOH[PDBj] -> [106]C00001,chebi
+hydrogen hydroxide,CHEBI:15377,1,name,False,,[128]hydrogen hydroxide -> [113]CHEBI:15377,inchi
+J1.167C,C00123,1,nikkaji,False,,[129]J1.167C -> [108]C00123,chebi
+C00001374,ChEBI:17191,1,knapsack,False,,[13]C00001374 -> [0]ChEBI:17191,inchi
+C00001374,C00407,1,knapsack,False,,[13]C00001374 -> [14]C00407,chebi
+C00001374,HMDB0000172,1,knapsack,False,,[13]C00001374 -> [15]HMDB0000172,name
+L,HMDB0000687,1,name,False,,[130]L -> [124]HMDB0000687,name
+L-(+)-Leucine,HMDB0000687,1,name,False,,[131]L-(+)-Leucine -> [124]HMDB0000687,name
+L-a-Aminoisocaproate,HMDB0000687,1,name,False,,[132]L-a-Aminoisocaproate -> [124]HMDB0000687,name
+L-a-Aminoisocaproic acid,HMDB0000687,1,name,False,,[133]L-a-Aminoisocaproic acid -> [124]HMDB0000687,name
+L-alpha-Aminoisocaproate,HMDB0000687,1,name,False,,[134]L-alpha-Aminoisocaproate -> [124]HMDB0000687,name
+L-alpha-Aminoisocaproic acid,HMDB0000687,1,name,False,,[135]L-alpha-Aminoisocaproic acid -> [124]HMDB0000687,name
+Leu,HMDB0000687,1,name,False,,[136]Leu -> [124]HMDB0000687,name
+LEU,HMDB0000687,1,biocyc,False,,[137]LEU -> [124]HMDB0000687,name
+LEU[PDBj],C00123,1,pdb,False,,[138]LEU[PDBj] -> [108]C00123,chebi
+Leucine,HMDB0000687,1,wikipedia,False,,[139]Leucine -> [124]HMDB0000687,name
+C00407,ChEBI:17191,1,kegg,False,,[14]C00407 -> [0]ChEBI:17191,inchi
+C00407,HMDB0000172,1,kegg,False,,[14]C00407 -> [15]HMDB0000172,name
+LEUCINE,HMDB0000687,1,name,False,,[140]LEUCINE -> [124]HMDB0000687,name
+"Leucine, L isomer",HMDB0000687,1,name,False,,"[141]Leucine, L isomer -> [124]HMDB0000687",name
+"Leucine, L-isomer",HMDB0000687,1,name,False,,"[142]Leucine, L-isomer -> [124]HMDB0000687",name
+L-Isomer leucine,HMDB0000687,1,name,False,,[143]L-Isomer leucine -> [124]HMDB0000687,name
+L-Leucin,HMDB0000687,1,name,False,,[144]L-Leucin -> [124]HMDB0000687,name
+L-Leucine,C00123,1,name,False,,[145]L-Leucine -> [108]C00123,chebi
+L-Leucine,HMDB0000687,1,name,False,,[145]L-Leucine -> [124]HMDB0000687,name
+L-Leuzin,HMDB0000687,1,name,False,,[146]L-Leuzin -> [124]HMDB0000687,name
+Micristin,HMDB0001879,1,name,False,,[147]Micristin -> [125]HMDB0001879,name
+NIKKAJI:J2.300K,C01405,1,nikkaji,False,,[148]NIKKAJI:J2.300K -> [109]C01405,chebi
+NIKKAJI:J43.587B,C00001,1,nikkaji,False,,[149]NIKKAJI:J43.587B -> [106]C00001,chebi
+HMDB0000172,ChEBI:17191,1,hmdb,False,,[15]HMDB0000172 -> [0]ChEBI:17191,inchi
+O[PDBj],C00001,1,pdb,False,,[150]O[PDBj] -> [106]C00001,chebi
+oxidane,CHEBI:15377,1,name,False,,[151]oxidane -> [113]CHEBI:15377,inchi
+Persistin,HMDB0001879,1,name,False,,[152]Persistin -> [125]HMDB0001879,name
+PubChem:2244,HMDB0001879,1,pubchem,False,,[153]PubChem:2244 -> [125]HMDB0001879,name
+PubChem:3303,C00001,1,pubchem,False,,[154]PubChem:3303 -> [106]C00001,chebi
+PubChem:3423,C00123,1,pubchem,False,,[155]PubChem:3423 -> [108]C00123,chebi
+PubChem:4594,C01405,1,pubchem,False,,[156]PubChem:4594 -> [109]C01405,chebi
+PubChem:6106,HMDB0000687,1,pubchem,False,,[157]PubChem:6106 -> [124]HMDB0000687,name
+Rhodine,HMDB0001879,1,name,False,,[158]Rhodine -> [125]HMDB0001879,name
+salicylic acid acetate,ChEBI:15365,1,name,False,,[159]salicylic acid acetate -> [111]ChEBI:15365,inchi
+ILE,ChEBI:17191,1,biocyc,False,,[16]ILE -> [0]ChEBI:17191,inchi
+ILE,HMDB0000172,1,biocyc,False,,[16]ILE -> [15]HMDB0000172,name
+Salicylic acid acetate,HMDB0001879,1,name,False,,[160]Salicylic acid acetate -> [125]HMDB0001879,name
+water,C00001,1,name,False,,[161]water -> [106]C00001,chebi
+water,CHEBI:15377,1,name,False,,[161]water -> [113]CHEBI:15377,inchi
+Isoleucine,ChEBI:17191,1,wikipedia,False,,[17]Isoleucine -> [0]ChEBI:17191,inchi
+Isoleucine,HMDB0000172,1,wikipedia,False,,[17]Isoleucine -> [15]HMDB0000172,name
+73-32-5,C00407,1,cas,False,,[18]73-32-5 -> [14]C00407,chebi
+73-32-5,HMDB0000172,1,cas,False,,[18]73-32-5 -> [15]HMDB0000172,name
+PubChem:3697,C00407,1,pubchem,False,,[19]PubChem:3697 -> [14]C00407,chebi
+"(2S,3S)-2-amino-3-methylpentanoic acid",ChEBI:17191,1,name,False,,"[2](2S,3S)-2-amino-3-methylpentanoic acid -> [0]ChEBI:17191",inchi
+"(2S,3S)-2-amino-3-methylpentanoic acid",HMDB0000172,1,name,False,,"[2](2S,3S)-2-amino-3-methylpentanoic acid -> [15]HMDB0000172",name
+"(2S,3S)-2-Amino-3-methylpentanoic acid",HMDB0000172,1,name,False,,"[20](2S,3S)-2-Amino-3-methylpentanoic acid -> [15]HMDB0000172",name
+alpha-Amino-beta-methylvaleric acid,HMDB0000172,1,name,False,,[21]alpha-Amino-beta-methylvaleric acid -> [15]HMDB0000172,name
+"(2S,3S)-2-Amino-3-methylpentanoate",HMDB0000172,1,name,False,,"[22](2S,3S)-2-Amino-3-methylpentanoate -> [15]HMDB0000172",name
+2-Amino-3-methylvalerate,HMDB0000172,1,name,False,,[23]2-Amino-3-methylvalerate -> [15]HMDB0000172,name
+a-Amino-b-methylvalerate,HMDB0000172,1,name,False,,[24]a-Amino-b-methylvalerate -> [15]HMDB0000172,name
+a-Amino-b-methylvaleric acid,HMDB0000172,1,name,False,,[25]a-Amino-b-methylvaleric acid -> [15]HMDB0000172,name
+alpha-Amino-beta-methylvalerate,HMDB0000172,1,name,False,,[26]alpha-Amino-beta-methylvalerate -> [15]HMDB0000172,name
+?-amino-?-methylvalerate,HMDB0000172,1,name,False,,[27]?-amino-?-methylvalerate -> [15]HMDB0000172,name
+"(2S,3S)-2-Amino-3-methyl-pentanoate",HMDB0000172,1,name,False,,"[28](2S,3S)-2-Amino-3-methyl-pentanoate -> [15]HMDB0000172",name
+"(2S,3S)-2-Amino-3-methyl-pentanoic acid",HMDB0000172,1,name,False,,"[29](2S,3S)-2-Amino-3-methyl-pentanoic acid -> [15]HMDB0000172",name
+2-Amino-3-methylvaleric acid,ChEBI:17191,1,name,False,,[3]2-Amino-3-methylvaleric acid -> [0]ChEBI:17191,inchi
+2-Amino-3-methylvaleric acid,C00407,1,name,False,,[3]2-Amino-3-methylvaleric acid -> [14]C00407,chebi
+2-Amino-3-methylvaleric acid,HMDB0000172,1,name,False,,[3]2-Amino-3-methylvaleric acid -> [15]HMDB0000172,name
+"(2S,3S)-a-Amino-b-methyl-N-valerate",HMDB0000172,1,name,False,,"[30](2S,3S)-a-Amino-b-methyl-N-valerate -> [15]HMDB0000172",name
+"(2S,3S)-a-Amino-b-methyl-N-valeric acid",HMDB0000172,1,name,False,,"[31](2S,3S)-a-Amino-b-methyl-N-valeric acid -> [15]HMDB0000172",name
+"(2S,3S)-a-Amino-b-methylvalerate",HMDB0000172,1,name,False,,"[32](2S,3S)-a-Amino-b-methylvalerate -> [15]HMDB0000172",name
+"(2S,3S)-a-Amino-b-methylvaleric acid",HMDB0000172,1,name,False,,"[33](2S,3S)-a-Amino-b-methylvaleric acid -> [15]HMDB0000172",name
+"(2S,3S)-Alph-amino-beta-methylvalerate",HMDB0000172,1,name,False,,"[34](2S,3S)-Alph-amino-beta-methylvalerate -> [15]HMDB0000172",name
+"(2S,3S)-Alph-amino-beta-methylvaleric acid",HMDB0000172,1,name,False,,"[35](2S,3S)-Alph-amino-beta-methylvaleric acid -> [15]HMDB0000172",name
+"(2S,3S)-alpha-Amino-beta-merthyl-N-valerate",HMDB0000172,1,name,False,,"[36](2S,3S)-alpha-Amino-beta-merthyl-N-valerate -> [15]HMDB0000172",name
+"(2S,3S)-alpha-Amino-beta-merthyl-N-valeric acid",HMDB0000172,1,name,False,,"[37](2S,3S)-alpha-Amino-beta-merthyl-N-valeric acid -> [15]HMDB0000172",name
+"(2S,3S)-alpha-Amino-beta-merthylvalerate",HMDB0000172,1,name,False,,"[38](2S,3S)-alpha-Amino-beta-merthylvalerate -> [15]HMDB0000172",name
+"(2S,3S)-alpha-Amino-beta-merthylvaleric acid",HMDB0000172,1,name,False,,"[39](2S,3S)-alpha-Amino-beta-merthylvaleric acid -> [15]HMDB0000172",name
+?-amino-?-methylvaleric acid,ChEBI:17191,1,name,False,,[4]?-amino-?-methylvaleric acid -> [0]ChEBI:17191,inchi
+?-amino-?-methylvaleric acid,HMDB0000172,1,name,False,,[4]?-amino-?-methylvaleric acid -> [15]HMDB0000172,name
+"(2S,3S)-alpha-Amino-beta-methyl-N-valerate",HMDB0000172,1,name,False,,"[40](2S,3S)-alpha-Amino-beta-methyl-N-valerate -> [15]HMDB0000172",name
+"(2S,3S)-alpha-Amino-beta-methyl-N-valeric acid",HMDB0000172,1,name,False,,"[41](2S,3S)-alpha-Amino-beta-methyl-N-valeric acid -> [15]HMDB0000172",name
+"(2S,3S)-alpha-Amino-beta-methylvalerate",HMDB0000172,1,name,False,,"[42](2S,3S)-alpha-Amino-beta-methylvalerate -> [15]HMDB0000172",name
+"(2S,3S)-alpha-Amino-beta-methylvaleric acid",HMDB0000172,1,name,False,,"[43](2S,3S)-alpha-Amino-beta-methylvaleric acid -> [15]HMDB0000172",name
+(S)-Isoleucine,HMDB0000172,1,name,False,,[44](S)-Isoleucine -> [15]HMDB0000172,name
+"(S,S)-Isoleucine",HMDB0000172,1,name,False,,"[45](S,S)-Isoleucine -> [15]HMDB0000172",name
+2-Amino-3-methylpentanoate,HMDB0000172,1,name,False,,[46]2-Amino-3-methylpentanoate -> [15]HMDB0000172,name
+2-Amino-3-methylpentanoic acid,HMDB0000172,1,name,False,,[47]2-Amino-3-methylpentanoic acid -> [15]HMDB0000172,name
+"2S,3S-Isoleucine",HMDB0000172,1,name,False,,"[48]2S,3S-Isoleucine -> [15]HMDB0000172",name
+Erythro-L-isoleucine,HMDB0000172,1,name,False,,[49]Erythro-L-isoleucine -> [15]HMDB0000172,name
+I,ChEBI:17191,1,name,False,,[5]I -> [0]ChEBI:17191,inchi
+I,HMDB0000172,1,name,False,,[5]I -> [15]HMDB0000172,name
+Iso-leucine,HMDB0000172,1,name,False,,[50]Iso-leucine -> [15]HMDB0000172,name
+L-(+)-Isoleucine,HMDB0000172,1,name,False,,[51]L-(+)-Isoleucine -> [15]HMDB0000172,name
+L-Ile,HMDB0000172,1,name,False,,[52]L-Ile -> [15]HMDB0000172,name
+"[S-(R*,r*)]-2-amino-3-methylpentanoate",HMDB0000172,1,name,False,,"[53][S-(R*,r*)]-2-amino-3-methylpentanoate -> [15]HMDB0000172",name
+"[S-(R*,r*)]-2-amino-3-methylpentanoic acid",HMDB0000172,1,name,False,,"[54][S-(R*,r*)]-2-amino-3-methylpentanoic acid -> [15]HMDB0000172",name
+"Isoleucine, L-isomer",HMDB0000172,1,name,False,,"[55]Isoleucine, L-isomer -> [15]HMDB0000172",name
+Alloisoleucine,HMDB0000172,1,name,False,,[56]Alloisoleucine -> [15]HMDB0000172,name
+"Isoleucine, L isomer",HMDB0000172,1,name,False,,"[57]Isoleucine, L isomer -> [15]HMDB0000172",name
+L-Isomer isoleucine,HMDB0000172,1,name,False,,[58]L-Isomer isoleucine -> [15]HMDB0000172,name
+2S-Amino-3S-methylpentanoate,HMDB0000172,1,name,False,,[59]2S-Amino-3S-methylpentanoate -> [15]HMDB0000172,name
+Ile,ChEBI:17191,1,name,False,,[6]Ile -> [0]ChEBI:17191,inchi
+Ile,HMDB0000172,1,name,False,,[6]Ile -> [15]HMDB0000172,name
+CC[C@H](C)[C@H](N)C(O)=O,HMDB0000172,1,smiles,False,,[60]CC[C@H](C)[C@H](N)C(O)=O -> [15]HMDB0000172,name
+PubChem:6306,HMDB0000172,1,pubchem,False,,[61]PubChem:6306 -> [15]HMDB0000172,name
+(2S)-??-2-amino-4-methylvalerate,HMDB0000687,1,name,False,,[62](2S)-??-2-amino-4-methylvalerate -> [124]HMDB0000687,name
+(2S)-??-2-amino-4-methylvaleric acid,HMDB0000687,1,name,False,,[63](2S)-??-2-amino-4-methylvaleric acid -> [124]HMDB0000687,name
+(2S)-??-leucine,HMDB0000687,1,name,False,,[64](2S)-??-leucine -> [124]HMDB0000687,name
+(2S)-2-Amino-4-methylpentanoate,HMDB0000687,1,name,False,,[65](2S)-2-Amino-4-methylpentanoate -> [124]HMDB0000687,name
+(2S)-2-amino-4-methylpentanoic acid,HMDB0000687,1,name,False,,[66](2S)-2-amino-4-methylpentanoic acid -> [124]HMDB0000687,name
+(2S)-2-Amino-4-methylpentanoic acid,HMDB0000687,1,name,False,,[67](2S)-2-Amino-4-methylpentanoic acid -> [124]HMDB0000687,name
+(2S)-a-2-Amino-4-methylvalerate,HMDB0000687,1,name,False,,[68](2S)-a-2-Amino-4-methylvalerate -> [124]HMDB0000687,name
+(2S)-a-2-Amino-4-methylvaleric acid,HMDB0000687,1,name,False,,[69](2S)-a-2-Amino-4-methylvaleric acid -> [124]HMDB0000687,name
+ISOLEUCINE,ChEBI:17191,1,name,False,,[7]ISOLEUCINE -> [0]ChEBI:17191,inchi
+ISOLEUCINE,HMDB0000172,1,name,False,,[7]ISOLEUCINE -> [15]HMDB0000172,name
+(2S)-a-Leucine,HMDB0000687,1,name,False,,[70](2S)-a-Leucine -> [124]HMDB0000687,name
+(2S)-alpha-2-Amino-4-methylvalerate,HMDB0000687,1,name,False,,[71](2S)-alpha-2-Amino-4-methylvalerate -> [124]HMDB0000687,name
+(2S)-alpha-2-Amino-4-methylvaleric acid,C00123,1,name,False,,[72](2S)-alpha-2-Amino-4-methylvaleric acid -> [108]C00123,chebi
+(2S)-alpha-2-Amino-4-methylvaleric acid,HMDB0000687,1,name,False,,[72](2S)-alpha-2-Amino-4-methylvaleric acid -> [124]HMDB0000687,name
+(2S)-alpha-Leucine,C00123,1,name,False,,[73](2S)-alpha-Leucine -> [108]C00123,chebi
+(2S)-alpha-Leucine,HMDB0000687,1,name,False,,[73](2S)-alpha-Leucine -> [124]HMDB0000687,name
+(S)-(+)-Leucine,HMDB0000687,1,name,False,,[74](S)-(+)-Leucine -> [124]HMDB0000687,name
+(S)-2-Amino-4-methylpentanoate,HMDB0000687,1,name,False,,[75](S)-2-Amino-4-methylpentanoate -> [124]HMDB0000687,name
+(S)-2-Amino-4-methylpentanoic acid,HMDB0000687,1,name,False,,[76](S)-2-Amino-4-methylpentanoic acid -> [124]HMDB0000687,name
+(S)-2-Amino-4-methylvalerate,HMDB0000687,1,name,False,,[77](S)-2-Amino-4-methylvalerate -> [124]HMDB0000687,name
+(S)-2-Amino-4-methylvaleric acid,HMDB0000687,1,name,False,,[78](S)-2-Amino-4-methylvaleric acid -> [124]HMDB0000687,name
+(S)-Leucine,HMDB0000687,1,name,False,,[79](S)-Leucine -> [124]HMDB0000687,name
+L-Isoleucine,ChEBI:17191,1,name,False,,[8]L-Isoleucine -> [0]ChEBI:17191,inchi
+L-Isoleucine,C00407,1,name,False,,[8]L-Isoleucine -> [14]C00407,chebi
+L-Isoleucine,HMDB0000172,1,name,False,,[8]L-Isoleucine -> [15]HMDB0000172,name
+[OH2],CHEBI:15377,1,name,False,,[80][OH2] -> [113]CHEBI:15377,inchi
+2-(acetyloxy)benzoic acid,ChEBI:15365,1,name,False,,[81]2-(acetyloxy)benzoic acid -> [111]ChEBI:15365,inchi
+2-(ACETYLOXY)benzoIC ACID,HMDB0001879,1,name,False,,[82]2-(ACETYLOXY)benzoIC ACID -> [125]HMDB0001879,name
+2-(ACETYLOXY)BENZOIC ACID,ChEBI:15365,1,name,False,,[83]2-(ACETYLOXY)BENZOIC ACID -> [111]ChEBI:15365,inchi
+2-Acetoxybenzenecarboxylic acid,C01405,1,name,False,,[84]2-Acetoxybenzenecarboxylic acid -> [109]C01405,chebi
+2-Acetoxybenzenecarboxylic acid,ChEBI:15365,1,name,False,,[84]2-Acetoxybenzenecarboxylic acid -> [111]ChEBI:15365,inchi
+2-Acetoxybenzenecarboxylic acid,HMDB0001879,1,name,False,,[84]2-Acetoxybenzenecarboxylic acid -> [125]HMDB0001879,name
+2-acetoxybenzoic acid,ChEBI:15365,1,name,False,,[85]2-acetoxybenzoic acid -> [111]ChEBI:15365,inchi
+2-Amino-4-methylvalerate,HMDB0000687,1,name,False,,[86]2-Amino-4-methylvalerate -> [124]HMDB0000687,name
+2-Amino-4-methylvaleric acid,C00123,1,name,False,,[87]2-Amino-4-methylvaleric acid -> [108]C00123,chebi
+2-Amino-4-methylvaleric acid,HMDB0000687,1,name,False,,[87]2-Amino-4-methylvaleric acid -> [124]HMDB0000687,name
+3DMET:B00284,C01405,1,3dmet,False,,[88]3DMET:B00284 -> [109]C01405,chebi
+3DMET:B01124,C00001,1,3dmet,False,,[89]3DMET:B01124 -> [106]C00001,chebi
+C6H13NO2,ChEBI:17191,1,formula,False,,[9]C6H13NO2 -> [0]ChEBI:17191,inchi
+C6H13NO2,C00123,1,formula,False,,[9]C6H13NO2 -> [108]C00123,chebi
+C6H13NO2,HMDB0000687,1,formula,False,,[9]C6H13NO2 -> [124]HMDB0000687,name
+C6H13NO2,C00407,1,formula,False,,[9]C6H13NO2 -> [14]C00407,chebi
+C6H13NO2,HMDB0000172,1,formula,False,,[9]C6H13NO2 -> [15]HMDB0000172,name
+4-Methyl-L-norvaline,HMDB0000687,1,name,False,,[90]4-Methyl-L-norvaline -> [124]HMDB0000687,name
+50-78-2,C01405,1,cas,False,,[91]50-78-2 -> [109]C01405,chebi
+50-78-2,ChEBI:15365,1,cas,False,,[91]50-78-2 -> [111]ChEBI:15365,inchi
+50-78-2,HMDB0001879,1,cas,False,,[91]50-78-2 -> [125]HMDB0001879,name
+61-90-5,C00123,1,cas,False,,[92]61-90-5 -> [108]C00123,chebi
+61-90-5,HMDB0000687,1,cas,False,,[92]61-90-5 -> [124]HMDB0000687,name
+7732-18-5,C00001,1,cas,False,,[93]7732-18-5 -> [106]C00001,chebi
+7732-18-5,CHEBI:15377,1,cas,False,,[93]7732-18-5 -> [113]CHEBI:15377,inchi
+Acetosal,HMDB0001879,1,name,False,,[94]Acetosal -> [125]HMDB0001879,name
+Acetylsalicylate,C01405,1,name,False,,[95]Acetylsalicylate -> [109]C01405,chebi
+Acetylsalicylate,ChEBI:15365,1,name,False,,[95]Acetylsalicylate -> [111]ChEBI:15365,inchi
+Acetylsalicylate,HMDB0001879,1,name,False,,[95]Acetylsalicylate -> [125]HMDB0001879,name
+acetylsalicylic acid,ChEBI:15365,1,name,False,,[96]acetylsalicylic acid -> [111]ChEBI:15365,inchi
+Acetylsalicylic acid,C01405,1,name,False,,[97]Acetylsalicylic acid -> [109]C01405,chebi
+Acetylsalicylic acid,ChEBI:15365,1,name,False,,[97]Acetylsalicylic acid -> [111]ChEBI:15365,inchi
+Acetylsalicylic acid,HMDB0001879,1,name,False,,[97]Acetylsalicylic acid -> [125]HMDB0001879,name
+Acetyonyl,HMDB0001879,1,name,False,,[98]Acetyonyl -> [125]HMDB0001879,name
+acqua,CHEBI:15377,1,name,False,,[99]acqua -> [113]CHEBI:15377,inchi
