@@ -3,6 +3,7 @@ Imports System.Text
 Imports Microsoft.VisualBasic.ComponentModel.Collection.Generic
 Imports Microsoft.VisualBasic.ComponentModel.DataSourceModel
 Imports Microsoft.VisualBasic.Linq
+Imports Microsoft.VisualBasic.SecurityString
 
 Public Module KnowledgeTerm
 
@@ -31,15 +32,17 @@ Public Module KnowledgeTerm
     End Function
 
     <Extension>
-    Public Function UniqueHashCode(Of T As DynamicPropertyBase(Of String))(term As T, indexBy As String()) As Integer
+    Public Function UniqueHashCode(Of T As DynamicPropertyBase(Of String))(term As T, indexBy As String()) As Long
         Dim sb As New StringBuilder
 
         For Each key As String In indexBy
             Call sb.AppendLine($"{key}: {term(key)}")
         Next
 
-        Dim hash As String = sb.ToString.MD5.ToLower
+        Dim hash As String = sb.ToString.GetMd5Hash.ToLower
+        Dim bytes As Byte() = Encoding.ASCII.GetBytes(hash)
+        Dim checksum As Long = bytes.ToLong
 
-        Throw New NotImplementedException
+        Return checksum
     End Function
 End Module
