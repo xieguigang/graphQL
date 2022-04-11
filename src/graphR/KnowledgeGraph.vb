@@ -148,6 +148,19 @@ Module KnowledgeGraph
         Return island.SplitKnowledges(equals).ToArray
     End Function
 
+    <ExportAPI("niceTerms")>
+    Public Function knowledgeTable(knowledges As KnowledgeFrameRow(), kb As GraphPool,
+                                   <RRawVectorArgument(GetType(String))>
+                                   Optional indexBy As Object = Nothing) As EntityObject()
+
+        Dim index As String() = DirectCast(REnv.asVector(Of String)(indexBy), String())
+        Dim result As EntityObject() = knowledges _
+            .Select(Function(row)
+                        Return row.CreateNiceTerm(Of EntityObject)(kb)
+                    End Function) _
+            .ToArray
+    End Function
+
     <ExportAPI("correctKnowledges")>
     Public Function correctKnowledges(kb As GraphPool,
                                       knowledges As KnowledgeFrameRow(),

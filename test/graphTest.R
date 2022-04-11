@@ -6,7 +6,7 @@ setwd(@dir);
 g = "./joinTest\aspirin.graph"
 |> MsgFile::read.graph()
 ;
-
+kb = MsgFile::open("./joinTest\aspirin.graph");
 
 rendering = function(graph, savefile) {
 	require(igraph);
@@ -20,6 +20,7 @@ rendering = function(graph, savefile) {
 
 	g 
 	|> extractKnowledgeTerms()
+	|> niceTerms(kb, indexBy = ["cas", "kegg", "formula", "inchikey", "hmdb"])
 	|> write.csv(file = `${dirname(savefile)}/${basename(savefile)}_terms.csv`)
 	;
 
