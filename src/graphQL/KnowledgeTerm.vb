@@ -40,9 +40,9 @@ Public Module KnowledgeTerm
         Next
 
         Dim hash As String = sb.ToString.GetMd5Hash.ToLower
-        Dim bytes As Byte() = Encoding.ASCII.GetBytes(hash)
-        Dim checksum As Long = bytes.ToLong
+        Dim checksum As Long = hash.StringHashCode
+        Dim i32 As Integer = BitConverter.ToInt16(BitConverter.GetBytes(checksum), Scan0)
 
-        Return checksum
+        Return i32
     End Function
 End Module
