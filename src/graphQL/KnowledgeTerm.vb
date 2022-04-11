@@ -1,4 +1,5 @@
 ﻿Imports System.Runtime.CompilerServices
+Imports System.Text
 Imports Microsoft.VisualBasic.ComponentModel.Collection.Generic
 Imports Microsoft.VisualBasic.ComponentModel.DataSourceModel
 Imports Microsoft.VisualBasic.Linq
@@ -27,5 +28,18 @@ Public Module KnowledgeTerm
         Next
 
         Return nice
+    End Function
+
+    <Extension>
+    Public Function UniqueHashCode(Of T As DynamicPropertyBase(Of String))(term As T, indexBy As String()) As Integer
+        Dim sb As New StringBuilder
+
+        For Each key As String In indexBy
+            Call sb.AppendLine($"{key}: {term(key)}")
+        Next
+
+        Dim hash As String = sb.ToString.MD5.ToLower
+
+        Throw New NotImplementedException
     End Function
 End Module

@@ -151,7 +151,8 @@ Module KnowledgeGraph
     <ExportAPI("niceTerms")>
     Public Function knowledgeTable(knowledges As KnowledgeFrameRow(), kb As GraphPool,
                                    <RRawVectorArgument(GetType(String))>
-                                   Optional indexBy As Object = Nothing) As EntityObject()
+                                   Optional indexBy As Object = Nothing,
+                                   Optional prefix As String = "Term") As EntityObject()
 
         Dim index As String() = DirectCast(REnv.asVector(Of String)(indexBy), String())
         Dim result As EntityObject() = knowledges _
@@ -159,6 +160,12 @@ Module KnowledgeGraph
                         Return row.CreateNiceTerm(Of EntityObject)(kb)
                     End Function) _
             .ToArray
+
+        For i As Integer = 0 To result.Length - 1
+            result(i).ID = $"{prefix}{KnowledgeTerm.UniqueHashCode(result(i), indexBy)}"
+        Next
+
+        Return result
     End Function
 
     <ExportAPI("correctKnowledges")>
