@@ -4,20 +4,6 @@ Imports Microsoft.VisualBasic.Linq
 Imports Microsoft.VisualBasic.Math.LinearAlgebra
 
 Namespace Graph
-Public Class GraphPool : Inherits Graph(Of Knowledge, Association, GraphPool)
-
-    Sub New(knowledge As IEnumerable(Of Knowledge), links As IEnumerable(Of Association))
-        Call Console.WriteLine("add nodes...")
-
-        For Each kb As Knowledge In knowledge
-            Call AddVertex(kb)
-        Next
-
-        Call Console.WriteLine("add links...")
-        For Each link As Association In links
-            Call Insert(link)
-        Next
-    End Sub
 
     ''' <summary>
     ''' 所有的信息词条都看作为网络之中的一个结点，主要用于总结发现新知识
@@ -25,9 +11,13 @@ Public Class GraphPool : Inherits Graph(Of Knowledge, Association, GraphPool)
     Public Class GraphPool : Inherits Graph(Of Knowledge, Association, GraphPool)
 
         Sub New(knowledge As IEnumerable(Of Knowledge), links As IEnumerable(Of Association))
+            Call Console.WriteLine("add nodes...")
+
             For Each kb As Knowledge In knowledge
                 Call AddVertex(kb)
             Next
+
+            Call Console.WriteLine("add links...")
             For Each link As Association In links
                 Call Insert(link)
             Next
