@@ -36,8 +36,14 @@ Module KnowledgeGraph
     ''' nodes meta: knowledge_type
     ''' </returns>
     <ExportAPI("networkGraph")>
-    Public Function networkGraph(kb As GraphPool) As NetworkGraph
-        Return kb.CreateGraph
+    Public Function networkGraph(kb As GraphPool,
+                                 <RRawVectorArgument>
+                                 Optional filters As Object = Nothing) As NetworkGraph
+
+        Dim filterList As String() = REnv.asVector(Of String)(filters)
+        Dim graph As NetworkGraph = kb.CreateGraph(filters:=filterList)
+
+        Return graph
     End Function
 
     <ExportAPI("Kosaraju.SCCs")>
