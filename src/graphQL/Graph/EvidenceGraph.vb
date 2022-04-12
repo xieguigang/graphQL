@@ -6,7 +6,7 @@ Namespace Graph
     ''' <summary>
     ''' 主要用于已有知识的聚合
     ''' </summary>
-    Public Class EvidenceGraph : Inherits Graph(Of Knowledge, Association, GraphPool)
+    Public Class EvidenceGraph : Inherits GraphModel
 
         ReadOnly mapping As New Dictionary(Of String, List(Of String))
 

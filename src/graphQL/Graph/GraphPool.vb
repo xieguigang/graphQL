@@ -1,6 +1,4 @@
-﻿Imports System.Runtime.CompilerServices
-Imports Microsoft.VisualBasic.Data.GraphTheory
-Imports Microsoft.VisualBasic.Linq
+﻿Imports Microsoft.VisualBasic.Linq
 Imports Microsoft.VisualBasic.Math.LinearAlgebra
 
 Namespace Graph
@@ -8,7 +6,7 @@ Namespace Graph
     ''' <summary>
     ''' 所有的信息词条都看作为网络之中的一个结点，主要用于总结发现新知识
     ''' </summary>
-    Public Class GraphPool : Inherits Graph(Of Knowledge, Association, GraphPool)
+    Public Class GraphPool : Inherits GraphModel
 
         Sub New(knowledge As IEnumerable(Of Knowledge), links As IEnumerable(Of Association))
             Call Console.WriteLine("add nodes...")
@@ -22,16 +20,6 @@ Namespace Graph
                 Call Insert(link)
             Next
         End Sub
-
-        ''' <summary>
-        ''' get knowledge node element by id
-        ''' </summary>
-        ''' <param name="ref"></param>
-        ''' <returns></returns>
-        <MethodImpl(MethodImplOptions.AggressiveInlining)>
-        Public Function GetElementById(ref As String) As Knowledge
-            Return vertices(ref)
-        End Function
 
         ''' <summary>
         ''' 
