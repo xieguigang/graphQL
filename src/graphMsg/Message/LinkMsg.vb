@@ -1,4 +1,4 @@
-﻿Imports graphQL
+﻿Imports graphQL.Graph
 Imports Microsoft.VisualBasic.ComponentModel.Collection
 Imports Microsoft.VisualBasic.Data.IO.MessagePack.Serialization
 Imports Microsoft.VisualBasic.Linq

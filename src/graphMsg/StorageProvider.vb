@@ -1,9 +1,10 @@
 Imports System.IO
 Imports System.IO.Compression
 Imports graphMsg.Message
-Imports graphQL
+Imports graphQL.Graph
 Imports Microsoft.VisualBasic.Data.IO.MessagePack
 Imports Microsoft.VisualBasic.Data.IO.MessagePack.Serialization
+Imports Microsoft.VisualBasic.Linq
 
 Public Class StorageProvider
 

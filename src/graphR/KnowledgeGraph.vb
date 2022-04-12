@@ -1,6 +1,7 @@
 ﻿Imports System.Drawing
 Imports System.Runtime.CompilerServices
 Imports graphQL
+Imports graphQL.Graph
 Imports Microsoft.VisualBasic.CommandLine.Reflection
 Imports Microsoft.VisualBasic.ComponentModel.Collection
 Imports Microsoft.VisualBasic.ComponentModel.DataStructures

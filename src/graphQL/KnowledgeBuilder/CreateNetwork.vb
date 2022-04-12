@@ -1,5 +1,6 @@
 ﻿Imports System.Data
 Imports System.Runtime.CompilerServices
+Imports graphQL.Graph
 Imports Microsoft.VisualBasic.ComponentModel.Collection
 Imports Microsoft.VisualBasic.Data.visualize.Network.FileStream.Generic
 Imports Microsoft.VisualBasic.Data.visualize.Network.Graph

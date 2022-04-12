@@ -1,6 +1,6 @@
 ﻿Imports System.IO
 Imports graphMsg
-Imports graphQL
+Imports graphQL.Graph
 Imports Microsoft.VisualBasic.CommandLine.Reflection
 Imports Microsoft.VisualBasic.Data.visualize.Network.Graph
 Imports Microsoft.VisualBasic.Scripting.MetaData

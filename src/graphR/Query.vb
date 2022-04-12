@@ -1,4 +1,5 @@
 Imports graphQL
+Imports graphQL.Graph
 Imports Microsoft.VisualBasic.ApplicationServices.Debugging.Logging
 Imports Microsoft.VisualBasic.CommandLine.Reflection
 Imports Microsoft.VisualBasic.Linq

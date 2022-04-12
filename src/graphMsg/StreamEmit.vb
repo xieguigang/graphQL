@@ -1,7 +1,7 @@
 ﻿Imports System.IO
 Imports System.IO.Compression
 Imports graphMsg.Message
-Imports graphQL
+Imports graphQL.Graph
 Imports Microsoft.VisualBasic.ComponentModel.Collection
 Imports Microsoft.VisualBasic.Data.IO.MessagePack
 Imports Microsoft.VisualBasic.Language
