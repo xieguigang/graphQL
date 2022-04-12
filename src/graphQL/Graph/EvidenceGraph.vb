@@ -16,6 +16,10 @@ Namespace Graph
             Call term.AddReferenceSource(source:=type)
 
             For Each metadata In evidence
+                If metadata.Value.IsNullOrEmpty Then
+                    Continue For
+                End If
+
                 If term.evidence.ContainsKey(metadata.Key) Then
                     term.evidence(metadata.Key) = term.evidence(metadata.Key) _
                         .JoinIterates(metadata.Value) _
@@ -31,6 +35,43 @@ Namespace Graph
                     End If
 
                     Call mapping(ref).Add(term.label)
+                Next
+            Next
+
+            ' create links between knowledge terms
+            ' if evidence has intersection
+            For Each metadata In evidence
+                If metadata.Value.IsNullOrEmpty Then
+                    Continue For
+                End If
+
+                For Each ref As String In metadata.Value
+                    Dim terms = mapping(ref)
+
+                    For Each id As String In terms
+                        If id <> knowledge Then
+                            Dim otherTerm = vertices(id)
+                            Dim link As Association = QueryEdge(otherTerm.label, term.label)
+
+                            If link Is Nothing Then
+                                link = QueryEdge(term.label, otherTerm.label)
+                            End If
+
+                            If Not link Is Nothing Then
+                                link.weight += 1
+                            Else
+                                link = New Association With {
+                                    .type = metadata.Key,
+                                    .U = otherTerm,
+                                    .V = term,
+                                    .weight = 1
+                                }
+                                Call Me.Insert(link)
+                            End If
+
+                            Call link.AddReferenceSource(source:=type)
+                        End If
+                    Next
                 Next
             Next
         End Sub
