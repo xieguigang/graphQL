@@ -23,19 +23,27 @@ Module MsgFile
     ''' <param name="env"></param>
     ''' <returns></returns>
     <ExportAPI("open")>
+    <RApiReturn(GetType(GraphPool), GetType(EvidenceGraph))>
     Public Function open(<RRawVectorArgument>
                          Optional file As Object = Nothing,
+                         Optional evidenceAggregate As Boolean = False,
                          Optional env As Environment = Nothing) As Object
 
         If file Is Nothing Then
-            Return New GraphPool({}, {})
+            If evidenceAggregate Then
+                Return New EvidenceGraph({}, {})
+            Else
+                Return New GraphPool({}, {})
+            End If
         Else
             Dim buffer = SMRUCC.Rsharp.GetFileStream(file, FileAccess.Read, env)
 
             If buffer Like GetType(Message) Then
                 Return buffer.TryCast(Of Message)
+            ElseIf evidenceAggregate Then
+                Return StorageProvider.Open(Of EvidenceGraph)(buffer)
             Else
-                Return StorageProvider.Open(buffer)
+                Return StorageProvider.Open(Of GraphPool)(buffer)
             End If
         End If
     End Function
@@ -97,7 +105,11 @@ Module MsgFile
     ''' <param name="env"></param>
     ''' <returns></returns>
     <ExportAPI("save")>
-    Public Function save(kb As GraphPool, file As Object, Optional json_dump As Boolean = False, Optional env As Environment = Nothing) As Object
+    Public Function save(kb As GraphModel,
+                         file As Object,
+                         Optional json_dump As Boolean = False,
+                         Optional env As Environment = Nothing) As Object
+
         If file Is Nothing Then
             Return Internal.debug.stop("the required file resource to save data can not be nothing!", env)
         Else

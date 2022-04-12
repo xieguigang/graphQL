@@ -16,7 +16,7 @@ Public Class StreamEmit
     ''' <param name="kb"></param>
     ''' <param name="file"></param>
     ''' <returns></returns>
-    Public Shared Function Save(kb As GraphPool, file As Stream) As Boolean
+    Public Shared Function Save(kb As GraphModel, file As Stream) As Boolean
         Dim termRef As New IndexByRef
         Dim linkRef As New IndexByRef
         Dim evidenceRef As New IndexByRef

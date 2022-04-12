@@ -1,5 +1,4 @@
-﻿Imports Microsoft.VisualBasic.Data.GraphTheory
-Imports Microsoft.VisualBasic.Linq
+﻿Imports Microsoft.VisualBasic.Linq
 
 Namespace Graph
 

@@ -17,15 +17,21 @@ Public Class StorageProvider
     ''' <param name="kb"></param>
     ''' <param name="file"></param>
     ''' <returns></returns>
-    Public Shared Function Save(kb As GraphPool, file As Stream) As Boolean
+    Public Shared Function Save(kb As GraphModel, file As Stream) As Boolean
         Return StreamEmit.Save(kb, file)
     End Function
 
-    Public Shared Function Open(file As Stream) As GraphPool
+    Public Shared Function Open(Of T As GraphModel)(file As Stream) As GraphModel
         If file Is Nothing Then
-            Return New GraphPool({}, {})
+            If GetType(T) Is GetType(GraphPool) Then
+                Return New GraphPool({}, {})
+            ElseIf GetType(T) Is GetType(EvidenceGraph) Then
+                Return New EvidenceGraph({}, {})
+            Else
+                Throw New NotImplementedException(GetType(T).FullName)
+            End If
         Else
-            Return CreateQuery(New ZipArchive(file, ZipArchiveMode.Read))
+            Return CreateQuery(Of T)(New ZipArchive(file, ZipArchiveMode.Read))
         End If
     End Function
 
@@ -44,7 +50,7 @@ Public Class StorageProvider
     ''' </summary>
     ''' <param name="pack"></param>
     ''' <returns></returns>
-    Public Shared Function CreateQuery(pack As ZipArchive) As GraphPool
+    Public Shared Function CreateQuery(Of T As GraphModel)(pack As ZipArchive) As GraphModel
         Call Console.WriteLine("start to loading knowledge data...")
         Dim terms As Dictionary(Of String, Knowledge) = StreamEmit.GetKnowledges(pack)
         Call Console.WriteLine($"get {terms.Count} knowledge nodes!")
@@ -55,7 +61,13 @@ Public Class StorageProvider
         Call pack.Dispose()
         Call Console.WriteLine("build knowledge graph!")
 
-        Return New GraphPool(terms.Values, links)
+        If GetType(T) Is GetType(GraphPool) Then
+            Return New GraphPool(terms.Values, links)
+        ElseIf GetType(T) Is GetType(EvidenceGraph) Then
+            Return New EvidenceGraph(terms.Values, links)
+        Else
+            Throw New NotImplementedException
+        End If
     End Function
 
 End Class
