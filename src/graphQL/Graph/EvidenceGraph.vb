@@ -23,7 +23,7 @@ Namespace Graph
             Next
         End Sub
 
-        Private Sub buildEvidenceMapping(term As Knowledge, evidence As Dictionary(Of String, String()))
+        Friend Sub buildEvidenceMapping(term As Knowledge, evidence As Dictionary(Of String, String()))
             For Each metadata In evidence
                 For Each ref As String In metadata.Value
                     If Not mapping.ContainsKey(ref) Then

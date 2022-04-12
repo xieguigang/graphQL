@@ -1,12 +1,21 @@
 ﻿Imports System.Runtime.CompilerServices
+Imports Microsoft.VisualBasic.Linq
 
 Namespace Graph
 
     Public Module GraphActions
 
+        ''' <summary>
+        ''' merge graph <paramref name="k2"/> into graph <paramref name="k1"/>.
+        ''' </summary>
+        ''' <param name="k1"></param>
+        ''' <param name="k2"></param>
+        ''' <returns></returns>
         <Extension>
-        Public Function JoinGraph(k1 As GraphPool, k2 As GraphPool) As GraphPool
+        Public Function JoinGraph(k1 As GraphModel, k2 As GraphModel) As GraphModel
             For Each kn As Knowledge In k2.vertex
+                Dim target As Knowledge
+
                 If k1.ExistVertex(kn.label) Then
                     Dim kold = k1.GetElementById(kn.label)
 
@@ -14,6 +23,19 @@ Namespace Graph
                     kold.source.AddRange(kn.source)
                     kold.type = If(kold.mentions > kn.mentions, kold.type, kn.type)
                     kold.mentions += kn.mentions
+
+                    target = kold
+
+                    For Each evi In kn.evidence
+                        If kold.evidence.ContainsKey(evi.Key) Then
+                            kold.evidence(evi.Key) = kold.evidence(evi.Key) _
+                                .JoinIterates(evi.Value) _
+                                .Distinct _
+                                .ToArray
+                        Else
+                            kold.evidence.Add(evi.Key, evi.Value)
+                        End If
+                    Next
                 Else
                     Dim knew = k1.AddVertex(kn.label)
 
@@ -21,6 +43,13 @@ Namespace Graph
                     knew.mentions = kn.mentions
                     knew.source = kn.source
                     knew.type = kn.type
+                    knew.evidence = kn.evidence
+
+                    target = knew
+                End If
+
+                If TypeOf k1 Is EvidenceGraph Then
+                    Call DirectCast(k1, EvidenceGraph).buildEvidenceMapping(target, kn.evidence)
                 End If
             Next
 

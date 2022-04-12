@@ -23,7 +23,7 @@ Public Module Query
     ''' <param name="env"></param>
     ''' <returns></returns>
     <ExportAPI("insert")>
-    Public Function insert(kb As GraphPool, knowledge As String, type As String,
+    Public Function insert(kb As GraphModel, knowledge As String, type As String,
                            Optional meta As list = Nothing,
                            Optional env As Environment = Nothing) As Object
 
@@ -41,15 +41,19 @@ Public Module Query
 
         If Not err Is Nothing Then
             Return err
+        ElseIf TypeOf kb Is GraphPool Then
+            Call DirectCast(kb, GraphPool).AddKnowledge(knowledge, type, metadata)
+        ElseIf TypeOf kb Is EvidenceGraph Then
+            Call DirectCast(kb, EvidenceGraph).AddKnowledge(knowledge, type, metadata)
         Else
-            Call kb.AddKnowledge(knowledge, type, metadata)
+            Throw New NotImplementedException
         End If
 
         Return kb
     End Function
 
     <ExportAPI("join")>
-    Public Function join(kb1 As GraphPool, kb2 As GraphPool) As GraphPool
+    Public Function join(kb1 As GraphModel, kb2 As GraphModel) As GraphModel
         If kb1 Is Nothing Then
             Return kb2
         ElseIf kb2 Is Nothing Then
