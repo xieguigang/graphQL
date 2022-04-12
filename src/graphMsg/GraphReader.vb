@@ -1,6 +1,7 @@
 ﻿Imports System.IO
 Imports System.IO.Compression
 Imports graphQL
+Imports graphQL.Graph
 Imports Microsoft.VisualBasic.Data.visualize.Network.Graph
 
 Public Module GraphReader

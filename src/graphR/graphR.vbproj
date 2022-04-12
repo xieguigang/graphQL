@@ -75,6 +75,6 @@
     </None>
   </ItemGroup>
 
-  <Import Project="..\..\..\GCModeller\src\R-sharp\Library\JsonHelper\JsonHelper.projitems" Label="Shared" />
+  <Import Project="..\..\..\GCModeller\src\R-sharp\Library\shares\JsonHelper\JsonHelper.projitems" Label="Shared" />
 
 </Project>
