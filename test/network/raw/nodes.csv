@@ -1,4 +1,25 @@
 ﻿ID,NodeType,weight,knowledge_type,source,label
+?-amino-?-methylvalerate,,3,name,hmdb,?-amino-?-methylvalerate
+?-amino-?-methylvaleric acid,,6,name,chebi; hmdb,?-amino-?-methylvaleric acid
+"(2S,3S)-2-Amino-3-methyl-pentanoate",,3,name,hmdb,"(2S,3S)-2-Amino-3-methyl-pentanoate"
+"(2S,3S)-2-Amino-3-methyl-pentanoic acid",,3,name,hmdb,"(2S,3S)-2-Amino-3-methyl-pentanoic acid"
+"(2S,3S)-2-Amino-3-methylpentanoate",,3,name,hmdb,"(2S,3S)-2-Amino-3-methylpentanoate"
+"(2S,3S)-2-amino-3-methylpentanoic acid",,6,name,chebi; hmdb,"(2S,3S)-2-amino-3-methylpentanoic acid"
+"(2S,3S)-2-Amino-3-methylpentanoic acid",,3,name,hmdb,"(2S,3S)-2-Amino-3-methylpentanoic acid"
+"(2S,3S)-a-Amino-b-methyl-N-valerate",,3,name,hmdb,"(2S,3S)-a-Amino-b-methyl-N-valerate"
+"(2S,3S)-a-Amino-b-methyl-N-valeric acid",,3,name,hmdb,"(2S,3S)-a-Amino-b-methyl-N-valeric acid"
+"(2S,3S)-a-Amino-b-methylvalerate",,3,name,hmdb,"(2S,3S)-a-Amino-b-methylvalerate"
+"(2S,3S)-a-Amino-b-methylvaleric acid",,3,name,hmdb,"(2S,3S)-a-Amino-b-methylvaleric acid"
+"(2S,3S)-Alph-amino-beta-methylvalerate",,3,name,hmdb,"(2S,3S)-Alph-amino-beta-methylvalerate"
+"(2S,3S)-Alph-amino-beta-methylvaleric acid",,3,name,hmdb,"(2S,3S)-Alph-amino-beta-methylvaleric acid"
+"(2S,3S)-alpha-Amino-beta-merthyl-N-valerate",,3,name,hmdb,"(2S,3S)-alpha-Amino-beta-merthyl-N-valerate"
+"(2S,3S)-alpha-Amino-beta-merthyl-N-valeric acid",,3,name,hmdb,"(2S,3S)-alpha-Amino-beta-merthyl-N-valeric acid"
+"(2S,3S)-alpha-Amino-beta-merthylvalerate",,3,name,hmdb,"(2S,3S)-alpha-Amino-beta-merthylvalerate"
+"(2S,3S)-alpha-Amino-beta-merthylvaleric acid",,3,name,hmdb,"(2S,3S)-alpha-Amino-beta-merthylvaleric acid"
+"(2S,3S)-alpha-Amino-beta-methyl-N-valerate",,3,name,hmdb,"(2S,3S)-alpha-Amino-beta-methyl-N-valerate"
+"(2S,3S)-alpha-Amino-beta-methyl-N-valeric acid",,3,name,hmdb,"(2S,3S)-alpha-Amino-beta-methyl-N-valeric acid"
+"(2S,3S)-alpha-Amino-beta-methylvalerate",,3,name,hmdb,"(2S,3S)-alpha-Amino-beta-methylvalerate"
+"(2S,3S)-alpha-Amino-beta-methylvaleric acid",,3,name,hmdb,"(2S,3S)-alpha-Amino-beta-methylvaleric acid"
 (2S)-??-2-amino-4-methylvalerate,,3,name,hmdb,(2S)-??-2-amino-4-methylvalerate
 (2S)-??-2-amino-4-methylvaleric acid,,3,name,hmdb,(2S)-??-2-amino-4-methylvaleric acid
 (2S)-??-leucine,,3,name,hmdb,(2S)-??-leucine
@@ -11,25 +32,7 @@
 (2S)-alpha-2-Amino-4-methylvalerate,,3,name,hmdb,(2S)-alpha-2-Amino-4-methylvalerate
 (2S)-alpha-2-Amino-4-methylvaleric acid,,6,name,hmdb; kegg,(2S)-alpha-2-Amino-4-methylvaleric acid
 (2S)-alpha-Leucine,,6,name,hmdb; kegg,(2S)-alpha-Leucine
-"(2S,3S)-2-Amino-3-methylpentanoate",,3,name,hmdb,"(2S,3S)-2-Amino-3-methylpentanoate"
-"(2S,3S)-2-Amino-3-methyl-pentanoate",,3,name,hmdb,"(2S,3S)-2-Amino-3-methyl-pentanoate"
-"(2S,3S)-2-amino-3-methylpentanoic acid",,6,name,chebi; hmdb,"(2S,3S)-2-amino-3-methylpentanoic acid"
-"(2S,3S)-2-Amino-3-methylpentanoic acid",,3,name,hmdb,"(2S,3S)-2-Amino-3-methylpentanoic acid"
-"(2S,3S)-2-Amino-3-methyl-pentanoic acid",,3,name,hmdb,"(2S,3S)-2-Amino-3-methyl-pentanoic acid"
-"(2S,3S)-a-Amino-b-methyl-N-valerate",,3,name,hmdb,"(2S,3S)-a-Amino-b-methyl-N-valerate"
-"(2S,3S)-a-Amino-b-methyl-N-valeric acid",,3,name,hmdb,"(2S,3S)-a-Amino-b-methyl-N-valeric acid"
-"(2S,3S)-a-Amino-b-methylvalerate",,3,name,hmdb,"(2S,3S)-a-Amino-b-methylvalerate"
-"(2S,3S)-a-Amino-b-methylvaleric acid",,3,name,hmdb,"(2S,3S)-a-Amino-b-methylvaleric acid"
-"(2S,3S)-alpha-Amino-beta-merthyl-N-valerate",,3,name,hmdb,"(2S,3S)-alpha-Amino-beta-merthyl-N-valerate"
-"(2S,3S)-alpha-Amino-beta-merthyl-N-valeric acid",,3,name,hmdb,"(2S,3S)-alpha-Amino-beta-merthyl-N-valeric acid"
-"(2S,3S)-alpha-Amino-beta-merthylvalerate",,3,name,hmdb,"(2S,3S)-alpha-Amino-beta-merthylvalerate"
-"(2S,3S)-alpha-Amino-beta-merthylvaleric acid",,3,name,hmdb,"(2S,3S)-alpha-Amino-beta-merthylvaleric acid"
-"(2S,3S)-alpha-Amino-beta-methyl-N-valerate",,3,name,hmdb,"(2S,3S)-alpha-Amino-beta-methyl-N-valerate"
-"(2S,3S)-alpha-Amino-beta-methyl-N-valeric acid",,3,name,hmdb,"(2S,3S)-alpha-Amino-beta-methyl-N-valeric acid"
-"(2S,3S)-alpha-Amino-beta-methylvalerate",,3,name,hmdb,"(2S,3S)-alpha-Amino-beta-methylvalerate"
-"(2S,3S)-alpha-Amino-beta-methylvaleric acid",,3,name,hmdb,"(2S,3S)-alpha-Amino-beta-methylvaleric acid"
-"(2S,3S)-Alph-amino-beta-methylvalerate",,3,name,hmdb,"(2S,3S)-Alph-amino-beta-methylvalerate"
-"(2S,3S)-Alph-amino-beta-methylvaleric acid",,3,name,hmdb,"(2S,3S)-Alph-amino-beta-methylvaleric acid"
+"(S,S)-Isoleucine",,3,name,hmdb,"(S,S)-Isoleucine"
 (S)-(+)-Leucine,,3,name,hmdb,(S)-(+)-Leucine
 (S)-2-Amino-4-methylpentanoate,,3,name,hmdb,(S)-2-Amino-4-methylpentanoate
 (S)-2-Amino-4-methylpentanoic acid,,3,name,hmdb,(S)-2-Amino-4-methylpentanoic acid
@@ -37,9 +40,6 @@
 (S)-2-Amino-4-methylvaleric acid,,3,name,hmdb,(S)-2-Amino-4-methylvaleric acid
 (S)-Isoleucine,,3,name,hmdb,(S)-Isoleucine
 (S)-Leucine,,3,name,hmdb,(S)-Leucine
-"(S,S)-Isoleucine",,3,name,hmdb,"(S,S)-Isoleucine"
-?-amino-?-methylvalerate,,3,name,hmdb,?-amino-?-methylvalerate
-?-amino-?-methylvaleric acid,,6,name,chebi; hmdb,?-amino-?-methylvaleric acid
 [OH2],,3,name,chebi,[OH2]
 "[S-(R*,r*)]-2-amino-3-methylpentanoate",,3,name,hmdb,"[S-(R*,r*)]-2-amino-3-methylpentanoate"
 "[S-(R*,r*)]-2-amino-3-methylpentanoic acid",,3,name,hmdb,"[S-(R*,r*)]-2-amino-3-methylpentanoic acid"
@@ -54,8 +54,8 @@
 2-Amino-3-methylvaleric acid,,9,name,chebi; kegg; hmdb,2-Amino-3-methylvaleric acid
 2-Amino-4-methylvalerate,,3,name,hmdb,2-Amino-4-methylvalerate
 2-Amino-4-methylvaleric acid,,6,name,hmdb; kegg,2-Amino-4-methylvaleric acid
-"2S,3S-Isoleucine",,3,name,hmdb,"2S,3S-Isoleucine"
 2S-Amino-3S-methylpentanoate,,3,name,hmdb,2S-Amino-3S-methylpentanoate
+"2S,3S-Isoleucine",,3,name,hmdb,"2S,3S-Isoleucine"
 3DMET:B00284,,3,3dmet,kegg,3DMET:B00284
 3DMET:B01124,,3,3dmet,kegg,3DMET:B01124
 4-Methyl-L-norvaline,,3,name,hmdb,4-Methyl-L-norvaline
@@ -115,8 +115,8 @@ I,,6,name,chebi; hmdb,I
 Ile,,6,name,chebi; hmdb,Ile
 ILE,,6,biocyc,chebi; hmdb,ILE
 "InChI=1S/C6H13NO2/c1-3-4(2)5(7)6(8)9/h4-5H,3,7H2,1-2H3,(H,8,9)/t4-,5-/m0/s1",,6,inchi,chebi; hmdb,"InChI=1S/C6H13NO2/c1-3-4(2)5(7)6(8)9/h4-5H,3,7H2,1-2H3,(H,8,9)/t4-,5-/m0/s1"
-Isoleucine,,6,wikipedia,chebi; hmdb,Isoleucine
 Iso-leucine,,3,name,hmdb,Iso-leucine
+Isoleucine,,6,wikipedia,chebi; hmdb,Isoleucine
 ISOLEUCINE,,6,name,chebi; hmdb,ISOLEUCINE
 "Isoleucine, L isomer",,3,name,hmdb,"Isoleucine, L isomer"
 "Isoleucine, L-isomer",,3,name,hmdb,"Isoleucine, L-isomer"
@@ -128,13 +128,6 @@ L-a-Aminoisocaproate,,3,name,hmdb,L-a-Aminoisocaproate
 L-a-Aminoisocaproic acid,,3,name,hmdb,L-a-Aminoisocaproic acid
 L-alpha-Aminoisocaproate,,3,name,hmdb,L-alpha-Aminoisocaproate
 L-alpha-Aminoisocaproic acid,,3,name,hmdb,L-alpha-Aminoisocaproic acid
-Leu,,3,name,hmdb,Leu
-LEU,,3,biocyc,hmdb,LEU
-LEU[PDBj],,3,pdb,kegg,LEU[PDBj]
-Leucine,,3,wikipedia,hmdb,Leucine
-LEUCINE,,3,name,hmdb,LEUCINE
-"Leucine, L isomer",,3,name,hmdb,"Leucine, L isomer"
-"Leucine, L-isomer",,3,name,hmdb,"Leucine, L-isomer"
 L-Ile,,3,name,hmdb,L-Ile
 L-isoleucine,,3,name,chebi,L-isoleucine
 L-Isoleucine,,9,name,chebi; kegg; hmdb,L-Isoleucine
@@ -143,6 +136,13 @@ L-Isomer leucine,,3,name,hmdb,L-Isomer leucine
 L-Leucin,,3,name,hmdb,L-Leucin
 L-Leucine,,6,name,hmdb; kegg,L-Leucine
 L-Leuzin,,3,name,hmdb,L-Leuzin
+Leu,,3,name,hmdb,Leu
+LEU,,3,biocyc,hmdb,LEU
+LEU[PDBj],,3,pdb,kegg,LEU[PDBj]
+Leucine,,3,wikipedia,hmdb,Leucine
+LEUCINE,,3,name,hmdb,LEUCINE
+"Leucine, L isomer",,3,name,hmdb,"Leucine, L isomer"
+"Leucine, L-isomer",,3,name,hmdb,"Leucine, L-isomer"
 Micristin,,3,name,hmdb,Micristin
 NIKKAJI:J2.300K,,3,nikkaji,kegg,NIKKAJI:J2.300K
 NIKKAJI:J43.587B,,3,nikkaji,kegg,NIKKAJI:J43.587B

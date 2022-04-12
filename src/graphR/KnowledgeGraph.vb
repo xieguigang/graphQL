@@ -36,8 +36,14 @@ Module KnowledgeGraph
     ''' nodes meta: knowledge_type
     ''' </returns>
     <ExportAPI("networkGraph")>
-    Public Function networkGraph(kb As GraphPool) As NetworkGraph
-        Return kb.CreateGraph
+    Public Function networkGraph(kb As GraphPool,
+                                 <RRawVectorArgument>
+                                 Optional filters As Object = Nothing) As NetworkGraph
+
+        Dim filterList As String() = REnv.asVector(Of String)(filters)
+        Dim graph As NetworkGraph = kb.CreateGraph(filters:=filterList)
+
+        Return graph
     End Function
 
     <ExportAPI("Kosaraju.SCCs")>
@@ -146,6 +152,26 @@ Module KnowledgeGraph
     <ExportAPI("extractKnowledgeTerms")>
     Public Function extractKnowledgeTerms(island As NetworkGraph, Optional equals As Double = 0.5) As KnowledgeFrameRow()
         Return island.SplitKnowledges(equals).ToArray
+    End Function
+
+    <ExportAPI("niceTerms")>
+    Public Function knowledgeTable(knowledges As KnowledgeFrameRow(), kb As GraphPool,
+                                   <RRawVectorArgument(GetType(String))>
+                                   Optional indexBy As Object = Nothing,
+                                   Optional prefix As String = "Term") As EntityObject()
+
+        Dim index As String() = DirectCast(REnv.asVector(Of String)(indexBy), String())
+        Dim result As EntityObject() = knowledges _
+            .Select(Function(row)
+                        Return row.CreateNiceTerm(Of EntityObject)(kb)
+                    End Function) _
+            .ToArray
+
+        For i As Integer = 0 To result.Length - 1
+            result(i).ID = $"{prefix}{KnowledgeTerm.UniqueHashCode(result(i), indexBy)}"
+        Next
+
+        Return result
     End Function
 
     <ExportAPI("correctKnowledges")>

@@ -44,10 +44,15 @@ Public Class StorageProvider
     ''' <param name="pack"></param>
     ''' <returns></returns>
     Public Shared Function CreateQuery(pack As ZipArchive) As GraphPool
+        Call Console.WriteLine("start to loading knowledge data...")
         Dim terms As Dictionary(Of String, Knowledge) = StreamEmit.GetKnowledges(pack)
+        Call Console.WriteLine($"get {terms.Count} knowledge nodes!")
+        Call Console.WriteLine("loading network graph...")
         Dim links As Association() = StreamEmit.GetNetwork(pack, terms).ToArray
+        Call Console.WriteLine($"get {links.Length} graph links!")
 
         Call pack.Dispose()
+        Call Console.WriteLine("build knowledge graph!")
 
         Return New GraphPool(terms.Values, links)
     End Function
