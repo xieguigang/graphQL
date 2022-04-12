@@ -7,7 +7,6 @@ Namespace Message
 
         <MessagePackMember(0)> Public Property types As String()
         <MessagePackMember(1)> Public Property source As String()
-        <MessagePackMember(2)> Public Property evidence As String()
 
         Public Overrides Function ToString() As String
             Return Me.GetJson

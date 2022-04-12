@@ -19,24 +19,35 @@ Public Class StreamEmit
     Public Shared Function Save(kb As GraphPool, file As Stream) As Boolean
         Dim termRef As New IndexByRef
         Dim linkRef As New IndexByRef
+        Dim evidenceRef As New IndexByRef
         Dim terms = KnowledgeMsg.GetTerms(kb, termRef).ToArray
         Dim links = LinkMsg.GetRelationships(kb, linkRef).ToArray
+        Dim evidences = EvidenceMsg.CreateEvidencePack(kb, evidenceRef).ToArray
         Dim info As New Dictionary(Of String, String)
 
         Call info.Add("knowledge_terms", terms.Length)
         Call info.Add("graph_size", links.Length)
         Call info.Add("knowledge_types", termRef.types.Length)
         Call info.Add("link_types", links.Count)
+        Call info.Add("evidence_types", evidenceRef.types.Length)
+        Call info.Add("evidence_size", Aggregate i In evidences Into Sum(i.data.Length))
 
         Using zip As New ZipArchive(file, ZipArchiveMode.Create, leaveOpen:=False)
             ' save graph types
             Call MsgPackSerializer.SerializeObject(termRef, zip.CreateEntry("meta/keywords.msg").Open, closeFile:=True)
             Call MsgPackSerializer.SerializeObject(linkRef, zip.CreateEntry("meta/associations.msg").Open, closeFile:=True)
+            Call MsgPackSerializer.SerializeObject(evidenceRef, zip.CreateEntry("meta/evidences.msg").Open, closeFile:=True)
 
             Call SaveTerms(terms, zip) _
                 .GetJson _
                 .FlushTo(
                     out:=New StreamWriter(zip.CreateEntry("knowledge_blocks.json").Open),
+                    closeFile:=True
+                )
+            Call SaveEvidence(evidences, zip) _
+                .GetJson _
+                .FlushTo(
+                    out:=New StreamWriter(zip.CreateEntry("evidence_blocks.json").Open),
                     closeFile:=True
                 )
 
@@ -50,6 +61,26 @@ Public Class StreamEmit
         End Using
 
         Return True
+    End Function
+
+    Private Shared Function SaveEvidence(evidences As EvidenceMsg(), zip As ZipArchive) As Dictionary(Of String, Integer)
+        Dim blocks = evidences _
+            .GroupBy(Function(i)
+                         Return i.ref.ToString.Last.ToString
+                     End Function) _
+            .ToArray
+        Dim buffer As Stream
+        Dim summary As New Dictionary(Of String, Integer)
+
+        For Each block In blocks
+            evidences = block.ToArray
+            buffer = zip.CreateEntry($"evidences/{block.Key}.dat").Open
+
+            Call MsgPackSerializer.SerializeObject(evidences, buffer, closeFile:=True)
+            Call summary.Add(block.Key, evidences.Length)
+        Next
+
+        Return summary
     End Function
 
     Private Shared Function SaveTerms(terms As KnowledgeMsg(), zip As ZipArchive) As Dictionary(Of String, Integer)
