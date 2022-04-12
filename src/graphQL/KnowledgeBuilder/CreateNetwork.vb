@@ -7,11 +7,17 @@ Imports Microsoft.VisualBasic.Data.visualize.Network.Graph
 Public Module CreateNetwork
 
     <Extension>
-    Public Function LoadNodeTable(vertexList As IEnumerable(Of Knowledge)) As Dictionary(Of String, Node)
+    Public Function LoadNodeTable(vertexList As IEnumerable(Of Knowledge),
+                                  Optional filters As IEnumerable(Of String) = Nothing) As Dictionary(Of String, Node)
         Dim node As Node
         Dim nodeTable As New Dictionary(Of String, Node)
+        Dim filterIndex As Index(Of String) = If(filters Is Nothing, New String() {}.Indexing, filters.Indexing)
 
         For Each knowledge As Knowledge In vertexList
+            If filters IsNot Nothing AndAlso knowledge.type Like filterIndex Then
+                Continue For
+            End If
+
             node = New Node With {
                 .ID = knowledge.ID,
                 .label = knowledge.label,
@@ -74,15 +80,10 @@ Public Module CreateNetwork
 
     <Extension>
     Public Function CreateGraph(kb As GraphPool, Optional filters As IEnumerable(Of String) = Nothing) As NetworkGraph
-        Dim nodeTable = kb.vertex.LoadNodeTable
+        Dim nodeTable As Dictionary(Of String, Node) = kb.vertex.LoadNodeTable(filters)
         Dim g As New NetworkGraph
-        Dim filterIndex As Index(Of String) = If(filters Is Nothing, New String() {}.Indexing, filters.Indexing)
 
         For Each node As Node In nodeTable.Values
-            If filters IsNot Nothing AndAlso node.data("knowledge_type") Like filterIndex Then
-                Continue For
-            End If
-
             Call g.AddNode(node, assignId:=False)
         Next
 
