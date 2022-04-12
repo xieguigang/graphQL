@@ -10,6 +10,32 @@ Namespace Graph
 
         ReadOnly mapping As New Dictionary(Of String, List(Of String))
 
+        Sub New(knowledge As IEnumerable(Of Knowledge), links As IEnumerable(Of Association))
+            Call Console.WriteLine("add nodes...")
+
+            For Each kb As Knowledge In knowledge
+                Call AddVertex(kb)
+                Call buildEvidenceMapping(kb, kb.evidence)
+            Next
+
+            Call Console.WriteLine("add links...")
+            For Each link As Association In links
+                Call Insert(link)
+            Next
+        End Sub
+
+        Private Sub buildEvidenceMapping(term As Knowledge, evidence As Dictionary(Of String, String()))
+            For Each metadata In evidence
+                For Each ref As String In metadata.Value
+                    If Not mapping.ContainsKey(ref) Then
+                        Call mapping.Add(ref, New List(Of String))
+                    End If
+
+                    Call mapping(ref).Add(term.label)
+                Next
+            Next
+        End Sub
+
         Public Sub AddKnowledge(knowledge As String, type As String, evidence As Dictionary(Of String, String()))
             Dim term As Knowledge = ComputeIfAbsent(knowledge, type)
 
@@ -28,15 +54,9 @@ Namespace Graph
                 Else
                     term.evidence.Add(metadata.Key, metadata.Value)
                 End If
-
-                For Each ref As String In metadata.Value
-                    If Not mapping.ContainsKey(ref) Then
-                        Call mapping.Add(ref, New List(Of String))
-                    End If
-
-                    Call mapping(ref).Add(term.label)
-                Next
             Next
+
+            Call buildEvidenceMapping(term, evidence)
 
             ' create links between knowledge terms
             ' if evidence has intersection
