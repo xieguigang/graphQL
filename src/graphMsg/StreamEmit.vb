@@ -121,6 +121,7 @@ Public Class StreamEmit
     Public Shared Function GetKnowledges(pack As ZipArchive) As Dictionary(Of String, Knowledge)
         Dim terms As New Dictionary(Of String, Knowledge)
         Dim termTypes As IndexByRef = StorageProvider.GetKeywords("meta/keywords.msg", pack)
+        Dim evidenceList As IndexByRef = StorageProvider.GetKeywords("meta/evidences.msg", pack)
         Dim files = pack.Entries
 
         For Each item In files.Where(Function(t) t.FullName.StartsWith("terms"))
@@ -137,6 +138,21 @@ Public Class StreamEmit
                         .Select(Function(i) termTypes.source(i)) _
                         .AsList
                 }
+            Next
+        Next
+
+        ' attach evidence data for each knowledge terms
+        For Each item In files.Where(Function(t) t.FullName.StartsWith("evidences"))
+            Dim list = MsgPackSerializer.Deserialize(Of EvidenceMsg())(item.Open)
+
+            For Each evi As EvidenceMsg In list
+                terms(evi.ref.ToString).evidence = evi.data _
+                    .ToDictionary(Function(ref)
+                                      Return evidenceList.types(ref.ref)
+                                  End Function,
+                                  Function(ref)
+                                      Return ref.data
+                                  End Function)
             Next
         Next
 
