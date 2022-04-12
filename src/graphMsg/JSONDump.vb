@@ -13,7 +13,7 @@ Public Module JSONDump
     ''' <param name="kb"></param>
     ''' <param name="file">target file stream to write json string data.</param>
     ''' <returns></returns>
-    Public Function WriteJSON(kb As GraphPool, file As Stream) As Boolean
+    Public Function WriteJSON(kb As GraphModel, file As Stream) As Boolean
         Using writer As New StreamWriter(file)
             Dim tmpKnowledges As String = TempFileSystem.GetAppSysTempFile()
             Dim tmpLinks As String = TempFileSystem.GetAppSysTempFile()
@@ -63,7 +63,7 @@ Public Module JSONDump
     End Function
 
     <Extension>
-    Private Function WriteGraphJSON(links As GraphPool, file As StreamWriter) As IndexByRef
+    Private Function WriteGraphJSON(links As GraphModel, file As StreamWriter) As IndexByRef
         Dim index As New IndexByRef
 
         For Each link As LinkMsg In LinkMsg.GetRelationships(links, ref:=index)
@@ -74,7 +74,7 @@ Public Module JSONDump
     End Function
 
     <Extension>
-    Private Function WriteTermsJSON(knowledges As GraphPool, file As StreamWriter) As IndexByRef
+    Private Function WriteTermsJSON(knowledges As GraphModel, file As StreamWriter) As IndexByRef
         Dim index As New IndexByRef
 
         For Each term As KnowledgeMsg In KnowledgeMsg.GetTerms(knowledges, ref:=index)

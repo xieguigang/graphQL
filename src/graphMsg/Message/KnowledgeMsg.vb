@@ -21,7 +21,7 @@ Namespace Message
             Return term
         End Function
 
-        Public Shared Iterator Function GetTerms(kb As GraphPool, Optional ref As IndexByRef = Nothing) As IEnumerable(Of KnowledgeMsg)
+        Public Shared Iterator Function GetTerms(kb As GraphModel, Optional ref As IndexByRef = Nothing) As IEnumerable(Of KnowledgeMsg)
             Dim allTypes = kb.vertex.Select(Function(i) i.type).Distinct.Indexing
             Dim allSources = kb.vertex _
                 .Select(Function(i) i.source) _

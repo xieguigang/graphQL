@@ -17,7 +17,7 @@ Namespace Message
             Return $"[{u}->{v}] {type}"
         End Function
 
-        Public Shared Iterator Function GetRelationships(kb As GraphPool, Optional ref As IndexByRef = Nothing) As IEnumerable(Of LinkMsg)
+        Public Shared Iterator Function GetRelationships(kb As GraphModel, Optional ref As IndexByRef = Nothing) As IEnumerable(Of LinkMsg)
             Dim allTypes As Index(Of String) = kb.graphEdges _
                 .Select(Function(i) i.type) _
                 .Distinct _
