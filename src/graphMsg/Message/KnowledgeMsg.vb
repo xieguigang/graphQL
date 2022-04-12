@@ -6,6 +6,10 @@ Namespace Message
 
     Public Class KnowledgeMsg
 
+        ''' <summary>
+        ''' the unique reference id of current knowledge node in the graph.
+        ''' </summary>
+        ''' <returns></returns>
         <MessagePackMember(0)> Public Property guid As Integer
         <MessagePackMember(1)> Public Property term As String
         <MessagePackMember(2)> Public Property mentions As Integer
