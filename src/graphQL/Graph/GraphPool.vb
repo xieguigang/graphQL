@@ -1,10 +1,13 @@
-Imports System.Runtime.CompilerServices
+﻿Imports System.Runtime.CompilerServices
 Imports Microsoft.VisualBasic.Data.GraphTheory
 Imports Microsoft.VisualBasic.Linq
 Imports Microsoft.VisualBasic.Math.LinearAlgebra
 
 Namespace Graph
 
+    ''' <summary>
+    ''' 所有的信息词条都看作为网络之中的一个结点，主要用于总结发现新知识
+    ''' </summary>
     Public Class GraphPool : Inherits Graph(Of Knowledge, Association, GraphPool)
 
         Sub New(knowledge As IEnumerable(Of Knowledge), links As IEnumerable(Of Association))

@@ -37,6 +37,8 @@ Namespace Graph
         ''' <returns></returns>
         Public Property source As New List(Of String)
 
+        Public Property evidence As New Dictionary(Of String, String())
+
         <MethodImpl(MethodImplOptions.AggressiveInlining)>
         Public Sub AddReferenceSource(source As String)
             Call Me.source.Add(source)
