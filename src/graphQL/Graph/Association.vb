@@ -1,24 +1,27 @@
 ﻿Imports System.Runtime.CompilerServices
 Imports Microsoft.VisualBasic.Data.GraphTheory
 
-Public Class Association : Inherits Edge(Of Knowledge)
+Namespace Graph
 
-    ''' <summary>
-    ''' the meta data key name
-    ''' </summary>
-    ''' <returns></returns>
-    Public Property type As String
+    Public Class Association : Inherits Edge(Of Knowledge)
 
-    ''' <summary>
-    ''' the data source of this knowledge term 
-    ''' association data.
-    ''' </summary>
-    ''' <returns></returns>
-    Public Property source As New List(Of String)
+        ''' <summary>
+        ''' the meta data key name
+        ''' </summary>
+        ''' <returns></returns>
+        Public Property type As String
 
-    <MethodImpl(MethodImplOptions.AggressiveInlining)>
-    Public Sub AddReferenceSource(source As String)
-        Call Me.source.Add(source)
-    End Sub
+        ''' <summary>
+        ''' the data source of this knowledge term 
+        ''' association data.
+        ''' </summary>
+        ''' <returns></returns>
+        Public Property source As New List(Of String)
 
-End Class
+        <MethodImpl(MethodImplOptions.AggressiveInlining)>
+        Public Sub AddReferenceSource(source As String)
+            Call Me.source.Add(source)
+        End Sub
+
+    End Class
+End Namespace

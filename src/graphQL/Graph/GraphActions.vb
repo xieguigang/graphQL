@@ -1,49 +1,51 @@
 ﻿Imports System.Runtime.CompilerServices
 
-Public Module GraphActions
+Namespace Graph
 
-    <Extension>
-    Public Function JoinGraph(k1 As GraphPool, k2 As GraphPool) As GraphPool
-        For Each kn As Knowledge In k2.vertex
-            If k1.ExistVertex(kn.label) Then
-                Dim kold = k1.GetElementById(kn.label)
+    Public Module GraphActions
 
-                kold.isMaster = kold.isMaster OrElse kn.isMaster
-                kold.source.AddRange(kn.source)
-                kold.type = If(kold.mentions > kn.mentions, kold.type, kn.type)
-                kold.mentions += kn.mentions
-            Else
-                Dim knew = k1.AddVertex(kn.label)
+        <Extension>
+        Public Function JoinGraph(k1 As GraphPool, k2 As GraphPool) As GraphPool
+            For Each kn As Knowledge In k2.vertex
+                If k1.ExistVertex(kn.label) Then
+                    Dim kold = k1.GetElementById(kn.label)
 
-                knew.isMaster = kn.isMaster
-                knew.mentions = kn.mentions
-                knew.source = kn.source
-                knew.type = kn.type
-            End If
-        Next
+                    kold.isMaster = kold.isMaster OrElse kn.isMaster
+                    kold.source.AddRange(kn.source)
+                    kold.type = If(kold.mentions > kn.mentions, kold.type, kn.type)
+                    kold.mentions += kn.mentions
+                Else
+                    Dim knew = k1.AddVertex(kn.label)
 
-        For Each ln As Association In k2.graphEdges
-            If k1.ExistEdge(ln) Then
-                Dim edge As Association = k1.QueryEdge(ln.U.label, ln.V.label)
+                    knew.isMaster = kn.isMaster
+                    knew.mentions = kn.mentions
+                    knew.source = kn.source
+                    knew.type = kn.type
+                End If
+            Next
 
-                edge.type = If(edge.weight > ln.weight, edge.type, ln.type)
-                edge.weight += ln.weight
-                edge.source.AddRange(ln.source)
-            Else
-                k1.AddEdge(
-                    u:=k1.GetElementById(ln.U.label),
-                    v:=k1.GetElementById(ln.V.label),
-                    weight:=ln.weight
-                )
+            For Each ln As Association In k2.graphEdges
+                If k1.ExistEdge(ln) Then
+                    Dim edge As Association = k1.QueryEdge(ln.U.label, ln.V.label)
 
-                Dim edge As Association = k1.QueryEdge(ln.U.label, ln.V.label)
+                    edge.type = If(edge.weight > ln.weight, edge.type, ln.type)
+                    edge.weight += ln.weight
+                    edge.source.AddRange(ln.source)
+                Else
+                    k1.AddEdge(
+                        u:=k1.GetElementById(ln.U.label),
+                        v:=k1.GetElementById(ln.V.label),
+                        weight:=ln.weight
+                    )
 
-                edge.type = ln.type
-                edge.source = ln.source
-            End If
-        Next
+                    Dim edge As Association = k1.QueryEdge(ln.U.label, ln.V.label)
 
-        Return k1
-    End Function
+                    edge.type = ln.type
+                    edge.source = ln.source
+                End If
+            Next
 
-End Module
+            Return k1
+        End Function
+    End Module
+End Namespace
