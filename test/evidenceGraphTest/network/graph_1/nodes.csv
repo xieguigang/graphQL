@@ -1,0 +1,4 @@
+﻿ID,NodeType,weight,x,y,color,knowledge_type,source,degree,degree.in,degree.out,degreeCentrality,OutDegreeCentrality,BetweenessCentrality,RelativeBetweenessCentrality,label
+C00407,2,1,-6.966944250264097,43.87798944105395,#88BB64,kegg,kegg,2,1,1,0.125,0.125,4,0.2222222222222222,C00407
+ChEBI:17191,2,1,-11.375063564876921,26.299506429966677,#88BB64,chebi,chebi,2,2,,0.125,,2,0.1111111111111111,ChEBI:17191
+HMDB0000172,2,1,-24.765272063799628,38.22761483035107,#88BB64,hmdb,hmdb,2,,2,0.125,0.25,2,0.1111111111111111,HMDB0000172

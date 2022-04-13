@@ -9,7 +9,7 @@ Imports Microsoft.VisualBasic.SecurityString
 Public Module KnowledgeTerm
 
     <Extension>
-    Public Function CreateNiceTerm(Of T As {New, INamedValue, DynamicPropertyBase(Of String)})(term As KnowledgeFrameRow, kb As GraphPool) As T
+    Public Function CreateNiceTerm(Of T As {New, INamedValue, DynamicPropertyBase(Of String)})(term As KnowledgeFrameRow, kb As GraphModel) As T
         Dim nice As New T With {.Key = term.UniqeId}
         Dim terms As String()
         Dim w As Double()

@@ -1,0 +1,3 @@
+﻿ID,NodeType,weight,x,y,color,knowledge_type,source,degree,degree.in,degreeCentrality,BetweenessCentrality,RelativeBetweenessCentrality,label,degree.out,OutDegreeCentrality
+C00001,4,1,-41.433007368571886,-26.254346356792915,#D02823,kegg,kegg,1,1,0.0625,1,0.05555555555555555,C00001,,
+CHEBI:15377,4,1,-47.98957722332308,-9.482223669768146,#D02823,chebi,chebi,1,,0.0625,1,0.05555555555555555,CHEBI:15377,1,0.125

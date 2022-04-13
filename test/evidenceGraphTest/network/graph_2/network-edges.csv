@@ -1,0 +1,4 @@
+﻿fromNode,toNode,value,interaction_type,selfLoop,label,guid
+HMDB0001879,ChEBI:15365,0,,False,,0
+C01405,HMDB0001879,0,,False,,1
+C01405,ChEBI:15365,0,,False,,2
