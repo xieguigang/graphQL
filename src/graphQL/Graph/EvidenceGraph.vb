@@ -46,7 +46,7 @@ Namespace Graph
             Next
         End Sub
 
-        Private Shared Function isEmptyString(str As String) As Boolean
+        Friend Shared Function isEmptyString(str As String) As Boolean
             Return str Is Nothing OrElse str.Trim(" "c, ASCII.TAB, ASCII.CR, ASCII.LF) = ""
         End Function
 
@@ -72,6 +72,14 @@ Namespace Graph
             For Each key As String In evidence.Keys.ToArray
                 If evidence(key).IsNullOrEmpty OrElse evidence(key).All(AddressOf isEmptyString) Then
                     Call evidence.Remove(key)
+                Else
+                    evidence(key) = evidence(key) _
+                        .Where(Function(str) Not isEmptyString(str)) _
+                        .ToArray
+
+                    If evidence(key).Length = 0 Then
+                        Call evidence.Remove(key)
+                    End If
                 End If
             Next
 

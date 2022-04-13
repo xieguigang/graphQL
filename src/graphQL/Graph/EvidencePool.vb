@@ -49,6 +49,7 @@ Namespace Graph
 
         Public Function Join(exists As Evidence, xrefs As IEnumerable(Of String)) As Evidence
             Dim pointers As Integer() = xrefs _
+                .Where(Function(str) Not EvidenceGraph.isEmptyString(str)) _
                 .Select(Function(ref)
                             Return push(referenceData, data:=ref)
                         End Function) _
@@ -84,6 +85,7 @@ Namespace Graph
                 .category = push(Me.category, category),
                 .reference = (From refer As String
                               In xrefs
+                              Where Not EvidenceGraph.isEmptyString(refer)
                               Let rid As Integer = push(Me.referenceData, refer)
                               Select rid).ToArray
             }
