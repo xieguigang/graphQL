@@ -1,4 +1,5 @@
 ﻿
+Imports System.Runtime.CompilerServices
 Imports Microsoft.VisualBasic.ComponentModel.Collection
 Imports Microsoft.VisualBasic.Linq
 
@@ -8,6 +9,13 @@ Namespace Graph
 
         ReadOnly category As Index(Of String)
         ReadOnly referenceData As Index(Of String)
+
+        Default Public ReadOnly Property evidenceTerm(i As Integer) As String
+            <MethodImpl(MethodImplOptions.AggressiveInlining)>
+            Get
+                Return referenceData(index:=i)
+            End Get
+        End Property
 
         Sub New(category As IEnumerable(Of String), referenceData As IEnumerable(Of String))
             Me.category = category.Indexing
@@ -53,6 +61,7 @@ Namespace Graph
             Return Nothing
         End Function
 
+        <MethodImpl(MethodImplOptions.AggressiveInlining)>
         Public Function CreateEvidence(category As String, xrefs As IEnumerable(Of String)) As Evidence
             Return New Evidence With {
                 .category = push(Me.category, category),
@@ -72,6 +81,24 @@ Namespace Graph
 
         Public Overrides Function ToString() As String
             Return $"[{category}] {reference.JoinBy(", ")}"
+        End Function
+
+        Public Shared Function Union(evidences As IEnumerable(Of Evidence)) As IEnumerable(Of Evidence)
+            Return From i As Evidence
+                   In evidences
+                   Group By i.category
+                   Into Group
+                   Let currentGroup = Group.ToArray
+                   Let unionRefer = currentGroup _
+                       .Select(Function(i) i.reference) _
+                       .IteratesALL _
+                       .Distinct _
+                       .ToArray
+                   Let categoryId As Integer = currentGroup.First.category
+                   Select New Evidence With {
+                       .category = categoryId,
+                       .reference = unionRefer
+                   }
         End Function
 
     End Class

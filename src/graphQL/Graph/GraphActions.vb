@@ -34,17 +34,12 @@ Namespace Graph
                 kold.mentions += kn.mentions
 
                 target = kold
+                target.evidence.AddRange(kn.evidence)
 
-                For Each evi In kn.evidence
-                    If kold.evidence.ContainsKey(evi.Key) Then
-                        kold.evidence(evi.Key) = kold.evidence(evi.Key) _
-                            .JoinIterates(evi.Value) _
-                            .Distinct _
-                            .ToArray
-                    Else
-                        kold.evidence.Add(evi.Key, evi.Value)
-                    End If
-                Next
+                Dim union As Evidence() = Evidence.Union(target.evidence).ToArray
+
+                target.evidence.Clear()
+                target.evidence.AddRange(union)
             Else
                 Dim knew = k1.AddVertex(kn.label)
 
@@ -58,7 +53,7 @@ Namespace Graph
             End If
 
             If TypeOf k1 Is EvidenceGraph Then
-                Call DirectCast(k1, EvidenceGraph).buildEvidenceMapping(target, kn.evidence)
+                Call DirectCast(k1, EvidenceGraph).buildEvidenceMapping(target)
             End If
         End Sub
 

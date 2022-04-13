@@ -17,12 +17,26 @@ Namespace Graph
 
             For Each kb As Knowledge In knowledge
                 Call AddVertex(kb)
-                Call buildEvidenceMapping(kb, kb.evidence)
+                Call buildEvidenceMapping(kb)
             Next
 
             Call Console.WriteLine("add links...")
             For Each link As Association In links
                 Call Insert(link)
+            Next
+        End Sub
+
+        Friend Sub buildEvidenceMapping(term As Knowledge)
+            For Each evidence As Evidence In term.evidence
+                For Each referId As Integer In evidence.reference
+                    Dim ref As String = evidences(referId)
+
+                    If Not mapping.ContainsKey(ref) Then
+                        Call mapping.Add(ref, New List(Of String))
+                    End If
+
+                    Call mapping(ref).Add(term.label)
+                Next
             Next
         End Sub
 
