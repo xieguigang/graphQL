@@ -92,11 +92,7 @@ Namespace Graph
             ' if evidence has intersection
             For Each metadata In evidence
                 For Each ref As String In metadata.Value
-                    If ref Is Nothing OrElse ref.Trim(" "c, ASCII.TAB, ASCII.CR, ASCII.LF) = "" Then
-                        Continue For
-                    Else
-                        terms = mapping(ref)
-                    End If
+                    Dim terms As IEnumerable(Of String) = mapping(ref)
 
                     For Each id As String In terms
                         If id <> knowledge Then
