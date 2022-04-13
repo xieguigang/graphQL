@@ -43,8 +43,8 @@ Namespace Message
 
     Public Class ReferenceData
 
-        Public Property ref As Integer
-        Public Property data As String()
+        <MessagePackMember(0)> Public Property ref As Integer
+        <MessagePackMember(1)> Public Property data As String()
 
     End Class
 End Namespace
