@@ -1,0 +1,11 @@
+﻿ID,NodeType,weight,knowledge_type,source,label
+C00001,,1,kegg,kegg,C00001
+C00123,,1,kegg,kegg,C00123
+C00407,,1,kegg,kegg,C00407
+C01405,,1,kegg,kegg,C01405
+ChEBI:15365,,1,chebi,chebi,ChEBI:15365
+CHEBI:15377,,1,chebi,chebi,CHEBI:15377
+ChEBI:17191,,1,chebi,chebi,ChEBI:17191
+HMDB0000172,,1,hmdb,hmdb,HMDB0000172
+HMDB0000687,,1,hmdb,hmdb,HMDB0000687
+HMDB0001879,,1,hmdb,hmdb,HMDB0001879

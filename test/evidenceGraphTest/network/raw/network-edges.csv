@@ -1,0 +1,9 @@
+﻿fromNode,toNode,value,interaction_type,selfLoop,label,guid,source
+ChEBI:17191,HMDB0000172,16,id,False,,[0]ChEBI:17191 -> [2]HMDB0000172,name
+HMDB0001879,ChEBI:15365,10,id,False,,[9]HMDB0001879 -> [6]ChEBI:15365,formula
+HMDB0000687,C00123,9,id,False,,[8]HMDB0000687 -> [4]C00123,id
+C01405,HMDB0001879,8,name,False,,[5]C01405 -> [9]HMDB0001879,name
+C01405,ChEBI:15365,8,id,False,,[5]C01405 -> [6]ChEBI:15365,formula
+C00407,HMDB0000172,7,name,False,,[1]C00407 -> [2]HMDB0000172,name
+ChEBI:17191,C00407,6,id,False,,[0]ChEBI:17191 -> [1]C00407,id
+C00001,CHEBI:15377,5,formula,False,,[3]C00001 -> [7]CHEBI:15377,formula
