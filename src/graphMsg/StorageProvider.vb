@@ -26,7 +26,7 @@ Public Class StorageProvider
             If GetType(T) Is GetType(GraphPool) Then
                 Return New GraphPool({}, {})
             ElseIf GetType(T) Is GetType(EvidenceGraph) Then
-                Return New EvidenceGraph({}, {})
+                Return New EvidenceGraph({}, {}, EvidencePool.Empty)
             Else
                 Throw New NotImplementedException(GetType(T).FullName)
             End If
@@ -51,6 +51,8 @@ Public Class StorageProvider
     ''' <param name="pack"></param>
     ''' <returns></returns>
     Public Shared Function CreateQuery(Of T As GraphModel)(pack As ZipArchive) As GraphModel
+        Dim evidences As EvidencePool = Nothing
+
         Call Console.WriteLine("start to loading knowledge data...")
         Dim terms As Dictionary(Of String, Knowledge) = StreamEmit.GetKnowledges(pack)
         Call Console.WriteLine($"get {terms.Count} knowledge nodes!")
@@ -58,13 +60,17 @@ Public Class StorageProvider
         Dim links As Association() = StreamEmit.GetNetwork(pack, terms).ToArray
         Call Console.WriteLine($"get {links.Length} graph links!")
 
+        If GetType(T) Is GetType(EvidenceGraph) Then
+            evidences = EvidenceStream.Load(zip:=pack)
+        End If
+
         Call pack.Dispose()
         Call Console.WriteLine("build knowledge graph!")
 
         If GetType(T) Is GetType(GraphPool) Then
             Return New GraphPool(terms.Values, links)
         ElseIf GetType(T) Is GetType(EvidenceGraph) Then
-            Return New EvidenceGraph(terms.Values, links)
+            Return New EvidenceGraph(terms.Values, links, evidences)
         Else
             Throw New NotImplementedException
         End If

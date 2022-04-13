@@ -37,7 +37,18 @@ Namespace Graph
         ''' <returns></returns>
         Public Property source As New List(Of String)
 
-        Public Property evidence As New Dictionary(Of String, String())
+        ''' <summary>
+        ''' 
+        ''' </summary>
+        ''' <returns></returns>
+        ''' <remarks>
+        ''' 20220413
+        ''' 
+        ''' 在这里原先是直接使用一个字符串字典来表示的，但是在处理大型数据集的时候
+        ''' 在指向相同对象实体的词条之间冗余的字符串会造成大量的内存浪费
+        ''' 所以在这里改为指针数据以减少内存冗余信息，降低内存占用率
+        ''' </remarks>
+        Public Property evidence As New List(Of Evidence)
 
         <MethodImpl(MethodImplOptions.AggressiveInlining)>
         Public Sub AddReferenceSource(source As String)

@@ -10,17 +10,39 @@ Namespace Graph
 
         ReadOnly mapping As New Dictionary(Of String, List(Of String))
 
-        Sub New(knowledge As IEnumerable(Of Knowledge), links As IEnumerable(Of Association))
+        ''' <summary>
+        ''' evidence data
+        ''' </summary>
+        ''' <returns></returns>
+        Public ReadOnly Property evidences As EvidencePool
+
+        Sub New(knowledge As IEnumerable(Of Knowledge), links As IEnumerable(Of Association), evidence As EvidencePool)
+            Me.evidences = evidence
+
             Call Console.WriteLine("add nodes...")
 
             For Each kb As Knowledge In knowledge
                 Call AddVertex(kb)
-                Call buildEvidenceMapping(kb, kb.evidence)
+                Call buildEvidenceMapping(kb)
             Next
 
             Call Console.WriteLine("add links...")
             For Each link As Association In links
                 Call Insert(link)
+            Next
+        End Sub
+
+        Friend Sub buildEvidenceMapping(term As Knowledge)
+            For Each evidence As Evidence In term.evidence
+                For Each referId As Integer In evidence.reference
+                    Dim ref As String = evidences(referId)
+
+                    If Not mapping.ContainsKey(ref) Then
+                        Call mapping.Add(ref, New List(Of String))
+                    End If
+
+                    Call mapping(ref).Add(term.label)
+                Next
             Next
         End Sub
 
@@ -45,25 +67,22 @@ Namespace Graph
 
         Public Sub AddKnowledge(knowledge As String, type As String, evidence As Dictionary(Of String, String()))
             Dim term As Knowledge = ComputeIfAbsent(knowledge, type)
-            Dim terms As IEnumerable(Of String)
+            Dim evidenceItem As Evidence
 
             Call term.AddReferenceSource(source:=type)
 
             For Each metadata In evidence
                 If metadata.Value.IsNullOrEmpty Then
                     Continue For
+                Else
+                    evidenceItem = evidences.FindEvidence(term, category:=metadata.Key)
                 End If
 
-                If term.evidence.ContainsKey(metadata.Key) Then
-                    term.evidence(metadata.Key) = term.evidence(metadata.Key) _
-                        .JoinIterates(metadata.Value) _
-                        .Where(Function(str)
-                                   Return str IsNot Nothing AndAlso str.Trim(" "c, ASCII.TAB, ASCII.CR, ASCII.LF) <> ""
-                               End Function) _
-                        .Distinct _
-                        .ToArray
+                If Not evidenceItem Is Nothing Then
+                    Call evidences.Join(evidenceItem, metadata.Value)
                 Else
-                    Call term.evidence.Add(metadata.Key, metadata.Value)
+                    evidenceItem = evidences.CreateEvidence(metadata.Key, metadata.Value)
+                    term.evidence.Add(evidenceItem)
                 End If
             Next
 

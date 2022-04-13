@@ -14,25 +14,15 @@ Namespace Message
         <MessagePackMember(0)> Public Property ref As Integer
         <MessagePackMember(1)> Public Property data As ReferenceData()
 
-        Public Shared Iterator Function CreateEvidencePack(kb As GraphModel, Optional ref As IndexByRef = Nothing) As IEnumerable(Of EvidenceMsg)
-            Dim allTypes As Index(Of String) = kb.vertex _
-                .Select(Function(i) i.evidence.Keys) _
-                .IteratesALL _
-                .Distinct _
-                .Indexing
-
-            If Not ref Is Nothing Then
-                ref.types = allTypes.Objects
-            End If
-
+        Public Shared Iterator Function CreateEvidencePack(kb As GraphModel) As IEnumerable(Of EvidenceMsg)
             For Each v As Knowledge In kb.vertex
                 Yield New EvidenceMsg With {
                     .ref = v.ID,
                     .data = v.evidence _
                         .Select(Function(evi)
                                     Return New ReferenceData With {
-                                        .ref = allTypes.IndexOf(evi.Key),
-                                        .data = evi.Value
+                                        .ref = evi.category,
+                                        .data = evi.reference
                                     }
                                 End Function) _
                         .ToArray
@@ -44,7 +34,7 @@ Namespace Message
     Public Class ReferenceData
 
         <MessagePackMember(0)> Public Property ref As Integer
-        <MessagePackMember(1)> Public Property data As String()
+        <MessagePackMember(1)> Public Property data As Integer()
 
     End Class
 End Namespace

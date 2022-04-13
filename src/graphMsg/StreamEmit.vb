@@ -19,17 +19,29 @@ Public Class StreamEmit
     Public Shared Function Save(kb As GraphModel, file As Stream) As Boolean
         Dim termRef As New IndexByRef
         Dim linkRef As New IndexByRef
-        Dim evidenceRef As New IndexByRef
         Dim terms = KnowledgeMsg.GetTerms(kb, termRef).ToArray
         Dim links = LinkMsg.GetRelationships(kb, linkRef).ToArray
-        Dim evidences = EvidenceMsg.CreateEvidencePack(kb, evidenceRef).ToArray
+        Dim evidences = EvidenceMsg.CreateEvidencePack(kb).ToArray
         Dim info As New Dictionary(Of String, String)
+        Dim evidencePool As EvidencePool = Nothing
+        Dim evidenceRef As New IndexByRef With {
+            .types = {},
+            .source = {}
+        }
+
+        If TypeOf kb Is EvidenceGraph Then
+            evidencePool = DirectCast(kb, EvidenceGraph).evidences
+            evidenceRef = New IndexByRef With {
+                .types = evidencePool.categoryList,
+                .source = evidencePool.evidenceReference
+            }
+        End If
 
         Call info.Add("knowledge_terms", terms.Length)
         Call info.Add("graph_size", links.Length)
         Call info.Add("knowledge_types", termRef.types.Length)
         Call info.Add("link_types", links.Count)
-        Call info.Add("evidence_types", evidenceRef.types.Length)
+        Call info.Add("evidence_types", If(evidencePool Is Nothing, 0, evidencePool.categoryList.Length))
         Call info.Add("evidence_size", Aggregate i In evidences Into Sum(i.data.Length))
 
         Using zip As New ZipArchive(file, ZipArchiveMode.Create, leaveOpen:=False)
@@ -121,7 +133,6 @@ Public Class StreamEmit
     Public Shared Function GetKnowledges(pack As ZipArchive) As Dictionary(Of String, Knowledge)
         Dim terms As New Dictionary(Of String, Knowledge)
         Dim termTypes As IndexByRef = StorageProvider.GetKeywords("meta/keywords.msg", pack)
-        Dim evidenceList As IndexByRef = StorageProvider.GetKeywords("meta/evidences.msg", pack)
         Dim files = pack.Entries
 
         For Each item In files.Where(Function(t) t.FullName.StartsWith("terms"))
@@ -144,15 +155,20 @@ Public Class StreamEmit
         ' attach evidence data for each knowledge terms
         For Each item In files.Where(Function(t) t.FullName.StartsWith("evidences"))
             Dim list = MsgPackSerializer.Deserialize(Of EvidenceMsg())(item.Open)
+            Dim evidences As IEnumerable(Of Evidence)
 
             For Each evi As EvidenceMsg In list
-                terms(evi.ref.ToString).evidence = evi.data _
-                    .ToDictionary(Function(ref)
-                                      Return evidenceList.types(ref.ref)
-                                  End Function,
-                                  Function(ref)
-                                      Return ref.data
-                                  End Function)
+                evidences = evi.data _
+                    .Select(Function(i)
+                                Return New Evidence With {
+                                    .category = i.ref,
+                                    .reference = i.data
+                                }
+                            End Function) _
+                    .ToArray
+
+                ' terms(evi.ref.ToString).evidence.Clear()
+                terms(evi.ref.ToString).evidence.AddRange(evidences)
             Next
         Next
 
