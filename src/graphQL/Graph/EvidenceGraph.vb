@@ -1,4 +1,5 @@
 ﻿Imports Microsoft.VisualBasic.Linq
+Imports Microsoft.VisualBasic.Text
 
 Namespace Graph
 
@@ -25,7 +26,14 @@ Namespace Graph
 
         Friend Sub buildEvidenceMapping(term As Knowledge, evidence As Dictionary(Of String, String()))
             For Each metadata In evidence
+                If metadata.Value.IsNullOrEmpty Then
+                    Continue For
+                End If
+
                 For Each ref As String In metadata.Value
+                    If ref Is Nothing OrElse ref.Trim(" "c, ASCII.TAB, ASCII.CR, ASCII.LF) = "" Then
+                        Continue For
+                    End If
                     If Not mapping.ContainsKey(ref) Then
                         Call mapping.Add(ref, New List(Of String))
                     End If
@@ -37,6 +45,7 @@ Namespace Graph
 
         Public Sub AddKnowledge(knowledge As String, type As String, evidence As Dictionary(Of String, String()))
             Dim term As Knowledge = ComputeIfAbsent(knowledge, type)
+            Dim terms As IEnumerable(Of String)
 
             Call term.AddReferenceSource(source:=type)
 
@@ -48,10 +57,13 @@ Namespace Graph
                 If term.evidence.ContainsKey(metadata.Key) Then
                     term.evidence(metadata.Key) = term.evidence(metadata.Key) _
                         .JoinIterates(metadata.Value) _
+                        .Where(Function(str)
+                                   Return str IsNot Nothing AndAlso str.Trim(" "c, ASCII.TAB, ASCII.CR, ASCII.LF) <> ""
+                               End Function) _
                         .Distinct _
                         .ToArray
                 Else
-                    term.evidence.Add(metadata.Key, metadata.Value)
+                    Call term.evidence.Add(metadata.Key, metadata.Value)
                 End If
             Next
 
@@ -65,7 +77,11 @@ Namespace Graph
                 End If
 
                 For Each ref As String In metadata.Value
-                    Dim terms = mapping(ref)
+                    If ref Is Nothing OrElse ref.Trim(" "c, ASCII.TAB, ASCII.CR, ASCII.LF) = "" Then
+                        Continue For
+                    Else
+                        terms = mapping(ref)
+                    End If
 
                     For Each id As String In terms
                         If id <> knowledge Then
