@@ -21,6 +21,28 @@ Namespace Graph
             Return index(data)
         End Function
 
+        Public Function Join(exists As Evidence, category As String, xrefs As IEnumerable(Of String)) As Evidence
+
+
+            Return exists
+        End Function
+
+        Public Function FindEvidence(term As Knowledge, category As String) As Evidence
+            If Not category Like Me.category Then
+                Return Nothing
+            End If
+
+            Dim ref As Integer = Me.category(category)
+
+            For i As Integer = 0 To term.evidence.Count - 1
+                If term.evidence(i).category = ref Then
+                    Return term.evidence(i)
+                End If
+            Next
+
+            Return Nothing
+        End Function
+
         Public Function CreateEvidence(category As String, xrefs As IEnumerable(Of String)) As Evidence
             Return New Evidence With {
                 .category = push(Me.category, category),

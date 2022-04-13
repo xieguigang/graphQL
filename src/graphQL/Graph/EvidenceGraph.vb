@@ -10,7 +10,9 @@ Namespace Graph
         ReadOnly mapping As New Dictionary(Of String, List(Of String))
         ReadOnly evidences As EvidencePool
 
-        Sub New(knowledge As IEnumerable(Of Knowledge), links As IEnumerable(Of Association))
+        Sub New(knowledge As IEnumerable(Of Knowledge), links As IEnumerable(Of Association), evidence As EvidencePool)
+            Me.evidences = evidence
+
             Call Console.WriteLine("add nodes...")
 
             For Each kb As Knowledge In knowledge
@@ -38,21 +40,22 @@ Namespace Graph
 
         Public Sub AddKnowledge(knowledge As String, type As String, evidence As Dictionary(Of String, String()))
             Dim term As Knowledge = ComputeIfAbsent(knowledge, type)
+            Dim evidenceItem As Evidence
 
             Call term.AddReferenceSource(source:=type)
 
             For Each metadata In evidence
                 If metadata.Value.IsNullOrEmpty Then
                     Continue For
+                Else
+                    evidenceItem = evidences.FindEvidence(term, category:=metadata.Key)
                 End If
 
-                If term.evidence.ContainsKey(metadata.Key) Then
-                    term.evidence(metadata.Key) = term.evidence(metadata.Key) _
-                        .JoinIterates(metadata.Value) _
-                        .Distinct _
-                        .ToArray
+                If Not evidenceItem Is Nothing Then
+                    Call evidences.Join(evidenceItem, metadata.Key, metadata.Value)
                 Else
-                    term.evidence.Add(metadata.Key, metadata.Value)
+                    evidenceItem = evidences.CreateEvidence(metadata.Key, metadata.Value)
+                    term.evidence.Add(evidenceItem)
                 End If
             Next
 
