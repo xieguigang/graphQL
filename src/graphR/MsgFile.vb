@@ -31,7 +31,7 @@ Module MsgFile
 
         If file Is Nothing Then
             If evidenceAggregate Then
-                Return New EvidenceGraph({}, {})
+                Return New EvidenceGraph({}, {}, EvidencePool.Empty)
             Else
                 Return New GraphPool({}, {})
             End If

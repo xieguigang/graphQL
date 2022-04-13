@@ -17,10 +17,27 @@ Namespace Graph
             End Get
         End Property
 
+        Public ReadOnly Property categoryList As String()
+            Get
+                Return category.Objects
+            End Get
+        End Property
+
+        Public ReadOnly Property evidenceReference As String()
+            Get
+                Return referenceData.Objects
+            End Get
+        End Property
+
         Sub New(category As IEnumerable(Of String), referenceData As IEnumerable(Of String))
             Me.category = category.Indexing
             Me.referenceData = referenceData.Indexing
         End Sub
+
+        <MethodImpl(MethodImplOptions.AggressiveInlining)>
+        Public Shared Function Empty() As EvidencePool
+            Return New EvidencePool({}, {})
+        End Function
 
         Private Shared Function push(ByRef index As Index(Of String), data As String) As Integer
             If Not data Like index Then
