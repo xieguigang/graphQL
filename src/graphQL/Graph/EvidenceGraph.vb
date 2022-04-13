@@ -52,7 +52,7 @@ Namespace Graph
                 End If
 
                 If Not evidenceItem Is Nothing Then
-                    Call evidences.Join(evidenceItem, metadata.Key, metadata.Value)
+                    Call evidences.Join(evidenceItem, metadata.Value)
                 Else
                     evidenceItem = evidences.CreateEvidence(metadata.Key, metadata.Value)
                     term.evidence.Add(evidenceItem)

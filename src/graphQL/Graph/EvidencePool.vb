@@ -1,5 +1,6 @@
 ﻿
 Imports Microsoft.VisualBasic.ComponentModel.Collection
+Imports Microsoft.VisualBasic.Linq
 
 Namespace Graph
 
@@ -21,8 +22,17 @@ Namespace Graph
             Return index(data)
         End Function
 
-        Public Function Join(exists As Evidence, category As String, xrefs As IEnumerable(Of String)) As Evidence
+        Public Function Join(exists As Evidence, xrefs As IEnumerable(Of String)) As Evidence
+            Dim pointers As Integer() = xrefs _
+                .Select(Function(ref)
+                            Return push(referenceData, data:=ref)
+                        End Function) _
+                .ToArray
 
+            exists.reference = exists.reference _
+                .JoinIterates(pointers) _
+                .Distinct _
+                .ToArray
 
             Return exists
         End Function
