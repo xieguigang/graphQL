@@ -133,7 +133,6 @@ Public Class StreamEmit
     Public Shared Function GetKnowledges(pack As ZipArchive) As Dictionary(Of String, Knowledge)
         Dim terms As New Dictionary(Of String, Knowledge)
         Dim termTypes As IndexByRef = StorageProvider.GetKeywords("meta/keywords.msg", pack)
-        Dim evidenceList As IndexByRef = StorageProvider.GetKeywords("meta/evidences.msg", pack)
         Dim files = pack.Entries
 
         For Each item In files.Where(Function(t) t.FullName.StartsWith("terms"))
