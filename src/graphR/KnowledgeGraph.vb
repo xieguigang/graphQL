@@ -37,7 +37,7 @@ Module KnowledgeGraph
     ''' nodes meta: knowledge_type
     ''' </returns>
     <ExportAPI("networkGraph")>
-    Public Function networkGraph(kb As GraphPool,
+    Public Function networkGraph(kb As GraphModel,
                                  <RRawVectorArgument>
                                  Optional filters As Object = Nothing) As NetworkGraph
 
@@ -156,7 +156,7 @@ Module KnowledgeGraph
     End Function
 
     <ExportAPI("niceTerms")>
-    Public Function knowledgeTable(knowledges As KnowledgeFrameRow(), kb As GraphPool,
+    Public Function knowledgeTable(knowledges As KnowledgeFrameRow(), kb As GraphModel,
                                    <RRawVectorArgument(GetType(String))>
                                    Optional indexBy As Object = Nothing,
                                    Optional prefix As String = "Term") As EntityObject()
@@ -176,7 +176,7 @@ Module KnowledgeGraph
     End Function
 
     <ExportAPI("correctKnowledges")>
-    Public Function correctKnowledges(kb As GraphPool,
+    Public Function correctKnowledges(kb As GraphModel,
                                       knowledges As KnowledgeFrameRow(),
                                       <RRawVectorArgument(GetType(String))>
                                       indexBy As Object) As KnowledgeFrameRow()
@@ -209,7 +209,7 @@ Module KnowledgeGraph
     '''                     community data result.
     ''' </returns>
     <ExportAPI("knowledgeCommunity")>
-    Public Function knowledgeCommunity(kb As GraphPool,
+    Public Function knowledgeCommunity(kb As GraphModel,
                                        <RRawVectorArgument(GetType(String))> indexBy As Object,
                                        <RRawVectorArgument(GetType(String))>
                                        Optional common_type As Object = Nothing,

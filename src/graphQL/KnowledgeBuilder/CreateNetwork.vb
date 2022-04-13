@@ -80,7 +80,7 @@ Public Module CreateNetwork
     End Function
 
     <Extension>
-    Public Function CreateGraph(kb As GraphPool, Optional filters As IEnumerable(Of String) = Nothing) As NetworkGraph
+    Public Function CreateGraph(kb As GraphModel, Optional filters As IEnumerable(Of String) = Nothing) As NetworkGraph
         Dim nodeTable As Dictionary(Of String, Node) = kb.vertex.LoadNodeTable(filters)
         Dim g As New NetworkGraph
 
