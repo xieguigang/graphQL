@@ -8,6 +8,7 @@ Namespace Graph
     Public Class EvidenceGraph : Inherits GraphModel
 
         ReadOnly mapping As New Dictionary(Of String, List(Of String))
+        ReadOnly evidences As EvidencePool
 
         Sub New(knowledge As IEnumerable(Of Knowledge), links As IEnumerable(Of Association))
             Call Console.WriteLine("add nodes...")
