@@ -1,4 +1,5 @@
 ﻿Imports Microsoft.VisualBasic.Linq
+Imports Microsoft.VisualBasic.Text
 
 Namespace Graph
 
@@ -47,7 +48,14 @@ Namespace Graph
 
         Friend Sub buildEvidenceMapping(term As Knowledge, evidence As Dictionary(Of String, String()))
             For Each metadata In evidence
+                If metadata.Value.IsNullOrEmpty Then
+                    Continue For
+                End If
+
                 For Each ref As String In metadata.Value
+                    If ref Is Nothing OrElse ref.Trim(" "c, ASCII.TAB, ASCII.CR, ASCII.LF) = "" Then
+                        Continue For
+                    End If
                     If Not mapping.ContainsKey(ref) Then
                         Call mapping.Add(ref, New List(Of String))
                     End If
