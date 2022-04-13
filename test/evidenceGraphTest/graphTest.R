@@ -6,7 +6,7 @@ setwd(@dir);
 g = "./aspirin.graph"
 |> MsgFile::read.graph()
 ;
-kb = MsgFile::open("./aspirin.graph");
+kb = MsgFile::open("./aspirin.graph", evidenceAggregate = TRUE);
 
 rendering = function(graph, savefile) {
 	require(igraph);
