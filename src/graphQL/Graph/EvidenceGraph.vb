@@ -46,16 +46,13 @@ Namespace Graph
             Next
         End Sub
 
-        Friend Sub buildEvidenceMapping(term As Knowledge, evidence As Dictionary(Of String, String()))
-            For Each metadata In evidence
-                If metadata.Value.IsNullOrEmpty Then
-                    Continue For
-                End If
+        Private Shared Function isEmptyString(str As String) As Boolean
+            Return str Is Nothing OrElse str.Trim(" "c, ASCII.TAB, ASCII.CR, ASCII.LF) = ""
+        End Function
 
+        Private Sub buildEvidenceMapping(term As Knowledge, evidence As Dictionary(Of String, String()))
+            For Each metadata In evidence
                 For Each ref As String In metadata.Value
-                    If ref Is Nothing OrElse ref.Trim(" "c, ASCII.TAB, ASCII.CR, ASCII.LF) = "" Then
-                        Continue For
-                    End If
                     If Not mapping.ContainsKey(ref) Then
                         Call mapping.Add(ref, New List(Of String))
                     End If
@@ -71,12 +68,15 @@ Namespace Graph
 
             Call term.AddReferenceSource(source:=type)
 
-            For Each metadata In evidence
-                If metadata.Value.IsNullOrEmpty Then
-                    Continue For
-                Else
-                    evidenceItem = evidences.FindEvidence(term, category:=metadata.Key)
+            ' clean up of the evidence data
+            For Each key As String In evidence.Keys.ToArray
+                If evidence(key).IsNullOrEmpty OrElse evidence(key).All(AddressOf isEmptyString) Then
+                    Call evidence.Remove(key)
                 End If
+            Next
+
+            For Each metadata In evidence
+                evidenceItem = evidences.FindEvidence(term, category:=metadata.Key)
 
                 If Not evidenceItem Is Nothing Then
                     Call evidences.Join(evidenceItem, metadata.Value)
@@ -91,10 +91,6 @@ Namespace Graph
             ' create links between knowledge terms
             ' if evidence has intersection
             For Each metadata In evidence
-                If metadata.Value.IsNullOrEmpty Then
-                    Continue For
-                End If
-
                 For Each ref As String In metadata.Value
                     Dim terms = mapping(ref)
 
