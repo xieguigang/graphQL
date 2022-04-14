@@ -123,29 +123,30 @@ Module KnowledgeGraph
     End Function
 
     <ExportAPI("knowledgeIslands")>
-    Public Function knowledgeIslands(graph As NetworkGraph) As NetworkGraph()
-        Dim list As New List(Of NetworkGraph)
-        Dim rebuild As NetworkGraph
+    <RApiReturn(GetType(NetworkGraph))>
+    Public Function knowledgeIslands(graph As NetworkGraph) As pipeline
+        Dim list As IEnumerable(Of NetworkGraph) =
+            Iterator Function() As IEnumerable(Of NetworkGraph)
+                For Each g As NetworkGraph In IteratesSubNetworks(Of Node, Edge, NetworkGraph)(graph, singleNodeAsGraph:=True)
+                    Dim rebuild As New NetworkGraph
 
-        For Each g As NetworkGraph In IteratesSubNetworks(Of Node, Edge, NetworkGraph)(graph, singleNodeAsGraph:=False)
-            rebuild = New NetworkGraph
+                    For Each v As Node In g.vertex
+                        Call rebuild.AddNode(v, assignId:=True)
+                    Next
+                    For Each link As Edge In g.graphEdges
+                        Call rebuild.CreateEdge(
+                            u:=rebuild.GetElementByID(link.U.label),
+                            v:=rebuild.GetElementByID(link.V.label),
+                            weight:=link.weight,
+                            data:=link.data
+                        )
+                    Next
 
-            For Each v As Node In g.vertex
-                Call rebuild.AddNode(v, assignId:=True)
-            Next
-            For Each link As Edge In g.graphEdges
-                Call rebuild.CreateEdge(
-                    u:=rebuild.GetElementByID(link.U.label),
-                    v:=rebuild.GetElementByID(link.V.label),
-                    weight:=link.weight,
-                    data:=link.data
-                )
-            Next
+                    Yield rebuild
+                Next
+            End Function()
 
-            Call list.Add(rebuild)
-        Next
-
-        Return list.ToArray
+        Return pipeline.CreateFromPopulator(list)
     End Function
 
     <ExportAPI("extractKnowledgeTerms")>
