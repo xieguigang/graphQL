@@ -14,7 +14,15 @@ Public Module GraphReader
 
     Public Function LoadGraph(pack As ZipArchive) As NetworkGraph
         Dim terms As Dictionary(Of String, Knowledge) = StreamEmit.GetKnowledges(pack)
-        Dim nodeTable = terms.Values.LoadNodeTable
+        Dim evidences As EvidencePool
+
+        If terms.Values.Any(Function(i) i.evidence.Count > 0) Then
+            evidences = EvidenceStream.Load(zip:=pack)
+        Else
+            evidences = EvidencePool.Empty
+        End If
+
+        Dim nodeTable = terms.Values.LoadNodeTable(evidences)
         Dim g As New NetworkGraph
 
         For Each node As Node In nodeTable.Values

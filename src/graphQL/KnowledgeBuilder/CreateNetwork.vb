@@ -9,6 +9,7 @@ Public Module CreateNetwork
 
     <Extension>
     Public Function LoadNodeTable(vertexList As IEnumerable(Of Knowledge),
+                                  evidences As EvidencePool,
                                   Optional filters As IEnumerable(Of String) = Nothing) As Dictionary(Of String, Node)
         Dim node As Node
         Dim nodeTable As New Dictionary(Of String, Node)
@@ -32,6 +33,10 @@ Public Module CreateNetwork
                     }
                 }
             }
+
+            For Each evidence In evidences.LoadEvidenceData(knowledge.evidence)
+                node.data(evidence.Key) = evidence.Value.JoinBy("; ")
+            Next
 
             Call nodeTable.Add(node.label, node)
         Next
@@ -81,7 +86,8 @@ Public Module CreateNetwork
 
     <Extension>
     Public Function CreateGraph(kb As GraphModel, Optional filters As IEnumerable(Of String) = Nothing) As NetworkGraph
-        Dim nodeTable As Dictionary(Of String, Node) = kb.vertex.LoadNodeTable(filters)
+        Dim evidences As EvidencePool = If(TypeOf kb Is EvidenceGraph, DirectCast(kb, EvidenceGraph).evidences, EvidencePool.Empty)
+        Dim nodeTable As Dictionary(Of String, Node) = kb.vertex.LoadNodeTable(evidences, filters)
         Dim g As New NetworkGraph
 
         For Each node As Node In nodeTable.Values
