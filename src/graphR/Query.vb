@@ -8,6 +8,7 @@ Imports SMRUCC.Rsharp.Runtime
 Imports SMRUCC.Rsharp.Runtime.Components
 Imports SMRUCC.Rsharp.Runtime.Internal.Object
 Imports SMRUCC.Rsharp.Runtime.Interop
+Imports REnv = SMRUCC.Rsharp.Runtime
 
 ''' <summary>
 ''' graph database knowledge data query and insert
@@ -48,6 +49,17 @@ Public Module Query
         Else
             Throw New NotImplementedException
         End If
+
+        Return kb
+    End Function
+
+    <ExportAPI("ignore.evidenceLink")>
+    Public Function ignoreEvidenceLink(kb As EvidenceGraph, <RRawVectorArgument> ignores As Object) As EvidenceGraph
+        Dim types As String() = REnv.asVector(Of String)(ignores)
+
+        For Each type As String In types
+            Call kb.AddIgnores(type)
+        Next
 
         Return kb
     End Function

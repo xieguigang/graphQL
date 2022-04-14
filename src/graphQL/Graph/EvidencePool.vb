@@ -18,12 +18,14 @@ Namespace Graph
         End Property
 
         Public ReadOnly Property categoryList As String()
+            <MethodImpl(MethodImplOptions.AggressiveInlining)>
             Get
                 Return category.Objects
             End Get
         End Property
 
         Public ReadOnly Property evidenceReference As String()
+            <MethodImpl(MethodImplOptions.AggressiveInlining)>
             Get
                 Return referenceData.Objects
             End Get

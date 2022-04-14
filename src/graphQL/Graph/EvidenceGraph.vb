@@ -1,4 +1,6 @@
-﻿Imports Microsoft.VisualBasic.Linq
+﻿Imports System.Runtime.CompilerServices
+Imports Microsoft.VisualBasic.ComponentModel.Collection
+Imports Microsoft.VisualBasic.Linq
 Imports Microsoft.VisualBasic.Text
 
 Namespace Graph
@@ -9,6 +11,10 @@ Namespace Graph
     Public Class EvidenceGraph : Inherits GraphModel
 
         ReadOnly mapping As New Dictionary(Of String, List(Of String))
+        ''' <summary>
+        ''' evidence types to ignores from build graph links
+        ''' </summary>
+        ReadOnly ignores As New Index(Of String)
 
         ''' <summary>
         ''' evidence data
@@ -20,7 +26,6 @@ Namespace Graph
             Me.evidences = evidence
 
             Call Console.WriteLine("add nodes...")
-
             For Each kb As Knowledge In knowledge
                 Call AddVertex(kb)
                 Call buildEvidenceMapping(kb)
@@ -30,6 +35,11 @@ Namespace Graph
             For Each link As Association In links
                 Call Insert(link)
             Next
+        End Sub
+
+        <MethodImpl(MethodImplOptions.AggressiveInlining)>
+        Public Sub AddIgnores(type As String)
+            Call ignores.Add(type)
         End Sub
 
         Friend Sub buildEvidenceMapping(term As Knowledge)
@@ -46,6 +56,7 @@ Namespace Graph
             Next
         End Sub
 
+        <MethodImpl(MethodImplOptions.AggressiveInlining)>
         Friend Shared Function isEmptyString(str As String) As Boolean
             Return str Is Nothing OrElse str.Trim(" "c, ASCII.TAB, ASCII.CR, ASCII.LF) = ""
         End Function
@@ -83,6 +94,7 @@ Namespace Graph
                 End If
             Next
 
+            ' add evidence data into graph
             For Each metadata In evidence
                 evidenceItem = evidences.FindEvidence(term, category:=metadata.Key)
 
@@ -98,13 +110,19 @@ Namespace Graph
 
             ' create links between knowledge terms
             ' if evidence has intersection
-            For Each metadata In evidence
+            For Each metadata As KeyValuePair(Of String, String()) In evidence
+                ' skip of the evidence data 
+                ' if the data type of the evidence data is specific to ignored
+                If metadata.Key Like ignores Then
+                    Continue For
+                End If
+
                 For Each ref As String In metadata.Value
                     Dim terms As IEnumerable(Of String) = mapping(ref)
 
                     For Each id As String In terms
                         If id <> knowledge Then
-                            Dim otherTerm = vertices(id)
+                            Dim otherTerm As Knowledge = vertices(id)
                             Dim link As Association = QueryEdge(otherTerm.label, term.label)
 
                             If link Is Nothing Then
