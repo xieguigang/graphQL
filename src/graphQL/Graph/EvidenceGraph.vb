@@ -107,9 +107,14 @@ Namespace Graph
             Next
 
             Call buildEvidenceMapping(term, evidence)
+            Call buildEvidenceGraph(term, type, evidence)
+        End Sub
 
-            ' create links between knowledge terms
-            ' if evidence has intersection
+        ''' <summary>
+        ''' create links between knowledge terms
+        ''' if evidence has intersection
+        ''' </summary>
+        Private Sub buildEvidenceGraph(term As Knowledge, type As String, evidence As Dictionary(Of String, String()))
             For Each metadata As KeyValuePair(Of String, String()) In evidence
                 ' skip of the evidence data 
                 ' if the data type of the evidence data is specific to ignored
@@ -121,7 +126,7 @@ Namespace Graph
                     Dim terms As IEnumerable(Of String) = mapping(ref)
 
                     For Each id As String In terms
-                        If id <> knowledge Then
+                        If id <> term.label Then
                             Dim otherTerm As Knowledge = vertices(id)
                             Dim link As Association = QueryEdge(otherTerm.label, term.label)
 
