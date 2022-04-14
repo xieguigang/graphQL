@@ -14,6 +14,10 @@ Namespace Graph
         <Extension>
         Public Function JoinGraph(k1 As GraphModel, k2 As GraphModel) As GraphModel
             Dim evidencePool As EvidencePool
+            Dim nsize As Integer = k2.size.vertex
+            Dim delta As Integer = nsize / 10
+            Dim i As Integer = Scan0
+            Dim p As Integer = Scan0
 
             If TypeOf k1 Is EvidenceGraph AndAlso TypeOf k2 Is EvidenceGraph Then
                 evidencePool = DirectCast(k2, EvidenceGraph).evidences
@@ -23,9 +27,18 @@ Namespace Graph
 
             For Each kn As Knowledge In k2.vertex
                 Call unionTerms(k1, kn, evidencePool)
+
+                p += 1
+                i += 1
+
+                If i = delta Then
+                    i = 0
+                    Call Console.WriteLine($"join_knowledge_terms: {CInt(p / nsize * 100)}%")
+                End If
             Next
 
             Call unionNetwork(k1, k2)
+            Call Console.WriteLine("~done")
 
             Return k1
         End Function
@@ -72,6 +85,11 @@ Namespace Graph
         End Sub
 
         Private Sub unionNetwork(k1 As GraphModel, k2 As GraphModel)
+            Dim nsize As Integer = k2.size.edges
+            Dim delta As Integer = nsize / 20
+            Dim i As Integer = Scan0
+            Dim p As Integer = Scan0
+
             For Each ln As Association In k2.graphEdges
                 If k1.ExistEdge(ln) Then
                     Dim edge As Association = k1.QueryEdge(ln.U.label, ln.V.label)
@@ -90,6 +108,14 @@ Namespace Graph
 
                     edge.type = ln.type
                     edge.source = ln.source
+                End If
+
+                p += 1
+                i += 1
+
+                If i = delta Then
+                    i = 0
+                    Call Console.WriteLine($"join_knowledge_graph: {CInt(p / nsize * 100)}%")
                 End If
             Next
         End Sub
