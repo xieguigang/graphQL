@@ -124,12 +124,10 @@ Module KnowledgeGraph
 
     <ExportAPI("knowledgeIslands")>
     Public Function knowledgeIslands(graph As NetworkGraph) As NetworkGraph()
-        Dim list = IteratesSubNetworks(Of Node, Edge, NetworkGraph)(graph, singleNodeAsGraph:=False).ToArray
-        Dim g As NetworkGraph
+        Dim list As New List(Of NetworkGraph)
         Dim rebuild As NetworkGraph
 
-        For i As Integer = 0 To list.Length - 1
-            g = list(i)
+        For Each g As NetworkGraph In IteratesSubNetworks(Of Node, Edge, NetworkGraph)(graph, singleNodeAsGraph:=False)
             rebuild = New NetworkGraph
 
             For Each v As Node In g.vertex
@@ -144,10 +142,10 @@ Module KnowledgeGraph
                 )
             Next
 
-            list(i) = rebuild
+            Call list.Add(rebuild)
         Next
 
-        Return list
+        Return list.ToArray
     End Function
 
     <ExportAPI("extractKnowledgeTerms")>
