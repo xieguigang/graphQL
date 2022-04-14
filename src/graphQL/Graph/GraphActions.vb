@@ -15,7 +15,7 @@ Namespace Graph
         Public Function JoinGraph(k1 As GraphModel, k2 As GraphModel) As GraphModel
             Dim evidencePool As EvidencePool
             Dim nsize As Integer = k2.size.vertex
-            Dim delta As Integer = nsize / 10
+            Dim delta As Integer = nsize / 20
             Dim i As Integer = Scan0
             Dim p As Integer = Scan0
 
