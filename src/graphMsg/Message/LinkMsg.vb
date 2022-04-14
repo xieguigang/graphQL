@@ -29,8 +29,8 @@ Namespace Message
                 .Indexing
 
             If Not ref Is Nothing Then
+                ref.source = allSources.Objects
                 ref.types = allTypes.Objects
-                ref.source = allTypes.Objects
             End If
 
             For Each link As Association In kb.graphEdges

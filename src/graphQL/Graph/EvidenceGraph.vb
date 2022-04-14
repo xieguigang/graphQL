@@ -165,7 +165,7 @@ Namespace Graph
                                 Call Me.Insert(link)
                             End If
 
-                            Call link.AddReferenceSource(source:=$"{type}:{id}")
+                            Call link.AddReferenceSource(source:=$"{metadata.Key}:{ref}")
                         End If
                     Next
                 Next
