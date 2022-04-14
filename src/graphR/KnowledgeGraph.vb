@@ -27,6 +27,27 @@ Imports REnv = SMRUCC.Rsharp.Runtime
 <Package("KnowledgeGraph")>
 Module KnowledgeGraph
 
+    <ExportAPI("removeLinkByWeight")>
+    Public Function removeLinkByWeight(g As NetworkGraph, w As Double) As NetworkGraph
+        Dim toRebuild = g.graphEdges.Where(Function(l) l.weight >= w).ToArray
+        Dim rebuild As New NetworkGraph
+
+        For Each v As Node In g.vertex
+            Call rebuild.AddNode(v, assignId:=True)
+        Next
+
+        For Each link As Edge In toRebuild
+            Call rebuild.CreateEdge(
+                u:=rebuild.GetElementByID(link.U.label),
+                v:=rebuild.GetElementByID(link.V.label),
+                weight:=link.weight,
+                data:=link.data
+            )
+        Next
+
+        Return rebuild
+    End Function
+
     ''' <summary>
     ''' export the graph database as the 
     ''' network graph model for run 
