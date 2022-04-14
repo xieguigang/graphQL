@@ -1,5 +1,6 @@
 ﻿Imports System.Runtime.CompilerServices
 Imports Microsoft.VisualBasic.ComponentModel.Collection
+Imports Microsoft.VisualBasic.ComponentModel.DataSourceModel
 Imports Microsoft.VisualBasic.Linq
 Imports Microsoft.VisualBasic.Text
 
@@ -73,9 +74,20 @@ Namespace Graph
             Next
         End Sub
 
+        Friend Sub buildEvidenceMapping(term As Knowledge, evidence As IEnumerable(Of NamedValue(Of String())))
+            For Each metadata As NamedValue(Of String()) In evidence
+                For Each ref As String In metadata.Value
+                    If Not mapping.ContainsKey(ref) Then
+                        Call mapping.Add(ref, New List(Of String))
+                    End If
+
+                    Call mapping(ref).Add(term.label)
+                Next
+            Next
+        End Sub
+
         Public Sub AddKnowledge(knowledge As String, type As String, evidence As Dictionary(Of String, String()))
             Dim term As Knowledge = ComputeIfAbsent(knowledge, type)
-            Dim evidenceItem As Evidence
 
             Call term.AddReferenceSource(source:=type)
 
@@ -94,9 +106,19 @@ Namespace Graph
                 End If
             Next
 
-            ' add evidence data into graph
-            For Each metadata In evidence
-                evidenceItem = evidences.FindEvidence(term, category:=metadata.Key)
+            Call JoinEvidence(term, evidence)
+            Call buildEvidenceMapping(term, evidence)
+            Call buildEvidenceGraph(term, type, evidence)
+        End Sub
+
+        ''' <summary>
+        ''' add evidence data into graph
+        ''' </summary>
+        ''' <param name="term"></param>
+        ''' <param name="evidence"></param>
+        Public Sub JoinEvidence(term As Knowledge, evidence As IEnumerable(Of KeyValuePair(Of String, String())))
+            For Each metadata In evidence.ToArray
+                Dim evidenceItem = evidences.FindEvidence(term, category:=metadata.Key)
 
                 If Not evidenceItem Is Nothing Then
                     Call evidences.Join(evidenceItem, metadata.Value)
@@ -105,9 +127,6 @@ Namespace Graph
                     term.evidence.Add(evidenceItem)
                 End If
             Next
-
-            Call buildEvidenceMapping(term, evidence)
-            Call buildEvidenceGraph(term, type, evidence)
         End Sub
 
         ''' <summary>

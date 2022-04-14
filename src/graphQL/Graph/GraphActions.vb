@@ -13,8 +13,16 @@ Namespace Graph
         ''' <returns></returns>
         <Extension>
         Public Function JoinGraph(k1 As GraphModel, k2 As GraphModel) As GraphModel
+            Dim evidencePool As EvidencePool
+
+            If TypeOf k1 Is EvidenceGraph AndAlso TypeOf k2 Is EvidenceGraph Then
+                evidencePool = DirectCast(k2, EvidenceGraph).evidences
+            Else
+                evidencePool = New EvidencePool({}, {})
+            End If
+
             For Each kn As Knowledge In k2.vertex
-                Call unionTerms(k1, kn)
+                Call unionTerms(k1, kn, evidencePool)
             Next
 
             Call unionNetwork(k1, k2)
@@ -22,8 +30,17 @@ Namespace Graph
             Return k1
         End Function
 
-        Private Sub unionTerms(k1 As GraphModel, kn As Knowledge)
+        ''' <summary>
+        ''' 
+        ''' </summary>
+        ''' <param name="k1"></param>
+        ''' <param name="kn"></param>
+        ''' <param name="evidencePool">
+        ''' evidence data source of the k2 graph
+        ''' </param>
+        Private Sub unionTerms(k1 As GraphModel, kn As Knowledge, evidencePool As EvidencePool)
             Dim target As Knowledge
+            Dim evidences = evidencePool.LoadEvidenceData(kn.evidence)
 
             If k1.ExistVertex(kn.label) Then
                 Dim kold = k1.GetElementById(kn.label)
@@ -34,12 +51,6 @@ Namespace Graph
                 kold.mentions += kn.mentions
 
                 target = kold
-                target.evidence.AddRange(kn.evidence)
-
-                Dim union As Evidence() = Evidence.Union(target.evidence).ToArray
-
-                target.evidence.Clear()
-                target.evidence.AddRange(union)
             Else
                 Dim knew = k1.AddVertex(kn.label)
 
@@ -47,12 +58,15 @@ Namespace Graph
                 knew.mentions = kn.mentions
                 knew.source = kn.source
                 knew.type = kn.type
-                knew.evidence = kn.evidence
 
                 target = knew
             End If
 
             If TypeOf k1 Is EvidenceGraph Then
+                ' merge evidence data,
+                ' and then create new mapping between
+                ' the evidence and target term
+                Call DirectCast(k1, EvidenceGraph).JoinEvidence(target, evidences)
                 Call DirectCast(k1, EvidenceGraph).buildEvidenceMapping(target)
             End If
         End Sub

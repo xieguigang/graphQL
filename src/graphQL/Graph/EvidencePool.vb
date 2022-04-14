@@ -1,6 +1,7 @@
 ﻿
 Imports System.Runtime.CompilerServices
 Imports Microsoft.VisualBasic.ComponentModel.Collection
+Imports Microsoft.VisualBasic.ComponentModel.DataSourceModel
 Imports Microsoft.VisualBasic.Linq
 
 Namespace Graph
@@ -14,6 +15,14 @@ Namespace Graph
             <MethodImpl(MethodImplOptions.AggressiveInlining)>
             Get
                 Return referenceData(index:=i)
+            End Get
+        End Property
+
+        Default Public ReadOnly Property evidenceTerm(index As Integer()) As String()
+            Get
+                Return (From i As Integer
+                        In index
+                        Select referenceData(index:=i)).ToArray
             End Get
         End Property
 
@@ -39,6 +48,15 @@ Namespace Graph
         <MethodImpl(MethodImplOptions.AggressiveInlining)>
         Public Shared Function Empty() As EvidencePool
             Return New EvidencePool({}, {})
+        End Function
+
+        Public Iterator Function LoadEvidenceData(evidences As IEnumerable(Of Evidence)) As IEnumerable(Of KeyValuePair(Of String, String()))
+            For Each ref As Evidence In evidences
+                Yield New KeyValuePair(Of String, String())(
+                    key:=category(index:=ref.category),
+                    value:=Me(ref.reference)
+                )
+            Next
         End Function
 
         Private Shared Function push(ByRef index As Index(Of String), data As String) As Integer
