@@ -53,6 +53,12 @@ Public Module Query
         Return kb
     End Function
 
+    ''' <summary>
+    ''' ignores the given data types when build graph links.
+    ''' </summary>
+    ''' <param name="kb"></param>
+    ''' <param name="ignores"></param>
+    ''' <returns></returns>
     <ExportAPI("ignore.evidenceLink")>
     Public Function ignoreEvidenceLink(kb As EvidenceGraph, <RRawVectorArgument> ignores As Object) As EvidenceGraph
         Dim types As String() = REnv.asVector(Of String)(ignores)
