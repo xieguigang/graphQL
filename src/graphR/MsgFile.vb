@@ -66,6 +66,17 @@ Module MsgFile
         End If
     End Function
 
+    <ExportAPI("edgeSource")>
+    Public Function getEdgeConnectionSource(<RRawVectorArgument> file As Object, Optional env As Environment = Nothing) As Object
+        Dim buffer = SMRUCC.Rsharp.GetFileStream(file, FileAccess.Read, env)
+
+        If buffer Like GetType(Message) Then
+            Return buffer.TryCast(Of Message)
+        Else
+            Return GraphReader.GetEdgeSource(buffer)
+        End If
+    End Function
+
     ''' <summary>
     ''' fetch the knowledge terms table from the graph database file.
     ''' </summary>

@@ -1,5 +1,6 @@
 ﻿Imports System.IO
 Imports System.IO.Compression
+Imports graphMsg.Message
 Imports graphQL
 Imports graphQL.Graph
 Imports Microsoft.VisualBasic.Data.visualize.Network.Graph
@@ -9,6 +10,15 @@ Public Module GraphReader
     Public Function LoadGraph(file As Stream) As NetworkGraph
         Using zip As New ZipArchive(file, ZipArchiveMode.Read)
             Return LoadGraph(zip)
+        End Using
+    End Function
+
+    Public Function GetEdgeSource(file As Stream) As String()
+        Using zip As New ZipArchive(file, ZipArchiveMode.Read)
+            Dim linkTypes As IndexByRef = StorageProvider.GetKeywords("meta/associations.msg", zip)
+            Dim sources As String() = linkTypes.source
+
+            Return sources
         End Using
     End Function
 
