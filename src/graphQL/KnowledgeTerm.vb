@@ -6,6 +6,7 @@ Imports Microsoft.VisualBasic.ComponentModel.Collection.Generic
 Imports Microsoft.VisualBasic.ComponentModel.DataSourceModel
 Imports Microsoft.VisualBasic.Linq
 Imports Microsoft.VisualBasic.SecurityString
+Imports stdNum = System.Math
 
 Public Module KnowledgeTerm
 
@@ -86,6 +87,11 @@ Public Module KnowledgeTerm
         Dim hash As String = sb.ToString.GetMd5Hash.ToLower
         Dim checksum As Long = hash.StringHashCode
         Dim i32 As Integer = BitConverter.ToInt16(BitConverter.GetBytes(checksum), Scan0)
+
+        If i32 <= 0 Then
+            i32 = stdNum.Abs(i32)
+            i32 += 3
+        End If
 
         Return i32
     End Function

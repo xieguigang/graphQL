@@ -218,7 +218,8 @@ Module KnowledgeGraph
     Public Function knowledgeTable(knowledges As KnowledgeFrameRow(), kb As GraphModel,
                                    <RRawVectorArgument(GetType(String))>
                                    Optional indexBy As Object = Nothing,
-                                   Optional prefix As String = "Term") As EntityObject()
+                                   Optional prefix As String = "Term",
+                                   Optional width As Integer = 8) As EntityObject()
 
         Dim index As String() = DirectCast(REnv.asVector(Of String)(indexBy), String())
         Dim result As EntityObject() = knowledges _
@@ -226,9 +227,12 @@ Module KnowledgeGraph
                         Return row.CreateNiceTerm(Of EntityObject)(kb)
                     End Function) _
             .ToArray
+        Dim str As String
+        Dim zero As String = New String("0"c, count:=width)
 
         For i As Integer = 0 To result.Length - 1
-            result(i).ID = $"{prefix}{KnowledgeTerm.UniqueHashCode(result(i), indexBy)}"
+            str = KnowledgeTerm.UniqueHashCode(result(i), indexBy).FormatZero(zero)
+            result(i).ID = $"{prefix}{str}"
         Next
 
         Return result
