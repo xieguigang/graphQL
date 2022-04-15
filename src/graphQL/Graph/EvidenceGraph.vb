@@ -43,6 +43,12 @@ Namespace Graph
             Call ignores.Add(type)
         End Sub
 
+        Public Iterator Function GetMappingTerms(key As String) As IEnumerable(Of Knowledge)
+            For Each refer As String In mapping(key)
+                Yield GetElementById(refer)
+            Next
+        End Function
+
         Friend Sub buildEvidenceMapping(term As Knowledge)
             For Each evidence As Evidence In term.evidence
                 For Each referId As Integer In evidence.reference
