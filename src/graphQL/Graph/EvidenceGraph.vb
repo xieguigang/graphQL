@@ -108,7 +108,7 @@ Namespace Graph
 
             Call JoinEvidence(term, evidence)
             Call buildEvidenceMapping(term, evidence)
-            Call buildEvidenceGraph(term, type, evidence, selfReference)
+            Call buildEvidenceGraph(term, evidence, selfReference)
         End Sub
 
         ''' <summary>
@@ -116,7 +116,7 @@ Namespace Graph
         ''' </summary>
         ''' <param name="term"></param>
         ''' <param name="evidence"></param>
-        Public Sub JoinEvidence(term As Knowledge, evidence As IEnumerable(Of KeyValuePair(Of String, String())))
+        Public Sub JoinEvidence(ByRef term As Knowledge, evidence As IEnumerable(Of KeyValuePair(Of String, String())))
             For Each metadata In evidence.ToArray
                 Dim evidenceItem = evidences.FindEvidence(term, category:=metadata.Key)
 
@@ -133,7 +133,7 @@ Namespace Graph
         ''' create links between knowledge terms
         ''' if evidence has intersection
         ''' </summary>
-        Private Sub buildEvidenceGraph(term As Knowledge, type As String, evidence As Dictionary(Of String, String()), selfReference As Boolean)
+        Friend Sub buildEvidenceGraph(term As Knowledge, evidence As IEnumerable(Of KeyValuePair(Of String, String())), selfReference As Boolean)
             For Each metadata As KeyValuePair(Of String, String()) In evidence
                 ' skip of the evidence data 
                 ' if the data type of the evidence data is specific to ignored

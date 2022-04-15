@@ -81,6 +81,11 @@ Namespace Graph
                 ' the evidence and target term
                 Call DirectCast(k1, EvidenceGraph).JoinEvidence(target, evidences)
                 Call DirectCast(k1, EvidenceGraph).buildEvidenceMapping(target)
+                Call DirectCast(k1, EvidenceGraph).buildEvidenceGraph(
+                    term:=target,
+                    evidence:=evidencePool.LoadEvidenceData(kn.evidence).ToArray,
+                    selfReference:=False
+                )
             End If
         End Sub
 
