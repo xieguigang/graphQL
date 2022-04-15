@@ -175,6 +175,45 @@ Module KnowledgeGraph
         Return island.SplitKnowledges(equals).ToArray
     End Function
 
+    ''' <summary>
+    ''' direct cast the graph object as a knowledge term
+    ''' </summary>
+    ''' <param name="island"></param>
+    ''' <returns></returns>
+    <ExportAPI("as.knowledge")>
+    Public Function asKnowledgeTerm(island As NetworkGraph) As KnowledgeFrameRow
+        Dim metadata As New Dictionary(Of String, List(Of String))
+        Dim type As String
+
+        For Each v As Node In island.vertex
+            type = v.data(NamesOf.REFLECTION_ID_MAPPING_NODETYPE)
+
+            If Not metadata.ContainsKey(type) Then
+                metadata.Add(type, New List(Of String))
+            End If
+
+            metadata(type).Add(v.label)
+
+            For Each meta In v.data.Properties
+                type = meta.Key
+
+                If Not metadata.ContainsKey(type) Then
+                    metadata.Add(type, New List(Of String))
+                End If
+
+                metadata(type).AddRange(meta.Value.StringSplit(";\s*"))
+            Next
+        Next
+
+        Return New KnowledgeFrameRow With {
+            .Properties = metadata _
+                .ToDictionary(Function(v) v.Key,
+                              Function(v)
+                                  Return v.Value.Distinct.ToArray
+                              End Function)
+        }
+    End Function
+
     <ExportAPI("niceTerms")>
     Public Function knowledgeTable(knowledges As KnowledgeFrameRow(), kb As GraphModel,
                                    <RRawVectorArgument(GetType(String))>
