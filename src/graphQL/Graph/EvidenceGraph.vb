@@ -86,7 +86,7 @@ Namespace Graph
             Next
         End Sub
 
-        Public Sub AddKnowledge(knowledge As String, type As String, evidence As Dictionary(Of String, String()))
+        Public Sub AddKnowledge(knowledge As String, type As String, evidence As Dictionary(Of String, String()), Optional selfReference As Boolean = True)
             Dim term As Knowledge = ComputeIfAbsent(knowledge, type)
 
             Call term.AddReferenceSource(source:=type)
@@ -108,7 +108,7 @@ Namespace Graph
 
             Call JoinEvidence(term, evidence)
             Call buildEvidenceMapping(term, evidence)
-            Call buildEvidenceGraph(term, type, evidence)
+            Call buildEvidenceGraph(term, type, evidence, selfReference)
         End Sub
 
         ''' <summary>
@@ -133,7 +133,7 @@ Namespace Graph
         ''' create links between knowledge terms
         ''' if evidence has intersection
         ''' </summary>
-        Private Sub buildEvidenceGraph(term As Knowledge, type As String, evidence As Dictionary(Of String, String()))
+        Private Sub buildEvidenceGraph(term As Knowledge, type As String, evidence As Dictionary(Of String, String()), selfReference As Boolean)
             For Each metadata As KeyValuePair(Of String, String()) In evidence
                 ' skip of the evidence data 
                 ' if the data type of the evidence data is specific to ignored
@@ -147,6 +147,11 @@ Namespace Graph
                     For Each id As String In terms
                         If id <> term.label Then
                             Dim otherTerm As Knowledge = vertices(id)
+
+                            If Not selfReference AndAlso term.type = otherTerm.type Then
+                                Continue For
+                            End If
+
                             Dim link As Association = QueryEdge(otherTerm.label, term.label)
 
                             If link Is Nothing Then

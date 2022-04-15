@@ -21,11 +21,15 @@ Public Module Query
     ''' </summary>
     ''' <param name="knowledge"></param>
     ''' <param name="meta"></param>
+    ''' <param name="selfReference">
+    ''' the database graph link can be build internal the identical database source
+    ''' </param>
     ''' <param name="env"></param>
     ''' <returns></returns>
     <ExportAPI("insert")>
     Public Function insert(kb As GraphModel, knowledge As String, type As String,
                            Optional meta As list = Nothing,
+                           Optional selfReference As Boolean = True,
                            Optional env As Environment = Nothing) As Object
 
         If knowledge.StringEmpty Then
@@ -43,9 +47,9 @@ Public Module Query
         If Not err Is Nothing Then
             Return err
         ElseIf TypeOf kb Is GraphPool Then
-            Call DirectCast(kb, GraphPool).AddKnowledge(knowledge, type, metadata)
+            Call DirectCast(kb, GraphPool).AddKnowledge(knowledge, type, metadata, selfReference)
         ElseIf TypeOf kb Is EvidenceGraph Then
-            Call DirectCast(kb, EvidenceGraph).AddKnowledge(knowledge, type, metadata)
+            Call DirectCast(kb, EvidenceGraph).AddKnowledge(knowledge, type, metadata, selfReference)
         Else
             Throw New NotImplementedException
         End If
