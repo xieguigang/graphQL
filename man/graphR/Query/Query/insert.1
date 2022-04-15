@@ -7,6 +7,7 @@ insert \- insert a knowledge node into the graph pool
 \fBknowledge\fR as string, 
 \fBtype\fR as string, 
 \fBmeta\fR as list = \fB<NULL>\fR, 
+\fBselfReference\fR as boolean = TRUE, 
 [\fB<Environment>\fR]);\fR
 .SH DESCRIPTION
 .PP
@@ -18,6 +19,11 @@ insert a knowledge node into the graph pool
 .PP
 .PP
 \fBmeta\fB \fR\- -. 
+.PP
+.PP
+\fBselfReference\fB \fR\- 
+ the database graph link can be build internal the identical database source
+. 
 .PP
 .PP
 \fBenv\fB \fR\- -. 
