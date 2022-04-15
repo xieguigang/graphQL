@@ -2,6 +2,7 @@
 
 
 
++ [removeLinkByWeight](KnowledgeGraph/removeLinkByWeight.1) 
 + [networkGraph](KnowledgeGraph/networkGraph.1) export the graph database as the 
 + [Kosaraju.SCCs](KnowledgeGraph/Kosaraju.SCCs.1) 
 + [graphUMAP](KnowledgeGraph/graphUMAP.1) 

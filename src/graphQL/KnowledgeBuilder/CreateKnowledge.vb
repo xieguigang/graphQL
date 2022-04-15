@@ -15,7 +15,7 @@ Public Module CreateKnowledge
     <Extension>
     Public Iterator Function ExtractKnowledges(graph As NetworkGraph, Optional eps As Double = 0.00000001) As IEnumerable(Of KnowledgeFrameRow)
         ' 解析出所有的信息孤岛
-        Dim islands As IEnumerable(Of NetworkGraph) = IteratesSubNetworks(Of Node, Edge, NetworkGraph)(graph, singleNodeAsGraph:=False)
+        Dim islands As IEnumerable(Of NetworkGraph) = graph.IteratesSubNetworks(singleNodeAsGraph:=False)
         Dim islandId As i32 = 1
 
         ' 并行计算知识分区

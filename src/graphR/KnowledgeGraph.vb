@@ -145,14 +145,10 @@ Module KnowledgeGraph
 
     <ExportAPI("knowledgeIslands")>
     <RApiReturn(GetType(NetworkGraph))>
-    Public Function knowledgeIslands(graph As NetworkGraph, Optional weightCut As Double = -1) As pipeline
+    Public Function knowledgeIslands(graph As NetworkGraph, Optional weightCut As Double = -1, Optional identicalKeys As String() = Nothing) As pipeline
         Dim list As IEnumerable(Of NetworkGraph) =
             Iterator Function() As IEnumerable(Of NetworkGraph)
-                For Each g As NetworkGraph In IteratesSubNetworks(Of Node, Edge, NetworkGraph)(
-                    network:=graph,
-                    singleNodeAsGraph:=True,
-                    edgeCut:=weightCut
-                )
+                For Each g As NetworkGraph In graph.IteratesSubNetworks(singleNodeAsGraph:=True, edgeCut:=weightCut, breakKeys:=identicalKeys)
                     Dim rebuild As New NetworkGraph
 
                     For Each v As Node In g.vertex
