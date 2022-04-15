@@ -186,7 +186,7 @@ Module KnowledgeGraph
         Dim type As String
 
         For Each v As Node In island.vertex
-            type = v.data(NamesOf.REFLECTION_ID_MAPPING_NODETYPE)
+            type = v.data("source")
 
             If Not metadata.ContainsKey(type) Then
                 metadata.Add(type, New List(Of String))
