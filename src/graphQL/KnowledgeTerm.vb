@@ -1,6 +1,7 @@
 ﻿Imports System.Runtime.CompilerServices
 Imports System.Text
 Imports graphQL.Graph
+Imports Microsoft.VisualBasic.ComponentModel.Collection
 Imports Microsoft.VisualBasic.ComponentModel.Collection.Generic
 Imports Microsoft.VisualBasic.ComponentModel.DataSourceModel
 Imports Microsoft.VisualBasic.Linq
@@ -17,13 +18,17 @@ Public Module KnowledgeTerm
         End If
     End Function
 
+    ReadOnly internalKeys As Index(Of String) = {"knowledge_type", "source"}
+
     <Extension>
     Public Function CreateNiceTerm(Of T As {New, INamedValue, DynamicPropertyBase(Of String)})(term As KnowledgeFrameRow, kb As EvidenceGraph) As T
         Dim nice As New T With {.Key = term.UniqeId}
         Dim terms As String()
         Dim w As Double()
 
-        For Each key As String In term.EnumerateKeys
+        For Each key As String In From str As String
+                                  In term.EnumerateKeys
+                                  Where Not str Like internalKeys
             terms = term(key)
 
             If terms.Length = 1 Then
@@ -32,7 +37,10 @@ Public Module KnowledgeTerm
                 w = (From str As String
                      In terms
                      Let vlist As Knowledge() = kb.GetMappingTerms(str).ToArray
-                     Let score As Double = (Aggregate v In vlist Into Sum(v.mentions * (v.source.Count + 1)))
+                     Let score As Double = (Aggregate v As Knowledge
+                                            In vlist
+                                            Let vscore As Integer = v.mentions * (v.source.Count + 1)
+                                            Into Sum(vscore))
                      Select score).ToArray
 
                 nice(key) = terms(which.Max(w))
