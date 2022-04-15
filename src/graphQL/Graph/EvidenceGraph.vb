@@ -44,6 +44,10 @@ Namespace Graph
         End Sub
 
         Public Iterator Function GetMappingTerms(key As String) As IEnumerable(Of Knowledge)
+            If Not mapping.ContainsKey(key) Then
+                Return
+            End If
+
             For Each refer As String In mapping(key)
                 Yield GetElementById(refer)
             Next
