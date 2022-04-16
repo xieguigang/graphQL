@@ -5,7 +5,7 @@ Imports Microsoft.VisualBasic.ComponentModel.Collection
 Imports Microsoft.VisualBasic.ComponentModel.Collection.Generic
 Imports Microsoft.VisualBasic.ComponentModel.DataSourceModel
 Imports Microsoft.VisualBasic.Linq
-Imports Microsoft.VisualBasic.SecurityString
+Imports Microsoft.VisualBasic.Data.Repository
 Imports stdNum = System.Math
 
 Public Module KnowledgeTerm
@@ -78,21 +78,19 @@ Public Module KnowledgeTerm
 
     <Extension>
     Public Function UniqueHashCode(Of T As DynamicPropertyBase(Of String))(term As T, indexBy As String()) As Long
-        Dim sb As New StringBuilder
+        Dim keys As New List(Of String)
 
         For Each key As String In indexBy
-            Call sb.AppendLine($"{key}: {term(key)}")
+            Call keys.Add(term(key))
         Next
 
-        Dim hash As String = sb.ToString.GetMd5Hash.ToLower
-        Dim checksum As Long = hash.StringHashCode
-        Dim i32 As Integer = BitConverter.ToInt16(BitConverter.GetBytes(checksum), Scan0)
+        Dim checksum As Integer = FNV1a.GetHashCode(keys)
 
-        If i32 <= 0 Then
-            i32 = stdNum.Abs(i32)
-            i32 += 3
+        If checksum <= 0 Then
+            checksum = stdNum.Abs(checksum)
+            checksum += 3
         End If
 
-        Return i32
+        Return checksum
     End Function
 End Module

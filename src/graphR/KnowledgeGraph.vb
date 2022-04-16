@@ -219,7 +219,7 @@ Module KnowledgeGraph
                                    <RRawVectorArgument(GetType(String))>
                                    Optional indexBy As Object = Nothing,
                                    Optional prefix As String = "Term",
-                                   Optional width As Integer = 8) As EntityObject()
+                                   Optional width As Integer = 10) As EntityObject()
 
         Dim index As String() = DirectCast(REnv.asVector(Of String)(indexBy), String())
         Dim result As EntityObject() = knowledges _
