@@ -245,7 +245,9 @@ Module KnowledgeGraph
                                       indexBy As Object) As KnowledgeFrameRow()
 
         Dim index As String() = DirectCast(REnv.asVector(Of String)(indexBy), String())
-        Dim result = KnowledgeFrameRow.CorrectKnowledges(kb, knowledges, index).ToArray
+        Dim result = KnowledgeFrameRow _
+            .CorrectKnowledges(kb, knowledges, index) _
+            .ToArray
 
         Return result
     End Function

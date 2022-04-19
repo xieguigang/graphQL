@@ -44,7 +44,7 @@ Public Module Query
         Dim err As Message = Nothing
         Dim metadata As Dictionary(Of String, String()) = meta.AsGeneric(Of String())(env, err:=err)
 
-        If Not err Is Nothing Then
+        If metadata Is Nothing AndAlso Not err Is Nothing Then
             Return err
         ElseIf TypeOf kb Is GraphPool Then
             Call DirectCast(kb, GraphPool).AddKnowledge(knowledge, type, metadata, selfReference)
