@@ -20,7 +20,19 @@ Public Module KnowledgeTerm
     End Function
 
     ReadOnly internalKeys As Index(Of String) = {"knowledge_type", "source"}
+    ReadOnly Name As Index(Of String) = {"name", "Name", "NAME"}
 
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <typeparam name="T"></typeparam>
+    ''' <param name="term"></param>
+    ''' <param name="kb"></param>
+    ''' <returns></returns>
+    ''' <remarks>
+    ''' this function has a special rule for the knowledge 
+    ''' term its ``name`` field.
+    ''' </remarks>
     <Extension>
     Public Function CreateNiceTerm(Of T As {New, INamedValue, DynamicPropertyBase(Of String)})(term As KnowledgeFrameRow, kb As EvidenceGraph) As T
         Dim nice As New T With {.Key = term.UniqeId}
@@ -44,7 +56,17 @@ Public Module KnowledgeTerm
                                             Into Sum(vscore))
                      Select score).ToArray
 
-                nice(key) = terms(which.Max(w))
+                If key Like KnowledgeTerm.Name Then
+                    ' determine which name is the best common name?
+                    Dim nchars As Double() = (From str As String
+                                              In terms
+                                              Let nc As Integer = str.Length
+                                              Select If(nc < 3, 3 / 8, 6 / nc)).ToArray
+
+                    nice(key) = terms(which.Max(w.Select(Function(wi, i) wi * nchars(i))))
+                Else
+                    nice(key) = terms(which.Max(w))
+                End If
             End If
         Next
 

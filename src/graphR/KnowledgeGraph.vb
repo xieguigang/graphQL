@@ -214,6 +214,20 @@ Module KnowledgeGraph
         }
     End Function
 
+    ''' <summary>
+    ''' make meta data unique at first and then evaluate 
+    ''' the unique reference id via FNV-1a hash function
+    ''' </summary>
+    ''' <param name="knowledges"></param>
+    ''' <param name="kb"></param>
+    ''' <param name="indexBy"></param>
+    ''' <param name="prefix"></param>
+    ''' <param name="width"></param>
+    ''' <returns></returns>
+    ''' <remarks>
+    ''' this function has a special rule for the knowledge 
+    ''' term its ``name`` field.
+    ''' </remarks>
     <ExportAPI("niceTerms")>
     Public Function knowledgeTable(knowledges As KnowledgeFrameRow(), kb As GraphModel,
                                    <RRawVectorArgument(GetType(String))>
