@@ -1,5 +1,11 @@
 require(graphQL);
 
+#' title: Run graph database query
+#' author: xieguigang <xie.guigang@gcmodeller.org>
+#' description: Run graph database query for query 
+#'    entity network data based on a given list of 
+#'    the entity terms.
+
 [@info "An id list text file that used for run data query.
    the text file format of this argument should be a list
    file that contains multiple lines data, and each line in
