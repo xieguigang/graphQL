@@ -7,9 +7,14 @@ require(graphQL);
    database query."]
 [@type "filepath"]
 const entities_list as string = ?"--entityList" || stop("No entity list id was provided!");
-[@info "A graph database file."]
+[@info "A graph database file. the graph database mode that 
+   created via this package file should be checked of the
+   option: ``evidenceAggregate = TRUE``!"]
 [@type "filepath"]
 const graphDb as string = ?"--graphDb" || stop("no database connection is provided!");
 const entities as string = readLines(entities_list);
-const kb = MsgFile::open(evidenceAggregate = True);
+
+print("loading graph database for run query...");
+
+const kb = MsgFile::open(evidenceAggregate = TRUE);
 
