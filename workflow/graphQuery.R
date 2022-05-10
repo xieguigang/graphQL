@@ -20,14 +20,15 @@ const entities_list as string = ?"--entityList" || stop("No entity list id was p
 [@type "filepath"]
 const graphDb as string = ?"--graphDb" || stop("no database connection is provided!");
 [@info "the json result output file path"]
-const savefile as string = ?"--save" || `${dirname(entities_list)}/${basename(entities_list)}.query.json`
+const savefile as string = ?"--save" || `${dirname(entities_list)}/${basename(entities_list)}.query.json`;
 const entities as string = readLines(entities_list);
 
 print("run query for a given entity list:");
 print(entities);
 print("loading graph database for run query...");
+print(graphDb);
 
-const kb = MsgFile::open(evidenceAggregate = TRUE);
+const kb = MsgFile::open(graphDb, evidenceAggregate = TRUE);
 const queryResult = entities 
 |> unique 
 |> lapply(term -> kb |> query(term), names = entities)
