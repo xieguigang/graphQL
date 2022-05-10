@@ -1,13 +1,39 @@
 .\" man page create by R# package system.
 .TH KNOWLEDGEGRAPH 1 2000-01-01 "niceTerms" "niceTerms"
 .SH NAME
-niceTerms \- 
+niceTerms \- make meta data unique at first and then evaluate
 .SH SYNOPSIS
 \fIniceTerms(\fBknowledges\fR as <generic> KnowledgeFrameRow[], 
 \fBkb\fR as <generic> GraphModel, 
 \fBindexBy\fR as any = \fB<NULL>\fR, 
 \fBprefix\fR as string = "Term", 
 \fBwidth\fR as integer = 10);\fR
+.SH DESCRIPTION
+.PP
+make meta data unique at first and then evaluate 
+ the unique reference id via FNV-1a hash function
+.PP
+.SH OPTIONS
+.PP
+\fBknowledges\fB \fR\- -. 
+.PP
+.PP
+\fBkb\fB \fR\- -. 
+.PP
+.PP
+\fBindexBy\fB \fR\- -. 
+.PP
+.PP
+\fBprefix\fB \fR\- -. 
+.PP
+.PP
+\fBwidth\fB \fR\- -. 
+.PP
+.SH DETAILS
+.PP
+this function has a special rule for the knowledge 
+ term its \fBname\fR field.
+.PP
 .SH SEE ALSO
 KnowledgeGraph
 .SH FILES
