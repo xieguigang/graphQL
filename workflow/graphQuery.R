@@ -28,7 +28,7 @@ print(entities);
 print("loading graph database for run query...");
 print(graphDb);
 
-const kb = MsgFile::open(graphDb, evidenceAggregate = TRUE);
+const kb = MsgFile::open(graphDb, evidenceAggregate = TRUE, noGraph = TRUE);
 const queryResult = entities 
 |> unique 
 |> lapply(term -> kb |> query(term), names = entities)

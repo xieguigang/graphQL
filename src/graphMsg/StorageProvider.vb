@@ -21,7 +21,7 @@ Public Class StorageProvider
         Return StreamEmit.Save(kb, file)
     End Function
 
-    Public Shared Function Open(Of T As GraphModel)(file As Stream) As GraphModel
+    Public Shared Function Open(Of T As GraphModel)(file As Stream, Optional noGraph As Boolean = False) As GraphModel
         If file Is Nothing Then
             If GetType(T) Is GetType(GraphPool) Then
                 Return New GraphPool({}, {})
@@ -31,7 +31,7 @@ Public Class StorageProvider
                 Throw New NotImplementedException(GetType(T).FullName)
             End If
         Else
-            Return CreateQuery(Of T)(New ZipArchive(file, ZipArchiveMode.Read))
+            Return CreateQuery(Of T)(New ZipArchive(file, ZipArchiveMode.Read), noGraph)
         End If
     End Function
 
@@ -50,14 +50,21 @@ Public Class StorageProvider
     ''' </summary>
     ''' <param name="pack"></param>
     ''' <returns></returns>
-    Public Shared Function CreateQuery(Of T As GraphModel)(pack As ZipArchive) As GraphModel
+    Public Shared Function CreateQuery(Of T As GraphModel)(pack As ZipArchive, Optional noGraph As Boolean = False) As GraphModel
         Dim evidences As EvidencePool = Nothing
-
         Call Console.WriteLine("start to loading knowledge data...")
         Dim terms As Dictionary(Of String, Knowledge) = StreamEmit.GetKnowledges(pack)
         Call Console.WriteLine($"get {terms.Count} knowledge nodes!")
         Call Console.WriteLine("loading network graph...")
-        Dim links As Association() = StreamEmit.GetNetwork(pack, terms).ToArray
+
+        Dim links As Association() = {}
+
+        If Not noGraph Then
+            links = StreamEmit _
+                .GetNetwork(pack, terms) _
+                .ToArray
+        End If
+
         Call Console.WriteLine($"get {links.Length} graph links!")
 
         If GetType(T) Is GetType(EvidenceGraph) Then

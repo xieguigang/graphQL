@@ -27,6 +27,7 @@ Module MsgFile
     Public Function open(<RRawVectorArgument>
                          Optional file As Object = Nothing,
                          Optional evidenceAggregate As Boolean = False,
+                         Optional noGraph As Boolean = False,
                          Optional env As Environment = Nothing) As Object
 
         If file Is Nothing Then
@@ -41,9 +42,9 @@ Module MsgFile
             If buffer Like GetType(Message) Then
                 Return buffer.TryCast(Of Message)
             ElseIf evidenceAggregate Then
-                Return StorageProvider.Open(Of EvidenceGraph)(buffer)
+                Return StorageProvider.Open(Of EvidenceGraph)(buffer, noGraph)
             Else
-                Return StorageProvider.Open(Of GraphPool)(buffer)
+                Return StorageProvider.Open(Of GraphPool)(buffer, noGraph)
             End If
         End If
     End Function
