@@ -1,7 +1,6 @@
 ﻿
 Imports System.Runtime.CompilerServices
 Imports Microsoft.VisualBasic.ComponentModel.Collection
-Imports Microsoft.VisualBasic.ComponentModel.DataSourceModel
 Imports Microsoft.VisualBasic.Linq
 
 Namespace Graph
@@ -50,6 +49,11 @@ Namespace Graph
             Return New EvidencePool({}, {})
         End Function
 
+        ''' <summary>
+        ''' convert pointer to the actual content string
+        ''' </summary>
+        ''' <param name="evidences"></param>
+        ''' <returns></returns>
         Public Iterator Function LoadEvidenceData(evidences As IEnumerable(Of Evidence)) As IEnumerable(Of KeyValuePair(Of String, String()))
             For Each ref As Evidence In evidences
                 Yield New KeyValuePair(Of String, String())(

@@ -93,13 +93,48 @@ Public Module Query
     ''' <param name="cutoff"></param>
     ''' <returns></returns>
     <ExportAPI("query")>
-    Public Function getKnowledge(kb As GraphPool, term As String, Optional cutoff As Double = 0) As KnowledgeDescription()
-        Dim data = kb _
-            .GetKnowledgeData(term) _
-            .Where(Function(i) i.confidence >= cutoff) _
-            .ToArray
+    <RApiReturn(GetType(KnowledgeDescription))>
+    Public Function getKnowledge(kb As GraphModel, term As String,
+                                 Optional cutoff As Double = 0,
+                                 Optional env As Environment = Nothing) As Object
 
-        Return data
+        If kb Is Nothing Then
+            Return Internal.debug.stop("the required knowledge database can not be nothing!", env)
+        ElseIf TypeOf kb Is GraphPool Then
+            Dim data = DirectCast(kb, GraphPool) _
+                .GetKnowledgeData(term) _
+                .Where(Function(i) i.confidence >= cutoff) _
+                .ToArray
+
+            Return data
+        ElseIf TypeOf kb Is EvidenceGraph Then
+            Dim evidences As EvidenceGraph = DirectCast(kb, EvidenceGraph)
+            Dim entities As Knowledge() = evidences.GetMappingTerms(term).ToArray
+            Dim output As New list With {.slots = New Dictionary(Of String, Object)}
+
+            For Each node As Knowledge In entities
+                Dim evidenceList As New list With {.slots = New Dictionary(Of String, Object)}
+                Dim evidenceRaw = evidences.evidences.LoadEvidenceData(node.evidence).ToArray
+
+                For Each item In evidenceRaw
+                    Call evidenceList.add(item.Key, item.Value)
+                Next
+
+                Dim nodeData As New list With {
+                    .slots = New Dictionary(Of String, Object) From {
+                        {NameOf(Knowledge.mentions), node.mentions},
+                        {NameOf(Knowledge.source), node.source.ToArray},
+                        {NameOf(Knowledge.label), node.label},
+                        {NameOf(Knowledge.type), node.type},
+                        {NameOf(Knowledge.evidence), evidenceList}
+                    }
+                }
+            Next
+
+            Return output
+        Else
+            Return Message.InCompatibleType(GetType(GraphPool), kb.GetType, env)
+        End If
     End Function
 
     ''' <summary>
