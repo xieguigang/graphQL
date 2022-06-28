@@ -4,17 +4,18 @@ Imports graphMsg.Message
 Imports graphQL
 Imports graphQL.Graph
 Imports Microsoft.VisualBasic.Data.visualize.Network.Graph
+Imports Microsoft.VisualBasic.DataStorage.HDSPack.FileSystem
 
 Public Module GraphReader
 
     Public Function LoadGraph(file As Stream) As NetworkGraph
-        Using zip As New ZipArchive(file, ZipArchiveMode.Read)
+        Using zip As New StreamPack(file)
             Return LoadGraph(zip)
         End Using
     End Function
 
     Public Function GetEdgeSource(file As Stream) As String()
-        Using zip As New ZipArchive(file, ZipArchiveMode.Read)
+        Using zip As New StreamPack(file)
             Dim linkTypes As IndexByRef = StorageProvider.GetKeywords("meta/associations.msg", zip)
             Dim sources As String() = linkTypes.source
 
@@ -22,12 +23,12 @@ Public Module GraphReader
         End Using
     End Function
 
-    Public Function LoadGraph(pack As ZipArchive) As NetworkGraph
+    Public Function LoadGraph(pack As StreamPack) As NetworkGraph
         Dim terms As Dictionary(Of String, Knowledge) = StreamEmit.GetKnowledges(pack)
         Dim evidences As EvidencePool
 
         If terms.Values.Any(Function(i) i.evidence.Count > 0) Then
-            evidences = EvidenceStream.Load(zip:=pack)
+            evidences = EvidenceStream.Load(pack:=pack)
         Else
             evidences = EvidencePool.Empty
         End If

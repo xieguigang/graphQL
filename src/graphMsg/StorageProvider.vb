@@ -4,6 +4,7 @@ Imports graphMsg.Message
 Imports graphQL.Graph
 Imports Microsoft.VisualBasic.Data.IO.MessagePack
 Imports Microsoft.VisualBasic.Data.IO.MessagePack.Serialization
+Imports Microsoft.VisualBasic.DataStorage.HDSPack.FileSystem
 Imports Microsoft.VisualBasic.Linq
 
 Public Class StorageProvider
@@ -31,17 +32,17 @@ Public Class StorageProvider
                 Throw New NotImplementedException(GetType(T).FullName)
             End If
         Else
-            Return CreateQuery(Of T)(New ZipArchive(file, ZipArchiveMode.Read), noGraph)
+            Return CreateQuery(Of T)(New StreamPack(file), noGraph)
         End If
     End Function
 
-    Public Shared Function GetKeywords(res As String, pack As ZipArchive) As IndexByRef
-        Return MsgPackSerializer.Deserialize(Of IndexByRef)(pack.GetEntry(res).Open)
+    Public Shared Function GetKeywords(res As String, pack As StreamPack) As IndexByRef
+        Return MsgPackSerializer.Deserialize(Of IndexByRef)(pack.OpenBlock(res))
     End Function
 
     Public Shared Function GetKnowledges(file As Stream) As Knowledge()
-        Using zip As New ZipArchive(file, ZipArchiveMode.Read, leaveOpen:=False)
-            Return StreamEmit.GetKnowledges(zip).Values.ToArray
+        Using pack As New StreamPack(file)
+            Return StreamEmit.GetKnowledges(pack).Values.ToArray
         End Using
     End Function
 
@@ -50,7 +51,7 @@ Public Class StorageProvider
     ''' </summary>
     ''' <param name="pack"></param>
     ''' <returns></returns>
-    Public Shared Function CreateQuery(Of T As GraphModel)(pack As ZipArchive, Optional noGraph As Boolean = False) As GraphModel
+    Public Shared Function CreateQuery(Of T As GraphModel)(pack As StreamPack, Optional noGraph As Boolean = False) As GraphModel
         Dim evidences As EvidencePool = Nothing
         Call Console.WriteLine("start to loading knowledge data...")
         Dim terms As Dictionary(Of String, Knowledge) = StreamEmit.GetKnowledges(pack)
@@ -68,7 +69,7 @@ Public Class StorageProvider
         Call Console.WriteLine($"get {links.Length} graph links!")
 
         If GetType(T) Is GetType(EvidenceGraph) Then
-            evidences = EvidenceStream.Load(zip:=pack)
+            evidences = EvidenceStream.Load(pack:=pack)
         End If
 
         Call pack.Dispose()

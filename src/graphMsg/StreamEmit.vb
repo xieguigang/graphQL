@@ -4,6 +4,7 @@ Imports graphMsg.Message
 Imports graphQL.Graph
 Imports Microsoft.VisualBasic.ComponentModel.Collection
 Imports Microsoft.VisualBasic.Data.IO.MessagePack
+Imports Microsoft.VisualBasic.DataStorage.HDSPack.FileSystem
 Imports Microsoft.VisualBasic.Language
 Imports Microsoft.VisualBasic.Linq
 Imports Microsoft.VisualBasic.Serialization.JSON
@@ -130,13 +131,13 @@ Public Class StreamEmit
         Return blocks.Length
     End Function
 
-    Public Shared Function GetKnowledges(pack As ZipArchive) As Dictionary(Of String, Knowledge)
+    Public Shared Function GetKnowledges(pack As StreamPack) As Dictionary(Of String, Knowledge)
         Dim terms As New Dictionary(Of String, Knowledge)
         Dim termTypes As IndexByRef = StorageProvider.GetKeywords("meta/keywords.msg", pack)
-        Dim files = pack.Entries
+        Dim files As StreamBlock() = pack.files
 
-        For Each item In files.Where(Function(t) t.FullName.StartsWith("terms"))
-            Dim list = MsgPackSerializer.Deserialize(Of KnowledgeMsg())(item.Open)
+        For Each item As StreamBlock In files.Where(Function(t) t.fullName.StartsWith("terms"))
+            Dim list = MsgPackSerializer.Deserialize(Of KnowledgeMsg())(pack.OpenBlock(item))
 
             For Each v As KnowledgeMsg In list
                 terms(v.guid.ToString) = New Knowledge With {
@@ -153,8 +154,8 @@ Public Class StreamEmit
         Next
 
         ' attach evidence data for each knowledge terms
-        For Each item In files.Where(Function(t) t.FullName.StartsWith("evidences"))
-            Dim list = MsgPackSerializer.Deserialize(Of EvidenceMsg())(item.Open)
+        For Each item In files.Where(Function(t) t.fullName.StartsWith("evidences"))
+            Dim list = MsgPackSerializer.Deserialize(Of EvidenceMsg())(pack.OpenBlock(item))
             Dim evidences As IEnumerable(Of Evidence)
 
             For Each evi As EvidenceMsg In list
@@ -175,12 +176,12 @@ Public Class StreamEmit
         Return terms
     End Function
 
-    Public Shared Iterator Function GetNetwork(pack As ZipArchive, terms As Dictionary(Of String, Knowledge)) As IEnumerable(Of Association)
+    Public Shared Iterator Function GetNetwork(pack As StreamPack, terms As Dictionary(Of String, Knowledge)) As IEnumerable(Of Association)
         Dim linkTypes As IndexByRef = StorageProvider.GetKeywords("meta/associations.msg", pack)
-        Dim files = pack.Entries
+        Dim files As StreamBlock() = pack.files
 
         For Each item In files.Where(Function(t) t.FullName.StartsWith("graph"))
-            Dim list = MsgPackSerializer.Deserialize(Of LinkMsg())(item.Open)
+            Dim list = MsgPackSerializer.Deserialize(Of LinkMsg())(pack.OpenBlock(item))
 
             For Each l As LinkMsg In list
                 Yield New Association With {
