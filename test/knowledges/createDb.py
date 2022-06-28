@@ -13,7 +13,8 @@ print(kegg, max.print = 6)
 def process_knowledge(kb, data, type):
     data = as.list(data, byrow = True)
     data = groupBy(data, x -> x[["key"]])
-    data = lapply(data, x -> sapply(x, i -> i[["value"]]), x -> x[["key"]])
+    str(data)
+    data = lapply(data, x -> sapply(x, i -> i[["value"]]))
     
     str(data)
     

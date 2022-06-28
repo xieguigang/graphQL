@@ -1,8 +1,11 @@
 ﻿Imports System.IO
 Imports graphMsg
+Imports graphMsg.Message
 Imports graphQL.Graph
 Imports Microsoft.VisualBasic.CommandLine.Reflection
+Imports Microsoft.VisualBasic.Data.IO.MessagePack
 Imports Microsoft.VisualBasic.Data.visualize.Network.Graph
+Imports Microsoft.VisualBasic.DataStorage.HDSPack.FileSystem
 Imports Microsoft.VisualBasic.Scripting.MetaData
 Imports SMRUCC.Rsharp.Runtime
 Imports SMRUCC.Rsharp.Runtime.Components
@@ -28,6 +31,7 @@ Module MsgFile
                          Optional file As Object = Nothing,
                          Optional evidenceAggregate As Boolean = False,
                          Optional noGraph As Boolean = False,
+                         Optional seekIndex As Boolean = False,
                          Optional env As Environment = Nothing) As Object
 
         If file Is Nothing Then
@@ -41,12 +45,29 @@ Module MsgFile
 
             If buffer Like GetType(Message) Then
                 Return buffer.TryCast(Of Message)
+            ElseIf seekIndex Then
+                Dim pack As New StreamPack(buffer.TryCast(Of Stream))
+                Dim indexBuffer = pack.OpenBlock("/index.dat")
+                Dim index As TermIndexMsg = MsgPackSerializer.Deserialize(GetType(TermIndexMsg), indexBuffer)
+                Dim seek As New SeekIndex With {.index = index.ToList, .pack = pack}
+
+                Return seek
             ElseIf evidenceAggregate Then
                 Return StorageProvider.Open(Of EvidenceGraph)(buffer, noGraph)
             Else
                 Return StorageProvider.Open(Of GraphPool)(buffer, noGraph)
             End If
         End If
+    End Function
+
+    <ExportAPI("seekTerm")>
+    Public Function seekTerm(index As SeekIndex, term As String) As Object
+        Return index.SeekTerm(term)
+    End Function
+
+    <ExportAPI("getTerms")>
+    Public Function getTerms(index As SeekIndex) As String()
+        Return index.index.Keys.ToArray
     End Function
 
     ''' <summary>
