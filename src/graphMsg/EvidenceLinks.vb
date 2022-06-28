@@ -11,7 +11,7 @@ Imports Microsoft.VisualBasic.Linq
 Module EvidenceLinks
 
     Friend Sub SaveEvidence(evidences As EvidenceMsg(), pack As StreamPack)
-        Dim offsets As New List(Of Long)
+        Dim offsets As New Dictionary(Of Long, Long)
 
         Using buffer As Stream = pack.OpenBlock("/meta/evidence_link/links.dat")
             Dim bin As New BinaryDataWriter(buffer)
@@ -20,7 +20,7 @@ Module EvidenceLinks
             Call bin.Write(evidences.Length)
 
             For Each evidence As EvidenceMsg In evidences
-                offsets.Add(bin.Position)
+                offsets.Add(evidence.ref, bin.Position)
                 buf = MsgPackSerializer.SerializeObject(evidence)
                 bin.Write(buf.Length)
                 bin.Write(buf)
@@ -32,7 +32,11 @@ Module EvidenceLinks
         Using buffer As Stream = pack.OpenBlock("/meta/evidence_link/offsets.i64")
             Dim bin As New BinaryDataWriter(buffer)
 
-            Call bin.Write(offsets.ToArray)
+            For Each index In offsets
+                Call bin.Write(index.Key)
+                Call bin.Write(index.Value)
+            Next
+
             Call bin.Flush()
         End Using
     End Sub
@@ -49,14 +53,14 @@ Module EvidenceLinks
             Dim offsetReader As New BinaryDataReader(offsetBuf)
             Dim linkReader As New BinaryDataReader(linkBuf)
             Dim nsize As Integer = linkReader.ReadInt32
-            Dim offsets As Long() = offsetReader.ReadInt64s(nsize)
             Dim evidence As EvidenceMsg
             Dim buf As Byte()
             Dim size As Integer
             Dim evidences As IEnumerable(Of Evidence)
 
-            For Each pos As Long In offsets
-                linkReader.Seek(pos, SeekOrigin.Begin)
+            For idx As Integer = 1 To nsize
+                offsetReader.ReadInt64()
+                linkReader.Seek(offsetReader.ReadInt64, SeekOrigin.Begin)
                 size = linkReader.ReadInt32
                 buf = linkReader.ReadBytes(size)
                 evidence = MsgPackSerializer.Deserialize(GetType(EvidenceMsg), buf)

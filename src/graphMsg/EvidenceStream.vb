@@ -10,7 +10,7 @@ Module EvidenceStream
     <Extension>
     Public Function Load(pack As StreamPack) As EvidencePool
         Dim referenceData As New List(Of String)
-        Dim category As String()
+        Dim category As String() = pack.loadEvidenceCategoryData
 
         Using buf As Stream = pack.OpenBlock("/meta/evidence_stream/packdata.chr")
             Dim bin As New BinaryDataReader(buf)
@@ -21,15 +21,18 @@ Module EvidenceStream
             Next
         End Using
 
+        Return New EvidencePool(category, referenceData)
+    End Function
+
+    <Extension>
+    Friend Function loadEvidenceCategoryData(pack As StreamPack) As String()
         Using buffer As Stream = pack.OpenBlock("/meta/evidence_stream/category.txt")
             Dim bin As New BinaryDataReader(buffer)
 
-            category = bin _
+            Return bin _
                 .ReadString(BinaryStringFormat.DwordLengthPrefix) _
                 .LineTokens
         End Using
-
-        Return New EvidencePool(category, referenceData)
     End Function
 
     <Extension>
