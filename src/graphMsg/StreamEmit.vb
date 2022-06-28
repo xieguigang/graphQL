@@ -77,26 +77,6 @@ Public Class StreamEmit
         Return True
     End Function
 
-    Private Shared Function SaveEvidence(evidences As EvidenceMsg(), pack As StreamPack) As Dictionary(Of String, Integer)
-        Dim blocks = evidences _
-            .GroupBy(Function(i)
-                         Return i.ref.ToString.Last.ToString
-                     End Function) _
-            .ToArray
-        Dim buffer As Stream
-        Dim summary As New Dictionary(Of String, Integer)
-
-        For Each block In blocks
-            evidences = block.ToArray
-            buffer = pack.OpenBlock($"evidences/{block.Key}.dat")
-
-            Call MsgPackSerializer.SerializeObject(evidences, buffer, closeFile:=True)
-            Call summary.Add(block.Key, evidences.Length)
-        Next
-
-        Return summary
-    End Function
-
     ''' <summary>
     ''' split terms into multiple data groups
     ''' </summary>
@@ -222,25 +202,7 @@ Public Class StreamEmit
             Next
         Next
 
-        ' attach evidence data for each knowledge terms
-        For Each item As StreamBlock In files.Where(Function(t) t.fullName.StartsWith("/evidences"))
-            Dim list = MsgPackSerializer.Deserialize(Of EvidenceMsg())(pack.OpenBlock(item))
-            Dim evidences As IEnumerable(Of Evidence)
-
-            For Each evi As EvidenceMsg In list
-                evidences = evi.data _
-                    .Select(Function(i)
-                                Return New Evidence With {
-                                    .category = i.ref,
-                                    .reference = i.data
-                                }
-                            End Function) _
-                    .ToArray
-
-                ' terms(evi.ref.ToString).evidence.Clear()
-                terms(evi.ref.ToString).evidence.AddRange(evidences)
-            Next
-        Next
+        Call terms.LoadEvidence(pack)
 
         Return terms
     End Function
