@@ -46,11 +46,11 @@ Public Class StreamEmit
         Call info.Add("evidence_types", If(evidencePool Is Nothing, 0, evidencePool.categoryList.Length))
         Call info.Add("evidence_size", Aggregate i In evidences Into Sum(i.data.Length))
 
-        Using hdsPack As New StreamPack(file)
+        Using hdsPack As New StreamPack(file, meta_size:=1024 * 1024)
             ' save graph types
             Call MsgPackSerializer.SerializeObject(termRef, hdsPack.OpenBlock("meta/keywords.msg"), closeFile:=True)
             Call MsgPackSerializer.SerializeObject(linkRef, hdsPack.OpenBlock("meta/associations.msg"), closeFile:=True)
-            Call MsgPackSerializer.SerializeObject(evidenceRef, hdsPack.OpenBlock("meta/evidences.msg"), closeFile:=True)
+            Call EvidenceStream.Exports(evidenceRef, file:=hdsPack)
 
             Call SaveTerms(terms, hdsPack) _
                 .GetJson _
