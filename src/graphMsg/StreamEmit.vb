@@ -58,14 +58,10 @@ Public Class StreamEmit
                     out:=New StreamWriter(hdsPack.OpenBlock("knowledge_blocks.json")),
                     closeFile:=True
                 )
-            Call SaveEvidence(evidences, hdsPack) _
-                .GetJson _
-                .FlushTo(
-                    out:=New StreamWriter(hdsPack.OpenBlock("evidence_blocks.json")),
-                    closeFile:=True
-                )
+            Call SaveEvidence(evidences, hdsPack)
 
             Call info.Add("graph_blocks", SaveNetwork(links, hdsPack))
+            Call info.Add("evidence_link", evidences.Length)
             Call info _
                 .GetJson _
                 .FlushTo(

@@ -3,31 +3,39 @@ Imports System.Runtime.CompilerServices
 Imports graphMsg.Message
 Imports graphQL.Graph
 Imports Microsoft.VisualBasic.ComponentModel.Collection
+Imports Microsoft.VisualBasic.Data.IO
 Imports Microsoft.VisualBasic.Data.IO.MessagePack
 Imports Microsoft.VisualBasic.DataStorage.HDSPack.FileSystem
 Imports Microsoft.VisualBasic.Linq
 
 Module EvidenceLinks
 
-    Friend Function SaveEvidence(evidences As EvidenceMsg(), pack As StreamPack) As Dictionary(Of String, Integer)
-        Dim blocks = evidences _
-            .GroupBy(Function(i)
-                         Return i.ref.ToString.Last.ToString
-                     End Function) _
-            .ToArray
-        Dim buffer As Stream
-        Dim summary As New Dictionary(Of String, Integer)
+    Friend Sub SaveEvidence(evidences As EvidenceMsg(), pack As StreamPack)
+        Dim offsets As New List(Of Long)
 
-        For Each block In blocks
-            evidences = block.ToArray
-            buffer = pack.OpenBlock($"evidences/{block.Key}.dat")
+        Using buffer As Stream = pack.OpenBlock("/meta/evidence_link/links.dat")
+            Dim bin As New BinaryDataWriter(buffer)
+            Dim buf As Byte()
 
-            Call MsgPackSerializer.SerializeObject(evidences, buffer, closeFile:=True)
-            Call summary.Add(block.Key, evidences.Length)
-        Next
+            Call bin.Write(evidences.Length)
 
-        Return summary
-    End Function
+            For Each evidence As EvidenceMsg In evidences
+                offsets.Add(bin.Position)
+                buf = MsgPackSerializer.SerializeObject(evidence)
+                bin.Write(buf.Length)
+                bin.Write(buf)
+            Next
+
+            Call bin.Flush()
+        End Using
+
+        Using buffer As Stream = pack.OpenBlock("/meta/evidence_link/offsets.i64")
+            Dim bin As New BinaryDataWriter(buffer)
+
+            Call bin.Write(offsets.ToArray)
+            Call bin.Flush()
+        End Using
+    End Sub
 
     ''' <summary>
     ''' attach evidence data for each knowledge terms
@@ -35,14 +43,24 @@ Module EvidenceLinks
     ''' 
     <Extension>
     Public Sub LoadEvidence(terms As Dictionary(Of String, Knowledge), pack As StreamPack)
-        Dim files As StreamBlock() = pack.files
+        Using linkBuf As Stream = pack.OpenBlock("/meta/evidence_link/links.dat"),
+            offsetBuf As Stream = pack.OpenBlock("/meta/evidence_link/offsets.i64")
 
-        For Each item As StreamBlock In files.Where(Function(t) t.fullName.StartsWith("/evidences"))
-            Dim list = MsgPackSerializer.Deserialize(Of EvidenceMsg())(pack.OpenBlock(item))
+            Dim offsetReader As New BinaryDataReader(offsetBuf)
+            Dim linkReader As New BinaryDataReader(linkBuf)
+            Dim nsize As Integer = linkReader.ReadInt32
+            Dim offsets As Long() = offsetReader.ReadInt64s(nsize)
+            Dim evidence As EvidenceMsg
+            Dim buf As Byte()
+            Dim size As Integer
             Dim evidences As IEnumerable(Of Evidence)
 
-            For Each evi As EvidenceMsg In list
-                evidences = evi.data _
+            For Each pos As Long In offsets
+                linkReader.Seek(pos, SeekOrigin.Begin)
+                size = linkReader.ReadInt32
+                buf = linkReader.ReadBytes(size)
+                evidence = MsgPackSerializer.Deserialize(GetType(EvidenceMsg), buf)
+                evidences = evidence.data _
                     .Select(Function(i)
                                 Return New Evidence With {
                                     .category = i.ref,
@@ -51,9 +69,8 @@ Module EvidenceLinks
                             End Function) _
                     .ToArray
 
-                ' terms(evi.ref.ToString).evidence.Clear()
-                terms(evi.ref.ToString).evidence.AddRange(evidences)
+                terms(evidence.ref.ToString).evidence.AddRange(evidences)
             Next
-        Next
+        End Using
     End Sub
 End Module
