@@ -69,7 +69,7 @@ Module EvidenceLinks
                             End Function) _
                     .ToArray
 
-                terms(evidence.ref.ToString).evidence.AddRange(evidences)
+                Call terms(evidence.ref.ToString).evidence.AddRange(evidences)
             Next
         End Using
     End Sub
