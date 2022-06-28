@@ -2,6 +2,7 @@
 Imports graphMsg.Message
 Imports graphQL.Graph
 Imports Microsoft.VisualBasic.ComponentModel.Collection
+Imports Microsoft.VisualBasic.ComponentModel.DataSourceModel
 Imports Microsoft.VisualBasic.Data.IO
 Imports Microsoft.VisualBasic.Data.IO.MessagePack
 Imports Microsoft.VisualBasic.DataStorage.HDSPack.FileSystem
@@ -97,27 +98,47 @@ Public Class StreamEmit
     End Function
 
     ''' <summary>
+    ''' split terms into multiple data groups
+    ''' </summary>
+    ''' <param name="terms"></param>
+    ''' <returns></returns>
+    Private Shared Iterator Function splitBlocks(terms As KnowledgeMsg()) As IEnumerable(Of NamedCollection(Of KnowledgeMsg))
+        Dim suffixGroups = terms _
+            .GroupBy(Function(t)
+                         If t.term.StringEmpty Then
+                             Return "-"
+                         ElseIf t.term.Length < 3 Then
+                             Return t.term
+                         Else
+                             Return Mid(t.term, 1, 2) & Mid(t.term, t.term.Length - 2, 2)
+                         End If
+                     End Function)
+        Dim md5Groups = suffixGroups.GroupBy(Function(g) g.Key.MD5.Substring(0, 2))
+
+        For Each group In md5Groups
+            Yield New NamedCollection(Of KnowledgeMsg) With {
+                .name = group.Key,
+                .value = group.IteratesALL.ToArray
+            }
+        Next
+    End Function
+
+    ''' <summary>
     ''' save all knowledge terms data 
     ''' </summary>
     ''' <param name="terms"></param>
     ''' <param name="pack"></param>
     ''' <returns></returns>
     Private Shared Function SaveTerms(terms As KnowledgeMsg(), pack As StreamPack) As Dictionary(Of String, Integer)
-        ' split terms into multiple data groups
-        Dim blocks = terms _
-            .GroupBy(Function(t) Mid(t.term, 1, 3)) _
-            .Where(Function(g) g.Key <> "") _
-            .GroupBy(Function(g) g.Key.MD5.Substring(0, 2)) _
-            .ToArray
         Dim buffer As Stream
         Dim summary As New Dictionary(Of String, Integer)
         Dim index As New List(Of TermIndex)
         Dim bin As BinaryDataWriter
 
-        For Each block In blocks
+        For Each block As NamedCollection(Of KnowledgeMsg) In splitBlocks(terms)
             ' save terms to one data block section
-            terms = block.IteratesALL.ToArray
-            buffer = pack.OpenBlock($"terms/{block.Key}.dat")
+            terms = block.ToArray
+            buffer = pack.OpenBlock($"terms/{block.name}.dat")
             bin = New BinaryDataWriter(buffer)
 
             For Each term As KnowledgeMsg In terms
@@ -128,12 +149,12 @@ Public Class StreamEmit
                 Call bin.Write(ms)
                 Call bin.Flush()
 
-                Call index.Add(New TermIndex With {.block = block.Key, .offset = offset, .term = term.term})
+                Call index.Add(New TermIndex With {.block = block.name, .offset = offset, .term = term.term})
             Next
 
             Call buffer.Flush()
             Call buffer.Dispose()
-            Call summary.Add(block.Key, terms.Length)
+            Call summary.Add(block.name, terms.Length)
         Next
 
         ' save index data
