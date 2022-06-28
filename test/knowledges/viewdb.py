@@ -4,4 +4,4 @@ setwd(@dir)
 
 hds = HDS::openStream("./aspirin.graph")
 
-print(hds.files)
+print(HDS::files(hds))
