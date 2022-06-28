@@ -13,7 +13,6 @@ Namespace Message
         <MessagePackMember(0)> Public Property term As String
         <MessagePackMember(1)> Public Property block As String
         <MessagePackMember(2)> Public Property offset As Integer
-        <MessagePackMember(3)> Public Property size As Integer
 
     End Class
 End Namespace

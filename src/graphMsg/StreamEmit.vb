@@ -3,6 +3,7 @@ Imports System.IO.Compression
 Imports graphMsg.Message
 Imports graphQL.Graph
 Imports Microsoft.VisualBasic.ComponentModel.Collection
+Imports Microsoft.VisualBasic.Data.IO
 Imports Microsoft.VisualBasic.Data.IO.MessagePack
 Imports Microsoft.VisualBasic.DataStorage.HDSPack.FileSystem
 Imports Microsoft.VisualBasic.Language
@@ -96,7 +97,14 @@ Public Class StreamEmit
         Return summary
     End Function
 
+    ''' <summary>
+    ''' save all knowledge terms data 
+    ''' </summary>
+    ''' <param name="terms"></param>
+    ''' <param name="pack"></param>
+    ''' <returns></returns>
     Private Shared Function SaveTerms(terms As KnowledgeMsg(), pack As StreamPack) As Dictionary(Of String, Integer)
+        ' split terms into multiple data groups
         Dim blocks = terms _
             .GroupBy(Function(t) Mid(t.term, 1, 3)) _
             .Where(Function(g) g.Key <> "") _
@@ -104,14 +112,31 @@ Public Class StreamEmit
             .ToArray
         Dim buffer As Stream
         Dim summary As New Dictionary(Of String, Integer)
+        Dim index As New List(Of TermIndex)
+        Dim bin As BinaryDataWriter
 
         For Each block In blocks
+            ' save terms to one data block section
             terms = block.IteratesALL.ToArray
             buffer = pack.OpenBlock($"terms/{block.Key}.dat")
+            bin = New BinaryDataWriter(buffer)
 
-            Call MsgPackSerializer.SerializeObject(terms, buffer, closeFile:=True)
+            For Each term As KnowledgeMsg In terms
+                Dim ms As Byte() = MsgPackSerializer.SerializeObject(term)
+                Dim offset As Integer = bin.Position
+
+                Call bin.Write(ms.Length)
+                Call bin.Write(ms)
+                Call index.Add(New TermIndex With {.block = block.Key, .offset = offset, .term = term.term})
+            Next
+
+            Call bin.Flush()
             Call summary.Add(block.Key, terms.Length)
         Next
+
+        ' save index data
+        buffer = pack.OpenBlock("index.dat")
+        MsgPackSerializer.SerializeObject(New TermIndexMsg With {.index = index.ToArray}, buffer, closeFile:=True)
 
         Return summary
     End Function
@@ -135,9 +160,30 @@ Public Class StreamEmit
         Dim terms As New Dictionary(Of String, Knowledge)
         Dim termTypes As IndexByRef = StorageProvider.GetKeywords("meta/keywords.msg", pack)
         Dim files As StreamBlock() = pack.files
+        Dim summary As Dictionary(Of String, Integer)
+
+        Using buf As Stream = pack.OpenBlock("knowledge_blocks.json"),
+            read As New StreamReader(buf)
+
+            summary = read _
+                .ReadToEnd _
+                .LoadJSON(Of Dictionary(Of String, Integer))
+        End Using
 
         For Each item As StreamBlock In files.Where(Function(t) t.fullName.StartsWith("terms"))
-            Dim list = MsgPackSerializer.Deserialize(Of KnowledgeMsg())(pack.OpenBlock(item))
+            Dim list As New List(Of KnowledgeMsg)
+            Dim blockKey As String = item.referencePath.FileName
+            Dim nsize As Integer = summary(blockKey)
+
+            Using bin As New BinaryDataReader(pack.OpenBlock(item))
+                For i As Integer = 1 To nsize
+                    Dim size As Integer = bin.ReadInt32
+                    Dim buf As Byte() = bin.ReadBytes(size)
+                    Dim term As KnowledgeMsg = MsgPackSerializer.Deserialize(GetType(KnowledgeMsg), buf)
+
+                    Call list.Add(term)
+                Next
+            End Using
 
             For Each v As KnowledgeMsg In list
                 terms(v.guid.ToString) = New Knowledge With {
@@ -180,7 +226,7 @@ Public Class StreamEmit
         Dim linkTypes As IndexByRef = StorageProvider.GetKeywords("meta/associations.msg", pack)
         Dim files As StreamBlock() = pack.files
 
-        For Each item In files.Where(Function(t) t.FullName.StartsWith("graph"))
+        For Each item In files.Where(Function(t) t.fullName.StartsWith("graph"))
             Dim list = MsgPackSerializer.Deserialize(Of LinkMsg())(pack.OpenBlock(item))
 
             For Each l As LinkMsg In list
