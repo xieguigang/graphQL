@@ -12,9 +12,8 @@ Module EvidenceStream
         Dim referenceData As New List(Of String)
         Dim category As String()
 
-        Using buf As Stream = pack.OpenBlock("/meta/evidence_stream/packdata.chr"),
-            bin As New BinaryDataReader(buf)
-
+        Using buf As Stream = pack.OpenBlock("/meta/evidence_stream/packdata.chr")
+            Dim bin As New BinaryDataReader(buf)
             Dim nsize As Integer = bin.ReadInt32
 
             For i As Integer = 1 To nsize
@@ -22,8 +21,8 @@ Module EvidenceStream
             Next
         End Using
 
-        Using buffer As Stream = pack.OpenBlock("/meta/evidence_stream/category.txt"),
-            bin As New BinaryDataReader(buffer)
+        Using buffer As Stream = pack.OpenBlock("/meta/evidence_stream/category.txt")
+            Dim bin As New BinaryDataReader(buffer)
 
             category = bin _
                 .ReadString(BinaryStringFormat.DwordLengthPrefix) _
@@ -37,8 +36,8 @@ Module EvidenceStream
     Public Sub Exports(evidenceRef As IndexByRef, file As StreamPack)
         Dim offsets As New List(Of Long)
 
-        Using buffer As Stream = file.OpenBlock("/meta/evidence_stream/packdata.chr"),
-            bin As New BinaryDataWriter(buffer)
+        Using buffer As Stream = file.OpenBlock("/meta/evidence_stream/packdata.chr")
+            Dim bin As New BinaryDataWriter(buffer)
 
             Call bin.Write(evidenceRef.source.Length)
 
@@ -50,15 +49,15 @@ Module EvidenceStream
             Call bin.Flush()
         End Using
 
-        Using buffer As Stream = file.OpenBlock("/meta/evidence_stream/offsets.i64"),
-            bin As New BinaryDataWriter(buffer)
+        Using buffer As Stream = file.OpenBlock("/meta/evidence_stream/offsets.i64")
+            Dim bin As New BinaryDataWriter(buffer)
 
             Call bin.Write(offsets.ToArray)
             Call bin.Flush()
         End Using
 
-        Using buffer As Stream = file.OpenBlock("/meta/evidence_stream/category.txt"),
-            bin As New BinaryDataWriter(buffer)
+        Using buffer As Stream = file.OpenBlock("/meta/evidence_stream/category.txt")
+            Dim bin As New BinaryDataWriter(buffer)
 
             Call bin.Write(evidenceRef.types.JoinBy(vbLf), BinaryStringFormat.DwordLengthPrefix)
             Call bin.Flush()
