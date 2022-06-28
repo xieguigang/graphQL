@@ -193,7 +193,7 @@ Public Class StreamEmit
                 .LoadJSON(Of Dictionary(Of String, Integer))
         End Using
 
-        For Each item As StreamBlock In files.Where(Function(t) t.fullName.StartsWith("terms"))
+        For Each item As StreamBlock In files.Where(Function(t) t.fullName.StartsWith("/terms"))
             Dim list As New List(Of KnowledgeMsg)
             Dim blockKey As String = item.referencePath.FileName
             Dim nsize As Integer = summary(blockKey)
@@ -223,7 +223,7 @@ Public Class StreamEmit
         Next
 
         ' attach evidence data for each knowledge terms
-        For Each item In files.Where(Function(t) t.fullName.StartsWith("evidences"))
+        For Each item As StreamBlock In files.Where(Function(t) t.fullName.StartsWith("/evidences"))
             Dim list = MsgPackSerializer.Deserialize(Of EvidenceMsg())(pack.OpenBlock(item))
             Dim evidences As IEnumerable(Of Evidence)
 
@@ -249,7 +249,7 @@ Public Class StreamEmit
         Dim linkTypes As IndexByRef = StorageProvider.GetKeywords("meta/associations.msg", pack)
         Dim files As StreamBlock() = pack.files
 
-        For Each item In files.Where(Function(t) t.fullName.StartsWith("graph"))
+        For Each item In files.Where(Function(t) t.fullName.StartsWith("/graph"))
             Dim list = MsgPackSerializer.Deserialize(Of LinkMsg())(pack.OpenBlock(item))
 
             For Each l As LinkMsg In list
