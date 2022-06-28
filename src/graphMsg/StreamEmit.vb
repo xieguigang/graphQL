@@ -126,10 +126,13 @@ Public Class StreamEmit
 
                 Call bin.Write(ms.Length)
                 Call bin.Write(ms)
+                Call bin.Flush()
+
                 Call index.Add(New TermIndex With {.block = block.Key, .offset = offset, .term = term.term})
             Next
 
-            Call bin.Flush()
+            Call buffer.Flush()
+            Call buffer.Dispose()
             Call summary.Add(block.Key, terms.Length)
         Next
 
