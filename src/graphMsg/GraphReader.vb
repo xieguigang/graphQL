@@ -1,5 +1,4 @@
 ﻿Imports System.IO
-Imports System.IO.Compression
 Imports graphMsg.Message
 Imports graphQL
 Imports graphQL.Graph
@@ -9,14 +8,14 @@ Imports Microsoft.VisualBasic.DataStorage.HDSPack.FileSystem
 Public Module GraphReader
 
     Public Function LoadGraph(file As Stream) As NetworkGraph
-        Using zip As New StreamPack(file)
-            Return LoadGraph(zip)
+        Using hds As New StreamPack(file)
+            Return LoadGraph(hds)
         End Using
     End Function
 
     Public Function GetEdgeSource(file As Stream) As String()
-        Using zip As New StreamPack(file)
-            Dim linkTypes As IndexByRef = StorageProvider.GetKeywords("meta/associations.msg", zip)
+        Using hds As New StreamPack(file)
+            Dim linkTypes As IndexByRef = StorageProvider.GetKeywords("meta/associations.msg", hds)
             Dim sources As String() = linkTypes.source
 
             Return sources

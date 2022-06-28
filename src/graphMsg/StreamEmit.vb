@@ -12,7 +12,7 @@ Imports Microsoft.VisualBasic.Serialization.JSON
 Public Class StreamEmit
 
     ''' <summary>
-    ''' save as zip file
+    ''' save as HDS file
     ''' </summary>
     ''' <param name="kb"></param>
     ''' <param name="file"></param>

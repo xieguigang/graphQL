@@ -13,7 +13,7 @@ Public Class StorageProvider
     <MessagePackMember(1)> Public Property links As LinkMsg()
 
     ''' <summary>
-    ''' save as zip file
+    ''' save as HDS file
     ''' </summary>
     ''' <param name="kb"></param>
     ''' <param name="file"></param>
