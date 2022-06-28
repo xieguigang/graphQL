@@ -45,30 +45,30 @@ Public Class StreamEmit
         Call info.Add("evidence_types", If(evidencePool Is Nothing, 0, evidencePool.categoryList.Length))
         Call info.Add("evidence_size", Aggregate i In evidences Into Sum(i.data.Length))
 
-        Using zip As New ZipArchive(file, ZipArchiveMode.Create, leaveOpen:=False)
+        Using hdsPack As New StreamPack(file)
             ' save graph types
-            Call MsgPackSerializer.SerializeObject(termRef, zip.CreateEntry("meta/keywords.msg").Open, closeFile:=True)
-            Call MsgPackSerializer.SerializeObject(linkRef, zip.CreateEntry("meta/associations.msg").Open, closeFile:=True)
-            Call MsgPackSerializer.SerializeObject(evidenceRef, zip.CreateEntry("meta/evidences.msg").Open, closeFile:=True)
+            Call MsgPackSerializer.SerializeObject(termRef, hdsPack.OpenBlock("meta/keywords.msg"), closeFile:=True)
+            Call MsgPackSerializer.SerializeObject(linkRef, hdsPack.OpenBlock("meta/associations.msg"), closeFile:=True)
+            Call MsgPackSerializer.SerializeObject(evidenceRef, hdsPack.OpenBlock("meta/evidences.msg"), closeFile:=True)
 
-            Call SaveTerms(terms, zip) _
+            Call SaveTerms(terms, hdsPack) _
                 .GetJson _
                 .FlushTo(
-                    out:=New StreamWriter(zip.CreateEntry("knowledge_blocks.json").Open),
+                    out:=New StreamWriter(hdsPack.OpenBlock("knowledge_blocks.json")),
                     closeFile:=True
                 )
-            Call SaveEvidence(evidences, zip) _
+            Call SaveEvidence(evidences, hdsPack) _
                 .GetJson _
                 .FlushTo(
-                    out:=New StreamWriter(zip.CreateEntry("evidence_blocks.json").Open),
+                    out:=New StreamWriter(hdsPack.OpenBlock("evidence_blocks.json")),
                     closeFile:=True
                 )
 
-            Call info.Add("graph_blocks", SaveNetwork(links, zip))
+            Call info.Add("graph_blocks", SaveNetwork(links, hdsPack))
             Call info _
                 .GetJson _
                 .FlushTo(
-                    out:=New StreamWriter(zip.CreateEntry("summary.json").Open),
+                    out:=New StreamWriter(hdsPack.OpenBlock("summary.json")),
                     closeFile:=True
                 )
         End Using
@@ -76,7 +76,7 @@ Public Class StreamEmit
         Return True
     End Function
 
-    Private Shared Function SaveEvidence(evidences As EvidenceMsg(), zip As ZipArchive) As Dictionary(Of String, Integer)
+    Private Shared Function SaveEvidence(evidences As EvidenceMsg(), pack As StreamPack) As Dictionary(Of String, Integer)
         Dim blocks = evidences _
             .GroupBy(Function(i)
                          Return i.ref.ToString.Last.ToString
@@ -87,7 +87,7 @@ Public Class StreamEmit
 
         For Each block In blocks
             evidences = block.ToArray
-            buffer = zip.CreateEntry($"evidences/{block.Key}.dat").Open
+            buffer = pack.OpenBlock($"evidences/{block.Key}.dat")
 
             Call MsgPackSerializer.SerializeObject(evidences, buffer, closeFile:=True)
             Call summary.Add(block.Key, evidences.Length)
@@ -96,7 +96,7 @@ Public Class StreamEmit
         Return summary
     End Function
 
-    Private Shared Function SaveTerms(terms As KnowledgeMsg(), zip As ZipArchive) As Dictionary(Of String, Integer)
+    Private Shared Function SaveTerms(terms As KnowledgeMsg(), pack As StreamPack) As Dictionary(Of String, Integer)
         Dim blocks = terms _
             .GroupBy(Function(t) Mid(t.term, 1, 3)) _
             .Where(Function(g) g.Key <> "") _
@@ -107,7 +107,7 @@ Public Class StreamEmit
 
         For Each block In blocks
             terms = block.IteratesALL.ToArray
-            buffer = zip.CreateEntry($"terms/{block.Key}.dat").Open
+            buffer = pack.OpenBlock($"terms/{block.Key}.dat")
 
             Call MsgPackSerializer.SerializeObject(terms, buffer, closeFile:=True)
             Call summary.Add(block.Key, terms.Length)
@@ -116,14 +116,14 @@ Public Class StreamEmit
         Return summary
     End Function
 
-    Private Shared Function SaveNetwork(links As LinkMsg(), zip As ZipArchive) As Integer
+    Private Shared Function SaveNetwork(links As LinkMsg(), pack As StreamPack) As Integer
         Dim blocks = links.OrderByDescending(Function(d) d.weight).Split(4096)
         Dim buffer As Stream
         Dim i As Integer = 0
 
         For Each block In blocks
             i += 1
-            buffer = zip.CreateEntry($"graph/{i.FormatZero("000")}").Open
+            buffer = pack.OpenBlock($"graph/{i.FormatZero("000")}")
 
             Call MsgPackSerializer.SerializeObject(block, buffer, closeFile:=True)
         Next
