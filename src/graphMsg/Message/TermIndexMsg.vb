@@ -1,8 +1,4 @@
-﻿Imports System.IO
-Imports Microsoft.VisualBasic.Data.IO
-Imports Microsoft.VisualBasic.Data.IO.MessagePack
-Imports Microsoft.VisualBasic.Data.IO.MessagePack.Serialization
-Imports Microsoft.VisualBasic.DataStorage.HDSPack.FileSystem
+﻿Imports Microsoft.VisualBasic.Data.IO.MessagePack.Serialization
 
 Namespace Message
 

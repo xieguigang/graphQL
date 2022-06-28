@@ -49,7 +49,7 @@ Module MsgFile
                 Dim pack As New StreamPack(buffer.TryCast(Of Stream))
                 Dim indexBuffer = pack.OpenBlock("/index.dat")
                 Dim index As TermIndexMsg = MsgPackSerializer.Deserialize(GetType(TermIndexMsg), indexBuffer)
-                Dim seek As New SeekIndex With {.index = index.ToList, .pack = pack}
+                Dim seek As New SeekIndex(pack) With {.index = index.ToList}
 
                 Return seek
             ElseIf evidenceAggregate Then
