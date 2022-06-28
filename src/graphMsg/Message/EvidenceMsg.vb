@@ -2,9 +2,14 @@
 Imports Microsoft.VisualBasic.ComponentModel.Collection
 Imports Microsoft.VisualBasic.Data.IO.MessagePack.Serialization
 Imports Microsoft.VisualBasic.Linq
+Imports Microsoft.VisualBasic.Serialization.JSON
 
 Namespace Message
 
+    ''' <summary>
+    ''' the association link between the knowledge 
+    ''' terms and the evidence terms
+    ''' </summary>
     Public Class EvidenceMsg
 
         ''' <summary>
@@ -35,6 +40,10 @@ Namespace Message
 
         <MessagePackMember(0)> Public Property ref As Integer
         <MessagePackMember(1)> Public Property data As Integer()
+
+        Public Overrides Function ToString() As String
+            Return $"({ref}) {data.GetJson}"
+        End Function
 
     End Class
 End Namespace
