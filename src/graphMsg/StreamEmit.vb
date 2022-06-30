@@ -1,10 +1,13 @@
 ﻿Imports System.IO
+Imports System.Runtime.CompilerServices
+Imports System.Text
 Imports graphMsg.Message
 Imports graphQL.Graph
 Imports Microsoft.VisualBasic.ComponentModel.Collection
 Imports Microsoft.VisualBasic.ComponentModel.DataSourceModel
 Imports Microsoft.VisualBasic.Data.IO
 Imports Microsoft.VisualBasic.Data.IO.MessagePack
+Imports Microsoft.VisualBasic.DataStorage.HDSPack
 Imports Microsoft.VisualBasic.DataStorage.HDSPack.FileSystem
 Imports Microsoft.VisualBasic.Language
 Imports Microsoft.VisualBasic.Linq
@@ -68,9 +71,32 @@ Public Class StreamEmit
                     out:=New StreamWriter(hdsPack.OpenBlock("summary.json")),
                     closeFile:=True
                 )
+
+            Call hdsPack.WriteText(
+                text:=readmeText(summary:=info),
+                fileName:="readme.txt"
+            )
         End Using
 
         Return True
+    End Function
+
+    Private Shared Function readmeText(summary As Dictionary(Of String, String)) As String
+        Dim sb As New StringBuilder
+
+        Call sb.AppendLine("Graph database storage for no-sql database engine.")
+        Call sb.AppendLine("Database summary:")
+        Call sb.AppendLine()
+        Call sb.AppendLine($"number of knowledge terms: {summary!knowledge_terms}")
+        Call sb.AppendLine($"number of graph links: {summary!graph_size}")
+        Call sb.AppendLine($"number of knowledge category: {summary!knowledge_types}")
+        Call sb.AppendLine($"number of knowledge link category: {summary!link_types}")
+        Call sb.AppendLine($"number of knowledge group evidence category: {summary!evidence_types}")
+        Call sb.AppendLine($"number of knowledge group evidence terms: {summary!evidence_size}")
+        Call sb.AppendLine($"number of knowledge group evidence links: {summary!evidence_link}")
+        Call sb.AppendLine($"knowledge graph store in data blocks: {summary!graph_blocks}")
+
+        Return sb.ToString
     End Function
 
     ''' <summary>
