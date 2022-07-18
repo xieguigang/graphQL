@@ -33,7 +33,7 @@ Public Class KnowledgeAlignment : Inherits ComparisonProvider
         Return (From id As String In ref.members Select all(id)).ToArray
     End Function
 
-    Protected Overrides Function GetSimilarity(x As String, y As String) As Double
+    Public Overrides Function GetSimilarity(x As String, y As String) As Double
         Dim a As KnowledgeFrameRow = all(x)
         Dim b As KnowledgeFrameRow = all(y)
         Dim v1 As New Vector(fieldSet.Length)

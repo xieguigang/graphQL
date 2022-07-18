@@ -10,7 +10,7 @@ Public Class HubAlignment : Inherits ComparisonProvider
         Me.matrix = matrix
     End Sub
 
-    Protected Overrides Function GetSimilarity(x As String, y As String) As Double
+    Public Overrides Function GetSimilarity(x As String, y As String) As Double
         Return matrix(x)(y)
     End Function
 End Class
