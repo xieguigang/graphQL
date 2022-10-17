@@ -4,6 +4,7 @@ Imports graphQL
 Imports graphQL.Graph
 Imports Microsoft.VisualBasic.CommandLine.Reflection
 Imports Microsoft.VisualBasic.ComponentModel.Collection
+Imports Microsoft.VisualBasic.ComponentModel.DataSourceModel
 Imports Microsoft.VisualBasic.ComponentModel.DataStructures
 Imports Microsoft.VisualBasic.Data.csv.IO
 Imports Microsoft.VisualBasic.Data.GraphTheory.Network
@@ -119,10 +120,10 @@ Module KnowledgeGraph
         Dim mat As New List(Of ClusterEntity)
         Dim idx As Integer = 0
 
-        For Each group In result
+        For Each group As NamedCollection(Of ClusterEntity) In result
             idx += 1
 
-            For Each x In group
+            For Each x As ClusterEntity In group
                 x.cluster = idx
             Next
 
