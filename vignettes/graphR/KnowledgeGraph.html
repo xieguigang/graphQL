@@ -10,8 +10,8 @@
     <meta name="keywords" content="GCModeller; Xanthomonas; Artificial Life" />
     <meta name="generator" content="https://github.com/xieguigang/xDoc" />
     <meta name="theme-color" content="#333" />
-    <meta name="last-update" content="2022-11-21" />
-    <meta name="description" content="A software system aim at Artificial Life system design and analysis." />
+    <meta name="last-update" content="2022-11-23" />
+    <meta name="description" content="" />
     <meta class="foundation-data-attribute-namespace" />
     <meta class="foundation-mq-xxlarge" />
     <meta class="foundation-mq-xlarge" />
@@ -31,327 +31,87 @@
     </table>
     <h1>KnowledgeGraph</h1>
     <hr />
+    <p>
+      <code>
+        <span style="color: blue;">imports</span>
+        <span style="color: brown"> "KnowledgeGraph"</span>
+        <span style="color: blue;"> from</span>
+        <span style="color: brown"> "graphR"</span>
+      </code>
+    </p>
     <p></p>
     <div id="main-wrapper">
-                           <div>
-  <h2 id="removeLinkByWeight">
+      <table>
+        <thead>
+          <tr>
+            <th>function</th>
+            <th>description</th>
+          </tr>
+        </thead>
+        <tbody><tr>
+  <td id="removeLinkByWeight">
     <a href="./KnowledgeGraph/removeLinkByWeight.html">removeLinkByWeight</a>
-  </h2>
-  <hr />
-  <p>
-                      
-                
-                    <pre><p>let <code>removeLinkByWeight</code> as function(<code>g</code> as <generic> NetworkGraph, <code>w</code> as double) -> <code>&lt;generic&gt; NetworkGraph</code> {
-    #
-    # .NET API information
-    #
-    # module: graphR.KnowledgeGraph
-    # LibPath: D:/graphQL/assembly/net6.0
-    # library: graphR.dll
-    # package: "KnowledgeGraph"
-    #
-    return call <code>R&#35;.interop_[KnowledgeGraph::removeLinkByWeight]</code>(...);
-}</p></pre>
-
-                    
-                       
-                    
-
-                    <span style="font-size:0.9em; display: none"><h4>Details</h4><blockquote></blockquote></span></p>
-</div><br /><div>
-  <h2 id="networkGraph">
+  </td>
+  <td></td>
+</tr>
+<tr>
+  <td id="networkGraph">
     <a href="./KnowledgeGraph/networkGraph.html">networkGraph</a>
-  </h2>
-  <hr />
-  <p>
-                    <p>export the graph database as the <br />
+  </td>
+  <td><p>export the graph database as the <br />
  network graph model for run <br />
- algorithm debug.</p>  
-                
-                    <pre><p>let <code>networkGraph</code> as function(<code>kb</code> as <generic> GraphModel, <code>filters</code> as any = <code>&lt;NULL&gt;</code>) -> <code>&lt;generic&gt; NetworkGraph</code> {
-    #
-    # .NET API information
-    #
-    # module: graphR.KnowledgeGraph
-    # LibPath: D:/graphQL/assembly/net6.0
-    # library: graphR.dll
-    # package: "KnowledgeGraph"
-    #
-    return call <code>R&#35;.interop_[KnowledgeGraph::networkGraph]</code>(...);
-}</p></pre>
-
-                    <div>
-  <h4>Arguments</h4>
-  <ul>
-                   <li>
-  <code>kb</code>: -
-                </li>
-                </ul>
-</div>
-                       
-                    <h4>Value</h4><p>nodes meta: knowledge_type</p>
-
-                    <span style="font-size:0.9em; display: none"><h4>Details</h4><blockquote></blockquote></span></p>
-</div><br /><div>
-  <h2 id="Kosaraju.SCCs">
+ algorithm debug.</p></td>
+</tr>
+<tr>
+  <td id="Kosaraju.SCCs">
     <a href="./KnowledgeGraph/Kosaraju.SCCs.html">Kosaraju.SCCs</a>
-  </h2>
-  <hr />
-  <p>
-                      
-                
-                    <pre><p>let <code>Kosaraju.SCCs</code> as function(<code>g</code> as <generic> NetworkGraph) -> <code>&lt;generic&gt; NetworkGraph</code> {
-    #
-    # .NET API information
-    #
-    # module: graphR.KnowledgeGraph
-    # LibPath: D:/graphQL/assembly/net6.0
-    # library: graphR.dll
-    # package: "KnowledgeGraph"
-    #
-    return call <code>R&#35;.interop_[KnowledgeGraph::KosarajuSCCs]</code>(...);
-}</p></pre>
-
-                    
-                       
-                    
-
-                    <span style="font-size:0.9em; display: none"><h4>Details</h4><blockquote></blockquote></span></p>
-</div><br /><div>
-  <h2 id="graphUMAP">
+  </td>
+  <td></td>
+</tr>
+<tr>
+  <td id="graphUMAP">
     <a href="./KnowledgeGraph/graphUMAP.html">graphUMAP</a>
-  </h2>
-  <hr />
-  <p>
-                      
-                
-                    <pre><p>let <code>graphUMAP</code> as function(<code>g</code> as <generic> NetworkGraph, <code>eps</code> as double = 0.1) -> <code>any</code> {
-    #
-    # .NET API information
-    #
-    # module: graphR.KnowledgeGraph
-    # LibPath: D:/graphQL/assembly/net6.0
-    # library: graphR.dll
-    # package: "KnowledgeGraph"
-    #
-    return call <code>R&#35;.interop_[KnowledgeGraph::graphUMAP]</code>(...);
-}</p></pre>
-
-                    
-                       
-                    
-
-                    <span style="font-size:0.9em; display: none"><h4>Details</h4><blockquote></blockquote></span></p>
-</div><br /><div>
-  <h2 id="knowledgeIslands">
+  </td>
+  <td></td>
+</tr>
+<tr>
+  <td id="knowledgeIslands">
     <a href="./KnowledgeGraph/knowledgeIslands.html">knowledgeIslands</a>
-  </h2>
-  <hr />
-  <p>
-                      
-                
-                    <pre><p>let <code>knowledgeIslands</code> as function(<code>graph</code> as <generic> NetworkGraph, <code>weightCut</code> as double = -1, <code>identicalKeys</code> as string = <code>&lt;NULL&gt;</code>) -> <code>&lt;generic&gt; NetworkGraph</code> {
-    #
-    # .NET API information
-    #
-    # module: graphR.KnowledgeGraph
-    # LibPath: D:/graphQL/assembly/net6.0
-    # library: graphR.dll
-    # package: "KnowledgeGraph"
-    #
-    return call <code>R&#35;.interop_[KnowledgeGraph::knowledgeIslands]</code>(...);
-}</p></pre>
-
-                    
-                       
-                    
-
-                    <span style="font-size:0.9em; display: none"><h4>Details</h4><blockquote></blockquote></span></p>
-</div><br /><div>
-  <h2 id="extractKnowledgeTerms">
+  </td>
+  <td></td>
+</tr>
+<tr>
+  <td id="extractKnowledgeTerms">
     <a href="./KnowledgeGraph/extractKnowledgeTerms.html">extractKnowledgeTerms</a>
-  </h2>
-  <hr />
-  <p>
-                      
-                
-                    <pre><p>let <code>extractKnowledgeTerms</code> as function(<code>island</code> as <generic> NetworkGraph, <code>equals</code> as double = 0.5) -> <code>&lt;generic&gt; KnowledgeFrameRow[]</code> {
-    #
-    # .NET API information
-    #
-    # module: graphR.KnowledgeGraph
-    # LibPath: D:/graphQL/assembly/net6.0
-    # library: graphR.dll
-    # package: "KnowledgeGraph"
-    #
-    return call <code>R&#35;.interop_[KnowledgeGraph::extractKnowledgeTerms]</code>(...);
-}</p></pre>
-
-                    
-                       
-                    
-
-                    <span style="font-size:0.9em; display: none"><h4>Details</h4><blockquote></blockquote></span></p>
-</div><br /><div>
-  <h2 id="as.knowledge">
+  </td>
+  <td></td>
+</tr>
+<tr>
+  <td id="as.knowledge">
     <a href="./KnowledgeGraph/as.knowledge.html">as.knowledge</a>
-  </h2>
-  <hr />
-  <p>
-                    <p>direct cast the graph object as a knowledge term</p>  
-                
-                    <pre><p>let <code>as.knowledge</code> as function(<code>island</code> as <generic> NetworkGraph) -> <code>&lt;generic&gt; KnowledgeFrameRow</code> {
-    #
-    # .NET API information
-    #
-    # module: graphR.KnowledgeGraph
-    # LibPath: D:/graphQL/assembly/net6.0
-    # library: graphR.dll
-    # package: "KnowledgeGraph"
-    #
-    return call <code>R&#35;.interop_[KnowledgeGraph::asKnowledgeTerm]</code>(...);
-}</p></pre>
-
-                    <div>
-  <h4>Arguments</h4>
-  <ul>
-                   <li>
-  <code>island</code>: -
-                </li>
-                </ul>
-</div>
-                       
-                    
-
-                    <span style="font-size:0.9em; display: none"><h4>Details</h4><blockquote></blockquote></span></p>
-</div><br /><div>
-  <h2 id="niceTerms">
+  </td>
+  <td><p>direct cast the graph object as a knowledge term</p></td>
+</tr>
+<tr>
+  <td id="niceTerms">
     <a href="./KnowledgeGraph/niceTerms.html">niceTerms</a>
-  </h2>
-  <hr />
-  <p>
-                    <p>make meta data unique at first and then evaluate <br />
- the unique reference id via FNV-1a hash function</p>  
-                
-                    <pre><p>let <code>niceTerms</code> as function(<code>knowledges</code> as <generic> KnowledgeFrameRow[], 
-<code>kb</code> as <generic> GraphModel, 
-<code>indexBy</code> as any = <code>&lt;NULL&gt;</code>, 
-<code>prefix</code> as string = "Term", 
-<code>width</code> as integer = 10) -> <code>&lt;generic&gt; EntityObject[]</code> {
-    #
-    # .NET API information
-    #
-    # module: graphR.KnowledgeGraph
-    # LibPath: D:/graphQL/assembly/net6.0
-    # library: graphR.dll
-    # package: "KnowledgeGraph"
-    #
-    return call <code>R&#35;.interop_[KnowledgeGraph::knowledgeTable]</code>(...);
-}</p></pre>
-
-                    <div>
-  <h4>Arguments</h4>
-  <ul>
-                   <li>
-  <code>knowledges</code>: -
-                </li>
-<li>
-  <code>kb</code>: -
-                </li>
-<li>
-  <code>indexBy</code>: -
-                </li>
-<li>
-  <code>prefix</code>: -
-                </li>
-<li>
-  <code>width</code>: -
-                </li>
-                </ul>
-</div>
-                       
-                    
-
-                    <span style="font-size:0.9em; display: block"><h4>Details</h4><blockquote><p>this function has a special rule for the knowledge <br />
- term its <code>name</code> field.</p></blockquote></span></p>
-</div><br /><div>
-  <h2 id="correctKnowledges">
+  </td>
+  <td><p>make meta data unique at first and then evaluate <br />
+ the unique reference id via FNV-1a hash function</p></td>
+</tr>
+<tr>
+  <td id="correctKnowledges">
     <a href="./KnowledgeGraph/correctKnowledges.html">correctKnowledges</a>
-  </h2>
-  <hr />
-  <p>
-                      
-                
-                    <pre><p>let <code>correctKnowledges</code> as function(<code>kb</code> as <generic> GraphModel, <code>knowledges</code> as <generic> KnowledgeFrameRow[], <code>indexBy</code> as any) -> <code>&lt;generic&gt; KnowledgeFrameRow[]</code> {
-    #
-    # .NET API information
-    #
-    # module: graphR.KnowledgeGraph
-    # LibPath: D:/graphQL/assembly/net6.0
-    # library: graphR.dll
-    # package: "KnowledgeGraph"
-    #
-    return call <code>R&#35;.interop_[KnowledgeGraph::correctKnowledges]</code>(...);
-}</p></pre>
-
-                    
-                       
-                    
-
-                    <span style="font-size:0.9em; display: none"><h4>Details</h4><blockquote></blockquote></span></p>
-</div><br /><div>
-  <h2 id="knowledgeCommunity">
+  </td>
+  <td></td>
+</tr>
+<tr>
+  <td id="knowledgeCommunity">
     <a href="./KnowledgeGraph/knowledgeCommunity.html">knowledgeCommunity</a>
-  </h2>
-  <hr />
-  <p>
-                    <p>export knowledge terms based on the network community algorithm</p>  
-                
-                    <pre><p>let <code>knowledgeCommunity</code> as function(<code>kb</code> as <generic> GraphModel, 
-<code>indexBy</code> as any, 
-<code>common_type</code> as any = <code>&lt;NULL&gt;</code>, 
-<code>eps</code> as double = 0.001, 
-<code>unweighted</code> as boolean = FALSE) -> <code>list</code> {
-    #
-    # .NET API information
-    #
-    # module: graphR.KnowledgeGraph
-    # LibPath: D:/graphQL/assembly/net6.0
-    # library: graphR.dll
-    # package: "KnowledgeGraph"
-    #
-    return call <code>R&#35;.interop_[KnowledgeGraph::knowledgeCommunity]</code>(...);
-}</p></pre>
-
-                    <div>
-  <h4>Arguments</h4>
-  <ul>
-                   <li>
-  <code>kb</code>: -
-                </li>
-<li>
-  <code>common_type</code>: all of the type defined from this parameter will be removed from <br />
- the community algorithm due to the reason of common type always <br />
- be a hub node in the network, will create a false knowledge community <br />
- result. example as formula string in chemical data knowledges <br />
- will groups all Isomer compounds with the same formula string as <br />
- one identical metabolite.
-                </li>
-                </ul>
-</div>
-                       
-                    <h4>Value</h4><p>this function returns a tuple list with two elements inside:</p>
-
-<ol>
-<li><code>graph</code> - is the knowledge network graph data with community <br />
-            tags and trimmed data.</li>
-<li><code>knowledges</code> - a table dataset that contains knowledge data <br />
-                 entities that detects from the network graph <br />
-                 community data result.</li>
-</ol>
-
-                    <span style="font-size:0.9em; display: none"><h4>Details</h4><blockquote></blockquote></span></p>
-</div>
-                       </div>
+  </td>
+  <td><p>export knowledge terms based on the network community algorithm</p></td>
+</tr></tbody>
+      </table>
+    </div>
   </body>
 </html>

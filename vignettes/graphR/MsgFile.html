@@ -10,8 +10,8 @@
     <meta name="keywords" content="GCModeller; Xanthomonas; Artificial Life" />
     <meta name="generator" content="https://github.com/xieguigang/xDoc" />
     <meta name="theme-color" content="#333" />
-    <meta name="last-update" content="2022-11-21" />
-    <meta name="description" content="A software system aim at Artificial Life system design and analysis." />
+    <meta name="last-update" content="2022-11-23" />
+    <meta name="description" content="" />
     <meta class="foundation-data-attribute-namespace" />
     <meta class="foundation-mq-xxlarge" />
     <meta class="foundation-mq-xlarge" />
@@ -31,236 +31,68 @@
     </table>
     <h1>MsgFile</h1>
     <hr />
+    <p>
+      <code>
+        <span style="color: blue;">imports</span>
+        <span style="color: brown"> "MsgFile"</span>
+        <span style="color: blue;"> from</span>
+        <span style="color: brown"> "graphR"</span>
+      </code>
+    </p>
     <p></p>
     <div id="main-wrapper">
-                           <div>
-  <h2 id="open">
+      <table>
+        <thead>
+          <tr>
+            <th>function</th>
+            <th>description</th>
+          </tr>
+        </thead>
+        <tbody><tr>
+  <td id="open">
     <a href="./MsgFile/open.html">open</a>
-  </h2>
-  <hr />
-  <p>
-                    <p>open a message pack graph database file or <br />
- create a new empty graph database object.</p>  
-                
-                    <pre><p>let <code>open</code> as function(<code>file</code> as any = <code>&lt;NULL&gt;</code>, 
-<code>evidenceAggregate</code> as boolean = FALSE, 
-<code>noGraph</code> as boolean = FALSE, 
-<code>seekIndex</code> as boolean = FALSE, 
-[<code>&lt;Environment&gt;</code>]) -> <code>&lt;generic&gt; GraphPool|&lt;generic&gt; EvidenceGraph</code> {
-    #
-    # .NET API information
-    #
-    # module: graphR.MsgFile
-    # LibPath: D:/graphQL/assembly/net6.0
-    # library: graphR.dll
-    # package: "MsgFile"
-    #
-    return call <code>R&#35;.interop_[MsgFile::open]</code>(...);
-}</p></pre>
-
-                    <div>
-  <h4>Arguments</h4>
-  <ul>
-                   <li>
-  <code>file</code>: -
-                </li>
-<li>
-  <code>env</code>: -
-                </li>
-                </ul>
-</div>
-                       
-                    
-
-                    <span style="font-size:0.9em; display: none"><h4>Details</h4><blockquote></blockquote></span></p>
-</div><br /><div>
-  <h2 id="seekTerm">
+  </td>
+  <td><p>open a message pack graph database file or <br />
+ create a new empty graph database object.</p></td>
+</tr>
+<tr>
+  <td id="seekTerm">
     <a href="./MsgFile/seekTerm.html">seekTerm</a>
-  </h2>
-  <hr />
-  <p>
-                      
-                
-                    <pre><p>let <code>seekTerm</code> as function(<code>index</code> as <generic> SeekIndex, <code>term</code> as string) -> <code>any</code> {
-    #
-    # .NET API information
-    #
-    # module: graphR.MsgFile
-    # LibPath: D:/graphQL/assembly/net6.0
-    # library: graphR.dll
-    # package: "MsgFile"
-    #
-    return call <code>R&#35;.interop_[MsgFile::seekTerm]</code>(...);
-}</p></pre>
-
-                    
-                       
-                    
-
-                    <span style="font-size:0.9em; display: none"><h4>Details</h4><blockquote></blockquote></span></p>
-</div><br /><div>
-  <h2 id="getTerms">
+  </td>
+  <td></td>
+</tr>
+<tr>
+  <td id="getTerms">
     <a href="./MsgFile/getTerms.html">getTerms</a>
-  </h2>
-  <hr />
-  <p>
-                      
-                
-                    <pre><p>let <code>getTerms</code> as function(<code>index</code> as <generic> SeekIndex) -> <code>string</code> {
-    #
-    # .NET API information
-    #
-    # module: graphR.MsgFile
-    # LibPath: D:/graphQL/assembly/net6.0
-    # library: graphR.dll
-    # package: "MsgFile"
-    #
-    return call <code>R&#35;.interop_[MsgFile::getTerms]</code>(...);
-}</p></pre>
-
-                    
-                       
-                    
-
-                    <span style="font-size:0.9em; display: none"><h4>Details</h4><blockquote></blockquote></span></p>
-</div><br /><div>
-  <h2 id="read.graph">
+  </td>
+  <td></td>
+</tr>
+<tr>
+  <td id="read.graph">
     <a href="./MsgFile/read.graph.html">read.graph</a>
-  </h2>
-  <hr />
-  <p>
-                    <p>read target graph database as network graph object</p>  
-                
-                    <pre><p>let <code>read.graph</code> as function(<code>file</code> as any, [<code>&lt;Environment&gt;</code>]) -> <code>&lt;generic&gt; NetworkGraph</code> {
-    #
-    # .NET API information
-    #
-    # module: graphR.MsgFile
-    # LibPath: D:/graphQL/assembly/net6.0
-    # library: graphR.dll
-    # package: "MsgFile"
-    #
-    return call <code>R&#35;.interop_[MsgFile::readGraph]</code>(...);
-}</p></pre>
-
-                    <div>
-  <h4>Arguments</h4>
-  <ul>
-                   <li>
-  <code>file</code>: -
-                </li>
-<li>
-  <code>env</code>: -
-                </li>
-                </ul>
-</div>
-                       
-                    
-
-                    <span style="font-size:0.9em; display: none"><h4>Details</h4><blockquote></blockquote></span></p>
-</div><br /><div>
-  <h2 id="edgeSource">
+  </td>
+  <td><p>read target graph database as network graph object</p></td>
+</tr>
+<tr>
+  <td id="edgeSource">
     <a href="./MsgFile/edgeSource.html">edgeSource</a>
-  </h2>
-  <hr />
-  <p>
-                      
-                
-                    <pre><p>let <code>edgeSource</code> as function(<code>file</code> as any, [<code>&lt;Environment&gt;</code>]) -> <code>any</code> {
-    #
-    # .NET API information
-    #
-    # module: graphR.MsgFile
-    # LibPath: D:/graphQL/assembly/net6.0
-    # library: graphR.dll
-    # package: "MsgFile"
-    #
-    return call <code>R&#35;.interop_[MsgFile::getEdgeConnectionSource]</code>(...);
-}</p></pre>
-
-                    
-                       
-                    
-
-                    <span style="font-size:0.9em; display: none"><h4>Details</h4><blockquote></blockquote></span></p>
-</div><br /><div>
-  <h2 id="read.knowledge_table">
+  </td>
+  <td></td>
+</tr>
+<tr>
+  <td id="read.knowledge_table">
     <a href="./MsgFile/read.knowledge_table.html">read.knowledge_table</a>
-  </h2>
-  <hr />
-  <p>
-                    <p>fetch the knowledge terms table from the graph database file.</p>  
-                
-                    <pre><p>let <code>read.knowledge_table</code> as function(<code>file</code> as any, [<code>&lt;Environment&gt;</code>]) -> <code>&lt;generic&gt; dataframe</code> {
-    #
-    # .NET API information
-    #
-    # module: graphR.MsgFile
-    # LibPath: D:/graphQL/assembly/net6.0
-    # library: graphR.dll
-    # package: "MsgFile"
-    #
-    return call <code>R&#35;.interop_[MsgFile::getKnowledgeTable]</code>(...);
-}</p></pre>
-
-                    <div>
-  <h4>Arguments</h4>
-  <ul>
-                   <li>
-  <code>file</code>: -
-                </li>
-<li>
-  <code>env</code>: -
-                </li>
-                </ul>
-</div>
-                       
-                    
-
-                    <span style="font-size:0.9em; display: none"><h4>Details</h4><blockquote></blockquote></span></p>
-</div><br /><div>
-  <h2 id="save">
+  </td>
+  <td><p>fetch the knowledge terms table from the graph database file.</p></td>
+</tr>
+<tr>
+  <td id="save">
     <a href="./MsgFile/save.html">save</a>
-  </h2>
-  <hr />
-  <p>
-                    <p>save a graph database result into a file <br />
- in messagepack format.</p>  
-                
-                    <pre><p>let <code>save</code> as function(<code>kb</code> as <generic> GraphModel, 
-<code>file</code> as any, 
-<code>json_dump</code> as boolean = FALSE, 
-[<code>&lt;Environment&gt;</code>]) -> <code>any</code> {
-    #
-    # .NET API information
-    #
-    # module: graphR.MsgFile
-    # LibPath: D:/graphQL/assembly/net6.0
-    # library: graphR.dll
-    # package: "MsgFile"
-    #
-    return call <code>R&#35;.interop_[MsgFile::save]</code>(...);
-}</p></pre>
-
-                    <div>
-  <h4>Arguments</h4>
-  <ul>
-                   <li>
-  <code>kb</code>: -
-                </li>
-<li>
-  <code>file</code>: -
-                </li>
-<li>
-  <code>env</code>: -
-                </li>
-                </ul>
-</div>
-                       
-                    
-
-                    <span style="font-size:0.9em; display: none"><h4>Details</h4><blockquote></blockquote></span></p>
-</div>
-                       </div>
+  </td>
+  <td><p>save a graph database result into a file <br />
+ in messagepack format.</p></td>
+</tr></tbody>
+      </table>
+    </div>
   </body>
 </html>

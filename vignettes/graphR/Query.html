@@ -10,8 +10,8 @@
     <meta name="keywords" content="GCModeller; Xanthomonas; Artificial Life" />
     <meta name="generator" content="https://github.com/xieguigang/xDoc" />
     <meta name="theme-color" content="#333" />
-    <meta name="last-update" content="2022-11-21" />
-    <meta name="description" content="A software system aim at Artificial Life system design and analysis." />
+    <meta name="last-update" content="2022-11-23" />
+    <meta name="description" content="" />
     <meta class="foundation-data-attribute-namespace" />
     <meta class="foundation-mq-xxlarge" />
     <meta class="foundation-mq-xlarge" />
@@ -31,206 +31,56 @@
     </table>
     <h1>Query</h1>
     <hr />
+    <p>
+      <code>
+        <span style="color: blue;">imports</span>
+        <span style="color: brown"> "Query"</span>
+        <span style="color: blue;"> from</span>
+        <span style="color: brown"> "graphR"</span>
+      </code>
+    </p>
     <p></p>
     <div id="main-wrapper">
-                           <div>
-  <h2 id="insert">
+      <table>
+        <thead>
+          <tr>
+            <th>function</th>
+            <th>description</th>
+          </tr>
+        </thead>
+        <tbody><tr>
+  <td id="insert">
     <a href="./Query/insert.html">insert</a>
-  </h2>
-  <hr />
-  <p>
-                    <p>insert a knowledge node into the graph pool</p>  
-                
-                    <pre><p>let <code>insert</code> as function(<code>kb</code> as <generic> GraphModel, 
-<code>knowledge</code> as string, 
-<code>type</code> as string, 
-<code>meta</code> as list = <code>&lt;NULL&gt;</code>, 
-<code>selfReference</code> as boolean = TRUE, 
-[<code>&lt;Environment&gt;</code>]) -> <code>any</code> {
-    #
-    # .NET API information
-    #
-    # module: graphR.Query
-    # LibPath: D:/graphQL/assembly/net6.0
-    # library: graphR.dll
-    # package: "Query"
-    #
-    return call <code>R&#35;.interop_[Query::insert]</code>(...);
-}</p></pre>
-
-                    <div>
-  <h4>Arguments</h4>
-  <ul>
-                   <li>
-  <code>knowledge</code>: -
-                </li>
-<li>
-  <code>meta</code>: -
-                </li>
-<li>
-  <code>selfReference</code>: the database graph link can be build internal the identical database source
-                </li>
-<li>
-  <code>env</code>: -
-                </li>
-                </ul>
-</div>
-                       
-                    
-
-                    <span style="font-size:0.9em; display: none"><h4>Details</h4><blockquote></blockquote></span></p>
-</div><br /><div>
-  <h2 id="ignore.evidenceLink">
+  </td>
+  <td><p>insert a knowledge node into the graph pool</p></td>
+</tr>
+<tr>
+  <td id="ignore.evidenceLink">
     <a href="./Query/ignore.evidenceLink.html">ignore.evidenceLink</a>
-  </h2>
-  <hr />
-  <p>
-                    <p>ignores the given data types when build graph links.</p>  
-                
-                    <pre><p>let <code>ignore.evidenceLink</code> as function(<code>kb</code> as <generic> EvidenceGraph, <code>ignores</code> as any) -> <code>&lt;generic&gt; EvidenceGraph</code> {
-    #
-    # .NET API information
-    #
-    # module: graphR.Query
-    # LibPath: D:/graphQL/assembly/net6.0
-    # library: graphR.dll
-    # package: "Query"
-    #
-    return call <code>R&#35;.interop_[Query::ignoreEvidenceLink]</code>(...);
-}</p></pre>
-
-                    <div>
-  <h4>Arguments</h4>
-  <ul>
-                   <li>
-  <code>kb</code>: -
-                </li>
-<li>
-  <code>ignores</code>: -
-                </li>
-                </ul>
-</div>
-                       
-                    
-
-                    <span style="font-size:0.9em; display: none"><h4>Details</h4><blockquote></blockquote></span></p>
-</div><br /><div>
-  <h2 id="join">
+  </td>
+  <td><p>ignores the given data types when build graph links.</p></td>
+</tr>
+<tr>
+  <td id="join">
     <a href="./Query/join.html">join</a>
-  </h2>
-  <hr />
-  <p>
-                      
-                
-                    <pre><p>let <code>join</code> as function(<code>kb1</code> as <generic> GraphModel, <code>kb2</code> as <generic> GraphModel) -> <code>&lt;generic&gt; GraphModel</code> {
-    #
-    # .NET API information
-    #
-    # module: graphR.Query
-    # LibPath: D:/graphQL/assembly/net6.0
-    # library: graphR.dll
-    # package: "Query"
-    #
-    return call <code>R&#35;.interop_[Query::join]</code>(...);
-}</p></pre>
-
-                    
-                       
-                    
-
-                    <span style="font-size:0.9em; display: none"><h4>Details</h4><blockquote></blockquote></span></p>
-</div><br /><div>
-  <h2 id="query">
+  </td>
+  <td></td>
+</tr>
+<tr>
+  <td id="query">
     <a href="./Query/query.html">query</a>
-  </h2>
-  <hr />
-  <p>
-                    <p>query knowledge data for a given term</p>  
-                
-                    <pre><p>let <code>query</code> as function(<code>kb</code> as <generic> GraphModel, 
-<code>term</code> as string, 
-<code>cutoff</code> as double = 0, 
-[<code>&lt;Environment&gt;</code>]) -> <code>&lt;generic&gt; KnowledgeDescription</code> {
-    #
-    # .NET API information
-    #
-    # module: graphR.Query
-    # LibPath: D:/graphQL/assembly/net6.0
-    # library: graphR.dll
-    # package: "Query"
-    #
-    return call <code>R&#35;.interop_[Query::getKnowledge]</code>(...);
-}</p></pre>
-
-                    <div>
-  <h4>Arguments</h4>
-  <ul>
-                   <li>
-  <code>kb</code>: -
-                </li>
-<li>
-  <code>term</code>: -
-                </li>
-<li>
-  <code>cutoff</code>: -
-                </li>
-                </ul>
-</div>
-                       
-                    
-
-                    <span style="font-size:0.9em; display: none"><h4>Details</h4><blockquote></blockquote></span></p>
-</div><br /><div>
-  <h2 id="similarity">
+  </td>
+  <td><p>query knowledge data for a given term</p></td>
+</tr>
+<tr>
+  <td id="similarity">
     <a href="./Query/similarity.html">similarity</a>
-  </h2>
-  <hr />
-  <p>
-                    <p>measure the similarity or identical between two <br />
+  </td>
+  <td><p>measure the similarity or identical between two <br />
  knowledge terms based on the knowledge network <br />
- that we've build.</p>  
-                
-                    <pre><p>let <code>similarity</code> as function(<code>kb</code> as <generic> GraphPool, 
-<code>x</code> as string, 
-<code>y</code> as string, 
-..., 
-[<code>&lt;Environment&gt;</code>]) -> <code>double</code> {
-    #
-    # .NET API information
-    #
-    # module: graphR.Query
-    # LibPath: D:/graphQL/assembly/net6.0
-    # library: graphR.dll
-    # package: "Query"
-    #
-    return call <code>R&#35;.interop_[Query::isEquals]</code>(...);
-}</p></pre>
-
-                    <div>
-  <h4>Arguments</h4>
-  <ul>
-                   <li>
-  <code>kb</code>: -
-                </li>
-<li>
-  <code>x</code>: -
-                </li>
-<li>
-  <code>y</code>: -
-                </li>
-<li>
-  <code>weight</code>: -
-                </li>
-<li>
-  <code>env</code>: -
-                </li>
-                </ul>
-</div>
-                       
-                    
-
-                    <span style="font-size:0.9em; display: none"><h4>Details</h4><blockquote></blockquote></span></p>
-</div>
-                       </div>
+ that we've build.</p></td>
+</tr></tbody>
+      </table>
+    </div>
   </body>
 </html>
