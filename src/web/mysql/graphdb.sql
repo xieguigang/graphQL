@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `graph` (
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
-CREATE UNIQUE INDEX `id_UNIQUE` ON `graph` (`id` ASC) VISIBLE;
+CREATE UNIQUE INDEX `id_UNIQUE` ON `graph` (`id` ASC);
 
 SHOW WARNINGS;
 
@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `knowledge` (
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
-CREATE UNIQUE INDEX `id_UNIQUE` ON `knowledge` (`id` ASC) VISIBLE;
+CREATE UNIQUE INDEX `id_UNIQUE` ON `knowledge` (`id` ASC);
 
 SHOW WARNINGS;
 
@@ -78,10 +78,10 @@ CREATE TABLE IF NOT EXISTS `knowledge_vocabulary` (
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
-CREATE UNIQUE INDEX `id_UNIQUE` ON `knowledge_vocabulary` (`id` ASC) VISIBLE;
+CREATE UNIQUE INDEX `id_UNIQUE` ON `knowledge_vocabulary` (`id` ASC);
 
 SHOW WARNINGS;
-CREATE UNIQUE INDEX `vocabulary_UNIQUE` ON `knowledge_vocabulary` (`vocabulary` ASC) VISIBLE;
+CREATE UNIQUE INDEX `vocabulary_UNIQUE` ON `knowledge_vocabulary` (`vocabulary` ASC);
 
 SHOW WARNINGS;
 
