@@ -5,7 +5,7 @@ docker stop graphdb
 docker rm graphdb
 
 docker run -tid --name graphdb \
-	-p 83:80 \
+	-p 88:80 \
 	--cap-add SYS_ADMIN --device /dev/fuse --security-opt apparmor=unconfined \
 	-v "$(which docker):/bin/docker" \
 	-v "/var/run/docker.sock:/run/docker.sock" \
