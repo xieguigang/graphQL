@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `graph` (
   `link_type` INT NOT NULL,
   `weight` DOUBLE NOT NULL DEFAULT 0,
   `add_time` DATETIME NOT NULL,
-  `note` MEDIUMTEXT NOT NULL DEFAULT 'NA',
+  `note` MEDIUMTEXT,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
