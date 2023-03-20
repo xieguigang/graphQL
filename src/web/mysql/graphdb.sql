@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `knowledge` (
   `key` VARCHAR(255) NOT NULL,
   `display_title` TINYTEXT NOT NULL,
   `node_type` INT NOT NULL,
-  `description` LONGTEXT NOT NULL DEFAULT 'NA',
+  `description` LONGTEXT,
   `add_time` DATETIME NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
@@ -71,7 +71,7 @@ SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `knowledge_vocabulary` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `vocabulary` VARCHAR(255) NOT NULL,
-  `description` MEDIUMTEXT NOT NULL DEFAULT 'NA',
+  `description` MEDIUMTEXT,
   `add_time` DATETIME NOT NULL,
   `color` CHAR(7) NOT NULL DEFAULT '#123456',
   PRIMARY KEY (`id`))
