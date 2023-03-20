@@ -67,6 +67,7 @@
     <ProjectReference Include="..\..\..\GCModeller\src\runtime\sciBASIC#\mime\application%json\JSON-netcore5.vbproj" />
     <ProjectReference Include="..\graphMsg\graphMsg.vbproj" />
     <ProjectReference Include="..\graphQL\graphQL.vbproj" />
+    <ProjectReference Include="..\mysqli\LibMySQL\libmysql.vbproj" />
   </ItemGroup>
 
   <ItemGroup>

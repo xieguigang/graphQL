@@ -57,6 +57,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "data", "data", "{C93D19CD-B
 EndProject
 Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "HDSPack", "..\..\GCModeller\src\runtime\sciBASIC#\Data\BinaryData\HDSPack\HDSPack.vbproj", "{3C9697FC-FF7E-4281-98BA-4E7470257A17}"
 EndProject
+Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "libmysql", "mysqli\LibMySQL\libmysql.vbproj", "{8E9E7F55-59D8-4AFB-8F93-EA2FB986945C}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "graphdb", "graphR\MySql\graphdb\graphdb.shproj", "{1AC22C4E-9FC7-456C-9D0C-0335AE2FBE37}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -749,6 +753,38 @@ Global
 		{3C9697FC-FF7E-4281-98BA-4E7470257A17}.Rsharp_app_release|Any CPU.Build.0 = Rsharp_app_release|Any CPU
 		{3C9697FC-FF7E-4281-98BA-4E7470257A17}.Rsharp_app_release|x64.ActiveCfg = Rsharp_app_release|x64
 		{3C9697FC-FF7E-4281-98BA-4E7470257A17}.Rsharp_app_release|x64.Build.0 = Rsharp_app_release|x64
+		{8E9E7F55-59D8-4AFB-8F93-EA2FB986945C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E9E7F55-59D8-4AFB-8F93-EA2FB986945C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E9E7F55-59D8-4AFB-8F93-EA2FB986945C}.Debug|x64.ActiveCfg = Debug|x64
+		{8E9E7F55-59D8-4AFB-8F93-EA2FB986945C}.Debug|x64.Build.0 = Debug|x64
+		{8E9E7F55-59D8-4AFB-8F93-EA2FB986945C}.LipidSearch|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E9E7F55-59D8-4AFB-8F93-EA2FB986945C}.LipidSearch|Any CPU.Build.0 = Debug|Any CPU
+		{8E9E7F55-59D8-4AFB-8F93-EA2FB986945C}.LipidSearch|x64.ActiveCfg = Debug|x64
+		{8E9E7F55-59D8-4AFB-8F93-EA2FB986945C}.LipidSearch|x64.Build.0 = Debug|x64
+		{8E9E7F55-59D8-4AFB-8F93-EA2FB986945C}.mzkit_win32|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E9E7F55-59D8-4AFB-8F93-EA2FB986945C}.mzkit_win32|Any CPU.Build.0 = Debug|Any CPU
+		{8E9E7F55-59D8-4AFB-8F93-EA2FB986945C}.mzkit_win32|x64.ActiveCfg = Debug|x64
+		{8E9E7F55-59D8-4AFB-8F93-EA2FB986945C}.mzkit_win32|x64.Build.0 = Debug|x64
+		{8E9E7F55-59D8-4AFB-8F93-EA2FB986945C}.mzkit|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E9E7F55-59D8-4AFB-8F93-EA2FB986945C}.mzkit|Any CPU.Build.0 = Debug|Any CPU
+		{8E9E7F55-59D8-4AFB-8F93-EA2FB986945C}.mzkit|x64.ActiveCfg = Debug|x64
+		{8E9E7F55-59D8-4AFB-8F93-EA2FB986945C}.mzkit|x64.Build.0 = Debug|x64
+		{8E9E7F55-59D8-4AFB-8F93-EA2FB986945C}.NPSearch|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E9E7F55-59D8-4AFB-8F93-EA2FB986945C}.NPSearch|Any CPU.Build.0 = Debug|Any CPU
+		{8E9E7F55-59D8-4AFB-8F93-EA2FB986945C}.NPSearch|x64.ActiveCfg = Debug|x64
+		{8E9E7F55-59D8-4AFB-8F93-EA2FB986945C}.NPSearch|x64.Build.0 = Debug|x64
+		{8E9E7F55-59D8-4AFB-8F93-EA2FB986945C}.PlantMAT|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E9E7F55-59D8-4AFB-8F93-EA2FB986945C}.PlantMAT|Any CPU.Build.0 = Debug|Any CPU
+		{8E9E7F55-59D8-4AFB-8F93-EA2FB986945C}.PlantMAT|x64.ActiveCfg = Debug|x64
+		{8E9E7F55-59D8-4AFB-8F93-EA2FB986945C}.PlantMAT|x64.Build.0 = Debug|x64
+		{8E9E7F55-59D8-4AFB-8F93-EA2FB986945C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E9E7F55-59D8-4AFB-8F93-EA2FB986945C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E9E7F55-59D8-4AFB-8F93-EA2FB986945C}.Release|x64.ActiveCfg = Release|x64
+		{8E9E7F55-59D8-4AFB-8F93-EA2FB986945C}.Release|x64.Build.0 = Release|x64
+		{8E9E7F55-59D8-4AFB-8F93-EA2FB986945C}.Rsharp_app_release|Any CPU.ActiveCfg = Rsharp_app_release|Any CPU
+		{8E9E7F55-59D8-4AFB-8F93-EA2FB986945C}.Rsharp_app_release|Any CPU.Build.0 = Rsharp_app_release|Any CPU
+		{8E9E7F55-59D8-4AFB-8F93-EA2FB986945C}.Rsharp_app_release|x64.ActiveCfg = Rsharp_app_release|x64
+		{8E9E7F55-59D8-4AFB-8F93-EA2FB986945C}.Rsharp_app_release|x64.Build.0 = Rsharp_app_release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -776,11 +812,13 @@ Global
 		{23A13BD4-54C8-4704-84D8-A279BE60C4B8} = {AB597F93-6613-4A75-8951-7D1735D1E9FA}
 		{C93D19CD-BD3B-4315-984B-6FEE7E63A800} = {AB597F93-6613-4A75-8951-7D1735D1E9FA}
 		{3C9697FC-FF7E-4281-98BA-4E7470257A17} = {C93D19CD-BD3B-4315-984B-6FEE7E63A800}
+		{8E9E7F55-59D8-4AFB-8F93-EA2FB986945C} = {AB597F93-6613-4A75-8951-7D1735D1E9FA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA312054-2A35-4FFA-8041-147896943ACE}
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		graphR\MySql\graphdb\graphdb.projitems*{1ac22c4e-9fc7-456c-9d0c-0335ae2fbe37}*SharedItemsImports = 13
 		..\..\GCModeller\src\R-sharp\Library\shares\JsonHelper\JsonHelper.projitems*{8c9347d9-1313-4a27-a392-97ab97dad2ca}*SharedItemsImports = 5
 		..\..\GCModeller\src\R-sharp\Library\shares\JsonHelper\JsonHelper.projitems*{b2ae1422-d7da-4053-a386-eb2ea9326d68}*SharedItemsImports = 13
 		..\..\GCModeller\src\R-sharp\studio\Rstudio.common\Rstudio.common.projitems*{bc8075fe-2769-4870-ad54-0a3957555174}*SharedItemsImports = 5
