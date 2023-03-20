@@ -9,10 +9,10 @@ docker run -tid --name graphdb \
 	--cap-add SYS_ADMIN --device /dev/fuse --security-opt apparmor=unconfined \
 	-v "$(which docker):/bin/docker" \
 	-v "/var/run/docker.sock:/run/docker.sock" \
-	-v "/home/xieguigang/graphdb/etc/apache_configs:/etc/httpd/vhost" \
-	-v "/home/xieguigang/graphdb/etc/php.ini:/etc/php.ini" \
-	-v "/home/xieguigang/graphdb/FastRWeb:/var/FastRWeb" \
-	-v "/home/xieguigang/graphdb:/opt/graphdb" \
+	-v "/home/xieguigang/web/graphQL/src/web/etc/apache_configs:/etc/httpd/vhost" \
+	-v "/home/xieguigang/web/graphQL/src/web/etc/php.ini:/etc/php.ini" \
+	-v "/home/xieguigang/web/graphQL/src/web/FastRWeb:/var/FastRWeb" \
+	-v "/home/xieguigang/web/graphQL/src/web:/opt/graphdb" \
 	-v "/mnt/smb3/WebContext:/opt/graphdb/WebContext/" \
 	-v "/home/xieguigang/MSI:/home/xieguigang/MSI" \
 	-v "/tmp/Rscript/:/var/FastRWeb/tmp/:rw" \
