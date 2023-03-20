@@ -1,0 +1,3 @@
+[submodule "src/mysqli"]
+	path = src/mysqli
+	url = https://gitee.com/xieguigang/mysqli.vb.git
