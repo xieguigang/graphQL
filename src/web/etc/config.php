@@ -15,7 +15,7 @@ return [
 	// 使用默认的数据库配置：  $query = (new Table("tableName"))->where([....])->select();
 	// 
     'DB_HOST' => "192.168.0.207",
-    'DB_NAME' => 'sample_pool',
+    'DB_NAME' => 'graphdb',
     'DB_USER' => 'root',
     'DB_PWD'  => '123456',
     'DB_PORT' => '3306',

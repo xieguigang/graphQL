@@ -1,19 +1,19 @@
-# starter script for run novocell web server
+# starter script for run graphdb web server
 
 # stop web server
-docker stop sample_pool
-docker rm sample_pool
+docker stop graphdb
+docker rm graphdb
 
-docker run -tid --name sample_pool \
+docker run -tid --name graphdb \
 	-p 83:80 \
 	--cap-add SYS_ADMIN --device /dev/fuse --security-opt apparmor=unconfined \
 	-v "$(which docker):/bin/docker" \
 	-v "/var/run/docker.sock:/run/docker.sock" \
-	-v "/home/xieguigang/sample_pool/etc/apache_configs:/etc/httpd/vhost" \
-	-v "/home/xieguigang/sample_pool/etc/php.ini:/etc/php.ini" \
-	-v "/home/xieguigang/sample_pool/FastRWeb:/var/FastRWeb" \
-	-v "/home/xieguigang/sample_pool:/opt/sample_pool" \
-	-v "/mnt/smb3/SamplePool:/opt/sample_pool/WebContext/" \
+	-v "/home/xieguigang/graphdb/etc/apache_configs:/etc/httpd/vhost" \
+	-v "/home/xieguigang/graphdb/etc/php.ini:/etc/php.ini" \
+	-v "/home/xieguigang/graphdb/FastRWeb:/var/FastRWeb" \
+	-v "/home/xieguigang/graphdb:/opt/graphdb" \
+	-v "/mnt/smb3/WebContext:/opt/graphdb/WebContext/" \
 	-v "/home/xieguigang/MSI:/home/xieguigang/MSI" \
 	-v "/tmp/Rscript/:/var/FastRWeb/tmp/:rw" \
 	-v "/tmp/apache/:/tmp/apache/:rw" \
@@ -21,10 +21,10 @@ docker run -tid --name sample_pool \
 	--privileged=true \
 	dotnet:6.0-php8.NET  /usr/sbin/init
 
-docker exec -it sample_pool systemctl restart httpd
+docker exec -it graphdb systemctl restart httpd
 
-docker exec -it sample_pool ls -l /etc/httpd/logs/
+docker exec -it graphdb ls -l /etc/httpd/logs/
 
-docker exec -it sample_pool cat /etc/httpd/logs/error.log
-docker exec -it sample_pool cat /etc/httpd/logs/error_log
-docker exec -it sample_pool cat /etc/httpd/logs/access.log
+docker exec -it graphdb cat /etc/httpd/logs/error.log
+docker exec -it graphdb cat /etc/httpd/logs/error_log
+docker exec -it graphdb cat /etc/httpd/logs/access.log
