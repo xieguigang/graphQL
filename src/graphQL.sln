@@ -59,8 +59,6 @@ Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "HDSPack", "..\..\GCModeller
 EndProject
 Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "libmysql", "mysqli\LibMySQL\libmysql.vbproj", "{8E9E7F55-59D8-4AFB-8F93-EA2FB986945C}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "graphdb", "graphR\MySql\graphdb\graphdb.shproj", "{1AC22C4E-9FC7-456C-9D0C-0335AE2FBE37}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -818,7 +816,6 @@ Global
 		SolutionGuid = {CA312054-2A35-4FFA-8041-147896943ACE}
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		graphR\MySql\graphdb\graphdb.projitems*{1ac22c4e-9fc7-456c-9d0c-0335ae2fbe37}*SharedItemsImports = 13
 		..\..\GCModeller\src\R-sharp\Library\shares\JsonHelper\JsonHelper.projitems*{8c9347d9-1313-4a27-a392-97ab97dad2ca}*SharedItemsImports = 5
 		..\..\GCModeller\src\R-sharp\Library\shares\JsonHelper\JsonHelper.projitems*{b2ae1422-d7da-4053-a386-eb2ea9326d68}*SharedItemsImports = 13
 		..\..\GCModeller\src\R-sharp\studio\Rstudio.common\Rstudio.common.projitems*{bc8075fe-2769-4870-ad54-0a3957555174}*SharedItemsImports = 5
