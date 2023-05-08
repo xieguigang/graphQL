@@ -3,7 +3,7 @@
 // package_source=graphQL
 
 declare namespace graphQL {
-   module  {
+   module _ {
       /**
       */
       function onLoad(): object;
