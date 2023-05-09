@@ -8,6 +8,13 @@
 */
 declare namespace MsgFile {
    /**
+     * @param env default value Is ``null``.
+   */
+   function edgeSource(file:any, env?:object): any;
+   /**
+   */
+   function getTerms(index:object): string;
+   /**
     * open a message pack graph database file or 
     *  create a new empty graph database object.
     * 
@@ -26,12 +33,6 @@ declare namespace MsgFile {
      * + default value Is ``null``.
    */
    function open(file?:any, evidenceAggregate?:boolean, noGraph?:boolean, seekIndex?:boolean, env?:object): object|object;
-   /**
-   */
-   function seekTerm(index:object, term:string): any;
-   /**
-   */
-   function getTerms(index:object): string;
    module read {
       /**
        * read target graph database as network graph object
@@ -55,10 +56,6 @@ declare namespace MsgFile {
       function knowledge_table(file:any, env?:object): object;
    }
    /**
-     * @param env default value Is ``null``.
-   */
-   function edgeSource(file:any, env?:object): any;
-   /**
     * save a graph database result into a file 
     *  in messagepack format.
     * 
@@ -72,4 +69,7 @@ declare namespace MsgFile {
      * + default value Is ``null``.
    */
    function save(kb:object, file:any, json_dump?:boolean, env?:object): any;
+   /**
+   */
+   function seekTerm(index:object, term:string): any;
 }

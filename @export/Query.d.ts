@@ -7,6 +7,16 @@
  * 
 */
 declare namespace Query {
+   module ignore {
+      /**
+       * ignores the given data types when build graph links.
+       * 
+       * 
+        * @param kb -
+        * @param ignores -
+      */
+      function evidenceLink(kb:object, ignores:any): object;
+   }
    /**
     * insert a knowledge node into the graph pool
     * 
@@ -23,16 +33,6 @@ declare namespace Query {
      * + default value Is ``null``.
    */
    function insert(kb:object, knowledge:string, type:string, meta?:object, selfReference?:boolean, env?:object): any;
-   module ignore {
-      /**
-       * ignores the given data types when build graph links.
-       * 
-       * 
-        * @param kb -
-        * @param ignores -
-      */
-      function evidenceLink(kb:object, ignores:any): object;
-   }
    /**
    */
    function join(kb1:object, kb2:object): object;
