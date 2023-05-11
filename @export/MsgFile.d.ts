@@ -10,10 +10,10 @@ declare namespace MsgFile {
    /**
      * @param env default value Is ``null``.
    */
-   function edgeSource(file:any, env?:object): any;
+   function edgeSource(file: any, env?: object): any;
    /**
    */
-   function getTerms(index:object): string;
+   function getTerms(index: object): string;
    /**
     * open a message pack graph database file or 
     *  create a new empty graph database object.
@@ -32,7 +32,7 @@ declare namespace MsgFile {
      * 
      * + default value Is ``null``.
    */
-   function open(file?:any, evidenceAggregate?:boolean, noGraph?:boolean, seekIndex?:boolean, env?:object): object|object;
+   function open(file?: any, evidenceAggregate?: boolean, noGraph?: boolean, seekIndex?: boolean, env?: object): object|object;
    module read {
       /**
        * read target graph database as network graph object
@@ -43,7 +43,7 @@ declare namespace MsgFile {
         * 
         * + default value Is ``null``.
       */
-      function graph(file:any, env?:object): object;
+      function graph(file: any, env?: object): object;
       /**
        * fetch the knowledge terms table from the graph database file.
        * 
@@ -53,7 +53,7 @@ declare namespace MsgFile {
         * 
         * + default value Is ``null``.
       */
-      function knowledge_table(file:any, env?:object): object;
+      function knowledge_table(file: any, env?: object): object;
    }
    /**
     * save a graph database result into a file 
@@ -68,8 +68,8 @@ declare namespace MsgFile {
      * 
      * + default value Is ``null``.
    */
-   function save(kb:object, file:any, json_dump?:boolean, env?:object): any;
+   function save(kb: object, file: any, json_dump?: boolean, env?: object): any;
    /**
    */
-   function seekTerm(index:object, term:string): any;
+   function seekTerm(index: object, term: string): any;
 }

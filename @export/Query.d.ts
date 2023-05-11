@@ -15,7 +15,7 @@ declare namespace Query {
         * @param kb -
         * @param ignores -
       */
-      function evidenceLink(kb:object, ignores:any): object;
+      function evidenceLink(kb: object, ignores: any): object;
    }
    /**
     * insert a knowledge node into the graph pool
@@ -32,10 +32,10 @@ declare namespace Query {
      * 
      * + default value Is ``null``.
    */
-   function insert(kb:object, knowledge:string, type:string, meta?:object, selfReference?:boolean, env?:object): any;
+   function insert(kb: object, knowledge: string, type: string, meta?: object, selfReference?: boolean, env?: object): any;
    /**
    */
-   function join(kb1:object, kb2:object): object;
+   function join(kb1: object, kb2: object): object;
    /**
     * query knowledge data for a given term
     * 
@@ -48,7 +48,7 @@ declare namespace Query {
      * @param env 
      * + default value Is ``null``.
    */
-   function query(kb:object, term:string, cutoff?:number, env?:object): object;
+   function query(kb: object, term: string, cutoff?: number, env?: object): object;
    /**
     * measure the similarity or identical between two 
     *  knowledge terms based on the knowledge network 
@@ -65,5 +65,5 @@ declare namespace Query {
      * 
      * + default value Is ``null``.
    */
-   function similarity(kb:object, x:string, y:string, weight?:object, env?:object): number;
+   function similarity(kb: object, x: string, y: string, weight?: object, env?: object): number;
 }

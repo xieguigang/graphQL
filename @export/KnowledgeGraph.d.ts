@@ -13,19 +13,19 @@ declare namespace KnowledgeGraph {
        * 
         * @param island -
       */
-      function knowledge(island:object): object;
+      function knowledge(island: object): object;
    }
    /**
    */
-   function correctKnowledges(kb:object, knowledges:object, indexBy:any): object;
+   function correctKnowledges(kb: object, knowledges: object, indexBy: any): object;
    /**
      * @param equals default value Is ``0.5``.
    */
-   function extractKnowledgeTerms(island:object, equals?:number): object;
+   function extractKnowledgeTerms(island: object, equals?: number): object;
    /**
      * @param eps default value Is ``0.1``.
    */
-   function graphUMAP(g:object, eps?:number): any;
+   function graphUMAP(g: object, eps?: number): any;
    /**
     * export knowledge terms based on the network community algorithm
     * 
@@ -51,16 +51,16 @@ declare namespace KnowledgeGraph {
      *                      entities that detects from the network graph 
      *                      community data result.
    */
-   function knowledgeCommunity(kb:object, indexBy:any, common_type?:any, eps?:number, unweighted?:boolean): object;
+   function knowledgeCommunity(kb: object, indexBy: any, common_type?: any, eps?: number, unweighted?: boolean): object;
    /**
      * @param weightCut default value Is ``-1``.
      * @param identicalKeys default value Is ``null``.
    */
-   function knowledgeIslands(graph:object, weightCut?:number, identicalKeys?:string): object;
+   function knowledgeIslands(graph: object, weightCut?: number, identicalKeys?: string): object;
    module Kosaraju {
       /**
       */
-      function SCCs(g:object): object;
+      function SCCs(g: object): object;
    }
    /**
     * export the graph database as the 
@@ -73,7 +73,7 @@ declare namespace KnowledgeGraph {
      * + default value Is ``null``.
      * @return nodes meta: knowledge_type
    */
-   function networkGraph(kb:object, filters?:any): object;
+   function networkGraph(kb: object, filters?: any): object;
    /**
     * make meta data unique at first and then evaluate 
     *  the unique reference id via FNV-1a hash function
@@ -93,8 +93,8 @@ declare namespace KnowledgeGraph {
      * 
      * + default value Is ``10``.
    */
-   function niceTerms(knowledges:object, kb:object, indexBy?:any, prefix?:string, width?:object): object;
+   function niceTerms(knowledges: object, kb: object, indexBy?: any, prefix?: string, width?: object): object;
    /**
    */
-   function removeLinkByWeight(g:object, w:number): object;
+   function removeLinkByWeight(g: object, w: number): object;
 }
