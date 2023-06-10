@@ -8,6 +8,7 @@ Imports SMRUCC.Rsharp.Runtime
 Imports SMRUCC.Rsharp.Runtime.Components
 Imports SMRUCC.Rsharp.Runtime.Internal.Object
 Imports SMRUCC.Rsharp.Runtime.Interop
+Imports SMRUCC.Rsharp.Runtime.Vectorization
 Imports REnv = SMRUCC.Rsharp.Runtime
 
 ''' <summary>
@@ -65,7 +66,7 @@ Public Module Query
     ''' <returns></returns>
     <ExportAPI("ignore.evidenceLink")>
     Public Function ignoreEvidenceLink(kb As EvidenceGraph, <RRawVectorArgument> ignores As Object) As EvidenceGraph
-        Dim types As String() = REnv.asVector(Of String)(ignores)
+        Dim types As String() = CLRVector.asCharacter(ignores)
 
         For Each type As String In types
             Call kb.AddIgnores(type)

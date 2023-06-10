@@ -21,6 +21,7 @@ Imports Microsoft.VisualBasic.Math.Correlations
 Imports Microsoft.VisualBasic.Scripting.MetaData
 Imports SMRUCC.Rsharp.Runtime.Internal.Object
 Imports SMRUCC.Rsharp.Runtime.Interop
+Imports SMRUCC.Rsharp.Runtime.Vectorization
 Imports dataframe = SMRUCC.Rsharp.Runtime.Internal.Object.dataframe
 Imports Node = Microsoft.VisualBasic.Data.visualize.Network.Graph.Node
 Imports REnv = SMRUCC.Rsharp.Runtime
@@ -63,7 +64,7 @@ Module KnowledgeGraph
                                  <RRawVectorArgument>
                                  Optional filters As Object = Nothing) As NetworkGraph
 
-        Dim filterList As String() = REnv.asVector(Of String)(filters)
+        Dim filterList As String() = CLRVector.asCharacter(filters)
         Dim graph As NetworkGraph = kb.CreateGraph(filters:=filterList)
 
         Return graph
@@ -236,7 +237,7 @@ Module KnowledgeGraph
                                    Optional prefix As String = "Term",
                                    Optional width As Integer = 10) As EntityObject()
 
-        Dim index As String() = DirectCast(REnv.asVector(Of String)(indexBy), String())
+        Dim index As String() = CLRVector.asCharacter(indexBy)
         Dim result As EntityObject() = knowledges _
             .Select(Function(row)
                         Return row.CreateNiceTerm(Of EntityObject)(kb)
@@ -259,7 +260,7 @@ Module KnowledgeGraph
                                       <RRawVectorArgument(GetType(String))>
                                       indexBy As Object) As KnowledgeFrameRow()
 
-        Dim index As String() = DirectCast(REnv.asVector(Of String)(indexBy), String())
+        Dim index As String() = CLRVector.asCharacter(indexBy)
         Dim result = KnowledgeFrameRow _
             .CorrectKnowledges(kb, knowledges, index) _
             .ToArray
@@ -300,7 +301,7 @@ Module KnowledgeGraph
 
         Dim g As NetworkGraph = kb.CreateGraph
         Dim knowledges As KnowledgeFrameRow() = g.ExtractKnowledges(eps).ToArray
-        Dim index As String() = DirectCast(REnv.asVector(Of String)(indexBy), String())
+        Dim index As String() = CLRVector.asCharacter(indexBy)
 
 
 
