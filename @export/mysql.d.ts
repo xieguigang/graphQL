@@ -9,6 +9,10 @@
 */
 declare namespace mysql {
    /**
+     * @param env default value Is ``null``.
+   */
+   function create_filedump(dir: string, env?: object): object;
+   /**
     * dump the inserts transaction mysql file
     * 
     * 
@@ -19,4 +23,8 @@ declare namespace mysql {
      * + default value Is ``null``.
    */
    function dump_inserts(data: any, dir: string, env?: object): any;
+   /**
+     * @param env default value Is ``null``.
+   */
+   function write_dumps(dump: object, data: any, env?: object): any;
 }
