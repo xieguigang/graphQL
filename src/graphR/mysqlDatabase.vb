@@ -28,4 +28,27 @@ Module mysqlDatabase
 
         Return Nothing
     End Function
+
+    <ExportAPI("create_filedump")>
+    Public Function createFileDumpTask(dir As String, Optional env As Environment = Nothing) As DumpTaskRunner
+        Return New DumpTaskRunner(
+            EXPORT:=dir,
+            truncate:=True,
+            singleTransaction:=False,
+            echo:=env.globalEnvironment.verboseOption,
+            AI:=False,
+            bufferSize:=1024
+        )
+    End Function
+
+    <ExportAPI("write_dumps")>
+    Public Function writeRows(dump As DumpTaskRunner, <RRawVectorArgument> data As Object, Optional env As Environment = Nothing) As Object
+        Dim pack As pipeline = pipeline.TryCreatePipeline(Of MySQLTable)(data, env)
+
+        If pack.isError Then
+            Return pack.getError
+        End If
+
+        Return dump.DumpRows(pack.populates(Of MySQLTable)(env))
+    End Function
 End Module
