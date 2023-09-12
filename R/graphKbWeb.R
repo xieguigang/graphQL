@@ -64,12 +64,10 @@ const context_cosine = function(a, b, top = 10, graphdb = getOption("graphdb_web
     const jad_a = __jaccard(va$left, vb$left);
     const jad_b = __jaccard(va$right, vb$right);
 
-    [
-        cos_a, cos_b, 
-        jad_a, jad_b, 
-        (cos_a + cos_b) / 2, 
-        (jad_a + jad_b) / 2
-    ];
+    list(
+        cosine = [cos_a, cos_b, (cos_a + cos_b) / 2],
+        jaccard = [jad_a, jad_b, (jad_a + jad_b) / 2]
+    );
 }
 
 const __jaccard = function(va, vb) {

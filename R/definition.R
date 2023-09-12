@@ -11,11 +11,12 @@ const definition = function(word, word_size = 6, top = 30, graphdb = getOption("
             top = top, 
             graphdb = graphdb
         );
-        t$cos = prod(t$wv);
-        t$wv = paste(t$wv, sep = " ");
+        t$cos = prod(t$wv$cosine);
+        t$jaccard = prod(t$wv$jaccard);
+        # t$wv = paste(t$wv, sep = " ");
         t;
     })
-    |> which(t -> (t$cos) > 0)
+    |> which(t -> (t$cos + t$jaccard) > 0)
     ;
 
     if (length(context_cos) == 0) {
@@ -24,11 +25,12 @@ const definition = function(word, word_size = 6, top = 30, graphdb = getOption("
         let def = data.frame(
             def = context_cos@token,
             prob = as.numeric(context_cos@cos),
+            jaccard = as.numeric(context_cos@jaccard),
             w = as.numeric(context_cos@weight),
-            v = context_cos@wv
+            # v = context_cos@wv
         );
 
-        def[, "score"] = def$w * def$prob;
+        def[, "score"] = def$w * (def$prob + def$jaccard);
         def = def[order(def$score, decreasing = TRUE), ];
         def;
     }
