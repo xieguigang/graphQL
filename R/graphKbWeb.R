@@ -62,7 +62,7 @@ const context_cosine = function(a, b, graphdb = getOption("graphdb_web")) {
     const cos_a = __cosine(va$left, vb$left);
     const cos_b = __cosine(va$right, vb$right);
 
-    [cos_a, cos_b];
+    [cos_a, cos_b, (cos_a + cos_b) / 2];
 }
 
 const __cosine = function(va, vb) {
@@ -73,8 +73,8 @@ const __cosine = function(va, vb) {
     names(la) = va$token;
     names(lb) = vb$token;
 
-    va = sapply(token_union, ti -> ifelse(ti in la, la[[ti]], 0.0));
-    vb = sapply(token_union, ti -> ifelse(ti in lb, lb[[ti]], 0.0));
+    va = sapply(token_union, ti -> ifelse(ti in la, la[[ti]]$w, 0.0));
+    vb = sapply(token_union, ti -> ifelse(ti in lb, lb[[ti]]$w, 0.0));
 
     math::cosine(va, vb);
 }
