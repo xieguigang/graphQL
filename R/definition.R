@@ -1,6 +1,10 @@
+const def_ignores = ["the","a","and","it"];
+
 const definition = function(word, top = 30, graphdb = getOption("graphdb_web")) {
     const is = get_prompt("is", top = top, graphdb);
-    const context_cos = lapply(is, function(t) {
+    const context_cos = is 
+    |> which(x -> !((x$token) in def_ignores)) 
+    |> lapply(function(t) {
         t$cos = prod(context_cosine(
             a = word, 
             b = t$token, 
