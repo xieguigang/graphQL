@@ -1,8 +1,17 @@
+imports "NLP" from "MLkit";
+
 # web api handler for create graph kb
+
+#' create graph object from the given text data
+#' 
+#' @param text a text collection data
+#' 
 const text_graph = function(text, phase_size = 6) { 
-    let tokens = text 
+    let tokens = NLP::split_to_sentences(text)
+    |> unlist()
     |> trim(characters = " ,.?;':") 
-    |> strsplit("\s+")
+    |> which(si -> nchar(si) > 0)
+    |> strsplit("[\s,]+")
     ;
     
     if (is.list(tokens)) {
@@ -15,8 +24,10 @@ const text_graph = function(text, phase_size = 6) {
 }
 
 const tokens_trim = function(tokens) {
+    str(tokens);
     tokens = sapply(tokens, si -> si |> trim(characters = " ,.?;'():"));
     tokens = tokens[nchar(tokens) > 0];
+    tokens = tokens[!(tokens == $"(\[\d+\])+")];
 
     tolower(tokens);
 }

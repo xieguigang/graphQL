@@ -26,7 +26,7 @@ let g = text_graph(text);
 for(par in g) {
     print(par);
 
-    graphQL::push_graph(par);
+    # graphQL::push_graph(par);
 }
 
 # "chemicals" 2737272594
