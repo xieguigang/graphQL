@@ -42,21 +42,21 @@ const one_graph = function(tokens, phase_size = 3) {
     }
 
     const graph_df = data.frame(
-        from = g@from,
-        to = g@to,
+        from   = g@from,
+        to     = g@to,
         from_i = g@from_i,
-        to_i = g@to_i,
-        w = g@w,
-        index = `${g@from_i} | ${g@to_i}`
+        to_i   = g@to_i,
+        w      = g@w,
+        index  = `${g@from_i} | ${g@to_i}`
     );
     const meltdown = graph_df |> groupBy("index");
     const graph_out = data.frame(
-        from = sapply(meltdown, d -> .Internal::first(d$from)),
-        to = sapply(meltdown, d -> .Internal::first(d$to)),
+        from   = sapply(meltdown, d -> .Internal::first(d$from)),
+        to     = sapply(meltdown, d -> .Internal::first(d$to)),
         from_i = sapply(meltdown, d -> .Internal::first(d$from_i)),
-        to_i = sapply(meltdown, d -> .Internal::first(d$to_i)),
-        w = sapply(meltdown, d -> sum(d$w)),
-        size = sapply(meltdown, d -> nrow(d))
+        to_i   = sapply(meltdown, d -> .Internal::first(d$to_i)),
+        w      = sapply(meltdown, d -> sum(d$w)),
+        size   = sapply(meltdown, d -> nrow(d))
     );
 
     graph_out;
@@ -67,10 +67,10 @@ const graph_link = function(from, to, w = 1) {
         NULL;
     } else {
         list(
-            from = from, to = to,
+            from   = from, to = to,
             from_i = FNV1a_hashcode(from),
-            to_i = FNV1a_hashcode(to),
-            w = w
+            to_i   = FNV1a_hashcode(to),
+            w      = w
         );
     }
 }
