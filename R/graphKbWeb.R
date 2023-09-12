@@ -12,8 +12,7 @@ const push_graph = function(graph_df, graphdb = getOption("graphdb_web")) {
                 |> http::content();
 
     str(result);
-
-    stop();
+    # stop();
 }
 
 const graph_tokens = function(graph_df) {
