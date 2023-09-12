@@ -3,4 +3,4 @@
 	url = https://gitee.com/xieguigang/mysqli.vb.git
 [submodule "src/web/framework/php.NET"]
 	path = src/web/framework/php.NET
-	url = https://github.com/biocad-cloud/php-dotnet.git
+	url = https://gitee.com/xieguigang/php-dotnet.git
