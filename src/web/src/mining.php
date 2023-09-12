@@ -33,6 +33,8 @@ class App {
     /**
      * get word weight vector
      * 
+     * context analysis
+     * 
      * @uses api
      * @method GET
     */
