@@ -52,6 +52,51 @@ class App {
     }
 
     /**
+     * get weight of the specific graph link
+     * 
+     * @uses api
+     * @method GET
+    */
+    public function get_weight($i, $j) {
+        $hash1 = $this->node->where(["token" => strtolower(urldecode($i))])->find();
+        $hash2 = $this->node->where(["token" => strtolower(urldecode($j))])->find();
+
+        if (Utils::isDbNull($hash1)) {
+            controller::error("Unable to find word token '$i'!", 404);
+        } else if (Utils::isDbNull($hash2)) {
+            controller::error("Unable to find word token '$j'!", 404);
+        } else {
+            $ij = $this->graph->where([
+                "from" => $hash1["id"],
+                "to" => $hash2["id"]
+            ])->find();
+            $ji = $this->graph->where([
+                "to" => $hash1["id"],
+                "from" => $hash2["id"]
+            ])->find();
+
+            if (Utils::isDbNull($ij)) {
+                $ij = 0;
+            } else {
+                $ij = $ij["weight"];
+            }
+            if (Utils::isDbNull($ji)) {
+                $ji = 0;
+            } else {
+                $ji = $ji["weight"];
+            }
+
+            controller::success([
+                "weight" => [$ij, $ji],
+                "w1" => $hash1["count"],
+                "w2" => $hash2["count"],
+                "i" => $i,
+                "j" => $j
+            ]);
+        }
+    }
+
+    /**
      * push new graph link or update the existed graph link its weight value
      * 
      * @uses api
