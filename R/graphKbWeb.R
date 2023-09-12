@@ -61,8 +61,22 @@ const context_cosine = function(a, b, top = 10, graphdb = getOption("graphdb_web
     const vb = token_vector(b, top, graphdb);
     const cos_a = __cosine(va$left, vb$left);
     const cos_b = __cosine(va$right, vb$right);
+    const jad_a = __jaccard(va$left, vb$left);
+    const jad_b = __jaccard(va$right, vb$right);
 
-    [cos_a, cos_b, (cos_a + cos_b) / 2];
+    [
+        cos_a, cos_b, 
+        jad_a, jad_b, 
+        (cos_a + cos_b) / 2, 
+        (jad_a + jad_b) / 2
+    ];
+}
+
+const __jaccard = function(va, vb) {
+    const U = length(unique(append(va$token, vb$token)));
+    const I = length(intersect(va$token, vb$token));
+
+    I / U;
 }
 
 const __cosine = function(va, vb) {
