@@ -26,7 +26,9 @@ class App {
         $links = json_decode($links);
 
         foreach($links as $link) {
-            
+
         }
+
+        controller::success($links);
     }
 }

@@ -1,52 +1,6 @@
 RewriteEngine On
 
-RewriteRule ^upload/do$ /upload.php?app=do
-RewriteRule ^upload/save$ /upload.php?app=save
-RewriteRule ^upload/saveMeta$ /upload.php?app=saveMeta
-RewriteRule ^upload$ /upload.php
-
-RewriteRule ^view/sample/([0-9]+)$ /view.php?app=sample&id=$1
-RewriteRule ^view/umap3D/([0-9]+)$ /view.php?app=umap3D&sample_id=$1
-RewriteRule ^view/(.+)$ /view.php?app=$1
-
-RewriteRule ^analysis/enrichment_result/$ /analysis.php?app=enrichment_result
-RewriteRule ^analysis/tissue_enrich/$ /analysis.php?app=tissue_enrich
-RewriteRule ^analysis/load_enrichment/$ /analysis.php?app=load_enrichment
-RewriteRule ^analysis/$ /analysis.php?app=index
-
-RewriteRule ^list/project/$ /list.php?app=project
-RewriteRule ^list/(.+)/$ /list.php?app=$1
-RewriteRule ^put/(.+)/$ /put.php?app=$1
-RewriteRule ^create/(.+)/$ /put.php?app=$1
-
-RewriteRule ^load/taxonomy_page/(.+)$ /query.php?app=taxonomy_page&id=$1
-RewriteRule ^load/maldi_page/(.+)$ /query.php?app=maldi_page&type=$1
-RewriteRule ^load/project_page/(.+)$ /query.php?app=project_page&proj=$1
-RewriteRule ^load/samples_page/([0-9]+)$ /query.php?app=samples_page&i=$1
-RewriteRule ^load/hot_search$ /query.php?app=hot_search
-RewriteRule ^load/taxonomy_pie$ /query.php?app=taxonomy_pie
-RewriteRule ^query/(.+)$ /query.php?app=index&term=$1
-RewriteRule ^get/taxonomy/(.+)$ /query.php?app=taxonomy_id&name=$1
-
-
-RewriteRule ^search/ions$ /browse.php?app=ions
-RewriteRule ^search/$ /browse.php?app=index
-RewriteRule ^search$ /browse.php?app=index
-
-RewriteRule ^project/(.+)$ /browse.php?app=project&id=$1
-
-RewriteRule ^browse/taxonomy/(.+)$ /browse.php?app=taxonomy&id=$1
-RewriteRule ^browse/MALDI/(.+)$ /browse.php?app=MALDI&type=$1
-RewriteRule ^browse/samples$ /browse.php?app=samples
-RewriteRule ^browse/tissues$ /browse.php?app=tissues
-RewriteRule ^browse/metabolites$ /browse.php?app=metabolites
-
-RewriteRule ^dataset/metabolites/([0-9]+)$ /browse.php?app=metabolites&id=$1
-RewriteRule ^dataset/sample/([0-9]+)$ /browse.php?app=sample&id=$1
-RewriteRule ^dataset/clusters/([0-9]+)$ /browse.php?app=cluster&id=$1
-
-RewriteRule ^tissue/.+$ /browse.php?app=tissue&id=$1
-RewriteRule ^download/gsea/$ /view.php?app=download_tissue
+RewriteRule ^mining/(.+)$ /mining.php?app=$1
 
 RewriteRule ^([a-zA-Z0-9]+)$ /index.php?app=$1
 RewriteRule ^([a-zA-Z0-9]+)/$ /index.php?app=$1

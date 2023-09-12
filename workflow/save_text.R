@@ -18,4 +18,6 @@ let g = text_graph(text);
 
 for(par in g) {
     print(par);
+
+    graphQL::push_graph(par);
 }
