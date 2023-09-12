@@ -12,15 +12,20 @@ declare namespace graphQL {
    */
    function __cosine(va: any, vb: any): object;
    /**
+   */
+   function __jaccard(va: any, vb: any): object;
+   /**
      * @param top default value Is ``10``.
      * @param graphdb default value Is ``Call "getOption"("graphdb_web")``.
    */
    function context_cosine(a: any, b: any, top?: any, graphdb?: any): object;
+   def_ignores: any;
    /**
+     * @param word_size default value Is ``6``.
      * @param top default value Is ``30``.
      * @param graphdb default value Is ``Call "getOption"("graphdb_web")``.
    */
-   function definition(word: any, top?: any, graphdb?: any): object;
+   function definition(word: any, word_size?: any, top?: any, graphdb?: any): object;
    /**
      * @param top default value Is ``10``.
      * @param graphdb default value Is ``Call "getOption"("graphdb_web")``.
