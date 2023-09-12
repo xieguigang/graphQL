@@ -29,8 +29,13 @@
         code {
             color: rgb(194, 42, 42);
             background: inherit;
-            font-style:italic;
+            font-style: italic;
             font-weight: bold;
+        }
+
+        pre code {
+            color: rgb(54, 54, 54);
+            font-style: normal;
         }
 
         body {
@@ -158,9 +163,9 @@
 
         <div style="width: 100%; padding-left: 3%; color: black;">
             <pre><code class='language-R' style="color: black; font-weight:normal;"><strong>niceTerms</strong>(<i>knowledges</i>, <i>kb</i>,
-    <i>indexBy</i> = <span style='color: blue;'>NULL</span>,
+    <i>indexBy</i> = <span style='color: blue !important;'>NULL</span>,
     <i>prefix</i> = <span style='color: brown;'><strong>"Term"</strong></span>,
-    <i>width</i> = 10);</code></pre>
+    <i>width</i> = <span style='color: green;'>10</span>);</code></pre>
         </div>
 
         <h3>Arguments</h3>
@@ -198,6 +203,10 @@
         <h3>Value</h3>
 
         this function returns data object of type <a href="/clr/Microsoft/VisualBasic/Data/csv/IO/EntityObject[].html">EntityObject[]</a>.
+
+        <h3 style="display: none;">Examples</h3>
+
+        
 
         <hr />
         <div style="text-align: center;">[Package <em>KnowledgeGraph</em> version 1.0.0.0 <a
