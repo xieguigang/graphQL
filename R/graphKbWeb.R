@@ -39,13 +39,18 @@ const token_vector = function(token, graphdb = getOption("graphdb_web")) {
 
     if (as.integer(pull$code) == 0) {
         const li = pull$info;
-        const vector = data.frame(
-            "token" = 
+        const tleft = li$left;
+        const tright = li$right;
+        const left = data.frame(
+            "token" = tleft@token,
+            "w" = tleft@weight
+        );
+        const right = data.frame(
+            "token" = tright@token,
+            "w" = tright@weight
         );
 
-        print(vector);
-
-        stop();
+        list(left, right);
     } else {
         stop(pull);
     }
@@ -54,6 +59,22 @@ const token_vector = function(token, graphdb = getOption("graphdb_web")) {
 const context_cosine = function(a, b, graphdb = getOption("graphdb_web")) {
     const va = token_vector(a, graphdb);
     const vb = token_vector(b, graphdb);
+    const cos_a = __cosine(va$left, vb$left);
+    const cos_b = __cosine(va$right, vb$right);
 
-    stop();
+    [cos_a, cos_b];
+}
+
+const __cosine = function(va, vb) {
+    const token_union = unique(append(va$token, vb$token));
+    const la = as.list(va, byrow = TRUE);
+    const lb = as.list(vb, byrow = TRUE);
+
+    names(la) = va$token;
+    names(lb) = vb$token;
+
+    va = sapply(token_union, ti -> ifelse(ti in la, la[[ti]], 0.0));
+    vb = sapply(token_union, ti -> ifelse(ti in lb, lb[[ti]], 0.0));
+
+    math::cosine(va, vb);
 }
