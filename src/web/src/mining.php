@@ -44,8 +44,8 @@ class App {
         if (Utils::isDbNull($i)) {
             controller::error("Unable to find word token '$word'!", 404);
         } else {
-            $left = $this->graph->left_join("word_token")->on(["word_token" => "id", "text_graph" => "from"])->where(["to" => $i["id"]])->order_by("weight", true)->limit($top)->select();
-            $right = $this->graph->left_join("word_token")->on(["word_token" => "id", "text_graph" => "to"])->where(["from" => $i["id"]])->order_by("weight", true)->limit($top)->select();
+            $left = $this->graph->left_join("word_token")->on(["word_token" => "id", "text_graph" => "from"])->where(["to" => $i["id"]])->order_by("weight", true)->limit($top)->select(["token","weight"]);
+            $right = $this->graph->left_join("word_token")->on(["word_token" => "id", "text_graph" => "to"])->where(["from" => $i["id"]])->order_by("weight", true)->limit($top)->select(["token","weight"]);
 
             controller::success(["left" => $left, "right" => $right]);
         }

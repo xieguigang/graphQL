@@ -37,7 +37,18 @@ const token_vector = function(token, graphdb = getOption("graphdb_web")) {
     |> http::content()
     ;
 
-    str(pull);
+    if (as.integer(pull$code) == 0) {
+        const li = pull$info;
+        const vector = data.frame(
+            "token" = 
+        );
+
+        print(vector);
+
+        stop();
+    } else {
+        stop(pull);
+    }
 }
 
 const context_cosine = function(a, b, graphdb = getOption("graphdb_web")) {
