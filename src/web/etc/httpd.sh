@@ -12,7 +12,7 @@ docker run -tid --name graphdb \
 	-v "/home/xieguigang/graphQL/src/web/etc/apache_configs:/etc/httpd/vhost" \
 	-v "/home/xieguigang/graphQL/src/web/etc/php.ini:/etc/php.ini" \
 	-v "/home/xieguigang/graphQL/src/web/FastRWeb:/var/FastRWeb" \
-	-v "/home/xieguigang/graphQL/src/web:/opt/graphdb" \	
+	-v "/home/xieguigang/graphQL/src/web:/opt/graphdb" \
 	-v "/tmp/Rscript/:/var/FastRWeb/tmp/:rw" \
 	-v "/tmp/apache/:/tmp/apache/:rw" \
 	-v "/tmp/php/:/tmp/:rw" \
