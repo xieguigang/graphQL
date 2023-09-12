@@ -32,11 +32,11 @@ const one_graph = function(tokens, phase_size = 3) {
         g[[length(g) + 1]] = graph_link(tokens[i], tokens[i+1], w = 1);
 
         # from
-        for (j in [i-phase_size]:i) {
+        for (j in [i-phase_size]:[i-1]) {
             g[[length(g) + 1]] = graph_link(tokens[j], tokens[j+1], w = 1 / [i - j]);
         }
         # to
-        for(j in i:[i + phase_size]) {
+        for(j in [i+1]:[i + phase_size]) {
             g[[length(g) + 1]] = graph_link(tokens[j], tokens[j+1], w = 1 / [j - i]);
         }
     }
