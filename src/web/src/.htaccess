@@ -1,6 +1,6 @@
 RewriteEngine On
 
-RewriteRule ^mining/(.+)$ /mining.php?app=$1
+RewriteRule ^mining/(.+)/$ /mining.php?app=$1
 
 RewriteRule ^([a-zA-Z0-9]+)$ /index.php?app=$1
 RewriteRule ^([a-zA-Z0-9]+)/$ /index.php?app=$1

@@ -6,7 +6,7 @@ const push_graph = function(graph_df, graphdb = getOption("graphdb_web")) {
     const tokens = graph_tokens(graph_df);
     const payload = {
         links: as.list(graph_df, byrow = TRUE),
-        tokens: tokens
+        tokens: as.list(tokens, byrow = TRUE)
     };
     const result = http::requests.post(url, payload) 
                 |> http::content();
