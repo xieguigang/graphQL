@@ -29,3 +29,20 @@ const graph_tokens = function(graph_df) {
         size = sapply(tokens_set, t -> nrow(t))
     );
 }
+
+const token_vector = function(token, graphdb = getOption("graphdb_web")) {
+    const url = `${graphdb}/mining/get_vector/?word=${urlencode(token)}`;
+    const pull = url 
+    |> http::requests.get() 
+    |> http::content()
+    ;
+
+    str(pull);
+}
+
+const context_cosine = function(a, b, graphdb = getOption("graphdb_web")) {
+    const va = token_vector(a, graphdb);
+    const vb = token_vector(b, graphdb);
+
+    stop();
+}

@@ -1,7 +1,7 @@
 # web api handler for create graph kb
 const text_graph = function(text) { 
     let tokens = text 
-    |> trim(characters = " ,.?;'") 
+    |> trim(characters = " ,.?;':") 
     |> strsplit("\s+")
     ;
     
@@ -15,7 +15,7 @@ const text_graph = function(text) {
 }
 
 const tokens_trim = function(tokens) {
-    tokens = sapply(tokens, si -> si |> trim(characters = " ,.?;'()"));
+    tokens = sapply(tokens, si -> si |> trim(characters = " ,.?;'():"));
     tokens = tokens[nchar(tokens) > 0];
 
     tolower(tokens);
