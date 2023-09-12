@@ -16,5 +16,17 @@ class App {
         View::Display();
     }
 
-    
+    /**
+     * push new graph link or update the existed graph link its weight value
+     * 
+     * @uses api
+     * @method POST
+    */
+    public function push_links($links) {
+        $links = json_decode($links);
+
+        foreach($links as $link) {
+            
+        }
+    }
 }

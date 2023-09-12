@@ -28,6 +28,14 @@ return [
         'DB_PORT' => '3306'
     ],
 
+    "text_mining" => [
+        'DB_HOST' => "192.168.0.231",
+        'DB_NAME' => 'text_mining',
+        'DB_USER' => 'root',
+        'DB_PWD'  => '123456.Xieguigang',
+        'DB_PORT' => '3306'
+    ],
+
     // 框架配置参数
 	"ERR_HANDLER_DISABLE" => "FALSE",
 	"RFC7231"       => AppViews . "/http_errors",
