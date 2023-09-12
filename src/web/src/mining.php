@@ -23,9 +23,9 @@ class App {
      * @method POST
     */
     public function push_links($links, $tokens) {
-        $links = json_decode($links);
-        $tokens = json_decode($tokens);
-        $node = new Table(["text_mining" => "word_token"]);
+        $links  = json_decode($links, true);
+        $tokens = json_decode($tokens, true);
+        $node   = new Table(["text_mining" => "word_token"]);
 
         foreach($tokens as $token) {
             $n = $token["size"];
