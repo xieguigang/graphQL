@@ -1,5 +1,5 @@
 # web api handler for create graph kb
-const text_graph = function(text) { 
+const text_graph = function(text, phase_size = 6) { 
     let tokens = text 
     |> trim(characters = " ,.?;':") 
     |> strsplit("\s+")
@@ -11,7 +11,7 @@ const text_graph = function(text) {
         tokens = list(single = tokens_trim(tokens)); 
     }    
 
-    lapply(tokens, t -> one_graph(t));
+    lapply(tokens, t -> one_graph(t, phase_size = phase_size));
 }
 
 const tokens_trim = function(tokens) {
