@@ -63,7 +63,7 @@ const one_graph = function(tokens, phase_size = 3) {
 }
 
 const graph_link = function(from, to, w = 1) {
-    if (max(as.integer(is.null(from)), as.integer(is.null(to))) == 1) {
+    if (any([is.null(from), is.null(to)])) {
         NULL;
     } else {
         list(
