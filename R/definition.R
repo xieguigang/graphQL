@@ -21,7 +21,8 @@ const definition = function(word, top = 30, graphdb = getOption("graphdb_web")) 
             w = as.numeric(context_cos@weight)
         );
 
-        def = def[order(def$w * def$prob, decreasing = TRUE), ];
+        def[, "score"] = def$w * def$prob;
+        def = def[order(def$score, decreasing = TRUE), ];
         def;
     }
 }
