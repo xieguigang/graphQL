@@ -52,13 +52,20 @@ const one_graph = function(tokens, phase_size = 3) {
         }
     }
 
+    const group_key = {
+        if (length(g) == 0) {
+            [];
+        } else {
+            `${g@from_i} | ${g@to_i}`;
+        }
+    };
     const graph_df = data.frame(
         from   = g@from,
         to     = g@to,
         from_i = g@from_i,
         to_i   = g@to_i,
         w      = g@w,
-        index  = `${g@from_i} | ${g@to_i}`
+        index  = group_key
     );
     const meltdown = graph_df |> groupBy("index");
     const graph_out = data.frame(
