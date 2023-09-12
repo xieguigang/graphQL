@@ -28,11 +28,21 @@ class App {
         $node = new Table(["text_mining" => "word_token"]);
 
         foreach($tokens as $token) {
+            $n = $token["size"];
+
             if (Utils::isDbNull($node->where(["id" => $token["index"]])->find())) {
                 $node->add([
                     "id" => $token["index"],
-                    "token" => $token["token"]
+                    "token" => $token["token"],
+                    "count" => $n
                 ]);
+            } else {
+                $node->where(["id" => $token["index"]])
+                ->limit(1)
+                ->save([
+                    "count" => "~count + $n"
+                ])
+                ;
             }
         }
 

@@ -22,12 +22,11 @@ const graph_tokens = function(graph_df) {
     const tokens_set = groupBy(data.frame(token = tokens, index), "token");
 
     print("get token set:");
-    print(tokens_set);
-
-    stop();
+    print(names(tokens_set));
 
     data.frame(
         token = names(tokens_set),
-        index = sapply(tokens_set, t -> .Internal::first(t$index))
+        index = sapply(tokens_set, t -> .Internal::first(t$index)),
+        size = sapply(tokens_set, t -> nrow(t))
     );
 }
