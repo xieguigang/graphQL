@@ -30,8 +30,8 @@ const graph_tokens = function(graph_df) {
     );
 }
 
-const token_vector = function(token, graphdb = getOption("graphdb_web")) {
-    const url = `${graphdb}/mining/get_vector/?word=${urlencode(token)}`;
+const token_vector = function(token, top = 10, graphdb = getOption("graphdb_web")) {
+    const url = `${graphdb}/mining/get_vector/?word=${urlencode(token)}&top=${top}`;
     const pull = url 
     |> http::requests.get() 
     |> http::content()
@@ -56,9 +56,9 @@ const token_vector = function(token, graphdb = getOption("graphdb_web")) {
     }
 }
 
-const context_cosine = function(a, b, graphdb = getOption("graphdb_web")) {
-    const va = token_vector(a, graphdb);
-    const vb = token_vector(b, graphdb);
+const context_cosine = function(a, b, top = 10, graphdb = getOption("graphdb_web")) {
+    const va = token_vector(a, top, graphdb);
+    const vb = token_vector(b, top, graphdb);
     const cos_a = __cosine(va$left, vb$left);
     const cos_b = __cosine(va$right, vb$right);
 
