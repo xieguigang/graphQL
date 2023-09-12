@@ -26,6 +26,7 @@ class App {
         $links  = json_decode($links, true);
         $tokens = json_decode($tokens, true);
         $node   = new Table(["text_mining" => "word_token"]);
+        $graph  = new Table(["text_mining" => "text_graph"]);
 
         foreach($tokens as $token) {
             $n = $token["size"];
@@ -47,9 +48,29 @@ class App {
         }
 
         foreach($links as $link) {
-            
+            $q = $graph->where([
+                "from" => $link["from_i"],
+                "to" => $link["to_i"]
+            ])->find();
+            $w = $link["w"];
+
+            if (Utils::isDbNull($q)) {
+                $graph->add([
+                    "from" => $link["from_i"],
+                    "to" => $link["to_i"],
+                    "weight" => $w
+                ]);
+            } else {
+                $graph->where([
+                    "id" => $q["id"]
+                ])
+                ->limit(1)
+                ->save([
+                    "weight" => "~weight + $w"
+                ]);
+            }
         }
 
-        controller::success($links);
+        controller::success(1);
     }
 }
