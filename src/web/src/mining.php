@@ -52,6 +52,31 @@ class App {
     }
 
     /**
+     * get a word token that next to word q
+     * 
+     * @uses api
+     * @method GET
+    */
+    public function get_prompt($q, $top = 10) {
+        $i = $this->node->where(["token" => strtolower(urldecode($q))])->find();
+
+        if (Utils::isDbNull($i)) {
+            controller::error("Unable to find word token '$q'!", 404);
+        } else {           
+            $right = $this->graph
+            ->left_join("word_token")
+            ->on(["word_token" => "id", "text_graph" => "to"])
+            ->where(["from" => $i["id"]])
+            ->order_by("weight", true)
+            ->limit($top)
+            ->select(["token","weight"])
+            ;
+
+            controller::success($right);
+        }
+    }
+
+    /**
      * get weight of the specific graph link
      * 
      * @uses api
