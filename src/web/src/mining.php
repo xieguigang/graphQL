@@ -44,8 +44,22 @@ class App {
         if (Utils::isDbNull($i)) {
             controller::error("Unable to find word token '$word'!", 404);
         } else {
-            $left = $this->graph->left_join("word_token")->on(["word_token" => "id", "text_graph" => "from"])->where(["to" => $i["id"]])->order_by("weight", true)->limit($top)->select(["token","weight"]);
-            $right = $this->graph->left_join("word_token")->on(["word_token" => "id", "text_graph" => "to"])->where(["from" => $i["id"]])->order_by("weight", true)->limit($top)->select(["token","weight"]);
+            $left = $this->graph
+                ->left_join("word_token")
+                ->on(["word_token" => "id", "text_graph" => "from"])
+                ->where(["to" => $i["id"]])
+                ->order_by("weight", true)
+                ->limit($top)
+                ->select(["token","weight"])
+                ;
+            $right = $this->graph
+                ->left_join("word_token")
+                ->on(["word_token" => "id", "text_graph" => "to"])
+                ->where(["from" => $i["id"]])
+                ->order_by("weight", true)
+                ->limit($top)
+                ->select(["token","weight"])
+                ;
 
             controller::success(["left" => $left, "right" => $right]);
         }
@@ -161,7 +175,8 @@ class App {
                 $this->graph->add([
                     "from" => $link["from_i"],
                     "to" => $link["to_i"],
-                    "weight" => $w
+                    "weight" => $w,
+                    "count" => 1
                 ]);
             } else {
                 $this->graph->where([
@@ -169,7 +184,8 @@ class App {
                 ])
                 ->limit(1)
                 ->save([
-                    "weight" => "~weight + $w"
+                    "weight" => "~weight + $w",
+                    "count" => "~count + 1"
                 ]);
             }
         }
