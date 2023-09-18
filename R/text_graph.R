@@ -86,8 +86,8 @@ const graph_link = function(from, to, w = 1) {
     } else {
         list(
             from   = from, to = to,
-            from_i = FNV1a_hashcode(from),
-            to_i   = FNV1a_hashcode(to),
+            from_i = FNV1a_hashcode(`${md5(from)}+${from}`),
+            to_i   = FNV1a_hashcode(`${md5(to)}+${to}`),
             w      = w
         );
     }
