@@ -86,7 +86,7 @@ class App {
             ->select(["token","`text_graph`.`weight` / `count` as weight"])
             ;
 
-            controller::success($right);
+            controller::success($right, $this->graph->getLastMySql());
         }
     }
 
