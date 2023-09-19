@@ -674,10 +674,12 @@ zero"
     print(stopwords);
 
     for(word in stopwords) {
-        sprintf(url, urlencode(word))
-        |> requests.post()
-        |> http::content()
-        |> str()
-        ;
+        try({
+            sprintf(url, urlencode(word))
+            |> requests.post()
+            |> http::content()
+            |> str()
+            ;
+        });
     }
 }
