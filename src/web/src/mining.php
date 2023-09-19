@@ -203,5 +203,30 @@ class App {
         # find token
         $hash1 = $this->find_token($token);
 
+        if (Utils::isDbNull($hash1)) {
+            controller::error("the given token '$token' could not be found in database!");
+        }
+
+        $class_label = strtolower(urldecode($class));
+        $class_data = (new Table(["text_mining" => "token_class"]))
+            ->where(["class" => $class_label])
+            ->find();
+
+        if (Utils::isDbNull($class_data)) {
+            # add new class tag
+            (new Table(["text_mining" => "token_class"]))->add(["class" => $class_label]);
+
+            $class_data = (new Table(["text_mining" => "token_class"]))
+            ->where(["class" => $class_label])
+            ->find();
+        }
+
+        $this->node->where([
+            "id" => $hash1["id"]
+        ])->save([
+            "class" => $class_data["id"]
+        ]);
+
+        controller::success(1);
     }
 }
