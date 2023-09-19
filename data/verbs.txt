@@ -1,103 +1,103 @@
 No.	Verb	Simple Past	Past Participle	
-1	to be 	were 	been 	
-2	to have 	had 	had 	
-3	to do 	did 	done 	
-4	to say 	said 	said 	
-5	to go 	went 	gone 	
-6	to get 	got 	got
-6	to get 	got 	gotten  	
-7	to make 	made 	made 	
-8	to know 	knew 	known 	
-9	to think 	thought 	thought 	
-10	to take 	took 	taken 	
-11	to see 	saw 	seen 	
-12	to come 	came 	come 	
-13	to want 	wanted 	wanted 	
-14	to look 	looked 	looked 	
-15	to use 	used 	used 	
-16	to find 	found 	found 	
-17	to give 	gave 	given 	
-18	to tell 	told 	told 	
-19	to work 	worked 	worked 	
-20	to call 	called 	called 	
-21	to try 	tried 	tried 	
-22	to ask 	asked 	asked 	
-23	to need 	needed 	needed 	
-24	to feel 	felt 	felt 	
-25	to become 	became 	become 
-26	to leave 	left 	left 	
-27	to put 	put 	put 	
-28	to mean 	meant 	meant 	
-29	to keep 	kept 	kept 	
-30	to let 	let 	let 	
-31	to begin 	began 	begun 	
-32	to seem 	seemed 	seemed 	
-33	to help 	helped 	helped 	
-34	to talk 	talked 	talked 	
-35	to turn 	turned 	turned 	
-36	to start 	started 	started 	
-37	to show 	showed 	shown 	
-38	to hear 	heard 	heard 	
-39	to play 	played 	played 	
-40	to run 	ran 	run 	
-41	to move 	moved 	moved 	
-42	to like 	liked 	liked 	
-43	to live 	lived 	lived 	
-44	to believe 	believed 	believed 	
-45	to hold 	held 	held 	
-46	to bring 	brought 	brought 	
-47	to happen 	happened 	happened 	
-48	to write 	wrote 	written 	
-49	to provide 	provided 	provided 	
-50	to sit 	sat 	sat 	
-51	to stand 	stood 	stood 	
-52	to lose 	lost 	lost 	
-53	to pay 	paid 	paid 	
-54	to meet 	met 	met 	
-55	to include 	included 	included 	
-56	to continue 	continued 	continued 	
-57	to set 	set 	set 	
-58	to learn 	learnt  	learnt
-58	to learn 	learned  	learned  	
-59	to change 	changed 	changed 	
-60	to lead 	led 	led 	
-61	to understand 	understood 	understood 	
-62	to watch 	watched 	watched 	
-63	to follow 	followed 	followed 	
-64	to stop 	stopped 	stopped 	
-65	to create 	created 	created 	
-66	to speak 	spoke 	spoken 	
-67	to read 	read 	read 	
-68	to allow 	allowed 	allowed 	
-69	to add 	added 	added 	
-70	to spend 	spent 	spent 	
-71	to grow 	grew 	grown 	
-72	to open 	opened 	opened 	
-73	to walk 	walked 	walked 	
-74	to win 	won 	won 	
-75	to offer 	offered 	offered 
-76	to remember 	remembered 	remembered 	
-77	to love 	loved 	loved 	
-78	to consider 	considered 	considered 	
-79	to appear 	appeared 	appeared 	
-80	to buy 	bought 	bought 	
-81	to wait 	waited 	waited 	
-82	to serve 	served 	served 	
-83	to die 	died 	died 	
-84	to send 	sent 	sent 	
-85	to expect 	expected 	expected 	
-86	to build 	built 	built 	
-87	to stay 	stayed 	stayed 	
-88	to fall 	fell 	fallen 	
-89	to cut 	cut 	cut 	
-90	to reach 	reached 	reached 	
-91	to kill 	killed 	killed 	
-92	to remain 	remained 	remained 	
-93	to suggest 	suggested 	suggested 	
-94	to raise 	raised 	raised 	
-95	to pass 	passed 	passed 	
-96	to sell 	sold 	sold 	
-97	to require 	required 	required 	
-98	to report 	reported 	reported 	
-99	to decide 	decided 	decided 	
-100	to pull 	pulled 	pulled 	
+1	tobe	were	been	
+2	tohave	had	had	
+3	todo	did	done	
+4	tosay	said	said	
+5	togo	went	gone	
+6	toget	got	got
+6	toget	got	gotten	
+7	tomake	made	made	
+8	toknow	knew	known	
+9	tothink	thought	thought	
+10	totake	took	taken	
+11	tosee	saw	seen	
+12	tocome	came	come	
+13	towant	wanted	wanted	
+14	tolook	looked	looked	
+15	touse	used	used	
+16	tofind	found	found	
+17	togive	gave	given	
+18	totell	told	told	
+19	towork	worked	worked	
+20	tocall	called	called	
+21	totry	tried	tried	
+22	toask	asked	asked	
+23	toneed	needed	needed	
+24	tofeel	felt	felt	
+25	tobecome	became	become
+26	toleave	left	left	
+27	toput	put	put	
+28	tomean	meant	meant	
+29	tokeep	kept	kept	
+30	tolet	let	let	
+31	tobegin	began	begun	
+32	toseem	seemed	seemed	
+33	tohelp	helped	helped	
+34	totalk	talked	talked	
+35	toturn	turned	turned	
+36	tostart	started	started	
+37	toshow	showed	shown	
+38	tohear	heard	heard	
+39	toplay	played	played	
+40	torun	ran	run	
+41	tomove	moved	moved	
+42	tolike	liked	liked	
+43	tolive	lived	lived	
+44	tobelieve	believed	believed	
+45	tohold	held	held	
+46	tobring	brought	brought	
+47	tohappen	happened	happened	
+48	towrite	wrote	written	
+49	toprovide	provided	provided	
+50	tosit	sat	sat	
+51	tostand	stood	stood	
+52	tolose	lost	lost	
+53	topay	paid	paid	
+54	tomeet	met	met	
+55	toinclude	included	included	
+56	tocontinue	continued	continued	
+57	toset	set	set	
+58	tolearn	learnt	learnt
+58	tolearn	learned	learned	
+59	tochange	changed	changed	
+60	tolead	led	led	
+61	tounderstand	understood	understood	
+62	towatch	watched	watched	
+63	tofollow	followed	followed	
+64	tostop	stopped	stopped	
+65	tocreate	created	created	
+66	tospeak	spoke	spoken	
+67	toread	read	read	
+68	toallow	allowed	allowed	
+69	toadd	added	added	
+70	tospend	spent	spent	
+71	togrow	grew	grown	
+72	toopen	opened	opened	
+73	towalk	walked	walked	
+74	towin	won	won	
+75	tooffer	offered	offered
+76	toremember	remembered	remembered	
+77	tolove	loved	loved	
+78	toconsider	considered	considered	
+79	toappear	appeared	appeared	
+80	tobuy	bought	bought	
+81	towait	waited	waited	
+82	toserve	served	served	
+83	todie	died	died	
+84	tosend	sent	sent	
+85	toexpect	expected	expected	
+86	tobuild	built	built	
+87	tostay	stayed	stayed	
+88	tofall	fell	fallen	
+89	tocut	cut	cut	
+90	toreach	reached	reached	
+91	tokill	killed	killed	
+92	toremain	remained	remained	
+93	tosuggest	suggested	suggested	
+94	toraise	raised	raised	
+95	topass	passed	passed	
+96	tosell	sold	sold	
+97	torequire	required	required	
+98	toreport	reported	reported	
+99	todecide	decided	decided	
+100	topull	pulled	pulled	
