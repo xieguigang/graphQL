@@ -199,6 +199,15 @@ class App {
             ->find();
     }
 
+    /**
+     * assign the class label to a word token
+     * 
+     * @param string $token the specific word token
+     * @param string $class the class label tag string
+     * 
+     * @method POST
+     * @uses api
+    */
     public function assign_class($token, $class) {
         # find token
         $hash1 = $this->find_token($token);
