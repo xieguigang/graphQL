@@ -12,6 +12,16 @@ const import_verbs = function(graphdb = getOption("graphdb_web")) {
 
     print(verbs, max.print = 13);
     print(verb_words);
+
+    for(word in verb_words) {
+        try({
+            sprintf(url, urlencode(word))
+            |> requests.post()
+            |> http::content()
+            |> str()
+            ;
+        });
+    }
 }
 
 const import_stopwords = function(graphdb = getOption("graphdb_web")) {
