@@ -3,8 +3,15 @@ const import_verbs = function(graphdb = getOption("graphdb_web")) {
     const verbs = system.file("data/verbs.txt", package = "graphQL")
         |> read.csv(row.names = 1, check.names = FALSE, tsv = TRUE)
         ;
+    const verb_words = append(verbs$Verb, verbs$"Simple Past") 
+    |> append(verbs$"Past Participle") 
+    |> tolower() 
+    |> trim() 
+    |> unique()
+    ;
 
-    print(verbs);
+    print(verbs, max.print = 13);
+    print(verb_words);
 }
 
 const import_stopwords = function(graphdb = getOption("graphdb_web")) {
