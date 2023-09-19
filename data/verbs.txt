@@ -4,7 +4,8 @@ No.	Verb	Simple Past	Past Participle
 3	to do 	did 	done 	
 4	to say 	said 	said 	
 5	to go 	went 	gone 	
-6	to get 	got 	got  / gotten  	
+6	to get 	got 	got
+6	to get 	got 	gotten  	
 7	to make 	made 	made 	
 8	to know 	knew 	known 	
 9	to think 	thought 	thought 	
@@ -56,7 +57,8 @@ No.	Verb	Simple Past	Past Participle
 55	to include 	included 	included 	
 56	to continue 	continued 	continued 	
 57	to set 	set 	set 	
-58	to learn 	learnt  / learned  	learnt  / learned  	
+58	to learn 	learnt  	learnt
+58	to learn 	learned  	learned  	
 59	to change 	changed 	changed 	
 60	to lead 	led 	led 	
 61	to understand 	understood 	understood 	
