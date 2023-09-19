@@ -34,7 +34,7 @@ CREATE TABLE `text_graph` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `query_link` (`from`,`to`)
-) ENGINE=InnoDB AUTO_INCREMENT=10426 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=12110 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -64,4 +64,4 @@ CREATE TABLE `word_token` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-09-19  8:51:31
+-- Dump completed on 2023-09-19  8:54:33
