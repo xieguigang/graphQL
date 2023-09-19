@@ -1,3 +1,11 @@
+const import_verbs = function(graphdb = getOption("graphdb_web")) {
+    const url = `${graphdb}/mining/assign_class/?token=%s&class=verbs`;
+    const verbs = system.file("data/verbs.txt", package = "graphQL")
+        |> read.csv(row.names = 1, check.names = FALSE, tsv = TRUE)
+        ;
+
+    print(verbs);
+}
 
 const import_stopwords = function(graphdb = getOption("graphdb_web")) {
     const url = `${graphdb}/mining/assign_class/?token=%s&class=stopwords`;
