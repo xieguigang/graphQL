@@ -48,7 +48,7 @@ class App {
                 ->left_join("word_token")
                 ->on(["word_token" => "id", "text_graph" => "from"])
                 ->where(["to" => $i["id"]])
-                ->order_by("weight / count", true)
+                ->order_by("`weight` / `count`", true)
                 ->limit($top)
                 ->select(["token","`text_graph`.`weight` / `count` as weight"])
                 ;
@@ -56,7 +56,7 @@ class App {
                 ->left_join("word_token")
                 ->on(["word_token" => "id", "text_graph" => "to"])
                 ->where(["from" => $i["id"]])
-                ->order_by("weight / count", true)
+                ->order_by("`weight` / `count`", true)
                 ->limit($top)
                 ->select(["token","`text_graph`.`weight` / `count` as weight"])
                 ;
@@ -81,7 +81,7 @@ class App {
             ->left_join("word_token")
             ->on(["word_token" => "id", "text_graph" => "to"])
             ->where(["from" => $i["id"]])
-            ->order_by("weight / count", true)
+            ->order_by("`weight` / `count`", true)
             ->limit($top)
             ->select(["token","`text_graph`.`weight` / `count` as weight"])
             ;
