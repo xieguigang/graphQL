@@ -25,9 +25,10 @@ const text_graph = function(text, phase_size = 6) {
 
 const tokens_trim = function(tokens) {
     str(tokens);
-    tokens = sapply(tokens, si -> si |> trim(characters = " ,.?;'():"));
+    tokens = tokens |> sapply(si -> si |> trim(characters = " ,.?;'():[]-"));
     tokens = tokens[nchar(tokens) > 0];
-    tokens = tokens[!(tokens == $"(\[\d+\])+")];
+    tokens = tokens[!(tokens == $"(\[\d+\])+")];  # quot reference number
+    tokens = tokens[!(tokens == $"\d+(\.\d+)?")]; # integer number
 
     tolower(tokens);
 }
