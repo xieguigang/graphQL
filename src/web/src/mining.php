@@ -39,7 +39,7 @@ class App {
      * @method GET
     */
     public function get_vector($word, $top = 10) {
-        $i = $this->node->where(["token" => strtolower(urldecode($word))])->find();
+        $i = $this->find_token($word);
 
         if (Utils::isDbNull($i)) {
             controller::error("Unable to find word token '$word'!", 404);
@@ -72,7 +72,7 @@ class App {
      * @method GET
     */
     public function get_prompt($q, $top = 10) {
-        $i = $this->node->where(["token" => strtolower(urldecode($q))])->find();
+        $i = $this->find_token($q);
 
         if (Utils::isDbNull($i)) {
             controller::error("Unable to find word token '$q'!", 404);
@@ -97,8 +97,8 @@ class App {
      * @method GET
     */
     public function get_weight($i, $j) {
-        $hash1 = $this->node->where(["token" => strtolower(urldecode($i))])->find();
-        $hash2 = $this->node->where(["token" => strtolower(urldecode($j))])->find();
+        $hash1 = $this->find_token($i);
+        $hash2 = $this->find_token($j);
 
         if (Utils::isDbNull($hash1)) {
             controller::error("Unable to find word token '$i'!", 404);
@@ -191,5 +191,17 @@ class App {
         }
 
         controller::success(1);
+    }
+
+    private function find_token($token) {
+        return $this->node
+            ->where(["token" => strtolower(urldecode($token))])
+            ->find();
+    }
+
+    public function assign_class($token, $class) {
+        # find token
+        $hash1 = $this->find_token($token);
+
     }
 }
