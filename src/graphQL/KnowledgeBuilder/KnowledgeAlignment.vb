@@ -81,4 +81,8 @@ Public Class KnowledgeAlignment : Inherits ComparisonProvider
             y = jaccard
         End If
     End Sub
+
+    Public Overrides Function GetObject(id As String) As Object
+        Return all(id)
+    End Function
 End Class
