@@ -14,11 +14,27 @@ return [
 	//
 	// 使用默认的数据库配置：  $query = (new Table("tableName"))->where([....])->select();
 	// 
-    'DB_HOST' => "192.168.0.207",
-    'DB_NAME' => 'graphdb',
+    'DB_HOST' => "192.168.0.231",
+    'DB_NAME' => 'graphql',
     'DB_USER' => 'root',
-    'DB_PWD'  => '123456',
+    'DB_PWD'  => '123456.Xieguigang',
     'DB_PORT' => '3306',
+
+    "graphql" => [
+        'DB_HOST' => "192.168.0.231",
+        'DB_NAME' => 'graphql',
+        'DB_USER' => 'root',
+        'DB_PWD'  => '123456.Xieguigang',
+        'DB_PORT' => '3306'
+    ],
+
+    "text_mining" => [
+        'DB_HOST' => "192.168.0.231",
+        'DB_NAME' => 'text_mining',
+        'DB_USER' => 'root',
+        'DB_PWD'  => '123456.Xieguigang',
+        'DB_PORT' => '3306'
+    ],
 
     // 框架配置参数
 	"ERR_HANDLER_DISABLE" => "FALSE",

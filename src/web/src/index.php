@@ -12,4 +12,12 @@ class App {
     public function index() {
         View::Display();
     }
+
+    /**
+     * @access *
+     * @uses view
+    */
+    public function phpinfo() {
+        echo phpinfo();
+    }
 }

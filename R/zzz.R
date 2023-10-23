@@ -7,4 +7,6 @@ const .onLoad = function() {
 	cat("\n");
 	cat("Github: https://github.com/xieguigang/graphQL\n");
 	cat("\n");
+
+	options(graphdb_web = "http://novocell.mzkit.org:88");
 }
