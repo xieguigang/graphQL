@@ -2,11 +2,17 @@
 //
 //    imports "graph_mysql" from "graphR";
 //
-// ref=graphR.graphMySQL@graphR, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+// ref=graphR.graphMySQLTool@graphR, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 
 /**
 */
 declare namespace graph_mysql {
+   /**
+     * @param category default value Is ``'unclass'``.
+     * @param metadata default value Is ``null``.
+     * @param env default value Is ``null``.
+   */
+   function add_term(graphdb: object, term: string, category?: string, metadata?: object, env?: object): any;
    module open {
       /**
         * @param host default value Is ``'localhost'``.
