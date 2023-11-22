@@ -25,15 +25,18 @@ Public Class graphMySQL
     Public Function Add(term As String, type As String, metadata As Dictionary(Of String, String())) As UInteger
         Dim hashcode As UInteger = FNV1a.GetHashCode($"{term}+{type}")
         Dim nhits As Integer
-        Dim insert As Boolean = knowledge.add(
-            field("id") = hashcode,
-            field("key") = term,
-            field("display_title") = term,
-            field("node_type") = Vocabulary(type),
-            field("graph_size") = 0,
-            field("add_time") = Now,
-            field("description") = ""
-        )
+
+        If knowledge.where(field("id") = hashcode).find(Of knowledge) Is Nothing Then
+            Call knowledge.add(
+                field("id") = hashcode,
+                field("key") = term,
+                field("display_title") = term,
+                field("node_type") = Vocabulary(type),
+                field("graph_size") = 0,
+                field("add_time") = Now,
+                field("description") = ""
+            )
+        End If
 
         knowledge_vocabulary _
             .where(field("id") = Vocabulary(type)) _
@@ -51,24 +54,28 @@ Public Class graphMySQL
 
                 Dim hash2 As UInteger = FNV1a.GetHashCode($"{val}+{category}")
 
-                knowledge.add(
-                    field("id") = hash2,
-                    field("key") = val,
-                    field("display_title") = val,
-                    field("node_type") = Vocabulary(category),
-                    field("graph_size") = 1,
-                    field("add_time") = Now,
-                    field("description") = desc
-                )
+                If knowledge.where(field("id") = hash2).find(Of knowledge) Is Nothing Then
+                    knowledge.add(
+                        field("id") = hash2,
+                        field("key") = val,
+                        field("display_title") = val,
+                        field("node_type") = Vocabulary(category),
+                        field("graph_size") = 1,
+                        field("add_time") = Now,
+                        field("description") = desc
+                    )
+                End If
 
-                graph.add(
-                    field("from_node") = hash2,
-                    field("to_node") = hashcode,
-                    field("link_type") = Vocabulary(category),
-                    field("weight") = 1,
-                    field("add_time") = Now,
-                    field("note") = ""
-                )
+                If graph.where(field("from_node") = hash2, field("to_node") = hashcode).find(Of mysql.graph) Is Nothing Then
+                    graph.add(
+                        field("from_node") = hash2,
+                        field("to_node") = hashcode,
+                        field("link_type") = Vocabulary(category),
+                        field("weight") = 1,
+                        field("add_time") = Now,
+                        field("note") = ""
+                    )
+                End If
 
                 n += 1
                 nhits += 1
