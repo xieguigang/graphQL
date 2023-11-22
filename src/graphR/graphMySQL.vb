@@ -33,6 +33,10 @@ Public Module graphMySQLTool
                              Optional metadata As list = Nothing,
                              Optional env As Environment = Nothing) As Object
 
+        If metadata.length = 1 AndAlso TypeOf metadata.data.First Is list Then
+            metadata = metadata.data.First
+        End If
+
         Dim meta_str As Dictionary(Of String, String()) = metadata.AsGeneric(Of String())(env)
         Dim result = graphdb.Add(term, meta_str)
 
