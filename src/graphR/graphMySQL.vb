@@ -29,6 +29,7 @@ Public Module graphMySQLTool
     <ExportAPI("add_term")>
     Public Function add_term(graphdb As graphMySQL,
                              term As String,
+                             Optional category As String = "unclass",
                              <RListObjectArgument>
                              Optional metadata As list = Nothing,
                              Optional env As Environment = Nothing) As Object
@@ -38,7 +39,7 @@ Public Module graphMySQLTool
         End If
 
         Dim meta_str As Dictionary(Of String, String()) = metadata.AsGeneric(Of String())(env)
-        Dim result = graphdb.Add(term, meta_str)
+        Dim result = graphdb.Add(term, category, meta_str)
 
         Return result
     End Function
