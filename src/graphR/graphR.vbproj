@@ -77,6 +77,10 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="MySql.Data" Version="8.0.33" />
+  </ItemGroup>
+
   <Import Project="..\..\..\GCModeller\src\R-sharp\Library\shares\JsonHelper\JsonHelper.projitems" Label="Shared" />
 
 </Project>
