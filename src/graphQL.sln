@@ -59,6 +59,8 @@ Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "HDSPack", "..\..\GCModeller
 EndProject
 Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "libmysql", "mysqli\LibMySQL\libmysql.vbproj", "{8E9E7F55-59D8-4AFB-8F93-EA2FB986945C}"
 EndProject
+Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "graphMySQL", "graphMySQL\graphMySQL.vbproj", "{D57BDFFA-0B90-40CB-AF5C-C737698FC717}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -783,6 +785,38 @@ Global
 		{8E9E7F55-59D8-4AFB-8F93-EA2FB986945C}.Rsharp_app_release|Any CPU.Build.0 = Rsharp_app_release|Any CPU
 		{8E9E7F55-59D8-4AFB-8F93-EA2FB986945C}.Rsharp_app_release|x64.ActiveCfg = Rsharp_app_release|x64
 		{8E9E7F55-59D8-4AFB-8F93-EA2FB986945C}.Rsharp_app_release|x64.Build.0 = Rsharp_app_release|x64
+		{D57BDFFA-0B90-40CB-AF5C-C737698FC717}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D57BDFFA-0B90-40CB-AF5C-C737698FC717}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D57BDFFA-0B90-40CB-AF5C-C737698FC717}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D57BDFFA-0B90-40CB-AF5C-C737698FC717}.Debug|x64.Build.0 = Debug|Any CPU
+		{D57BDFFA-0B90-40CB-AF5C-C737698FC717}.LipidSearch|Any CPU.ActiveCfg = Debug|Any CPU
+		{D57BDFFA-0B90-40CB-AF5C-C737698FC717}.LipidSearch|Any CPU.Build.0 = Debug|Any CPU
+		{D57BDFFA-0B90-40CB-AF5C-C737698FC717}.LipidSearch|x64.ActiveCfg = Debug|Any CPU
+		{D57BDFFA-0B90-40CB-AF5C-C737698FC717}.LipidSearch|x64.Build.0 = Debug|Any CPU
+		{D57BDFFA-0B90-40CB-AF5C-C737698FC717}.mzkit_win32|Any CPU.ActiveCfg = Debug|Any CPU
+		{D57BDFFA-0B90-40CB-AF5C-C737698FC717}.mzkit_win32|Any CPU.Build.0 = Debug|Any CPU
+		{D57BDFFA-0B90-40CB-AF5C-C737698FC717}.mzkit_win32|x64.ActiveCfg = Debug|Any CPU
+		{D57BDFFA-0B90-40CB-AF5C-C737698FC717}.mzkit_win32|x64.Build.0 = Debug|Any CPU
+		{D57BDFFA-0B90-40CB-AF5C-C737698FC717}.mzkit|Any CPU.ActiveCfg = Debug|Any CPU
+		{D57BDFFA-0B90-40CB-AF5C-C737698FC717}.mzkit|Any CPU.Build.0 = Debug|Any CPU
+		{D57BDFFA-0B90-40CB-AF5C-C737698FC717}.mzkit|x64.ActiveCfg = Debug|Any CPU
+		{D57BDFFA-0B90-40CB-AF5C-C737698FC717}.mzkit|x64.Build.0 = Debug|Any CPU
+		{D57BDFFA-0B90-40CB-AF5C-C737698FC717}.NPSearch|Any CPU.ActiveCfg = Debug|Any CPU
+		{D57BDFFA-0B90-40CB-AF5C-C737698FC717}.NPSearch|Any CPU.Build.0 = Debug|Any CPU
+		{D57BDFFA-0B90-40CB-AF5C-C737698FC717}.NPSearch|x64.ActiveCfg = Debug|Any CPU
+		{D57BDFFA-0B90-40CB-AF5C-C737698FC717}.NPSearch|x64.Build.0 = Debug|Any CPU
+		{D57BDFFA-0B90-40CB-AF5C-C737698FC717}.PlantMAT|Any CPU.ActiveCfg = Debug|Any CPU
+		{D57BDFFA-0B90-40CB-AF5C-C737698FC717}.PlantMAT|Any CPU.Build.0 = Debug|Any CPU
+		{D57BDFFA-0B90-40CB-AF5C-C737698FC717}.PlantMAT|x64.ActiveCfg = Debug|Any CPU
+		{D57BDFFA-0B90-40CB-AF5C-C737698FC717}.PlantMAT|x64.Build.0 = Debug|Any CPU
+		{D57BDFFA-0B90-40CB-AF5C-C737698FC717}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D57BDFFA-0B90-40CB-AF5C-C737698FC717}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D57BDFFA-0B90-40CB-AF5C-C737698FC717}.Release|x64.ActiveCfg = Release|Any CPU
+		{D57BDFFA-0B90-40CB-AF5C-C737698FC717}.Release|x64.Build.0 = Release|Any CPU
+		{D57BDFFA-0B90-40CB-AF5C-C737698FC717}.Rsharp_app_release|Any CPU.ActiveCfg = Release|Any CPU
+		{D57BDFFA-0B90-40CB-AF5C-C737698FC717}.Rsharp_app_release|Any CPU.Build.0 = Release|Any CPU
+		{D57BDFFA-0B90-40CB-AF5C-C737698FC717}.Rsharp_app_release|x64.ActiveCfg = Rsharp_app_release|x64
+		{D57BDFFA-0B90-40CB-AF5C-C737698FC717}.Rsharp_app_release|x64.Build.0 = Rsharp_app_release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

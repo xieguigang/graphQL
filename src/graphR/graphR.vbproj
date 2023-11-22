@@ -66,6 +66,7 @@
     <ProjectReference Include="..\..\..\GCModeller\src\runtime\sciBASIC#\Microsoft.VisualBasic.Core\src\Core.vbproj" />
     <ProjectReference Include="..\..\..\GCModeller\src\runtime\sciBASIC#\mime\application%json\JSON-netcore5.vbproj" />
     <ProjectReference Include="..\graphMsg\graphMsg.vbproj" />
+    <ProjectReference Include="..\graphMySQL\graphMySQL.vbproj" />
     <ProjectReference Include="..\graphQL\graphQL.vbproj" />
     <ProjectReference Include="..\mysqli\LibMySQL\libmysql.vbproj" />
   </ItemGroup>
@@ -75,6 +76,10 @@
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MySql.Data" Version="8.0.33" />
   </ItemGroup>
 
   <Import Project="..\..\..\GCModeller\src\R-sharp\Library\shares\JsonHelper\JsonHelper.projitems" Label="Shared" />
