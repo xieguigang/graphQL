@@ -42,6 +42,7 @@ Public Class graphMySQL
 
         For Each category As String In metadata.Keys
             Dim desc As String = $"{term}.{category}"
+            Dim n As Integer = 0
 
             For Each val As String In metadata(category)
                 If val.StringEmpty(testEmptyFactor:=True) OrElse val = "-" Then
@@ -69,8 +70,14 @@ Public Class graphMySQL
                     field("note") = ""
                 )
 
+                n += 1
                 nhits += 1
             Next
+
+            knowledge_vocabulary _
+                .where(field("id") = Vocabulary(category)) _
+                .limit(1) _
+                .save(field("count") = $"~ count + {n}")
         Next
 
         knowledge.where(field("id") = hashcode) _
