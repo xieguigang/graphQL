@@ -3,6 +3,7 @@ Imports graph.MySQL.mysql
 Imports Microsoft.VisualBasic.ComponentModel.Collection
 Imports Microsoft.VisualBasic.Data.Repository
 Imports Microsoft.VisualBasic.Imaging
+Imports Microsoft.VisualBasic.Linq
 Imports Oracle.LinuxCompatibility.MySQL.MySqlBuilder
 Imports Oracle.LinuxCompatibility.MySQL.Uri
 
@@ -54,11 +55,15 @@ Public Class graphMySQL
             .limit(1) _
             .save(field("count") = "~ count + 1")
 
+        If metadata Is Nothing Then
+            Return hashcode
+        End If
+
         For Each category As String In metadata.Keys
             Dim desc As String = $"{term}.{category}"
             Dim n As Integer = 0
 
-            For Each val As String In metadata(category)
+            For Each val As String In metadata(category).SafeQuery
                 If val.StringEmpty(testEmptyFactor:=True) OrElse val = "-" Then
                     Continue For
                 End If
