@@ -1,7 +1,7 @@
 ﻿Imports System.Drawing
+Imports System.Runtime.CompilerServices
 Imports graph.MySQL.mysql
 Imports Microsoft.VisualBasic.ComponentModel.Collection
-Imports Microsoft.VisualBasic.Data.Repository
 Imports Microsoft.VisualBasic.Imaging
 Imports Microsoft.VisualBasic.Linq
 Imports Oracle.LinuxCompatibility.MySQL.MySqlBuilder
@@ -15,6 +15,7 @@ Public Class graphMySQL
     Public ReadOnly Property knowledge_vocabulary As Model
 
     ReadOnly vocabulary_cache As New Dictionary(Of String, UInteger)
+    ReadOnly empty_str As New Index(Of String)
 
     Sub New(uri As ConnectionUri)
         graph = New Model("graph", uri)
@@ -34,21 +35,47 @@ Public Class graphMySQL
         Next
     End Sub
 
-    Public Function Add(term As String, type As String, metadata As Dictionary(Of String, String())) As UInteger
-        Dim hashcode As UInteger = FNV1a.GetHashCode($"{term}+{type}")
-        Dim nhits As Integer
+    <MethodImpl(MethodImplOptions.AggressiveInlining)>
+    Public Sub SetEmptyStringFactor(ls As IEnumerable(Of String))
+        Call ls.SafeQuery.DoEach(Sub(s) empty_str.Add(s))
+    End Sub
 
-        If knowledge.where(field("id") = hashcode).find(Of knowledge) Is Nothing Then
+    Private Function getTermHashCode(term As String, type As String, desc As String) As UInteger
+        Dim find As knowledge = knowledge _
+            .where(
+                field("key") = term,
+                field("node_type") = Vocabulary(type)
+            ) _
+            .find(Of knowledge)
+
+        If find Is Nothing Then
             Call knowledge.add(
-                field("id") = hashcode,
                 field("key") = term,
                 field("display_title") = term,
                 field("node_type") = Vocabulary(type),
                 field("graph_size") = 0,
                 field("add_time") = Now,
-                field("description") = ""
+                field("description") = desc
             )
         End If
+
+        find = knowledge _
+            .where(
+                field("key") = term,
+                field("node_type") = Vocabulary(type)
+            ) _
+            .find(Of knowledge)
+
+        If find Is Nothing Then
+            Throw New InvalidProgramException($"Can not create knowledge term: {term}@{type}!")
+        Else
+            Return find.id
+        End If
+    End Function
+
+    Public Function Add(term As String, type As String, metadata As Dictionary(Of String, String())) As UInteger
+        Dim hashcode As UInteger = getTermHashCode(term, type, desc:=type)
+        Dim nhits As Integer
 
         knowledge_vocabulary _
             .where(field("id") = Vocabulary(type)) _
@@ -62,25 +89,20 @@ Public Class graphMySQL
         For Each category As String In metadata.Keys
             Dim desc As String = $"{term}.{category}"
             Dim n As Integer = 0
+            Dim ls As String() = metadata(category)
 
-            For Each val As String In metadata(category).SafeQuery
-                If val.StringEmpty(testEmptyFactor:=True) OrElse val = "-" Then
+            If ls.IsNullOrEmpty Then
+                Continue For
+            End If
+
+            Dim w As Double = 1 / ls.Length
+
+            For Each val As String In ls
+                If val.StringEmpty(testEmptyFactor:=True) OrElse val = "-" OrElse val Like empty_str Then
                     Continue For
                 End If
 
-                Dim hash2 As UInteger = FNV1a.GetHashCode($"{val}+{category}")
-
-                If knowledge.where(field("id") = hash2).find(Of knowledge) Is Nothing Then
-                    knowledge.add(
-                        field("id") = hash2,
-                        field("key") = val,
-                        field("display_title") = val,
-                        field("node_type") = Vocabulary(category),
-                        field("graph_size") = 1,
-                        field("add_time") = Now,
-                        field("description") = desc
-                    )
-                End If
+                Dim hash2 As UInteger = getTermHashCode(val, category, desc)
 
                 If graph.where(field("from_node") = hash2, field("to_node") = hashcode).find(Of mysql.graph) Is Nothing Then
                     graph.add(
@@ -91,18 +113,28 @@ Public Class graphMySQL
                         field("add_time") = Now,
                         field("note") = ""
                     )
+                Else
+                    graph _
+                        .where(
+                            field("from_node") = hash2,
+                            field("to_node") = hashcode
+                        ) _
+                        .limit(1) _
+                        .save(field("weight") = $"~ weight + {w}")
                 End If
 
                 n += 1
                 nhits += 1
             Next
 
+            ' update vocabulary reference count
             knowledge_vocabulary _
                 .where(field("id") = Vocabulary(category)) _
                 .limit(1) _
                 .save(field("count") = $"~ count + {n}")
         Next
 
+        ' update knowledge term graph size
         knowledge.where(field("id") = hashcode) _
             .limit(1) _
             .save(field("graph_size") = $"~ graph_size + {nhits}")
