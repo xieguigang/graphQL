@@ -1,6 +1,6 @@
 ﻿Imports System.Drawing
 Imports System.Runtime.CompilerServices
-Imports graph.MySQL.mysql
+Imports graph.MySQL.graphdb
 Imports Microsoft.VisualBasic.ComponentModel.Collection
 Imports Microsoft.VisualBasic.Imaging
 Imports Microsoft.VisualBasic.Linq
@@ -41,16 +41,17 @@ Public Class graphMySQL
     End Sub
 
     Private Function getTermHashCode(term As String, type As String, desc As String) As UInteger
+        Dim key As String = Strings.LCase(term).MD5
         Dim find As knowledge = knowledge _
             .where(
-                field("key") = term,
+                field("key") = key,
                 field("node_type") = Vocabulary(type)
             ) _
             .find(Of knowledge)
 
         If find Is Nothing Then
             Call knowledge.add(
-                field("key") = term,
+                field("key") = key,
                 field("display_title") = term,
                 field("node_type") = Vocabulary(type),
                 field("graph_size") = 0,
@@ -61,7 +62,7 @@ Public Class graphMySQL
 
         find = knowledge _
             .where(
-                field("key") = term,
+                field("key") = key,
                 field("node_type") = Vocabulary(type)
             ) _
             .find(Of knowledge)
@@ -104,7 +105,7 @@ Public Class graphMySQL
 
                 Dim hash2 As UInteger = getTermHashCode(val, category, desc)
 
-                If graph.where(field("from_node") = hash2, field("to_node") = hashcode).find(Of mysql.graph) Is Nothing Then
+                If graph.where(field("from_node") = hash2, field("to_node") = hashcode).find(Of graphdb.graph) Is Nothing Then
                     graph.add(
                         field("from_node") = hash2,
                         field("to_node") = hashcode,
