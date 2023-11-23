@@ -20,6 +20,17 @@ Public Class graphMySQL
         hash_index = New Model("hash_index", uri)
         knowledge = New Model("knowledge", uri)
         knowledge_vocabulary = New Model("knowledge_vocabulary", uri)
+
+        For Each term As knowledge_vocabulary In knowledge_vocabulary _
+            .where("length(`hashcode`) < 32") _
+            .select(Of knowledge_vocabulary)
+
+            knowledge_vocabulary _
+                .where(field("vocabulary") = term.vocabulary) _
+                .save(
+                    field("hashcode") = VocabularyHashCode(term.vocabulary)
+                )
+        Next
     End Sub
 
     Public Function Add(term As String, type As String, metadata As Dictionary(Of String, String())) As UInteger
@@ -94,6 +105,10 @@ Public Class graphMySQL
         Return hashcode
     End Function
 
+    Public Shared Function VocabularyHashCode(term As String) As String
+        Return Strings.LCase(term).MD5
+    End Function
+
     Public Function Vocabulary(term As String) As Integer
         Return vocabulary_cache.ComputeIfAbsent(
             key:=Strings.LCase(term),
@@ -106,7 +121,7 @@ Public Class graphMySQL
                                ' add new
                                knowledge_vocabulary.add(
                                    field("vocabulary") = term,
-                                   field("hashcode") = Strings.LCase(term).MD5,
+                                   field("hashcode") = VocabularyHashCode(term),
                                    field("ancestor") = 1,
                                    field("level") = 1,
                                    field("add_time") = Now,
