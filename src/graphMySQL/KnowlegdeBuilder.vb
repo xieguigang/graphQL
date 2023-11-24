@@ -88,7 +88,7 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
     Private Sub addNode(g As NetworkGraph, seed As knowledge)
         Dim ctor As New Node With {
             .ID = seed.id,
-            .label = seed.key,
+            .label = seed.key & "@" & toLabel(seed.node_type).vocabulary,
             .data = New NodeData With {
                 .label = seed.display_title,
                 .Properties = New Dictionary(Of String, String) From {
