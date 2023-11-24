@@ -3,7 +3,7 @@ Imports Microsoft.VisualBasic.Data.visualize.Network.Graph
 
 Public Class KnowlegdeBuilder : Inherits graphdbMySQL
 
-    ReadOnly vocabulary As New Dictionary(Of String, UInteger)
+    ReadOnly vocabularyIndex As New Dictionary(Of String, UInteger)
 
     Sub New(graphdb As graphMySQL)
         Call MyBase.New(
@@ -14,7 +14,7 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
         )
 
         For Each vocabulary As knowledge_vocabulary In knowledge_vocabulary.select(Of knowledge_vocabulary)()
-            Call Me.vocabulary.Add(vocabulary.vocabulary.ToLower, vocabulary.id)
+            Call Me.vocabularyIndex.Add(vocabulary.vocabulary.ToLower, vocabulary.id)
         Next
     End Sub
 
