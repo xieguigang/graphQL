@@ -38,7 +38,13 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
         End If
 
         Dim g As New NetworkGraph
-        Dim pull As New List(Of link)(push(g, seed))
+        Dim node_types As String() = vocabulary _
+            .Select(Function(si) si.ToLower) _
+            .Where(Function(si) vocabularyIndex.ContainsKey(si)) _
+            .Select(Function(l) vocabularyIndex(l).ToString) _
+            .Distinct _
+            .ToArray
+        Dim pull As New List(Of link)(push(g, seed, node_types))
 
         Return g
     End Function
@@ -69,11 +75,11 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
            .select(Of knowledge)
     End Function
 
-    Private Function push(g As NetworkGraph, seed As knowledge) As IEnumerable(Of link)
+    Private Function push(g As NetworkGraph, seed As knowledge, node_types As String()) As IEnumerable(Of link)
         Dim links As New List(Of link)
 
-        Call links.AddRange(loadViaFromNodes(seed.id, Nothing))
-        Call links.AddRange(loadViaToNodes(seed.id, Nothing))
+        Call links.AddRange(loadViaFromNodes(seed.id, Nothing, node_types))
+        Call links.AddRange(loadViaToNodes(seed.id, Nothing, node_types))
 
         Dim moreSeeds As New List(Of knowledge)(pullNodes(links))
 
@@ -87,8 +93,8 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
             Dim b = moreSeeds.Count
 
             For Each seed2 In moreSeeds.ToArray
-                Dim pull = loadViaFromNodes(seed2.id, excludes) _
-                    .JoinIterates(loadViaToNodes(seed2.id, excludes)) _
+                Dim pull = loadViaFromNodes(seed2.id, excludes, node_types) _
+                    .JoinIterates(loadViaToNodes(seed2.id, excludes, node_types)) _
                     .ToArray
                 links.AddRange(pull)
                 moreSeeds.AddRange(pullNodes(pull))
@@ -101,16 +107,16 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
     End Function
 
     <MethodImpl(MethodImplOptions.AggressiveInlining)>
-    Private Function loadViaFromNodes(seed As UInteger, excludes As IEnumerable(Of String)) As IEnumerable(Of link)
-        Return loadLinks(seed, "from_node", "to_node", excludes.SafeQuery.ToArray)
+    Private Function loadViaFromNodes(seed As UInteger, excludes As IEnumerable(Of String), node_types As String()) As IEnumerable(Of link)
+        Return loadLinks(seed, "from_node", "to_node", excludes.SafeQuery.ToArray, node_types)
     End Function
 
     <MethodImpl(MethodImplOptions.AggressiveInlining)>
-    Private Function loadViaToNodes(seed As UInteger, excludes As IEnumerable(Of String)) As IEnumerable(Of link)
-        Return loadLinks(seed, "to_node", "from_node", excludes.SafeQuery.ToArray)
+    Private Function loadViaToNodes(seed As UInteger, excludes As IEnumerable(Of String), node_types As String()) As IEnumerable(Of link)
+        Return loadLinks(seed, "to_node", "from_node", excludes.SafeQuery.ToArray, node_types)
     End Function
 
-    Private Function loadLinks(seed As UInteger, field As String, take As String, excludes As String()) As IEnumerable(Of link)
+    Private Function loadLinks(seed As UInteger, field As String, take As String, excludes As String(), node_types As String()) As IEnumerable(Of link)
         Dim sql = graph _
            .left_join("knowledge").on(
                 f("knowledge.`id`") = f(take)) _
@@ -120,6 +126,9 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
 
         If Not excludes.IsNullOrEmpty Then
             sql = sql.and(Not f("knowledge.`id`").in(excludes))
+        End If
+        If Not node_types.IsNullOrEmpty Then
+            sql = sql.and(f("knowledge.`node_type`").in(node_types))
         End If
 
         Dim q = sql.select(Of link)("knowledge.id", $"{field} as seed", "weight", "display_title", "vocabulary AS node_type")
