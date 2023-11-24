@@ -77,9 +77,9 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
                     g.GetElementByID(id:=link.id),
                     weight:=link.weight
                 )
-            End If
 
-            Yield link
+                Yield link
+            End If
         Next
         For Each link As link In loadViaToNodes(seed.id)
             If g.GetElementByID(id:=link.id) Is Nothing Then
@@ -95,9 +95,9 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
                     g.GetElementByID(id:=link.id),
                     weight:=link.weight
                 )
-            End If
 
-            Yield link
+                Yield link
+            End If
         Next
     End Function
 
