@@ -55,15 +55,26 @@ Public Module graphMySQLTool
     End Function
 
     <ExportAPI("pull_nextGraph")>
+    <RApiReturn("graph", "term", "seed", "id")>
     Public Function pullNextGraph(graphdb As KnowlegdeBuilder, <RRawVectorArgument> vocabulary As Object, Optional env As Environment = Nothing) As Object
         Dim cats = CLRVector.asCharacter(vocabulary)
         Dim seed As knowledge = Nothing
         Dim g As NetworkGraph = graphdb.PullNextGraph(cats, seed)
+
+        If seed Is Nothing OrElse g Is Nothing Then
+            Return Nothing
+        End If
+
         Dim term As New KnowledgeFrameRow With {
-            .Properties = New Dictionary(Of String, String())
+            .Properties = New Dictionary(Of String, String()),
+            .UniqeId = seed.id
         }
 
-        For Each nodeSet In g.vertex.GroupBy(Function(vi) vi.data(NamesOf.REFLECTION_ID_MAPPING_NODETYPE))
+        For Each nodeSet In g.vertex _
+            .GroupBy(Function(vi)
+                         Return vi.data(NamesOf.REFLECTION_ID_MAPPING_NODETYPE)
+                     End Function)
+
             Call term.Add(nodeSet.Key, nodeSet.Select(Function(vi) vi.text).Distinct.ToArray)
         Next
 
@@ -71,9 +82,15 @@ Public Module graphMySQLTool
             .slots = New Dictionary(Of String, Object) From {
                 {"graph", g},
                 {"term", term},
-                {"seed", seed}
+                {"seed", seed},
+                {"id", seed.id}
             }
         }
+    End Function
+
+    <ExportAPI("assign_graph")>
+    Public Function assignTermId(graphdb As graphdbMySQL, g As NetworkGraph, term As UInteger)
+
     End Function
 
 End Module
