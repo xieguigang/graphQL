@@ -108,9 +108,9 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
     Private Function loadLinks(seed As UInteger, field As String) As IEnumerable(Of link)
         Dim q = graph _
            .left_join("knowledge").on(
-                f("knowledge.id") = f("from_node")) _
+                f("knowledge.`id`") = f("from_node")) _
            .left_join("knowledge_vocabulary").on(
-                f("knowledge_vocabulary.id") = f("node_type")) _
+                f("knowledge_vocabulary.`id`") = f("node_type")) _
            .where(graph.f(field) = seed, f("knowledge_term") = 0) _
            .select(Of link)("knowledge.id", $"{field} as seed", "weight", "display_title", "vocabulary AS node_type")
 
