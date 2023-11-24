@@ -28,6 +28,14 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
         Next
     End Sub
 
+    Public Sub ReferenceToTerm(g As NetworkGraph, term As UInteger)
+        For Each block In g.vertex.Split(1000)
+            Call knowledge _
+                .where(field("id").in(block.Select(Function(a) a.ID))) _
+                .save(field("knowledge_term") = term)
+        Next
+    End Sub
+
     Public Function PullNextGraph(vocabulary As String(), Optional ByRef seed As knowledge = Nothing) As NetworkGraph
         seed = knowledge _
             .where(knowledge.field("knowledge_term") = 0) _

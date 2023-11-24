@@ -89,8 +89,9 @@ Public Module graphMySQLTool
     End Function
 
     <ExportAPI("assign_graph")>
-    Public Function assignTermId(graphdb As graphdbMySQL, g As NetworkGraph, term As UInteger)
-
+    Public Function assignTermId(graphdb As KnowlegdeBuilder, g As NetworkGraph, term As UInteger)
+        Call graphdb.ReferenceToTerm(g, term)
+        Return Nothing
     End Function
 
 End Module
