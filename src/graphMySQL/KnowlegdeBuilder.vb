@@ -2,12 +2,13 @@
 Imports graph.MySQL.graphdb
 Imports Microsoft.VisualBasic.Data.visualize.Network.FileStream.Generic
 Imports Microsoft.VisualBasic.Data.visualize.Network.Graph
+Imports Microsoft.VisualBasic.Imaging
 Imports Oracle.LinuxCompatibility.MySQL.MySqlBuilder
 
 Public Class KnowlegdeBuilder : Inherits graphdbMySQL
 
     ReadOnly vocabularyIndex As New Dictionary(Of String, UInteger)
-    ReadOnly toLabel As New Dictionary(Of String, String)
+    ReadOnly toLabel As New Dictionary(Of String, knowledge_vocabulary)
 
     Sub New(graphdb As graphMySQL)
         Call MyBase.New(
@@ -47,8 +48,13 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
                            .data = New NodeData With {
                                 .label = seed.display_title,
                                 .Properties = New Dictionary(Of String, String) From {
-                                    {NamesOf.REFLECTION_ID_MAPPING_NODETYPE, toLabel(seed.node_type)}
-                                }
+                                    {NamesOf.REFLECTION_ID_MAPPING_NODETYPE, toLabel(seed.node_type).vocabulary}
+                                },
+                                .origID = seed.key,
+                                .size = {seed.graph_size + 1},
+                                .mass = seed.graph_size,
+                                .weights = .size,
+                                .color = toLabel(seed.node_type).color.GetBrush
                            }
                        }, assignId:=False)
         End If
