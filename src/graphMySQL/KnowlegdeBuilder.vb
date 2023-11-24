@@ -53,13 +53,20 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
         Next
 
         Call pull.AddRange(pullNodes(linksTo.ToArray))
+        ' Call pull.Sort(Function(a, b) a.key.CompareTo(b.key))
 
         Dim g As New NetworkGraph
 
-        For Each node As knowledge In pull
+        For Each node As knowledge In pull _
+            .GroupBy(Function(a) $"{a.key}+{a.node_type}") _
+            .Select(Function(gi) gi.First)
+
             Call addNode(g, node)
         Next
-        For Each link As link In linksTo
+        For Each link As link In linksTo _
+            .GroupBy(Function(a) {a.id, a.seed}.OrderBy(Function(id) id).JoinBy("+")) _
+            .Select(Function(d) d.First)
+
             Call g.CreateEdge(
                 g.GetElementByID(id:=link.id),
                 g.GetElementByID(id:=link.seed),

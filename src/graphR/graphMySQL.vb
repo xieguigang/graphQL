@@ -1,6 +1,8 @@
 ﻿
 Imports graph.MySQL
+Imports graphQL
 Imports Microsoft.VisualBasic.CommandLine.Reflection
+Imports Microsoft.VisualBasic.Data.visualize.Network.FileStream.Generic
 Imports Microsoft.VisualBasic.Data.visualize.Network.Graph
 Imports Microsoft.VisualBasic.Scripting.MetaData
 Imports Oracle.LinuxCompatibility.MySQL.Uri
@@ -55,7 +57,17 @@ Public Module graphMySQLTool
     Public Function pullNextGraph(graphdb As KnowlegdeBuilder, <RRawVectorArgument> vocabulary As Object, Optional env As Environment = Nothing) As Object
         Dim cats = CLRVector.asCharacter(vocabulary)
         Dim g As NetworkGraph = graphdb.PullNextGraph(cats)
+        Dim term As New KnowledgeFrameRow With {.Properties = New Dictionary(Of String, String())}
 
+        For Each nodeSet In g.vertex.GroupBy(Function(vi) vi.data(NamesOf.REFLECTION_ID_MAPPING_NODETYPE))
+            Call term.Add(nodeSet.Key, nodeSet.Select(Function(vi) vi.data.origID).ToArray)
+        Next
+
+        Return New list With {
+            .slots = New Dictionary(Of String, Object) From {
+                {"graph", g}, {"term", term}
+            }
+        }
     End Function
 
 End Module
