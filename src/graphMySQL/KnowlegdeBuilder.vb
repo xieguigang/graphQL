@@ -3,7 +3,9 @@ Imports graph.MySQL.graphdb
 Imports Microsoft.VisualBasic.Data.visualize.Network.FileStream.Generic
 Imports Microsoft.VisualBasic.Data.visualize.Network.Graph
 Imports Microsoft.VisualBasic.Imaging
+Imports Microsoft.VisualBasic.Serialization.JSON
 Imports Oracle.LinuxCompatibility.MySQL.MySqlBuilder
+Imports Oracle.LinuxCompatibility.MySQL.Reflection.DbAttributes
 
 Public Class KnowlegdeBuilder : Inherits graphdbMySQL
 
@@ -68,12 +70,14 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
                 Next
             End If
 
-            ' create link
-            g.CreateEdge(
-                g.GetElementByID(id:=seed.id),
-                g.GetElementByID(id:=link.id),
-                weight:=link.weight
-            )
+            If seed.id <> link.id Then
+                ' create link
+                g.CreateEdge(
+                    g.GetElementByID(id:=seed.id),
+                    g.GetElementByID(id:=link.id),
+                    weight:=link.weight
+                )
+            End If
 
             Yield link
         Next
@@ -84,12 +88,14 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
                 Next
             End If
 
-            ' create link
-            g.CreateEdge(
-                g.GetElementByID(id:=seed.id),
-                g.GetElementByID(id:=link.id),
-                weight:=link.weight
-            )
+            If seed.id <> link.id Then
+                ' create link
+                g.CreateEdge(
+                    g.GetElementByID(id:=seed.id),
+                    g.GetElementByID(id:=link.id),
+                    weight:=link.weight
+                )
+            End If
 
             Yield link
         Next
@@ -121,10 +127,14 @@ End Class
 
 Public Class link
 
-    Public Property id As UInteger
-    Public Property seed As UInteger
-    Public Property weight As Double
-    Public Property display_title As String
-    Public Property node_type As String
+    <DatabaseField("id")> Public Property id As UInteger
+    <DatabaseField("seed")> Public Property seed As UInteger
+    <DatabaseField("weight")> Public Property weight As Double
+    <DatabaseField("display_title")> Public Property display_title As String
+    <DatabaseField("node_type")> Public Property node_type As String
+
+    Public Overrides Function ToString() As String
+        Return Me.GetJson
+    End Function
 
 End Class
