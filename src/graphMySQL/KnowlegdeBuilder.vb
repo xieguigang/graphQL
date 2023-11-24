@@ -28,7 +28,7 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
         Next
     End Sub
 
-    Public Function PullNextGraph(vocabulary As String()) As KnowledgeFrameRow
+    Public Function PullNextGraph(vocabulary As String()) As NetworkGraph
         Dim seed = knowledge _
             .where(knowledge.field("knowledge_term") = 0) _
             .order_by({"graph_size"}, desc:=True) _
@@ -54,27 +54,20 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
 
         Call pull.AddRange(pullNodes(linksTo.ToArray))
 
-        Dim linkScores = linksTo _
-            .GroupBy(Function(a) a.id.ToString) _
-            .ToDictionary(Function(a) a.Key,
-                          Function(term)
-                              Return Aggregate li As link In term Into Sum(li.weight)
-                          End Function)
+        Dim g As New NetworkGraph
 
-        Dim metadata = pull _
-            .GroupBy(Function(n) n.node_type.ToString) _
-            .ToDictionary(Function(a) toLabel(a.Key).vocabulary.ToLower,
-                          Function(a)
-                              ' get top score result
-                              Dim sortTop = a _
-                                  .OrderByDescending(Function(ai) linkScores(ai.id.ToString)) _
-                                  .Select(Function(ai) ai.display_title) _
-                                  .ToArray
+        For Each node As knowledge In pull
+            Call addNode(g, node)
+        Next
+        For Each link As link In linksTo
+            Call g.CreateEdge(
+                g.GetElementByID(id:=link.id),
+                g.GetElementByID(id:=link.seed),
+                weight:=link.weight
+            )
+        Next
 
-                              Return sortTop
-                          End Function)
-
-        Return New KnowledgeFrameRow With {.Properties = metadata, .UniqeId = ""}
+        Return g
     End Function
 
     Private Sub addNode(g As NetworkGraph, seed As knowledge)
