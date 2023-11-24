@@ -1,5 +1,8 @@
-﻿Imports graph.MySQL.graphdb
+﻿Imports System.Runtime.CompilerServices
+Imports graph.MySQL.graphdb
+Imports Microsoft.VisualBasic.Data.visualize.Network.FileStream.Generic
 Imports Microsoft.VisualBasic.Data.visualize.Network.Graph
+Imports Oracle.LinuxCompatibility.MySQL.MySqlBuilder
 
 Public Class KnowlegdeBuilder : Inherits graphdbMySQL
 
@@ -28,7 +31,89 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
             Return Nothing
         End If
 
-
+        Dim g As New NetworkGraph
+        Call push(g, seed)
+        Return g
     End Function
+
+    Private Iterator Function push(g As NetworkGraph, seed As knowledge) As IEnumerable(Of link)
+        If g.GetElementByID(id:=seed.id) Is Nothing Then
+            Call g.AddNode(New Node With {
+                           .ID = seed.id,
+                           .label = seed.key,
+                           .data = New NodeData With {
+                                .label = seed.display_title,
+                                .Properties = New Dictionary(Of String, String) From {
+                                    {NamesOf.REFLECTION_ID_MAPPING_NODETYPE, seed.node_type}
+                                }
+                           }
+                       }, assignId:=False)
+        End If
+
+        For Each link As link In loadViaFromNodes(seed.id)
+            If g.GetElementByID(id:=link.id) Is Nothing Then
+                For Each pull In push(g, knowledge.where(f("id") = link.id).find(Of knowledge))
+                    Yield pull
+                Next
+            End If
+
+            ' create link
+            g.CreateEdge(
+                g.GetElementByID(id:=seed.id),
+                g.GetElementByID(id:=link.id),
+                weight:=link.weight
+            )
+
+            Yield link
+        Next
+        For Each link As link In loadViaToNodes(seed.id)
+            If g.GetElementByID(id:=link.id) Is Nothing Then
+                For Each pull In push(g, knowledge.where(f("id") = link.id).find(Of knowledge))
+                    Yield pull
+                Next
+            End If
+
+            ' create link
+            g.CreateEdge(
+                g.GetElementByID(id:=seed.id),
+                g.GetElementByID(id:=link.id),
+                weight:=link.weight
+            )
+
+            Yield link
+        Next
+    End Function
+
+    <MethodImpl(MethodImplOptions.AggressiveInlining)>
+    Private Function loadViaFromNodes(seed As UInteger) As IEnumerable(Of link)
+        Return loadLinks(seed, "from_node")
+    End Function
+
+    <MethodImpl(MethodImplOptions.AggressiveInlining)>
+    Private Function loadViaToNodes(seed As UInteger) As IEnumerable(Of link)
+        Return loadLinks(seed, "to_node")
+    End Function
+
+    Private Function loadLinks(seed As UInteger, field As String) As IEnumerable(Of link)
+        Dim q = graph _
+           .left_join("knowledge").on(
+                f("knowledge.id") = f("from_node")) _
+           .left_join("knowledge_vocabulary").on(
+                f("knowledge_vocabulary.id") = f("node_type")) _
+           .where(graph.f(field) = seed, f("knowledge_term") = 0) _
+           .select(Of link)("knowledge.id", $"{field} as seed", "weight", "display_title", "vocabulary AS node_type")
+
+        Return q
+    End Function
+
+End Class
+
+Public Class link
+
+    Public Property id As UInteger
+    Public Property seed As UInteger
+    Public Property weight As Double
+    Public Property display_title As String
+    Public Property node_type As String
 
 End Class
