@@ -28,8 +28,8 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
         Next
     End Sub
 
-    Public Function PullNextGraph(vocabulary As String()) As NetworkGraph
-        Dim seed = knowledge _
+    Public Function PullNextGraph(vocabulary As String(), Optional ByRef seed As knowledge = Nothing) As NetworkGraph
+        seed = knowledge _
             .where(knowledge.field("knowledge_term") = 0) _
             .order_by({"graph_size"}, desc:=True) _
             .find(Of knowledge)

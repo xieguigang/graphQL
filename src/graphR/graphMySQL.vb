@@ -1,5 +1,6 @@
 ﻿
 Imports graph.MySQL
+Imports graph.MySQL.graphdb
 Imports graphQL
 Imports Microsoft.VisualBasic.CommandLine.Reflection
 Imports Microsoft.VisualBasic.Data.visualize.Network.FileStream.Generic
@@ -56,16 +57,21 @@ Public Module graphMySQLTool
     <ExportAPI("pull_nextGraph")>
     Public Function pullNextGraph(graphdb As KnowlegdeBuilder, <RRawVectorArgument> vocabulary As Object, Optional env As Environment = Nothing) As Object
         Dim cats = CLRVector.asCharacter(vocabulary)
-        Dim g As NetworkGraph = graphdb.PullNextGraph(cats)
-        Dim term As New KnowledgeFrameRow With {.Properties = New Dictionary(Of String, String())}
+        Dim seed As knowledge = Nothing
+        Dim g As NetworkGraph = graphdb.PullNextGraph(cats, seed)
+        Dim term As New KnowledgeFrameRow With {
+            .Properties = New Dictionary(Of String, String())
+        }
 
         For Each nodeSet In g.vertex.GroupBy(Function(vi) vi.data(NamesOf.REFLECTION_ID_MAPPING_NODETYPE))
-            Call term.Add(nodeSet.Key, nodeSet.Select(Function(vi) vi.data.origID).ToArray)
+            Call term.Add(nodeSet.Key, nodeSet.Select(Function(vi) vi.text).Distinct.ToArray)
         Next
 
         Return New list With {
             .slots = New Dictionary(Of String, Object) From {
-                {"graph", g}, {"term", term}
+                {"graph", g},
+                {"term", term},
+                {"seed", seed}
             }
         }
     End Function
