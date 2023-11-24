@@ -69,7 +69,11 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
         Call g.AddNode(ctor, assignId:=False)
     End Sub
 
-    Private Function pullNodes(links As IEnumerable(Of link)) As IEnumerable(Of knowledge)
+    Private Function pullNodes(links As link()) As IEnumerable(Of knowledge)
+        If links.IsNullOrEmpty Then
+            Return New knowledge() {}
+        End If
+
         Return knowledge _
            .where(knowledge.f("id").in(links.Select(Function(l) l.id).Distinct)) _
            .select(Of knowledge)
@@ -81,7 +85,8 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
         Call links.AddRange(loadViaFromNodes(seed.id, Nothing, node_types))
         Call links.AddRange(loadViaToNodes(seed.id, Nothing, node_types))
 
-        Dim moreSeeds As New List(Of knowledge)(pullNodes(links))
+        Dim moreSeeds As New List(Of knowledge)(pullNodes(links.ToArray))
+        Dim pullSeed = moreSeeds
 
         Do While True
             Dim excludes As String() = links _
@@ -91,14 +96,18 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
                 .ToArray
             Dim a = links.Count
             Dim b = moreSeeds.Count
+            Dim pullNodes As New List(Of knowledge)
 
-            For Each seed2 In moreSeeds.ToArray
+            For Each seed2 In pullSeed
                 Dim pull = loadViaFromNodes(seed2.id, excludes, node_types) _
                     .JoinIterates(loadViaToNodes(seed2.id, excludes, node_types)) _
                     .ToArray
                 links.AddRange(pull)
-                moreSeeds.AddRange(pullNodes(pull))
+                pullNodes.AddRange(Me.pullNodes(pull))
             Next
+
+            moreSeeds.AddRange(pullNodes)
+            pullSeed = pullNodes
 
             If links.Count = a AndAlso moreSeeds.Count = b Then
                 Exit Do
