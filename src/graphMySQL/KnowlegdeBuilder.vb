@@ -20,7 +20,7 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
 
         For Each vocabulary As knowledge_vocabulary In knowledge_vocabulary.select(Of knowledge_vocabulary)()
             Call Me.vocabularyIndex.Add(vocabulary.vocabulary.ToLower, vocabulary.id)
-            Call Me.toLabel.Add(vocabulary.id, vocabulary.vocabulary.ToLower)
+            Call Me.toLabel.Add(vocabulary.id, vocabulary)
         Next
     End Sub
 
@@ -42,21 +42,23 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
 
     Private Iterator Function push(g As NetworkGraph, seed As knowledge) As IEnumerable(Of link)
         If g.GetElementByID(id:=seed.id) Is Nothing Then
-            Call g.AddNode(New Node With {
-                           .ID = seed.id,
-                           .label = seed.key,
-                           .data = New NodeData With {
-                                .label = seed.display_title,
-                                .Properties = New Dictionary(Of String, String) From {
-                                    {NamesOf.REFLECTION_ID_MAPPING_NODETYPE, toLabel(seed.node_type).vocabulary}
-                                },
-                                .origID = seed.key,
-                                .size = {seed.graph_size + 1},
-                                .mass = seed.graph_size,
-                                .weights = .size,
-                                .color = toLabel(seed.node_type).color.GetBrush
-                           }
-                       }, assignId:=False)
+            Dim ctor As New Node With {
+                .ID = seed.id,
+                .label = seed.key,
+                .data = New NodeData With {
+                    .label = seed.display_title,
+                    .Properties = New Dictionary(Of String, String) From {
+                        {NamesOf.REFLECTION_ID_MAPPING_NODETYPE, toLabel(seed.node_type).vocabulary.ToLower}
+                    },
+                    .origID = seed.key,
+                    .size = {seed.graph_size + 1},
+                    .mass = seed.graph_size,
+                    .weights = .size,
+                    .color = toLabel(seed.node_type).color.GetBrush
+                }
+            }
+
+            Call g.AddNode(ctor, assignId:=False)
         End If
 
         For Each link As link In loadViaFromNodes(seed.id)
