@@ -7,6 +7,7 @@ Imports Oracle.LinuxCompatibility.MySQL.MySqlBuilder
 Public Class KnowlegdeBuilder : Inherits graphdbMySQL
 
     ReadOnly vocabularyIndex As New Dictionary(Of String, UInteger)
+    ReadOnly toLabel As New Dictionary(Of String, String)
 
     Sub New(graphdb As graphMySQL)
         Call MyBase.New(
@@ -18,6 +19,7 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
 
         For Each vocabulary As knowledge_vocabulary In knowledge_vocabulary.select(Of knowledge_vocabulary)()
             Call Me.vocabularyIndex.Add(vocabulary.vocabulary.ToLower, vocabulary.id)
+            Call Me.toLabel.Add(vocabulary.id, vocabulary.vocabulary.ToLower)
         Next
     End Sub
 
@@ -32,7 +34,8 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
         End If
 
         Dim g As New NetworkGraph
-        Call push(g, seed)
+        Dim pull As New List(Of link)(push(g, seed))
+
         Return g
     End Function
 
@@ -44,7 +47,7 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
                            .data = New NodeData With {
                                 .label = seed.display_title,
                                 .Properties = New Dictionary(Of String, String) From {
-                                    {NamesOf.REFLECTION_ID_MAPPING_NODETYPE, seed.node_type}
+                                    {NamesOf.REFLECTION_ID_MAPPING_NODETYPE, toLabel(seed.node_type)}
                                 }
                            }
                        }, assignId:=False)
