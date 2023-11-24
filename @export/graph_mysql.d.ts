@@ -13,6 +13,14 @@ declare namespace graph_mysql {
      * @param env default value Is ``null``.
    */
    function add_term(graphdb: object, term: string, category?: string, metadata?: object, env?: object): any;
+   module as {
+      /**
+      */
+      function knowledge_builder(graphdb: object): object;
+   }
+   /**
+   */
+   function assign_graph(graphdb: object, g: object, term: object): any;
    module open {
       /**
         * @param host default value Is ``'localhost'``.
@@ -21,4 +29,8 @@ declare namespace graph_mysql {
       */
       function graphdb(user_name: string, password: string, host?: string, port?: object, dbname?: string): object;
    }
+   /**
+     * @param env default value Is ``null``.
+   */
+   function pull_nextGraph(graphdb: object, vocabulary: any, env?: object): object;
 }
