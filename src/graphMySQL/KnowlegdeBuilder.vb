@@ -1,5 +1,6 @@
 ﻿Imports System.Runtime.CompilerServices
 Imports graph.MySQL.graphdb
+Imports graphQL
 Imports Microsoft.VisualBasic.Data.visualize.Network.FileStream.Generic
 Imports Microsoft.VisualBasic.Data.visualize.Network.Graph
 Imports Microsoft.VisualBasic.Imaging
@@ -27,7 +28,7 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
         Next
     End Sub
 
-    Public Function PullNextGraph(vocabulary As String()) As NetworkGraph
+    Public Function PullNextGraph(vocabulary As String()) As KnowledgeFrameRow
         Dim seed = knowledge _
             .where(knowledge.field("knowledge_term") = 0) _
             .order_by({"graph_size"}, desc:=True) _
@@ -37,16 +38,43 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
             Return Nothing
         End If
 
-        Dim g As New NetworkGraph
         Dim node_types As String() = vocabulary _
             .Select(Function(si) si.ToLower) _
             .Where(Function(si) vocabularyIndex.ContainsKey(si)) _
             .Select(Function(l) vocabularyIndex(l).ToString) _
             .Distinct _
             .ToArray
-        Dim pull As New List(Of link)(push(g, seed, node_types))
+        Dim pull As New List(Of knowledge)(push(seed, node_types))
+        Dim linksTo As New List(Of link)
 
-        Return g
+        For Each ki As knowledge In pull
+            Call linksTo.AddRange(loadViaFromNodes(seed.id, Nothing, Nothing))
+            Call linksTo.AddRange(loadViaToNodes(seed.id, Nothing, Nothing))
+        Next
+
+        Call pull.AddRange(pullNodes(linksTo.ToArray))
+
+        Dim linkScores = linksTo _
+            .GroupBy(Function(a) a.id.ToString) _
+            .ToDictionary(Function(a) a.Key,
+                          Function(term)
+                              Return Aggregate li As link In term Into Sum(li.weight)
+                          End Function)
+
+        Dim metadata = pull _
+            .GroupBy(Function(n) n.node_type.ToString) _
+            .ToDictionary(Function(a) toLabel(a.Key).vocabulary.ToLower,
+                          Function(a)
+                              ' get top score result
+                              Dim sortTop = a _
+                                  .OrderByDescending(Function(ai) linkScores(ai.id.ToString)) _
+                                  .Select(Function(ai) ai.display_title) _
+                                  .ToArray
+
+                              Return sortTop
+                          End Function)
+
+        Return New KnowledgeFrameRow With {.Properties = metadata, .UniqeId = ""}
     End Function
 
     Private Sub addNode(g As NetworkGraph, seed As knowledge)
@@ -79,7 +107,7 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
            .select(Of knowledge)
     End Function
 
-    Private Function push(g As NetworkGraph, seed As knowledge, node_types As String()) As IEnumerable(Of link)
+    Private Function push(seed As knowledge, node_types As String()) As IEnumerable(Of knowledge)
         Dim links As New List(Of link)
 
         Call links.AddRange(loadViaFromNodes(seed.id, Nothing, node_types))
@@ -113,6 +141,10 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
                 Exit Do
             End If
         Loop
+
+        Call moreSeeds.Add(seed)
+
+        Return moreSeeds
     End Function
 
     <MethodImpl(MethodImplOptions.AggressiveInlining)>
