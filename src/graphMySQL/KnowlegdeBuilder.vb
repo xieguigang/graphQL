@@ -63,16 +63,41 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
         Call g.AddNode(ctor, assignId:=False)
     End Sub
 
+    Private Function pullNodes(links As IEnumerable(Of link)) As IEnumerable(Of knowledge)
+        Return knowledge _
+           .where(knowledge.f("id").in(links.Select(Function(l) l.id).Distinct)) _
+           .select(Of knowledge)
+    End Function
+
     Private Function push(g As NetworkGraph, seed As knowledge) As IEnumerable(Of link)
         Dim links As New List(Of link)
 
         Call links.AddRange(loadViaFromNodes(seed.id, Nothing))
         Call links.AddRange(loadViaToNodes(seed.id, Nothing))
 
-        Dim moreSeeds = knowledge _
-            .where(knowledge.f("id").in(links.Select(Function(l) l.id).Distinct)) _
-            .select(Of knowledge)
+        Dim moreSeeds As New List(Of knowledge)(pullNodes(links))
 
+        Do While True
+            Dim excludes As String() = links _
+                .Select(Function(l) l.id) _
+                .Distinct _
+                .Select(Function(i) i.ToString) _
+                .ToArray
+            Dim a = links.Count
+            Dim b = moreSeeds.Count
+
+            For Each seed2 In moreSeeds.ToArray
+                Dim pull = loadViaFromNodes(seed2.id, excludes) _
+                    .JoinIterates(loadViaToNodes(seed2.id, excludes)) _
+                    .ToArray
+                links.AddRange(pull)
+                moreSeeds.AddRange(pullNodes(pull))
+            Next
+
+            If links.Count = a AndAlso moreSeeds.Count = b Then
+                Exit Do
+            End If
+        Loop
     End Function
 
     <MethodImpl(MethodImplOptions.AggressiveInlining)>
