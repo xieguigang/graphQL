@@ -5,6 +5,7 @@
 // ref=graphR.graphMySQLTool@graphR, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 
 /**
+ * 
 */
 declare namespace graph_mysql {
    /**
@@ -30,7 +31,17 @@ declare namespace graph_mysql {
       function graphdb(user_name: string, password: string, host?: string, port?: object, dbname?: string): object;
    }
    /**
-     * @param env default value Is ``null``.
+    * pull a knowledge graph
+    * 
+    * 
+     * @param graphdb -
+     * @param vocabulary -
+     * @param id used for debug test
+     * 
+     * + default value Is ``null``.
+     * @param env -
+     * 
+     * + default value Is ``null``.
    */
-   function pull_nextGraph(graphdb: object, vocabulary: any, env?: object): object;
+   function pull_nextGraph(graphdb: object, vocabulary: any, id?: object, env?: object): object;
 }
