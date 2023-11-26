@@ -54,12 +54,29 @@ Public Module graphMySQLTool
         Return result
     End Function
 
+    ''' <summary>
+    ''' pull a knowledge graph
+    ''' </summary>
+    ''' <param name="graphdb"></param>
+    ''' <param name="vocabulary"></param>
+    ''' <param name="id">used for debug test</param>
+    ''' <param name="env"></param>
+    ''' <returns></returns>
     <ExportAPI("pull_nextGraph")>
     <RApiReturn("graph", "term", "seed", "id")>
-    Public Function pullNextGraph(graphdb As KnowlegdeBuilder, <RRawVectorArgument> vocabulary As Object, Optional env As Environment = Nothing) As Object
+    Public Function pullNextGraph(graphdb As KnowlegdeBuilder, <RRawVectorArgument> vocabulary As Object,
+                                  Optional id As UInteger? = Nothing,
+                                  Optional env As Environment = Nothing) As Object
+
         Dim cats = CLRVector.asCharacter(vocabulary)
         Dim seed As knowledge = Nothing
-        Dim g As NetworkGraph = graphdb.PullNextGraph(cats, seed)
+        Dim g As NetworkGraph
+
+        If id Is Nothing Then
+            g = graphdb.PullNextGraph(cats, seed)
+        Else
+            g = graphdb.PullGraphById(cats, id, seed)
+        End If
 
         If seed Is Nothing OrElse g Is Nothing Then
             Return Nothing

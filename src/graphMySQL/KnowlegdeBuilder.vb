@@ -35,6 +35,16 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
         Next
     End Sub
 
+    Public Function PullGraphById(vocabulary As String(), uid As UInteger, Optional ByRef seed As knowledge = Nothing) As NetworkGraph
+        seed = knowledge.where(knowledge.field("id") = uid).find(Of knowledge)
+
+        If seed Is Nothing Then
+            Return Nothing
+        Else
+            Return PullNextGraphInternal(vocabulary, seed)
+        End If
+    End Function
+
     Public Function PullNextGraph(vocabulary As String(), Optional ByRef seed As knowledge = Nothing) As NetworkGraph
         seed = knowledge _
             .where(knowledge.field("knowledge_term") = 0) _
@@ -43,8 +53,12 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
 
         If seed Is Nothing Then
             Return Nothing
+        Else
+            Return PullNextGraphInternal(vocabulary, seed)
         End If
+    End Function
 
+    Private Function PullNextGraphInternal(vocabulary As String(), Optional ByRef seed As knowledge = Nothing) As NetworkGraph
         Dim node_types As String() = vocabulary _
             .Select(Function(si) si.ToLower) _
             .Where(Function(si) vocabularyIndex.ContainsKey(si)) _
