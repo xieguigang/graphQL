@@ -64,6 +64,12 @@ Public Class graphMySQL : Inherits graphdbMySQL
             ) _
             .find(Of knowledge)
 
+        term = term.Replace("'", "").Trim
+
+        If term.Length > 4000 Then
+            term = Mid(term, 1, 4090) & "..."
+        End If
+
         If find Is Nothing Then
             Call knowledge.add(
                 field("key") = key,
