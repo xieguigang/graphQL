@@ -12,6 +12,11 @@ Public Class graphMySQL : Inherits graphdbMySQL
     ReadOnly vocabulary_cache As New Dictionary(Of String, UInteger)
     ReadOnly empty_str As New Index(Of String)
 
+    ''' <summary>
+    ''' the max char size for save to the database table
+    ''' </summary>
+    Const truncate_text As Integer = 4000
+
     Sub New(uri As ConnectionUri)
         Call MyBase.New(uri)
 
@@ -44,8 +49,8 @@ Public Class graphMySQL : Inherits graphdbMySQL
 
         term = term.Replace("'", "").Trim
 
-        If term.Length > 4000 Then
-            term = Mid(term, 1, 4090) & "..."
+        If term.Length > truncate_text Then
+            term = Mid(term, 1, truncate_text) & "..."
         End If
 
         If find Is Nothing Then
@@ -143,6 +148,7 @@ Public Class graphMySQL : Inherits graphdbMySQL
         Return hashcode
     End Function
 
+    <MethodImpl(MethodImplOptions.AggressiveInlining)>
     Public Shared Function VocabularyHashCode(term As String) As String
         Return Strings.LCase(term).MD5
     End Function
