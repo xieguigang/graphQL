@@ -73,7 +73,7 @@ Public Class graphMySQL : Inherits graphdbMySQL
             .find(Of knowledge)
 
         If find Is Nothing Then
-            Throw New InvalidProgramException($"Can not create knowledge term: {term}@{type}!")
+            Throw New InvalidProgramException($"Can not create knowledge term: {create_mysql}@{knowledge.GetLastErrorMessage}!")
         Else
             Return find.id
         End If
