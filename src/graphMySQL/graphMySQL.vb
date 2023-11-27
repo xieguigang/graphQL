@@ -63,6 +63,7 @@ Public Class graphMySQL : Inherits graphdbMySQL
                 field("node_type") = Vocabulary(type)
             ) _
             .find(Of knowledge)
+        Dim create_mysql As String = "n/a"
 
         term = term.Replace("'", "").Trim
 
@@ -71,7 +72,7 @@ Public Class graphMySQL : Inherits graphdbMySQL
         End If
 
         If find Is Nothing Then
-            Call knowledge.add(
+            knowledge.add(
                 field("key") = key,
                 field("display_title") = term,
                 field("node_type") = Vocabulary(type),
@@ -79,6 +80,7 @@ Public Class graphMySQL : Inherits graphdbMySQL
                 field("add_time") = Now,
                 field("description") = desc
             )
+            create_mysql = knowledge.GetLastMySql
         End If
 
         find = knowledge _
