@@ -7,3 +7,4 @@
 + [add_term](graph_mysql/add_term.1) 
 + [pull_nextGraph](graph_mysql/pull_nextGraph.1) pull a knowledge graph
 + [assign_graph](graph_mysql/assign_graph.1) 
++ [save.knowledge](graph_mysql/save.knowledge.1) 
