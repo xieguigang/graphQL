@@ -115,7 +115,7 @@ Public Module graphMySQLTool
     Public Function saveKnowledge(graphdb As KnowlegdeBuilder, seed As UInteger, term As String, knowledge As String) As Object
         Dim cache = graphdb.knowledge_cache
 
-        Return cache.save(
+        Return cache.add(
             cache.field("seed_id") = seed,
             cache.field("term") = term,
             cache.field("hashcode") = Strings.LCase(term).MD5,
