@@ -111,8 +111,17 @@ Public Module graphMySQLTool
         Return Nothing
     End Function
 
+    <ExportAPI("save.knowledge")>
     Public Function saveKnowledge(graphdb As KnowlegdeBuilder, seed As UInteger, term As String, knowledge As String) As Object
+        Dim cache = graphdb.knowledge_cache
 
+        Return cache.save(
+            cache.field("seed_id") = seed,
+            cache.field("term") = term,
+            cache.field("hashcode") = Strings.LCase(term).MD5,
+            cache.field("knowledge") = knowledge,
+            cache.field("add_time") = Now
+        )
     End Function
 
 End Module
