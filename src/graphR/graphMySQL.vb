@@ -111,4 +111,8 @@ Public Module graphMySQLTool
         Return Nothing
     End Function
 
+    Public Function saveKnowledge(graphdb As KnowlegdeBuilder, seed As UInteger, term As String, knowledge As String) As Object
+
+    End Function
+
 End Module

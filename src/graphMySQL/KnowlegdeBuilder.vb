@@ -13,6 +13,8 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
     ReadOnly vocabularyIndex As New Dictionary(Of String, UInteger)
     ReadOnly toLabel As New Dictionary(Of String, knowledge_vocabulary)
 
+    Public ReadOnly Property knowledge_cache As Model
+
     Sub New(graphdb As graphMySQL)
         Call MyBase.New(
             graphdb.graph,
@@ -20,6 +22,8 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
             graphdb.knowledge,
             graphdb.knowledge_vocabulary
         )
+
+        knowledge_cache = New Model("knowledge_cache", graph.mysqli)
 
         For Each vocabulary As knowledge_vocabulary In knowledge_vocabulary.select(Of knowledge_vocabulary)()
             Call Me.vocabularyIndex.Add(vocabulary.vocabulary.ToLower, vocabulary.id)
