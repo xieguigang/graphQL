@@ -1,5 +1,4 @@
-﻿Imports System.Drawing
-Imports System.Runtime.CompilerServices
+﻿Imports System.Runtime.CompilerServices
 Imports graph.MySQL.graphdb
 Imports Microsoft.VisualBasic.ComponentModel.Collection
 Imports Microsoft.VisualBasic.Imaging
@@ -11,6 +10,7 @@ Public Class graphMySQL : Inherits graphdbMySQL
 
     ReadOnly vocabulary_cache As New Dictionary(Of String, UInteger)
     ReadOnly empty_str As New Index(Of String)
+    ReadOnly htmlColor As New ColorHashCode
 
     ''' <summary>
     ''' the max char size for save to the database table
@@ -27,7 +27,8 @@ Public Class graphMySQL : Inherits graphdbMySQL
             knowledge_vocabulary _
                 .where(field("vocabulary") = term.vocabulary) _
                 .save(
-                    field("hashcode") = VocabularyHashCode(term.vocabulary)
+                    field("hashcode") = VocabularyHashCode(term.vocabulary),
+                    field("color") = htmlColor.HexColor(term.vocabulary.ToLower)
                 )
         Next
     End Sub
@@ -169,7 +170,7 @@ Public Class graphMySQL : Inherits graphdbMySQL
                                    field("ancestor") = 1,
                                    field("level") = 1,
                                    field("add_time") = Now,
-                                   field("color") = Color.Black.ToHtmlColor,
+                                   field("color") = htmlColor.HexColor(term.ToLower),
                                    field("count") = 0,
                                    field("description") = ""
                                )
@@ -182,5 +183,4 @@ Public Class graphMySQL : Inherits graphdbMySQL
                            Return find.id
                        End Function)
     End Function
-
 End Class

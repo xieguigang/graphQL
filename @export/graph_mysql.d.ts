@@ -44,4 +44,9 @@ declare namespace graph_mysql {
      * + default value Is ``null``.
    */
    function pull_nextGraph(graphdb: object, vocabulary: any, id?: object, env?: object): object;
+   module save {
+      /**
+      */
+      function knowledge(graphdb: object, seed: object, term: string, knowledge: string): any;
+   }
 }
