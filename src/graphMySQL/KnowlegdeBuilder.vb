@@ -5,9 +5,7 @@ Imports Microsoft.VisualBasic.Data.visualize.Network.FileStream.Generic
 Imports Microsoft.VisualBasic.Data.visualize.Network.Graph
 Imports Microsoft.VisualBasic.Imaging
 Imports Microsoft.VisualBasic.Linq
-Imports Microsoft.VisualBasic.Serialization.JSON
 Imports Oracle.LinuxCompatibility.MySQL.MySqlBuilder
-Imports Oracle.LinuxCompatibility.MySQL.Reflection.DbAttributes
 
 Public Class KnowlegdeBuilder : Inherits graphdbMySQL
 
@@ -228,20 +226,6 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
         Dim q = sql.select(Of link)("knowledge.id", $"{field} as seed", "weight", "display_title", "vocabulary AS node_type")
 
         Return q
-    End Function
-
-End Class
-
-Public Class link
-
-    <DatabaseField("id")> Public Property id As UInteger
-    <DatabaseField("seed")> Public Property seed As UInteger
-    <DatabaseField("weight")> Public Property weight As Double
-    <DatabaseField("display_title")> Public Property display_title As String
-    <DatabaseField("node_type")> Public Property node_type As String
-
-    Public Overrides Function ToString() As String
-        Return Me.GetJson
     End Function
 
 End Class
