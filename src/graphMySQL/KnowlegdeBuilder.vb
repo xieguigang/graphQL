@@ -69,26 +69,27 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
     End Function
 
     Public Function PullNextGraph(vocabulary As String(), Optional ByRef seed As knowledge = Nothing) As NetworkGraph
-        seed = knowledge _
-            .where(knowledge.field("knowledge_term") = 0) _
-            .order_by({"graph_size"}, desc:=True) _
-            .find(Of knowledge)
-
-        If seed Is Nothing Then
-            Return Nothing
-        Else
-            Return PullNextGraphInternal(vocabulary, seed)
-        End If
-    End Function
-
-    Private Function PullNextGraphInternal(vocabulary As String(), Optional ByRef seed As knowledge = Nothing) As NetworkGraph
         Dim node_types As String() = vocabulary _
             .Select(Function(si) si.ToLower) _
             .Where(Function(si) vocabularyIndex.ContainsKey(si)) _
             .Select(Function(l) vocabularyIndex(l).ToString) _
             .Distinct _
             .ToArray
-        Dim pull As New List(Of knowledge)(push(seed, node_types))
+
+        seed = knowledge _
+            .where(knowledge.field("knowledge_term") = 0, knowledge.field("node_type").in(node_types)) _
+            .order_by({"graph_size"}, desc:=True) _
+            .find(Of knowledge)
+
+        If seed Is Nothing Then
+            Return Nothing
+        Else
+            Return PullNextGraphInternal(vocabulary:=node_types, seed)
+        End If
+    End Function
+
+    Private Function PullNextGraphInternal(vocabulary As String(), Optional ByRef seed As knowledge = Nothing) As NetworkGraph
+        Dim pull As New List(Of knowledge)(push(seed, vocabulary))
         Dim linksTo As New List(Of link)
 
         ' pull all knowledge data node from the database
@@ -101,7 +102,7 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
         ' Call pull.Sort(Function(a, b) a.key.CompareTo(b.key))
 
         Dim g As New NetworkGraph
-        Dim linkTypes As Index(Of String) = node_types.Indexing
+        Dim linkTypes As Index(Of String) = vocabulary.Indexing
 
         For Each node As knowledge In pull _
             .GroupBy(Function(a) $"{a.key}+{a.node_type}") _
