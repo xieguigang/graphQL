@@ -169,14 +169,19 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
         Call g.AddNode(ctor, assignId:=False)
     End Sub
 
-    Private Function pullNodes(links As link()) As IEnumerable(Of knowledge)
+    Private Iterator Function pullNodes(links As link()) As IEnumerable(Of knowledge)
         If links.IsNullOrEmpty Then
-            Return New knowledge() {}
+            Return
         End If
 
-        Return knowledge _
-           .where(knowledge.f("id").in(links.Select(Function(l) l.id).Distinct)) _
-           .select(Of knowledge)
+        For Each part As UInteger() In links.Select(Function(l) l.id).Distinct.Split(300)
+            For Each k As knowledge In knowledge _
+               .where(knowledge.f("id").in(part)) _
+               .select(Of knowledge)
+
+                Yield k
+            Next
+        Next
     End Function
 
     ''' <summary>
