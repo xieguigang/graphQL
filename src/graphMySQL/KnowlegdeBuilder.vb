@@ -30,8 +30,28 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
         Next
     End Sub
 
+    ''' <summary>
+    ''' assign the knowledge term id to the knowledge nodes
+    ''' </summary>
+    ''' <param name="g"></param>
+    ''' <param name="term"></param>
+    ''' <remarks>
+    ''' this function just assign the knowledge term id to the 
+    ''' link node type, see about link node: 
+    ''' <see cref="addNode(NetworkGraph, graphdb.knowledge, Index(Of String))"/>
+    ''' </remarks>
     Public Sub ReferenceToTerm(g As NetworkGraph, term As UInteger)
-        For Each block In g.vertex.Split(1000)
+        Dim links = g.vertex _
+            .Where(Function(vi)
+                       If vi.pinned Then
+                           Return True
+                       Else
+                           Return vi.data("dataNode").TextEquals("false")
+                       End If
+                   End Function) _
+            .ToArray
+
+        For Each block As Node() In links.Split(100)
             Call knowledge _
                 .where(field("id").in(block.Select(Function(a) a.ID))) _
                 .save(field("knowledge_term") = term)
