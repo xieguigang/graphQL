@@ -1,5 +1,6 @@
 ﻿Imports System.Runtime.CompilerServices
 Imports graph.MySQL.graphdb
+Imports Microsoft.VisualBasic.ComponentModel.Collection
 Imports Microsoft.VisualBasic.Data.visualize.Network.FileStream.Generic
 Imports Microsoft.VisualBasic.Data.visualize.Network.Graph
 Imports Microsoft.VisualBasic.Imaging
@@ -81,12 +82,13 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
         ' Call pull.Sort(Function(a, b) a.key.CompareTo(b.key))
 
         Dim g As New NetworkGraph
+        Dim linkTypes As Index(Of String) = node_types.Indexing
 
         For Each node As knowledge In pull _
             .GroupBy(Function(a) $"{a.key}+{a.node_type}") _
             .Select(Function(gi) gi.First)
 
-            Call addNode(g, node)
+            Call addNode(g, node, linkTypes)
         Next
         For Each link As link In linksTo _
             .GroupBy(Function(a) {a.id, a.seed}.OrderBy(Function(id) id).JoinBy("+")) _
@@ -102,21 +104,47 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
         Return g
     End Function
 
-    Private Sub addNode(g As NetworkGraph, seed As knowledge)
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="g"></param>
+    ''' <param name="seed"></param>
+    ''' <param name="linkIndex">
+    ''' there are two kind of graph node in the database:
+    ''' 
+    ''' 1. link node: node used for link the terms between different database, 
+    '''    this kind of node will be assigned a knowledge term id
+    ''' 2. data node: just used for save the data information, such kind of the 
+    '''    data node may be common and overlaps between many knowledge terms, 
+    '''    example as chemical formula information. this kind of node will not
+    '''    be assigned a knowledge term
+    ''' </param>
+    ''' <remarks>
+    ''' this function used two data slot for mark the data node type or the link node type:
+    ''' 
+    ''' 1. <see cref="Node.pinned"/>: true means current node is a link node, false means current node is a data node
+    ''' 2. <see cref="NodeData.Properties"/>: dataNode is true means current node is a data 
+    '''    node, otherwise means current node is a link node.
+    ''' </remarks>
+    Private Sub addNode(g As NetworkGraph, seed As knowledge, linkIndex As Index(Of String))
+        Dim is_link As Boolean = seed.node_type.ToString Like linkIndex
         Dim ctor As New Node With {
             .ID = seed.id,
             .label = seed.key & "@" & toLabel(seed.node_type).vocabulary,
             .data = New NodeData With {
                 .label = seed.display_title,
                 .Properties = New Dictionary(Of String, String) From {
-                    {NamesOf.REFLECTION_ID_MAPPING_NODETYPE, toLabel(seed.node_type).vocabulary.ToLower}
+                    {NamesOf.REFLECTION_ID_MAPPING_NODETYPE, toLabel(seed.node_type).vocabulary.ToLower},
+                    {"dataNode", (Not is_link).ToString.ToLower}
                 },
                 .origID = seed.key,
                 .size = {seed.graph_size + 1},
                 .mass = seed.graph_size,
                 .weights = .size,
                 .color = toLabel(seed.node_type).color.GetBrush
-            }
+            },
+            .pinned = is_link,
+            .visited = .pinned
         }
 
         Call g.AddNode(ctor, assignId:=False)
