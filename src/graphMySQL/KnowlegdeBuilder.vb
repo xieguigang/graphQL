@@ -91,9 +91,10 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
         Dim pull As New List(Of knowledge)(push(seed, node_types))
         Dim linksTo As New List(Of link)
 
+        ' pull all knowledge data node from the database
         For Each ki As knowledge In pull
-            Call linksTo.AddRange(loadViaFromNodes(seed.id, Nothing, Nothing))
-            Call linksTo.AddRange(loadViaToNodes(seed.id, Nothing, Nothing))
+            Call linksTo.AddRange(loadViaFromNodes(ki.id, Nothing, Nothing))
+            Call linksTo.AddRange(loadViaToNodes(ki.id, Nothing, Nothing))
         Next
 
         Call pull.AddRange(pullNodes(linksTo.ToArray))
@@ -178,6 +179,12 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
            .select(Of knowledge)
     End Function
 
+    ''' <summary>
+    ''' only pull the link node from database for create knowledge seeds
+    ''' </summary>
+    ''' <param name="seed"></param>
+    ''' <param name="node_types"></param>
+    ''' <returns></returns>
     Private Function push(seed As knowledge, node_types As String()) As IEnumerable(Of knowledge)
         Dim links As New List(Of link)
 
