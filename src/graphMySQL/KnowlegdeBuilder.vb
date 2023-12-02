@@ -204,7 +204,7 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
             Dim b = moreSeeds.Count
             Dim pullNodes As New List(Of knowledge)
 
-            For Each seed2 In pullSeed
+            For Each seed2 As knowledge In pullSeed
                 Dim pull = loadViaFromNodes(seed2.id, excludes, node_types) _
                     .JoinIterates(loadViaToNodes(seed2.id, excludes, node_types)) _
                     .ToArray
