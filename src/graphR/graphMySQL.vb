@@ -124,4 +124,19 @@ Public Module graphMySQLTool
         )
     End Function
 
+    <ExportAPI("fetch_json")>
+    Public Function fetchAKnowledgeJson(graphdb As KnowlegdeBuilder, id As String, Optional env As Environment = Nothing) As Object
+        Dim cache = graphdb.knowledge_cache
+        Dim data As knowledge_cache = cache.where(cache.field("id") = id).find(Of knowledge_cache)
+
+        If data Is Nothing Then
+            Return data
+        End If
+
+        Dim R = env.globalEnvironment.Rscript
+        Dim json As Object = R.Invoke("JSON::json_decode", ("str", data.knowledge))
+
+
+    End Function
+
 End Module
