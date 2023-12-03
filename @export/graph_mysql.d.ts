@@ -22,6 +22,10 @@ declare namespace graph_mysql {
    /**
    */
    function assign_graph(graphdb: object, g: object, term: object): any;
+   /**
+     * @param env default value Is ``null``.
+   */
+   function fetch_json(graphdb: object, id: string, env?: object): any;
    module open {
       /**
         * @param host default value Is ``'localhost'``.
