@@ -8,6 +8,7 @@ Imports Microsoft.VisualBasic.Data.visualize.Network.Graph
 Imports Microsoft.VisualBasic.Scripting.MetaData
 Imports Oracle.LinuxCompatibility.MySQL.Uri
 Imports SMRUCC.Rsharp.Runtime
+Imports SMRUCC.Rsharp.Runtime.Components
 Imports SMRUCC.Rsharp.Runtime.Internal.[Object]
 Imports SMRUCC.Rsharp.Runtime.Interop
 Imports SMRUCC.Rsharp.Runtime.Vectorization
@@ -136,7 +137,15 @@ Public Module graphMySQLTool
         Dim R = env.globalEnvironment.Rscript
         Dim json As Object = R.Invoke("JSON::json_decode", ("str", data.knowledge))
 
-
+        If TypeOf json Is Message Then
+            Return json
+        ElseIf json Is Nothing OrElse Not TypeOf json Is list Then
+            Return json
+        Else
+            Dim obj As list = DirectCast(json, list)
+            obj.add("biodeep_id", data.id)
+            Return obj
+        End If
     End Function
 
 End Module
