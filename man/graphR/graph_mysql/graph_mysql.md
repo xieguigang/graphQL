@@ -9,3 +9,4 @@
 + [assign_graph](graph_mysql/assign_graph.1) 
 + [save.knowledge](graph_mysql/save.knowledge.1) 
 + [fetch_json](graph_mysql/fetch_json.1) 
++ [fetch_table](graph_mysql/fetch_table.1) 

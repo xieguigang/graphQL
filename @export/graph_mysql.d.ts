@@ -26,6 +26,12 @@ declare namespace graph_mysql {
      * @param env default value Is ``null``.
    */
    function fetch_json(graphdb: object, id: string, env?: object): any;
+   /**
+     * @param row_builder default value Is ``null``.
+     * @param n default value Is ``100000``.
+     * @param env default value Is ``null``.
+   */
+   function fetch_table(graphdb: object, headers: any, row_builder?: object, n?: object, env?: object): any;
    module open {
       /**
         * @param host default value Is ``'localhost'``.
