@@ -18,7 +18,7 @@ Imports SMRUCC.Rsharp.Runtime.Interop
 Imports SMRUCC.Rsharp.Runtime.Vectorization
 
 <Package("graph_mysql")>
-<RTypeExport("graphdb", GetType(graph.MySQL.mysql))>
+<RTypeExport("graphql", GetType(graph.MySQL.mysql))>
 Public Module graphMySQLTool
 
     <ExportAPI("open.graphdb")>
