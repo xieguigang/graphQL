@@ -1,4 +1,5 @@
 ﻿
+Imports System.Net
 Imports graph.MySQL
 Imports graph.MySQL.graphdb
 Imports graphQL
@@ -7,6 +8,7 @@ Imports Microsoft.VisualBasic.Data.visualize.Network.FileStream.Generic
 Imports Microsoft.VisualBasic.Data.visualize.Network.Graph
 Imports Microsoft.VisualBasic.Language
 Imports Microsoft.VisualBasic.Scripting.MetaData
+Imports Oracle.LinuxCompatibility.MySQL
 Imports Oracle.LinuxCompatibility.MySQL.Uri
 Imports SMRUCC.Rsharp.Runtime
 Imports SMRUCC.Rsharp.Runtime.Components
@@ -129,8 +131,14 @@ Public Module graphMySQLTool
     End Function
 
     <ExportAPI("fetch_json")>
-    Public Function fetchAKnowledgeJson(graphdb As KnowlegdeBuilder, id As String, Optional env As Environment = Nothing) As Object
-        Dim cache = graphdb.knowledge_cache
+    Public Function fetchAKnowledgeJson(graphdb As Object, id As String, Optional env As Environment = Nothing) As Object
+        Dim cacheModel = getKnowledgeCacheModel(graphdb, env)
+
+        If cacheModel Like GetType(Message) Then
+            Return cacheModel.TryCast(Of Message)
+        End If
+
+        Dim cache As MySqlBuilder.Model = cacheModel.TryCast(Of MySqlBuilder.Model)
         Dim data As knowledge_cache = cache.where(cache.field("id") = id).find(Of knowledge_cache)
 
         If data Is Nothing Then
@@ -151,13 +159,29 @@ Public Module graphMySQLTool
         End If
     End Function
 
+    Private Function getKnowledgeCacheModel(graphdb As Object, env As Environment) As [Variant](Of Message, MySqlBuilder.Model)
+        If TypeOf graphdb Is KnowlegdeBuilder Then
+            Return DirectCast(graphdb, KnowlegdeBuilder).knowledge_cache
+        ElseIf TypeOf graphdb Is Global.graph.MySQL.mysql Then
+            Return DirectCast(graphdb, Global.graph.MySQL.mysql).knowledge_cache
+        Else
+            Return Message.InCompatibleType(GetType(KnowlegdeBuilder), graphdb.GetType, env)
+        End If
+    End Function
+
     <ExportAPI("fetch_table")>
-    Public Function fetch_table(graphdb As KnowlegdeBuilder, <RRawVectorArgument> headers As Object,
+    Public Function fetch_table(graphdb As Object, <RRawVectorArgument> headers As Object,
                                 Optional row_builder As RFunction = Nothing,
                                 Optional n As Integer = 100000,
                                 Optional env As Environment = Nothing) As Object
 
-        Dim cache = graphdb.knowledge_cache
+        Dim cacheModel = getKnowledgeCacheModel(graphdb, env)
+
+        If cacheModel Like GetType(Message) Then
+            Return cacheModel.TryCast(Of Message)
+        End If
+
+        Dim cache As MySqlBuilder.Model = cacheModel.TryCast(Of MySqlBuilder.Model)
         Dim R = env.globalEnvironment.Rscript
         Dim names As String() = CLRVector.asCharacter(headers)
         Dim df As New dataframe With {.columns = New Dictionary(Of String, Array)}
