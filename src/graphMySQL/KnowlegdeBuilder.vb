@@ -76,8 +76,17 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
         If seed Is Nothing Then
             Return Nothing
         Else
-            Return PullNextGraphInternal(vocabulary, seed)
+            Return PullNextGraphInternal(vocabulary:=mapNodeTypes(vocabulary), seed)
         End If
+    End Function
+
+    Private Function mapNodeTypes(vocabulary As String()) As String()
+        Return vocabulary _
+            .Select(Function(si) si.ToLower) _
+            .Where(Function(si) vocabularyIndex.ContainsKey(si)) _
+            .Select(Function(l) vocabularyIndex(l).ToString) _
+            .Distinct _
+            .ToArray
     End Function
 
     ''' <summary>
@@ -87,12 +96,7 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
     ''' <param name="seed"></param>
     ''' <returns></returns>
     Public Function PullNextGraph(vocabulary As String(), Optional ByRef seed As knowledge = Nothing) As NetworkGraph
-        Dim node_types As String() = vocabulary _
-            .Select(Function(si) si.ToLower) _
-            .Where(Function(si) vocabularyIndex.ContainsKey(si)) _
-            .Select(Function(l) vocabularyIndex(l).ToString) _
-            .Distinct _
-            .ToArray
+        Dim node_types As String() = mapNodeTypes(vocabulary)
 
         ' from a un-assigned node
         seed = knowledge _
@@ -107,16 +111,20 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
         End If
     End Function
 
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="vocabulary">
+    ''' A collection of the integer id
+    ''' </param>
+    ''' <param name="seed"></param>
+    ''' <returns></returns>
     Private Function PullNextGraphInternal(vocabulary As String(), ByRef seed As knowledge) As NetworkGraph
         ' properties -> seed
         ' from_node -> to_node
         ' the seed is to_node always
         Dim g As New NetworkGraph
-        Dim linkTypes As Index(Of String) = vocabulary _
-            .Select(Function(si) si.ToLower) _
-            .Where(Function(si) vocabularyIndex.ContainsKey(si)) _
-            .Select(Function(si) vocabularyIndex(si).ToString) _
-            .Indexing
+        Dim linkTypes As Index(Of String) = vocabulary.Indexing
         Dim knowledgeCache As New Dictionary(Of String, knowledge)
         Dim excludes As New Index(Of String)
 
