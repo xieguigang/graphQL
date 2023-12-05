@@ -1,18 +1,24 @@
 ﻿
+Imports System.Net
 Imports graph.MySQL
 Imports graph.MySQL.graphdb
 Imports graphQL
 Imports Microsoft.VisualBasic.CommandLine.Reflection
 Imports Microsoft.VisualBasic.Data.visualize.Network.FileStream.Generic
 Imports Microsoft.VisualBasic.Data.visualize.Network.Graph
+Imports Microsoft.VisualBasic.Language
 Imports Microsoft.VisualBasic.Scripting.MetaData
+Imports Oracle.LinuxCompatibility.MySQL
 Imports Oracle.LinuxCompatibility.MySQL.Uri
 Imports SMRUCC.Rsharp.Runtime
+Imports SMRUCC.Rsharp.Runtime.Components
+Imports SMRUCC.Rsharp.Runtime.Components.[Interface]
 Imports SMRUCC.Rsharp.Runtime.Internal.[Object]
 Imports SMRUCC.Rsharp.Runtime.Interop
 Imports SMRUCC.Rsharp.Runtime.Vectorization
 
 <Package("graph_mysql")>
+<RTypeExport("graphql", GetType(graph.MySQL.mysql))>
 Public Module graphMySQLTool
 
     <ExportAPI("open.graphdb")>
@@ -137,6 +143,129 @@ Public Module graphMySQLTool
             cache.field("knowledge") = knowledge,
             cache.field("add_time") = Now
         )
+    End Function
+
+    <ExportAPI("fetch_json")>
+    Public Function fetchAKnowledgeJson(graphdb As Object, id As String, Optional env As Environment = Nothing) As Object
+        Dim cacheModel = getKnowledgeCacheModel(graphdb, env)
+
+        If cacheModel Like GetType(Message) Then
+            Return cacheModel.TryCast(Of Message)
+        End If
+
+        Dim cache As MySqlBuilder.Model = cacheModel.TryCast(Of MySqlBuilder.Model)
+        Dim data As knowledge_cache = cache.where(cache.field("id") = id).find(Of knowledge_cache)
+
+        If data Is Nothing Then
+            Return data
+        End If
+
+        Dim R = env.globalEnvironment.Rscript
+        Dim json As Object = R.Invoke("JSON::json_decode", ("str", data.knowledge))
+
+        If TypeOf json Is Message Then
+            Return json
+        ElseIf json Is Nothing OrElse Not TypeOf json Is list Then
+            Return json
+        Else
+            Dim obj As list = DirectCast(json, list)
+            obj.add("knowledge_id", data.id)
+            Return obj
+        End If
+    End Function
+
+    Private Function getKnowledgeCacheModel(graphdb As Object, env As Environment) As [Variant](Of Message, MySqlBuilder.Model)
+        If TypeOf graphdb Is KnowlegdeBuilder Then
+            Return DirectCast(graphdb, KnowlegdeBuilder).knowledge_cache
+        ElseIf TypeOf graphdb Is Global.graph.MySQL.mysql Then
+            Return DirectCast(graphdb, Global.graph.MySQL.mysql).knowledge_cache
+        Else
+            Return Message.InCompatibleType(GetType(KnowlegdeBuilder), graphdb.GetType, env)
+        End If
+    End Function
+
+    <ExportAPI("fetch_table")>
+    Public Function fetch_table(graphdb As Object, <RRawVectorArgument> headers As Object,
+                                Optional row_builder As RFunction = Nothing,
+                                Optional n As Integer = 100000,
+                                Optional env As Environment = Nothing) As Object
+
+        Dim cacheModel = getKnowledgeCacheModel(graphdb, env)
+
+        If cacheModel Like GetType(Message) Then
+            Return cacheModel.TryCast(Of Message)
+        End If
+
+        Dim cache As MySqlBuilder.Model = cacheModel.TryCast(Of MySqlBuilder.Model)
+        Dim R = env.globalEnvironment.Rscript
+        Dim names As String() = CLRVector.asCharacter(headers)
+        Dim df As New dataframe With {.columns = New Dictionary(Of String, Array)}
+        Dim rowNames As New List(Of String)
+        Dim cols As New Dictionary(Of String, List(Of String))
+
+        For Each name As String In names
+            Call cols.Add(name, New List(Of String))
+        Next
+
+        Dim createRow As Func(Of list, [Variant](Of list, Message))
+
+        If row_builder Is Nothing Then
+            createRow = Function(list)
+                            For Each name As String In names
+                                list.slots(name) = CLRVector.asCharacter(list.getByName(name)).JoinBy("; ")
+                            Next
+
+                            Return list
+                        End Function
+        Else
+            createRow = Function(list)
+                            Dim result = row_builder.Invoke(env, InvokeParameter.CreateLiterals(list))
+
+                            If TypeOf result Is Message Then
+                                Return DirectCast(result, Message)
+                            Else
+                                Return DirectCast(result, list)
+                            End If
+                        End Function
+        End If
+
+        For offset As Integer = 1 To n
+            Dim data As knowledge_cache = cache.where(cache.field("id") = offset).find(Of knowledge_cache)
+
+            If data Is Nothing Then
+                Continue For
+            End If
+
+            Dim json As Object = R.Invoke("JSON::json_decode", ("str", data.knowledge))
+
+            If TypeOf json Is Message Then
+                Return json
+            ElseIf json Is Nothing OrElse Not TypeOf json Is list Then
+                Continue For
+            Else
+                Dim row = createRow(json)
+
+                If row Like GetType(Message) Then
+                    Return row.TryCast(Of Message)
+                End If
+
+                Dim jsonList As list = row.TryCast(Of list)
+
+                For Each name As String In names
+                    Call cols(name).Add(jsonList.getValue(Of String)(name, env))
+                Next
+
+                Call rowNames.Add(data.seed_id)
+            End If
+        Next
+
+        For Each name As String In names
+            Call df.columns.Add(name, cols(name).ToArray)
+        Next
+
+        df.rownames = rowNames.ToArray
+
+        Return df
     End Function
 
 End Module
