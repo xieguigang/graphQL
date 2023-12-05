@@ -112,7 +112,11 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
         ' from_node -> to_node
         ' the seed is to_node always
         Dim g As New NetworkGraph
-        Dim linkTypes As Index(Of String) = vocabulary.Indexing
+        Dim linkTypes As Index(Of String) = vocabulary _
+            .Select(Function(si) si.ToLower) _
+            .Where(Function(si) vocabularyIndex.ContainsKey(si)) _
+            .Select(Function(si) vocabularyIndex(si).ToString) _
+            .Indexing
         Dim knowledgeCache As New Dictionary(Of String, knowledge)
         Dim excludes As New Index(Of String)
 
