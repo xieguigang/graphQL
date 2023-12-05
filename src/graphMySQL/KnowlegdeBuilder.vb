@@ -196,8 +196,9 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
     '''    node, otherwise means current node is a link node.
     ''' </remarks>
     Private Sub addNode(g As NetworkGraph, seed As knowledge, linkIndex As Index(Of String))
-        Dim is_link As Boolean = seed.node_type.ToString Like linkIndex
-        Dim key As String = seed.key & "@" & toLabel(seed.node_type).vocabulary
+        Dim node_type As String = seed.node_type.ToString
+        Dim is_link As Boolean = node_type Like linkIndex
+        Dim key As String = seed.key & "@" & toLabel(node_type).vocabulary
 
         If g.GetElementByID(key) Is Nothing Then
             Dim ctor As New Node With {
@@ -206,14 +207,14 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
                 .data = New NodeData With {
                     .label = seed.display_title,
                     .Properties = New Dictionary(Of String, String) From {
-                        {NamesOf.REFLECTION_ID_MAPPING_NODETYPE, toLabel(seed.node_type).vocabulary.ToLower},
+                        {NamesOf.REFLECTION_ID_MAPPING_NODETYPE, toLabel(node_type).vocabulary.ToLower},
                         {"dataNode", (Not is_link).ToString.ToLower}
                     },
                     .origID = seed.key,
                     .size = {seed.graph_size + 1},
                     .mass = seed.graph_size,
                     .weights = .size,
-                    .color = toLabel(seed.node_type).color.GetBrush
+                    .color = toLabel(node_type).color.GetBrush
                 },
                 .pinned = is_link,
                 .visited = .pinned
