@@ -59,7 +59,18 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
         Next
     End Sub
 
+    ''' <summary>
+    ''' pull a knowledge graph from a specific knowledge node
+    ''' </summary>
+    ''' <param name="vocabulary"></param>
+    ''' <param name="uid"></param>
+    ''' <param name="seed"></param>
+    ''' <returns></returns>
+    ''' <remarks>
+    ''' usually used for run debug
+    ''' </remarks>
     Public Function PullGraphById(vocabulary As String(), uid As UInteger, Optional ByRef seed As knowledge = Nothing) As NetworkGraph
+        ' from a specific node
         seed = knowledge.where(knowledge.field("id") = uid).find(Of knowledge)
 
         If seed Is Nothing Then
@@ -69,6 +80,12 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
         End If
     End Function
 
+    ''' <summary>
+    ''' pull a knowledge graph from a un-assigned term
+    ''' </summary>
+    ''' <param name="vocabulary"></param>
+    ''' <param name="seed"></param>
+    ''' <returns></returns>
     Public Function PullNextGraph(vocabulary As String(), Optional ByRef seed As knowledge = Nothing) As NetworkGraph
         Dim node_types As String() = vocabulary _
             .Select(Function(si) si.ToLower) _
@@ -77,6 +94,7 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
             .Distinct _
             .ToArray
 
+        ' from a un-assigned node
         seed = knowledge _
             .where(knowledge.field("knowledge_term") = 0, knowledge.field("node_type").in(node_types)) _
             .order_by({"graph_size"}, desc:=True) _
@@ -89,52 +107,35 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
         End If
     End Function
 
-    Private Function PullNextGraphInternal(vocabulary As String(), Optional ByRef seed As knowledge = Nothing) As NetworkGraph
-        Dim pull As New List(Of knowledge)(push(seed, vocabulary))
-        Dim linksTo As New List(Of link)
-
-        ' pull all knowledge data node from the database
-        For Each ki As knowledge In pull
-            Call linksTo.AddRange(loadViaFromNodes(ki.id, Nothing, Nothing))
-            Call linksTo.AddRange(loadViaToNodes(ki.id, Nothing, Nothing))
-        Next
-
-        Call pull.AddRange(pullNodes(linksTo.ToArray))
-        ' Call pull.Sort(Function(a, b) a.key.CompareTo(b.key))
-
+    Private Function PullNextGraphInternal(vocabulary As String(), ByRef seed As knowledge) As NetworkGraph
+        ' properties -> seed
+        ' from_node -> to_node
+        ' the seed is to_node always
         Dim g As New NetworkGraph
         Dim linkTypes As Index(Of String) = vocabulary.Indexing
-        Dim uniqueNodes = pull _
-            .GroupBy(Function(a) $"{a.key}+{a.node_type}") _
-            .Select(Function(gi) gi.First) _
-            .ToArray
+        Dim knowledgeCache As New Dictionary(Of String, knowledge)
 
-        For Each node As knowledge In uniqueNodes
-            Call addNode(g, node, linkTypes)
-        Next
+        ' load current node
+        Call addNode(g, seed, linkTypes)
 
-        For Each a In uniqueNodes
-            For Each b In uniqueNodes
-                If a IsNot b Then
-                    If Not g.ExistEdge(a.id, b.id) Then
-                        Dim link = graph _
-                            .where(field("from_node") = a.id, field("to_node") = b.id) _
-                            .or(field("from_node") = b.id, field("to_node") = a.id) _
-                            .find(Of graphdb.graph)
+        For Each link As graphdb.graph In graph _
+            .where(field("to_node") = seed.id) _
+            .select(Of graphdb.graph)
 
-                        If Not link Is Nothing Then
-                            Call g.CreateEdge(
-                                g.GetElementByID(id:=a.id),
-                                g.GetElementByID(id:=b.id),
-                                weight:=link.weight
-                            )
-                        End If
-                    End If
-                End If
-            Next
+            Call addNode(g, knowledgeCache.ComputeIfAbsent(link.from_node, AddressOf getNodeById), linkTypes)
+            Call g.CreateEdge(
+                g.GetElementByID(id:=link.from_node),
+                g.GetElementByID(id:=seed.id),
+                weight:=link.weight
+            )
         Next
 
         Return g
+    End Function
+
+    <MethodImpl(MethodImplOptions.AggressiveInlining)>
+    Private Function getNodeById(id As String) As knowledge
+        Return knowledge.where(field("id") = id).find(Of knowledge)
     End Function
 
     ''' <summary>
@@ -161,26 +162,30 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
     ''' </remarks>
     Private Sub addNode(g As NetworkGraph, seed As knowledge, linkIndex As Index(Of String))
         Dim is_link As Boolean = seed.node_type.ToString Like linkIndex
-        Dim ctor As New Node With {
-            .ID = seed.id,
-            .label = seed.key & "@" & toLabel(seed.node_type).vocabulary,
-            .data = New NodeData With {
-                .label = seed.display_title,
-                .Properties = New Dictionary(Of String, String) From {
-                    {NamesOf.REFLECTION_ID_MAPPING_NODETYPE, toLabel(seed.node_type).vocabulary.ToLower},
-                    {"dataNode", (Not is_link).ToString.ToLower}
-                },
-                .origID = seed.key,
-                .size = {seed.graph_size + 1},
-                .mass = seed.graph_size,
-                .weights = .size,
-                .color = toLabel(seed.node_type).color.GetBrush
-            },
-            .pinned = is_link,
-            .visited = .pinned
-        }
+        Dim key As String = seed.key & "@" & toLabel(seed.node_type).vocabulary
 
-        Call g.AddNode(ctor, assignId:=False)
+        If g.GetElementByID(key) Is Nothing Then
+            Dim ctor As New Node With {
+                .ID = seed.id,
+                .label = key,
+                .data = New NodeData With {
+                    .label = seed.display_title,
+                    .Properties = New Dictionary(Of String, String) From {
+                        {NamesOf.REFLECTION_ID_MAPPING_NODETYPE, toLabel(seed.node_type).vocabulary.ToLower},
+                        {"dataNode", (Not is_link).ToString.ToLower}
+                    },
+                    .origID = seed.key,
+                    .size = {seed.graph_size + 1},
+                    .mass = seed.graph_size,
+                    .weights = .size,
+                    .color = toLabel(seed.node_type).color.GetBrush
+                },
+                .pinned = is_link,
+                .visited = .pinned
+            }
+
+            Call g.AddNode(ctor, assignId:=False)
+        End If
     End Sub
 
     Private Iterator Function pullNodes(links As link()) As IEnumerable(Of knowledge)
