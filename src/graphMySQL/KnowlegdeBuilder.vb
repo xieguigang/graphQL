@@ -128,7 +128,7 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
         For i As Integer = 0 To 1000000
             ' loop throught each link node
             For Each node As Node In g.pinnedNodes
-                If node.pinned AndAlso Not node.ID.ToString Like excludes Then
+                If Not node.ID.ToString Like excludes Then
                     Call pullNextGraph(g, linkTypes, knowledgeCache(node.ID.ToString), knowledgeCache)
                     Call excludes.Add(node.ID)
                 End If
