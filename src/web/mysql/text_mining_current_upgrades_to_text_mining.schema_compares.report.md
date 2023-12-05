@@ -25,8 +25,7 @@ CREATE TABLE IF NOT EXISTS `token_class` (
   `class` VARCHAR(255) NOT NULL,
   `add_time` DATETIME NOT NULL DEFAULT now(),
   PRIMARY KEY (`id`))
-ENGINE = InnoDB;
-
+ENGINE = InnoDB;
 ```
 
 ### Updates for ``word_token``

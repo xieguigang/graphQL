@@ -20,6 +20,12 @@ declare namespace graph_mysql {
       function knowledge_builder(graphdb: object): object;
    }
    /**
+    * assign the knowledge term id to the knowledge nodes
+    * 
+    * 
+     * @param graphdb -
+     * @param g -
+     * @param term -
    */
    function assign_graph(graphdb: object, g: object, term: object): any;
    /**
@@ -56,6 +62,13 @@ declare namespace graph_mysql {
    function pull_nextGraph(graphdb: object, vocabulary: any, id?: object, env?: object): object;
    module save {
       /**
+       * save the knowledge data json into database as cache
+       * 
+       * 
+        * @param graphdb -
+        * @param seed -
+        * @param term -
+        * @param knowledge -
       */
       function knowledge(graphdb: object, seed: object, term: string, knowledge: string): any;
    }

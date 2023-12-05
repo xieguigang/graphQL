@@ -1,12 +1,11 @@
 ﻿Imports System.Runtime.CompilerServices
 Imports graph.MySQL.graphdb
+Imports Microsoft.VisualBasic.ComponentModel.Collection
 Imports Microsoft.VisualBasic.Data.visualize.Network.FileStream.Generic
 Imports Microsoft.VisualBasic.Data.visualize.Network.Graph
 Imports Microsoft.VisualBasic.Imaging
 Imports Microsoft.VisualBasic.Linq
-Imports Microsoft.VisualBasic.Serialization.JSON
 Imports Oracle.LinuxCompatibility.MySQL.MySqlBuilder
-Imports Oracle.LinuxCompatibility.MySQL.Reflection.DbAttributes
 
 Public Class KnowlegdeBuilder : Inherits graphdbMySQL
 
@@ -31,8 +30,28 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
         Next
     End Sub
 
+    ''' <summary>
+    ''' assign the knowledge term id to the knowledge nodes
+    ''' </summary>
+    ''' <param name="g"></param>
+    ''' <param name="term"></param>
+    ''' <remarks>
+    ''' this function just assign the knowledge term id to the 
+    ''' link node type, see about link node: 
+    ''' <see cref="addNode(NetworkGraph, graphdb.knowledge, Index(Of String))"/>
+    ''' </remarks>
     Public Sub ReferenceToTerm(g As NetworkGraph, term As UInteger)
-        For Each block In g.vertex.Split(1000)
+        Dim links = g.vertex _
+            .Where(Function(vi)
+                       If vi.pinned Then
+                           Return True
+                       Else
+                           Return vi.data("dataNode").TextEquals("false")
+                       End If
+                   End Function) _
+            .ToArray
+
+        For Each block As Node() In links.Split(100)
             Call knowledge _
                 .where(field("id").in(block.Select(Function(a) a.ID))) _
                 .save(field("knowledge_term") = term)
@@ -50,43 +69,46 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
     End Function
 
     Public Function PullNextGraph(vocabulary As String(), Optional ByRef seed As knowledge = Nothing) As NetworkGraph
-        seed = knowledge _
-            .where(knowledge.field("knowledge_term") = 0) _
-            .order_by({"graph_size"}, desc:=True) _
-            .find(Of knowledge)
-
-        If seed Is Nothing Then
-            Return Nothing
-        Else
-            Return PullNextGraphInternal(vocabulary, seed)
-        End If
-    End Function
-
-    Private Function PullNextGraphInternal(vocabulary As String(), Optional ByRef seed As knowledge = Nothing) As NetworkGraph
         Dim node_types As String() = vocabulary _
             .Select(Function(si) si.ToLower) _
             .Where(Function(si) vocabularyIndex.ContainsKey(si)) _
             .Select(Function(l) vocabularyIndex(l).ToString) _
             .Distinct _
             .ToArray
-        Dim pull As New List(Of knowledge)(push(seed, node_types))
+
+        seed = knowledge _
+            .where(knowledge.field("knowledge_term") = 0, knowledge.field("node_type").in(node_types)) _
+            .order_by({"graph_size"}, desc:=True) _
+            .find(Of knowledge)
+
+        If seed Is Nothing Then
+            Return Nothing
+        Else
+            Return PullNextGraphInternal(vocabulary:=node_types, seed)
+        End If
+    End Function
+
+    Private Function PullNextGraphInternal(vocabulary As String(), Optional ByRef seed As knowledge = Nothing) As NetworkGraph
+        Dim pull As New List(Of knowledge)(push(seed, vocabulary))
         Dim linksTo As New List(Of link)
 
+        ' pull all knowledge data node from the database
         For Each ki As knowledge In pull
-            Call linksTo.AddRange(loadViaFromNodes(seed.id, Nothing, Nothing))
-            Call linksTo.AddRange(loadViaToNodes(seed.id, Nothing, Nothing))
+            Call linksTo.AddRange(loadViaFromNodes(ki.id, Nothing, Nothing))
+            Call linksTo.AddRange(loadViaToNodes(ki.id, Nothing, Nothing))
         Next
 
         Call pull.AddRange(pullNodes(linksTo.ToArray))
         ' Call pull.Sort(Function(a, b) a.key.CompareTo(b.key))
 
         Dim g As New NetworkGraph
+        Dim linkTypes As Index(Of String) = vocabulary.Indexing
 
         For Each node As knowledge In pull _
             .GroupBy(Function(a) $"{a.key}+{a.node_type}") _
             .Select(Function(gi) gi.First)
 
-            Call addNode(g, node)
+            Call addNode(g, node, linkTypes)
         Next
         For Each link As link In linksTo _
             .GroupBy(Function(a) {a.id, a.seed}.OrderBy(Function(id) id).JoinBy("+")) _
@@ -102,36 +124,73 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
         Return g
     End Function
 
-    Private Sub addNode(g As NetworkGraph, seed As knowledge)
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="g"></param>
+    ''' <param name="seed"></param>
+    ''' <param name="linkIndex">
+    ''' there are two kind of graph node in the database:
+    ''' 
+    ''' 1. link node: node used for link the terms between different database, 
+    '''    this kind of node will be assigned a knowledge term id
+    ''' 2. data node: just used for save the data information, such kind of the 
+    '''    data node may be common and overlaps between many knowledge terms, 
+    '''    example as chemical formula information. this kind of node will not
+    '''    be assigned a knowledge term
+    ''' </param>
+    ''' <remarks>
+    ''' this function used two data slot for mark the data node type or the link node type:
+    ''' 
+    ''' 1. <see cref="Node.pinned"/>: true means current node is a link node, false means current node is a data node
+    ''' 2. <see cref="NodeData.Properties"/>: dataNode is true means current node is a data 
+    '''    node, otherwise means current node is a link node.
+    ''' </remarks>
+    Private Sub addNode(g As NetworkGraph, seed As knowledge, linkIndex As Index(Of String))
+        Dim is_link As Boolean = seed.node_type.ToString Like linkIndex
         Dim ctor As New Node With {
             .ID = seed.id,
             .label = seed.key & "@" & toLabel(seed.node_type).vocabulary,
             .data = New NodeData With {
                 .label = seed.display_title,
                 .Properties = New Dictionary(Of String, String) From {
-                    {NamesOf.REFLECTION_ID_MAPPING_NODETYPE, toLabel(seed.node_type).vocabulary.ToLower}
+                    {NamesOf.REFLECTION_ID_MAPPING_NODETYPE, toLabel(seed.node_type).vocabulary.ToLower},
+                    {"dataNode", (Not is_link).ToString.ToLower}
                 },
                 .origID = seed.key,
                 .size = {seed.graph_size + 1},
                 .mass = seed.graph_size,
                 .weights = .size,
                 .color = toLabel(seed.node_type).color.GetBrush
-            }
+            },
+            .pinned = is_link,
+            .visited = .pinned
         }
 
         Call g.AddNode(ctor, assignId:=False)
     End Sub
 
-    Private Function pullNodes(links As link()) As IEnumerable(Of knowledge)
+    Private Iterator Function pullNodes(links As link()) As IEnumerable(Of knowledge)
         If links.IsNullOrEmpty Then
-            Return New knowledge() {}
+            Return
         End If
 
-        Return knowledge _
-           .where(knowledge.f("id").in(links.Select(Function(l) l.id).Distinct)) _
-           .select(Of knowledge)
+        For Each part As UInteger() In links.Select(Function(l) l.id).Distinct.Split(300)
+            For Each k As knowledge In knowledge _
+               .where(knowledge.f("id").in(part)) _
+               .select(Of knowledge)
+
+                Yield k
+            Next
+        Next
     End Function
 
+    ''' <summary>
+    ''' only pull the link node from database for create knowledge seeds
+    ''' </summary>
+    ''' <param name="seed"></param>
+    ''' <param name="node_types"></param>
+    ''' <returns></returns>
     Private Function push(seed As knowledge, node_types As String()) As IEnumerable(Of knowledge)
         Dim links As New List(Of link)
 
@@ -151,7 +210,7 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
             Dim b = moreSeeds.Count
             Dim pullNodes As New List(Of knowledge)
 
-            For Each seed2 In pullSeed
+            For Each seed2 As knowledge In pullSeed
                 Dim pull = loadViaFromNodes(seed2.id, excludes, node_types) _
                     .JoinIterates(loadViaToNodes(seed2.id, excludes, node_types)) _
                     .ToArray
@@ -200,20 +259,6 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
         Dim q = sql.select(Of link)("knowledge.id", $"{field} as seed", "weight", "display_title", "vocabulary AS node_type")
 
         Return q
-    End Function
-
-End Class
-
-Public Class link
-
-    <DatabaseField("id")> Public Property id As UInteger
-    <DatabaseField("seed")> Public Property seed As UInteger
-    <DatabaseField("weight")> Public Property weight As Double
-    <DatabaseField("display_title")> Public Property display_title As String
-    <DatabaseField("node_type")> Public Property node_type As String
-
-    Public Overrides Function ToString() As String
-        Return Me.GetJson
     End Function
 
 End Class

@@ -111,12 +111,27 @@ Public Module graphMySQLTool
         }
     End Function
 
+    ''' <summary>
+    ''' assign the knowledge term id to the knowledge nodes
+    ''' </summary>
+    ''' <param name="graphdb"></param>
+    ''' <param name="g"></param>
+    ''' <param name="term"></param>
+    ''' <returns></returns>
     <ExportAPI("assign_graph")>
     Public Function assignTermId(graphdb As KnowlegdeBuilder, g As NetworkGraph, term As UInteger)
         Call graphdb.ReferenceToTerm(g, term)
         Return Nothing
     End Function
 
+    ''' <summary>
+    ''' save the knowledge data json into database as cache
+    ''' </summary>
+    ''' <param name="graphdb"></param>
+    ''' <param name="seed"></param>
+    ''' <param name="term"></param>
+    ''' <param name="knowledge"></param>
+    ''' <returns></returns>
     <ExportAPI("save.knowledge")>
     Public Function saveKnowledge(graphdb As KnowlegdeBuilder, seed As UInteger, term As String, knowledge As String) As Object
         Dim cache = graphdb.knowledge_cache
