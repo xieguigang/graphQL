@@ -104,22 +104,34 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
 
         Dim g As New NetworkGraph
         Dim linkTypes As Index(Of String) = vocabulary.Indexing
-
-        For Each node As knowledge In pull _
+        Dim uniqueNodes = pull _
             .GroupBy(Function(a) $"{a.key}+{a.node_type}") _
-            .Select(Function(gi) gi.First)
+            .Select(Function(gi) gi.First) _
+            .ToArray
 
+        For Each node As knowledge In uniqueNodes
             Call addNode(g, node, linkTypes)
         Next
-        For Each link As link In linksTo _
-            .GroupBy(Function(a) {a.id, a.seed}.OrderBy(Function(id) id).JoinBy("+")) _
-            .Select(Function(d) d.First)
 
-            Call g.CreateEdge(
-                g.GetElementByID(id:=link.id),
-                g.GetElementByID(id:=link.seed),
-                weight:=link.weight
-            )
+        For Each a In uniqueNodes
+            For Each b In uniqueNodes
+                If a IsNot b Then
+                    If Not g.ExistEdge(a.id, b.id) Then
+                        Dim link = graph _
+                            .where(field("from_node") = a.id, field("to_node") = b.id) _
+                            .or(field("from_node") = b.id, field("to_node") = a.id) _
+                            .find(Of graphdb.graph)
+
+                        If Not link Is Nothing Then
+                            Call g.CreateEdge(
+                                g.GetElementByID(id:=a.id),
+                                g.GetElementByID(id:=b.id),
+                                weight:=link.weight
+                            )
+                        End If
+                    End If
+                End If
+            Next
         Next
 
         Return g
