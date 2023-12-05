@@ -92,13 +92,19 @@ Public Module graphMySQLTool
             .Properties = New Dictionary(Of String, String()),
             .UniqeId = seed.id
         }
+        Dim content As String()
 
         For Each nodeSet In g.vertex _
             .GroupBy(Function(vi)
                          Return vi.data(NamesOf.REFLECTION_ID_MAPPING_NODETYPE)
                      End Function)
 
-            Call term.Add(nodeSet.Key, nodeSet.Select(Function(vi) vi.text).Distinct.ToArray)
+            content = nodeSet _
+                .Select(Function(vi) vi.text) _
+                .Distinct _
+                .OrderByDescending(Function(si) si.Length) _
+                .ToArray
+            term(nodeSet.Key) = content
         Next
 
         Return New list With {
