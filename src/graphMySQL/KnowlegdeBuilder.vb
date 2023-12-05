@@ -96,8 +96,7 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
 
         ' from a un-assigned node
         seed = knowledge _
-            .where(knowledge.field("knowledge_term") = 0, knowledge.field("node_type").in(node_types)) _
-            .order_by({"graph_size"}, desc:=True) _
+            .where(knowledge.field("knowledge_term") = 0, knowledge.field("node_type").in(node_types)) _ ' .order_by({"graph_size"}, desc:=True) _
             .find(Of knowledge)
 
         If seed Is Nothing Then
