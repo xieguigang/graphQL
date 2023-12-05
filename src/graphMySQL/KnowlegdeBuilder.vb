@@ -54,6 +54,7 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
         For Each block As Node() In links.Split(100)
             Call knowledge _
                 .where(field("id").in(block.Select(Function(a) a.ID))) _
+                .limit(block.Length) _
                 .save(field("knowledge_term") = term)
         Next
     End Sub
@@ -178,6 +179,7 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
         For Each part As UInteger() In links.Select(Function(l) l.id).Distinct.Split(300)
             For Each k As knowledge In knowledge _
                .where(knowledge.f("id").in(part)) _
+               .limit(part.Length) _
                .select(Of knowledge)
 
                 Yield k
