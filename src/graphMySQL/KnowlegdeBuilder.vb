@@ -114,7 +114,33 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
         Dim g As New NetworkGraph
         Dim linkTypes As Index(Of String) = vocabulary.Indexing
         Dim knowledgeCache As New Dictionary(Of String, knowledge)
+        Dim excludes As New Index(Of String)
 
+        Call pullNextGraph(g, linkTypes, seed, knowledgeCache)
+        Call excludes.Add(seed.id)
+
+        Dim nsize As Integer = g.size.vertex
+
+        For i As Integer = 0 To 1000000
+            ' loop throught each link node
+            For Each node As Node In g.vertex.ToArray
+                If node.pinned AndAlso Not node.ID.ToString Like excludes Then
+                    Call pullNextGraph(g, linkTypes, knowledgeCache(node.ID.ToString), knowledgeCache)
+                    Call excludes.Add(node.ID)
+                End If
+            Next
+
+            If nsize = g.size.vertex Then
+                Exit For
+            Else
+                nsize = g.size.vertex
+            End If
+        Next
+
+        Return g
+    End Function
+
+    Private Sub pullNextGraph(g As NetworkGraph, linkTypes As Index(Of String), seed As knowledge, knowledgeCache As Dictionary(Of String, knowledge))
         ' load current node
         Call addNode(g, seed, linkTypes)
 
@@ -122,16 +148,21 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
             .where(field("to_node") = seed.id) _
             .select(Of graphdb.graph)
 
-            Call addNode(g, knowledgeCache.ComputeIfAbsent(link.from_node, AddressOf getNodeById), linkTypes)
-            Call g.CreateEdge(
-                g.GetElementByID(id:=link.from_node),
-                g.GetElementByID(id:=seed.id),
-                weight:=link.weight
+            Dim propertyVal As knowledge = knowledgeCache.ComputeIfAbsent(
+                key:=link.from_node,
+                lazyValue:=AddressOf getNodeById
             )
-        Next
 
-        Return g
-    End Function
+            If Not propertyVal Is Nothing Then
+                Call addNode(g, propertyVal, linkTypes)
+                Call g.CreateEdge(
+                    g.GetElementByID(id:=propertyVal.id),
+                    g.GetElementByID(id:=seed.id),
+                    weight:=link.weight
+                )
+            End If
+        Next
+    End Sub
 
     <MethodImpl(MethodImplOptions.AggressiveInlining)>
     Private Function getNodeById(id As String) As knowledge
