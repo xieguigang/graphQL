@@ -4,6 +4,7 @@ Imports graph.MySQL
 Imports graph.MySQL.graphdb
 Imports graphQL
 Imports Microsoft.VisualBasic.CommandLine.Reflection
+Imports Microsoft.VisualBasic.Data.Repository
 Imports Microsoft.VisualBasic.Data.visualize.Network.FileStream.Generic
 Imports Microsoft.VisualBasic.Data.visualize.Network.Graph
 Imports Microsoft.VisualBasic.Language
@@ -139,13 +140,27 @@ Public Module graphMySQLTool
     ''' <param name="knowledge"></param>
     ''' <returns></returns>
     <ExportAPI("save.knowledge")>
-    Public Function saveKnowledge(graphdb As KnowlegdeBuilder, seed As UInteger, term As String, knowledge As String) As Object
+    Public Function saveKnowledge(graphdb As KnowlegdeBuilder,
+                                  seed As UInteger,
+                                  term As String,
+                                  unique_hash As String,
+                                  knowledge As list,
+                                  Optional env As Environment = Nothing) As Object
+
         Dim cache = graphdb.knowledge_cache
+        Dim knowledge_json As String = jsonlite.toJSON(knowledge, env)
+        Dim hashcode As UInteger
+
+        unique_hash = knowledge.getValue(unique_hash, env, "")
+        hashcode = FNV1a.GetHashCode($"{term}+{unique_hash}")
+
+        ' check hash inside database
+        Dim check = cache.where(cache.field("hashcode") = hashcode).find(Of knowledge_cache)
 
         Return cache.add(
             cache.field("seed_id") = seed,
             cache.field("term") = term,
-            cache.field("hashcode") = Strings.LCase(term).MD5,
+            cache.field("hashcode") = hashcode,
             cache.field("knowledge") = knowledge,
             cache.field("add_time") = Now
         )

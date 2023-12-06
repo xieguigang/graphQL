@@ -39,7 +39,7 @@ CREATE TABLE `graph` (
   KEY `term_index` (`link_type`),
   KEY `node_data_idx2` (`to_node`,`from_node`),
   KEY `node_data_idx` (`from_node`,`to_node`)
-) ENGINE=InnoDB AUTO_INCREMENT=8652343 DEFAULT CHARSET=utf8mb3 COMMENT='the connection links between the knowledge nodes data';
+) ENGINE=InnoDB AUTO_INCREMENT=11476799 DEFAULT CHARSET=utf8mb3 COMMENT='the connection links between the knowledge nodes data';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -78,14 +78,17 @@ CREATE TABLE `knowledge` (
   `knowledge_term` int unsigned NOT NULL DEFAULT '0' COMMENT 'default zero means not assigned, and any positive integer means this property data has been assigned to a specific knowledge',
   `description` longtext NOT NULL COMMENT 'the description text about current knowledge data',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `id_UNIQUE` (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`) /*!80000 INVISIBLE */,
   KEY `key_index` (`key`),
   KEY `type_index` (`node_type`),
   KEY `find_key` (`key`,`node_type`),
-  KEY `sort_count` (`graph_size`),
+  KEY `sort_count` (`graph_size`) /*!80000 INVISIBLE */,
   KEY `sort_time` (`add_time`),
-  KEY `check_term` (`knowledge_term`)
-) ENGINE=InnoDB AUTO_INCREMENT=6174032 DEFAULT CHARSET=utf8mb3 COMMENT='knowlege data pool';
+  KEY `check_term` (`knowledge_term`),
+  KEY `query_next_term` (`knowledge_term`,`node_type`),
+  KEY `link_term` (`id`,`node_type`,`knowledge_term`),
+  KEY `sort_count_desc` (`graph_size` DESC)
+) ENGINE=InnoDB AUTO_INCREMENT=7595952 DEFAULT CHARSET=utf8mb3 COMMENT='knowlege data pool';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -99,15 +102,15 @@ CREATE TABLE `knowledge_cache` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `seed_id` int unsigned NOT NULL,
   `term` varchar(4096) NOT NULL,
-  `hashcode` char(32) NOT NULL,
-  `knowledge` longtext NOT NULL,
+  `hashcode` int unsigned NOT NULL,
   `add_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `knowledge` longtext NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   UNIQUE KEY `seed_id_UNIQUE` (`seed_id`),
   KEY `term_index` (`hashcode`),
   KEY `sort_time` (`add_time`)
-) ENGINE=InnoDB AUTO_INCREMENT=93124 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -137,14 +140,6 @@ CREATE TABLE `knowledge_vocabulary` (
   KEY `find_hash` (`hashcode`)
 ) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb3 COMMENT='the knowledge term type, category or class data label. the word ontology class data table';
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping events for database 'graphql'
---
-
---
--- Dumping routines for database 'graphql'
---
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -155,4 +150,4 @@ CREATE TABLE `knowledge_vocabulary` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-12-04  9:18:46
+-- Dump completed on 2023-12-06  8:36:17
