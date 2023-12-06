@@ -187,7 +187,11 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
             .select(Of graphdb.graph)
 
             Dim propertyVal As knowledge = knowledgeCache.ComputeIfAbsent(
-                key:=link.from_node,
+                key:=If(
+                    direction = NameOf(graphdb.graph.to_node),
+                    link.from_node,
+                    link.to_node
+                ),
                 lazyValue:=AddressOf getNodeById
             )
 
