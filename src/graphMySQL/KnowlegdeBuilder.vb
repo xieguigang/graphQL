@@ -182,6 +182,10 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
                         )
 
                         If verify.Verify(g, adjacent) Then
+                            ' 20231206
+                            ' do not assign the new id to the knowledge node, or the
+                            ' knowledge seed node id will be lost, we can not assign
+                            ' the knowledge term id at later.
                             g = g.Union(adjacent, assignId:=False)
                         End If
                     End If
