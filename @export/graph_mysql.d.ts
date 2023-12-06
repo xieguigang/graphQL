@@ -69,7 +69,9 @@ declare namespace graph_mysql {
         * @param seed -
         * @param term -
         * @param knowledge -
+        * @param env 
+        * + default value Is ``null``.
       */
-      function knowledge(graphdb: object, seed: object, term: string, knowledge: string): any;
+      function knowledge(graphdb: object, seed: object, term: string, unique_hash: string, knowledge: object, env?: object): any;
    }
 }
