@@ -1,6 +1,7 @@
 ﻿Imports System.Runtime.CompilerServices
 Imports graph.MySQL.graphdb
 Imports Microsoft.VisualBasic.ComponentModel.Collection
+Imports Microsoft.VisualBasic.Data.visualize.Network.Analysis
 Imports Microsoft.VisualBasic.Data.visualize.Network.FileStream.Generic
 Imports Microsoft.VisualBasic.Data.visualize.Network.Graph
 Imports Microsoft.VisualBasic.Imaging
@@ -200,6 +201,9 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
                 nsize = g.size.vertex
             End If
         Next
+
+        ' evaluate the node groups
+        g = Communities.Analysis(g, slotName:="group")
 
         Return g
     End Function
