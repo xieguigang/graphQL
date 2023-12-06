@@ -138,6 +138,9 @@ Public Module graphMySQLTool
     ''' <param name="seed"></param>
     ''' <param name="term"></param>
     ''' <param name="knowledge"></param>
+    ''' <param name="unique_hash">
+    ''' the slot key name for get the combination term for generates the hashcode
+    ''' </param>
     ''' <returns></returns>
     <ExportAPI("save.knowledge")>
     Public Function saveKnowledge(graphdb As KnowlegdeBuilder,
