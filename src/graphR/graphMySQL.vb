@@ -8,9 +8,12 @@ Imports Microsoft.VisualBasic.Data.Repository
 Imports Microsoft.VisualBasic.Data.visualize.Network.FileStream.Generic
 Imports Microsoft.VisualBasic.Data.visualize.Network.Graph
 Imports Microsoft.VisualBasic.Language
+Imports Microsoft.VisualBasic.Linq
+Imports Microsoft.VisualBasic.MIME.application.json
 Imports Microsoft.VisualBasic.Scripting.MetaData
 Imports Oracle.LinuxCompatibility.MySQL
 Imports Oracle.LinuxCompatibility.MySQL.Uri
+Imports Org.BouncyCastle.Asn1.Cms
 Imports SMRUCC.Rsharp.Runtime
 Imports SMRUCC.Rsharp.Runtime.Components
 Imports SMRUCC.Rsharp.Runtime.Components.[Interface]
@@ -148,7 +151,6 @@ Public Module graphMySQLTool
                                   Optional env As Environment = Nothing) As Object
 
         Dim cache = graphdb.knowledge_cache
-        Dim knowledge_json As String = jsonlite.toJSON(knowledge, env)
         Dim hashcode As UInteger
 
         unique_hash = knowledge.getValue(unique_hash, env, "")
@@ -158,19 +160,60 @@ Public Module graphMySQLTool
         Dim check As knowledge_cache = cache _
             .where(cache.field("hashcode") = hashcode) _
             .find(Of knowledge_cache)
+        Dim note As String
 
         If Not check Is Nothing Then
+            Dim load As Object = RJSON.ParseJSONinternal(check.knowledge, raw:=False, env)
+
+            If TypeOf load Is Message Then
+                Return load
+            End If
+
             ' merge data if the term is the same
+            note = check.note
+            note = note & " " & $"UNION({seed})"
 
+            Dim loadjson As list = DirectCast(load, list)
+            Dim a As Dictionary(Of String, String()) = knowledge.AsGeneric(Of String())(env)
+            Dim b As Dictionary(Of String, String()) = loadjson.AsGeneric(Of String())(env)
+
+            For Each key As String In b.Keys.ToArray
+                If a.ContainsKey(key) Then
+                    ' union data
+                    a(key) = a(key) _
+                        .JoinIterates(b(key)) _
+                        .Distinct _
+                        .ToArray
+                Else
+                    a.Add(key, b(key))
+                End If
+            Next
+
+            Dim knowledge_json As String = a.GetJson
+
+            Return cache _
+                .where(cache.field("id") = check.id) _
+                .limit(1) _
+                .save(cache.field("knowledge") = knowledge_json,
+                      cache.field("note") = note)
+        Else
+            Dim knowledge_json As Object = jsonlite.toJSON(knowledge, env)
+
+            If TypeOf knowledge_json Is Message Then
+                Return knowledge_json
+            Else
+                note = $"unique_hashseed: {term}+{unique_hash}"
+            End If
+
+            Return cache.add(
+                cache.field("seed_id") = seed,
+                cache.field("term") = term,
+                cache.field("hashcode") = hashcode,
+                cache.field("knowledge") = CStr(knowledge_json),
+                cache.field("add_time") = Now,
+                cache.field("note") = note
+            )
         End If
-
-        Return cache.add(
-            cache.field("seed_id") = seed,
-            cache.field("term") = term,
-            cache.field("hashcode") = hashcode,
-            cache.field("knowledge") = knowledge,
-            cache.field("add_time") = Now
-        )
     End Function
 
     <ExportAPI("fetch_json")>
