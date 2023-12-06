@@ -144,6 +144,13 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
         Dim knowledgeCache As New Dictionary(Of String, knowledge)
         Dim excludes As New Index(Of String)
 
+        ' add seed node
+        Call addNode(g, seed, linkTypes)
+        ' mark this node is a graph seed
+        g.vertex _
+            .First.data.Properties _
+            .Add("seed", "true")
+
         Call pullNextGraph(g, linkTypes, seed, knowledgeCache, direction:="to_node")
         Call pullNextGraph(g, linkTypes, seed, knowledgeCache, direction:="from_node")
         Call excludes.Add(seed.id)
