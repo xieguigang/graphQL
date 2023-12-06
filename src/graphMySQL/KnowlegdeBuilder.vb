@@ -13,8 +13,9 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
     ReadOnly toLabel As New Dictionary(Of String, knowledge_vocabulary)
 
     Public ReadOnly Property knowledge_cache As Model
+    Public ReadOnly Property verify As SignatureVerifycation
 
-    Sub New(graphdb As graphMySQL)
+    Sub New(graphdb As graphMySQL, Optional signature As SignatureVerifycation = Nothing)
         Call MyBase.New(
             graphdb.graph,
             graphdb.hash_index,
@@ -28,6 +29,8 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
             Call Me.vocabularyIndex.Add(vocabulary.vocabulary.ToLower, vocabulary.id)
             Call Me.toLabel.Add(vocabulary.id, vocabulary)
         Next
+
+        Me.verify = signature
     End Sub
 
     ''' <summary>
@@ -161,12 +164,28 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
             ' loop throught each link node
             For Each node As Node In g.pinnedNodes
                 If Not node.ID.ToString Like excludes Then
-                    Call pullNextGraph(
-                        g, linkTypes,
-                        seed:=knowledgeCache(node.ID.ToString),
-                        knowledgeCache:=knowledgeCache,
-                        direction:="to_node"
-                    )
+                    If verify Is Nothing Then
+                        Call pullNextGraph(
+                            g, linkTypes,
+                            seed:=knowledgeCache(node.ID.ToString),
+                            knowledgeCache:=knowledgeCache,
+                            direction:="to_node"
+                        )
+                    Else
+                        Dim adjacent As New NetworkGraph
+
+                        Call pullNextGraph(
+                            adjacent, linkTypes,
+                            seed:=knowledgeCache(node.ID.ToString),
+                            knowledgeCache:=knowledgeCache,
+                            direction:="to_node"
+                        )
+
+                        If verify.Verify(g, adjacent) Then
+                            g = g.Union(adjacent)
+                        End If
+                    End If
+
                     Call excludes.Add(node.ID)
                 End If
             Next
