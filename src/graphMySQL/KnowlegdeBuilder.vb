@@ -160,6 +160,7 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
         Call excludes.Add(seed.id)
 
         Dim nsize As Integer = g.size.vertex
+        Dim removes As New List(Of String)
 
         For i As Integer = 0 To 1000000
             ' loop throught each link node
@@ -183,6 +184,10 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
                         )
 
                         If verify.Verify(g, adjacent) Then
+                            For Each tag As String In removes
+                                adjacent.RemoveNode(tag)
+                            Next
+
                             ' 20231206
                             ' do not assign the new id to the knowledge node, or the
                             ' knowledge seed node id will be lost, we can not assign
@@ -193,6 +198,7 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
                             ' removes current seed node, due to the reason of the graph that current
                             ' seed node associated is can not be verified 
                             g.RemoveNode(labelId:=node.label)
+                            removes.Add(node.label)
                         End If
                     End If
 
