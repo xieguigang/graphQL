@@ -188,6 +188,11 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
                             ' knowledge seed node id will be lost, we can not assign
                             ' the knowledge term id at later.
                             g = g.Union(adjacent, assignId:=False)
+                        Else
+                            ' 20231206
+                            ' removes current seed node, due to the reason of the graph that current
+                            ' seed node associated is can not be verified 
+                            g.RemoveNode(labelId:=node.label)
                         End If
                     End If
 
