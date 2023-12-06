@@ -276,7 +276,8 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
                     .label = seed.display_title,
                     .Properties = New Dictionary(Of String, String) From {
                         {NamesOf.REFLECTION_ID_MAPPING_NODETYPE, toLabel(node_type).vocabulary.ToLower},
-                        {"dataNode", (Not is_link).ToString.ToLower}
+                        {"dataNode", (Not is_link).ToString.ToLower},
+                        {"knowledge_id", seed.id}
                     },
                     .origID = seed.key,
                     .size = {seed.graph_size + 1},
