@@ -92,17 +92,33 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
     ''' <summary>
     ''' pull a knowledge graph from a un-assigned term
     ''' </summary>
-    ''' <param name="vocabulary"></param>
+    ''' <param name="vocabulary">
+    ''' the term order inside this vector will affects the knowledge build result
+    ''' </param>
     ''' <param name="seed"></param>
     ''' <returns></returns>
     Public Function PullNextGraph(vocabulary As String(), Optional ByRef seed As knowledge = Nothing) As NetworkGraph
         Dim node_types As String() = mapNodeTypes(vocabulary)
 
-        ' from a un-assigned node
-        seed = knowledge _
-            .where(knowledge.field("knowledge_term") = 0, knowledge.field("node_type").in(node_types)) _
-            .order_by({"graph_size"}, desc:=True) _
-            .find(Of knowledge)
+        ' 20231206
+        ' find a knowledge seed data in given orders
+        ' knowledge.field("node_type").in(node_types)
+        ' can not keeps the input vocabulary order, so use a for
+        ' loop at here for implements such feature
+        For Each typeid As String In node_types
+            ' from a un-assigned node
+            seed = knowledge _
+                .where(
+                    knowledge.field("knowledge_term") = 0,
+                    knowledge.field("node_type") = typeid
+                ) _
+                .order_by({"graph_size"}, desc:=True) _
+                .find(Of knowledge)
+
+            If Not seed Is Nothing Then
+                Exit For
+            End If
+        Next
 
         If seed Is Nothing Then
             Return Nothing
