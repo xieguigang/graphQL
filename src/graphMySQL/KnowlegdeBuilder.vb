@@ -144,7 +144,8 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
         Dim knowledgeCache As New Dictionary(Of String, knowledge)
         Dim excludes As New Index(Of String)
 
-        Call pullNextGraph(g, linkTypes, seed, knowledgeCache)
+        Call pullNextGraph(g, linkTypes, seed, knowledgeCache, direction:="to_node")
+        Call pullNextGraph(g, linkTypes, seed, knowledgeCache, direction:="from_node")
         Call excludes.Add(seed.id)
 
         Dim nsize As Integer = g.size.vertex
@@ -153,7 +154,12 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
             ' loop throught each link node
             For Each node As Node In g.pinnedNodes
                 If Not node.ID.ToString Like excludes Then
-                    Call pullNextGraph(g, linkTypes, knowledgeCache(node.ID.ToString), knowledgeCache)
+                    Call pullNextGraph(
+                        g, linkTypes,
+                        seed:=knowledgeCache(node.ID.ToString),
+                        knowledgeCache:=knowledgeCache,
+                        direction:="to_node"
+                    )
                     Call excludes.Add(node.ID)
                 End If
             Next
@@ -168,12 +174,16 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
         Return g
     End Function
 
-    Private Sub pullNextGraph(g As NetworkGraph, linkTypes As Index(Of String), seed As knowledge, knowledgeCache As Dictionary(Of String, knowledge))
+    Private Sub pullNextGraph(g As NetworkGraph,
+                              linkTypes As Index(Of String),
+                              seed As knowledge,
+                              knowledgeCache As Dictionary(Of String, knowledge),
+                              direction As String)
         ' load current node
         Call addNode(g, seed, linkTypes)
 
         For Each link As graphdb.graph In graph _
-            .where(field("to_node") = seed.id) _
+            .where(field(direction) = seed.id) _
             .select(Of graphdb.graph)
 
             Dim propertyVal As knowledge = knowledgeCache.ComputeIfAbsent(
