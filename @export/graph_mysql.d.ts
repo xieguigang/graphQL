@@ -16,8 +16,15 @@ declare namespace graph_mysql {
    function add_term(graphdb: object, term: string, category?: string, metadata?: object, env?: object): any;
    module as {
       /**
+       * cast the mysql object as the knowledge builder object
+       * 
+       * 
+        * @param graphdb -
+        * @param signature -
+        * 
+        * + default value Is ``null``.
       */
-      function knowledge_builder(graphdb: object): object;
+      function knowledge_builder(graphdb: object, signature?: object): object;
    }
    /**
     * assign the knowledge term id to the knowledge nodes
@@ -68,6 +75,7 @@ declare namespace graph_mysql {
         * @param graphdb -
         * @param seed -
         * @param term -
+        * @param unique_hash the slot key name for get the combination term for generates the hashcode
         * @param knowledge -
         * @param env 
         * + default value Is ``null``.
