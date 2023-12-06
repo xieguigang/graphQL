@@ -101,7 +101,7 @@ Public Module graphMySQLTool
         }
         Dim content As String()
 
-        For Each nodeSet In g.vertex _
+        For Each nodeSet As IGrouping(Of String, Node) In g.vertex _
             .GroupBy(Function(vi)
                          Return vi.data(NamesOf.REFLECTION_ID_MAPPING_NODETYPE)
                      End Function)

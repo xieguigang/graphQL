@@ -57,7 +57,7 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
 
         For Each block As Node() In links.Split(100)
             Call knowledge _
-                .where(field("id").in(block.Select(Function(a) a.ID))) _
+                .where(field("id").in(block.Select(Function(a) a.data("knowledge_id")))) _
                 .limit(block.Length) _
                 .save(field("knowledge_term") = term)
         Next
@@ -203,6 +203,7 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
         Next
 
         ' evaluate the node groups
+        g = g.Copy
         g = Communities.Analysis(g, slotName:="group")
 
         Return g
