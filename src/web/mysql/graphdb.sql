@@ -39,7 +39,7 @@ CREATE TABLE `graph` (
   KEY `term_index` (`link_type`),
   KEY `node_data_idx2` (`to_node`,`from_node`),
   KEY `node_data_idx` (`from_node`,`to_node`)
-) ENGINE=InnoDB AUTO_INCREMENT=11476799 DEFAULT CHARSET=utf8mb3 COMMENT='the connection links between the knowledge nodes data';
+) ENGINE=InnoDB AUTO_INCREMENT=11502735 DEFAULT CHARSET=utf8mb3 COMMENT='the connection links between the knowledge nodes data';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -88,7 +88,7 @@ CREATE TABLE `knowledge` (
   KEY `query_next_term` (`knowledge_term`,`node_type`),
   KEY `link_term` (`id`,`node_type`,`knowledge_term`),
   KEY `sort_count_desc` (`graph_size` DESC)
-) ENGINE=InnoDB AUTO_INCREMENT=7595952 DEFAULT CHARSET=utf8mb3 COMMENT='knowlege data pool';
+) ENGINE=InnoDB AUTO_INCREMENT=7617576 DEFAULT CHARSET=utf8mb3 COMMENT='knowlege data pool';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -105,6 +105,7 @@ CREATE TABLE `knowledge_cache` (
   `hashcode` int unsigned NOT NULL,
   `add_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `knowledge` longtext NOT NULL,
+  `note` text,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   UNIQUE KEY `seed_id_UNIQUE` (`seed_id`),
@@ -150,4 +151,4 @@ CREATE TABLE `knowledge_vocabulary` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-12-06  8:36:17
+-- Dump completed on 2023-12-06  8:40:45

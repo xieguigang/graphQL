@@ -155,7 +155,14 @@ Public Module graphMySQLTool
         hashcode = FNV1a.GetHashCode($"{term}+{unique_hash}")
 
         ' check hash inside database
-        Dim check = cache.where(cache.field("hashcode") = hashcode).find(Of knowledge_cache)
+        Dim check As knowledge_cache = cache _
+            .where(cache.field("hashcode") = hashcode) _
+            .find(Of knowledge_cache)
+
+        If Not check Is Nothing Then
+            ' merge data if the term is the same
+
+        End If
 
         Return cache.add(
             cache.field("seed_id") = seed,
