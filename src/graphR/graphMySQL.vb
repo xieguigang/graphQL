@@ -38,9 +38,15 @@ Public Module graphMySQLTool
         })
     End Function
 
+    ''' <summary>
+    ''' cast the mysql object as the knowledge builder object
+    ''' </summary>
+    ''' <param name="graphdb"></param>
+    ''' <param name="signature"></param>
+    ''' <returns></returns>
     <ExportAPI("as.knowledge_builder")>
-    Public Function KnowlegdeBuilder(graphdb As graphMySQL) As KnowlegdeBuilder
-        Return New KnowlegdeBuilder(graphdb)
+    Public Function KnowlegdeBuilder(graphdb As graphMySQL, Optional signature As SignatureVerifycation = Nothing) As KnowlegdeBuilder
+        Return New KnowlegdeBuilder(graphdb, signature)
     End Function
 
     <ExportAPI("add_term")>
