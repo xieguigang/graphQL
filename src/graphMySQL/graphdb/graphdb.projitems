@@ -12,6 +12,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)graph.vb" />
     <Compile Include="$(MSBuildThisFileDirectory)hash_index.vb" />
     <Compile Include="$(MSBuildThisFileDirectory)knowledge.vb" />
+    <Compile Include="$(MSBuildThisFileDirectory)knowledge_cache.vb" />
     <Compile Include="$(MSBuildThisFileDirectory)knowledge_vocabulary.vb" />
   </ItemGroup>
 </Project>

@@ -8,6 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="graphdb\graphdb.projitems" />
+    <None Remove="graphdb\mysql_model.cmd" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MySql.Data" Version="8.0.33" />
   </ItemGroup>
 
