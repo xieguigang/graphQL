@@ -203,8 +203,8 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
         Next
 
         ' evaluate the node groups
-        g = g.Copy
-        g = Communities.Analysis(g, slotName:="group")
+        ' g = g.Copy
+        ' g = Communities.Analysis(g, slotName:="group")
 
         Return g
     End Function
