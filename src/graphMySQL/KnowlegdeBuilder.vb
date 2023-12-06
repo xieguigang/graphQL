@@ -182,7 +182,7 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
                         )
 
                         If verify.Verify(g, adjacent) Then
-                            g = g.Union(adjacent)
+                            g = g.Union(adjacent, assignId:=False)
                         End If
                     End If
 
