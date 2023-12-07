@@ -170,6 +170,7 @@ Public Module graphMySQLTool
         Dim note As String
 
         If Not check Is Nothing Then
+conflicts:
             Dim load As Object = RJSON.ParseJSONinternal(check.knowledge, raw:=False, env)
 
             If TypeOf load Is Message Then
@@ -186,6 +187,34 @@ Public Module graphMySQLTool
                     ' hash conflicts!
                     Call VBDebugger.EchoLine("hash conflicts!")
 
+                    hashcode += 1
+                    note = $"unique_hashseed: {term}+{unique_hash.JoinBy("+")} conflicts with seed_{check.seed_id}"
+
+                    check = cache _
+                        .where(cache.field("hashcode") = hashcode) _
+                        .find(Of knowledge_cache)
+
+                    If check IsNot Nothing Then
+                        GoTo conflicts
+                    Else
+                        ' add new item after resolve hashcode conflict
+                        Dim knowledge_json1 As Object = jsonlite.toJSON(knowledge, env)
+
+                        If TypeOf knowledge_json1 Is Message Then
+                            Return knowledge_json1
+                        End If
+
+                        cache.add(
+                            cache.field("seed_id") = seed,
+                            cache.field("term") = term,
+                            cache.field("hashcode") = hashcode,
+                            cache.field("knowledge") = CStr(knowledge_json1),
+                            cache.field("add_time") = Now,
+                            cache.field("note") = note
+                        )
+
+                        Return note
+                    End If
                 End If
             Next
 
