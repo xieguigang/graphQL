@@ -13,4 +13,8 @@ Public Class HubAlignment : Inherits ComparisonProvider
     Public Overrides Function GetSimilarity(x As String, y As String) As Double
         Return matrix(x)(y)
     End Function
+
+    Public Overrides Function GetObject(id As String) As Object
+        Return matrix(id)
+    End Function
 End Class

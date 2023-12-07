@@ -9,6 +9,9 @@
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Title>Knowledge database model and the algorithm to handle knowledge identification.</Title>
+    <Authors>xieguigang &lt;xie.guigang@gcmodeller.org&gt;</Authors>
+    <Copyright>Copyright © I@xieguigang.me 2022</Copyright>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Rsharp_app_release|x64'">

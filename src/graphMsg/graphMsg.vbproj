@@ -10,6 +10,9 @@
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Title>MessagePack I/O handler for the graph database file.</Title>
+    <Authors>xieguigang &lt;xie.guigang@gcmodeller.org&gt;</Authors>
+    <Copyright>Copyright © I@xieguigang.me 2022</Copyright>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
