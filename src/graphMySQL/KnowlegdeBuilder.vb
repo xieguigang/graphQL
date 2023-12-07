@@ -74,13 +74,15 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
     ''' usually used for run debug
     ''' </remarks>
     Public Function PullGraphById(vocabulary As String(), uid As UInteger, Optional ByRef seed As knowledge = Nothing) As NetworkGraph
+        Dim nodeMaps = mapNodeTypes(vocabulary)
+
         ' from a specific node
         seed = knowledge.where(knowledge.field("id") = uid).find(Of knowledge)
 
         If seed Is Nothing Then
             Return Nothing
         Else
-            Return PullNextGraphInternal(vocabulary:=mapNodeTypes(vocabulary), seed)
+            Return PullNextGraphInternal(vocabulary:=nodeMaps, seed)
         End If
     End Function
 
