@@ -182,6 +182,13 @@ conflicts:
             Dim b As Dictionary(Of String, String()) = loadjson.AsGeneric(Of String())(env)
 
             For Each field As String In uniques
+                If Not a.ContainsKey(field) Then
+                    Continue For
+                End If
+                If Not b.ContainsKey(field) Then
+                    Continue For
+                End If
+
                 If Not a(field).Intersect(b(field)).Any Then
                     ' different!
                     ' hash conflicts!
