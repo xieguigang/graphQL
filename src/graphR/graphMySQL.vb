@@ -152,15 +152,16 @@ Public Module graphMySQLTool
     Public Function saveKnowledge(graphdb As KnowlegdeBuilder,
                                   seed As UInteger,
                                   term As String,
-                                  unique_hash As String,
+                                  unique_hash As String(),
                                   knowledge As list,
                                   Optional env As Environment = Nothing) As Object
 
         Dim cache = graphdb.knowledge_cache
         Dim hashcode As UInteger
+        Dim uniques = unique_hash
 
-        unique_hash = knowledge.getValue(unique_hash, env, "")
-        hashcode = FNV1a.GetHashCode($"{term}+{unique_hash}")
+        unique_hash = unique_hash.Select(Function(f) knowledge.getValue(f, env, "")).ToArray
+        hashcode = FNV1a.GetHashCode($"{term}+{unique_hash.JoinBy("+")}")
 
         ' check hash inside database
         Dim check As knowledge_cache = cache _
@@ -175,13 +176,22 @@ Public Module graphMySQLTool
                 Return load
             End If
 
-            ' merge data if the term is the same
-            note = check.note
-            note = note & " " & $"UNION({seed})"
-
             Dim loadjson As list = DirectCast(load, list)
             Dim a As Dictionary(Of String, String()) = knowledge.AsGeneric(Of String())(env)
             Dim b As Dictionary(Of String, String()) = loadjson.AsGeneric(Of String())(env)
+
+            For Each field As String In uniques
+                If Not a(field).Intersect(b(field)).Any Then
+                    ' different!
+                    ' hash conflicts!
+                    Call VBDebugger.EchoLine("hash conflicts!")
+
+                End If
+            Next
+
+            ' merge data if the term is the same
+            note = check.note
+            note = note & " " & $"UNION({seed})"
 
             For Each key As String In b.Keys.ToArray
                 If a.ContainsKey(key) Then
@@ -208,7 +218,7 @@ Public Module graphMySQLTool
             If TypeOf knowledge_json Is Message Then
                 Return knowledge_json
             Else
-                note = $"unique_hashseed: {term}+{unique_hash}"
+                note = $"unique_hashseed: {term}+{unique_hash.JoinBy("+")}"
             End If
 
             Return cache.add(
