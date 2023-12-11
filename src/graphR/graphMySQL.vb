@@ -163,6 +163,12 @@ Public Module graphMySQLTool
         unique_hash = unique_hash.Select(Function(f) knowledge.getValue(f, env, "")).ToArray
         hashcode = FNV1a.GetHashCode($"{term}+{unique_hash.JoinBy("+")}")
 
+        If term.StringEmpty Then
+            If unique_hash.All(Function(si) si.StringEmpty) Then
+                Return False
+            End If
+        End If
+
         ' check hash inside database
         Dim check As knowledge_cache = cache _
             .where(cache.field("hashcode") = hashcode) _
