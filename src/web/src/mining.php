@@ -39,13 +39,27 @@ class App {
      * @method GET
     */
     public function get_vector($word, $top = 10) {
-        $i = $this->node->where(["token" => strtolower(urldecode($word))])->find();
+        $i = $this->find_token($word);
 
         if (Utils::isDbNull($i)) {
             controller::error("Unable to find word token '$word'!", 404);
         } else {
-            $left = $this->graph->left_join("word_token")->on(["word_token" => "id", "text_graph" => "from"])->where(["to" => $i["id"]])->order_by("weight", true)->limit($top)->select(["token","weight"]);
-            $right = $this->graph->left_join("word_token")->on(["word_token" => "id", "text_graph" => "to"])->where(["from" => $i["id"]])->order_by("weight", true)->limit($top)->select(["token","weight"]);
+            $left = $this->graph
+                ->left_join("word_token")
+                ->on(["word_token" => "id", "text_graph" => "from"])
+                ->where(["to" => $i["id"], "class" => 1])
+                ->order_by("`weight` / text_graph.`count`", true)
+                ->limit($top)
+                ->select(["token","`text_graph`.`weight` / text_graph.`count` as weight"])
+                ;
+            $right = $this->graph
+                ->left_join("word_token")
+                ->on(["word_token" => "id", "text_graph" => "to"])
+                ->where(["from" => $i["id"], "class" => 1])
+                ->order_by("`weight` / text_graph.`count`", true)
+                ->limit($top)
+                ->select(["token","`text_graph`.`weight` / text_graph.`count` as weight"])
+                ;
 
             controller::success(["left" => $left, "right" => $right]);
         }
@@ -58,7 +72,7 @@ class App {
      * @method GET
     */
     public function get_prompt($q, $top = 10) {
-        $i = $this->node->where(["token" => strtolower(urldecode($q))])->find();
+        $i = $this->find_token($q);
 
         if (Utils::isDbNull($i)) {
             controller::error("Unable to find word token '$q'!", 404);
@@ -66,13 +80,13 @@ class App {
             $right = $this->graph
             ->left_join("word_token")
             ->on(["word_token" => "id", "text_graph" => "to"])
-            ->where(["from" => $i["id"]])
-            ->order_by("weight", true)
+            ->where(["from" => $i["id"], "class" => 1])
+            ->order_by("`weight` / text_graph.`count`", true)
             ->limit($top)
-            ->select(["token","weight"])
+            ->select(["token","`text_graph`.`weight` / text_graph.`count` as weight"])
             ;
 
-            controller::success($right);
+            controller::success($right, $this->graph->getLastMySql());
         }
     }
 
@@ -83,8 +97,8 @@ class App {
      * @method GET
     */
     public function get_weight($i, $j) {
-        $hash1 = $this->node->where(["token" => strtolower(urldecode($i))])->find();
-        $hash2 = $this->node->where(["token" => strtolower(urldecode($j))])->find();
+        $hash1 = $this->find_token($i);
+        $hash2 = $this->find_token($j);
 
         if (Utils::isDbNull($hash1)) {
             controller::error("Unable to find word token '$i'!", 404);
@@ -161,7 +175,8 @@ class App {
                 $this->graph->add([
                     "from" => $link["from_i"],
                     "to" => $link["to_i"],
-                    "weight" => $w
+                    "weight" => $w,
+                    "count" => 1
                 ]);
             } else {
                 $this->graph->where([
@@ -169,10 +184,57 @@ class App {
                 ])
                 ->limit(1)
                 ->save([
-                    "weight" => "~weight + $w"
+                    "weight" => "~weight + $w",
+                    "count" => "~count + 1"
                 ]);
             }
         }
+
+        controller::success(1);
+    }
+
+    private function find_token($token) {
+        return $this->node
+            ->where(["token" => strtolower(urldecode($token))])
+            ->find();
+    }
+
+    /**
+     * assign the class label to a word token
+     * 
+     * @param string $token the specific word token
+     * @param string $class the class label tag string
+     * 
+     * @method POST
+     * @uses api
+    */
+    public function assign_class($token, $class) {
+        # find token
+        $hash1 = $this->find_token($token);
+
+        if (Utils::isDbNull($hash1)) {
+            controller::error("the given token '$token' could not be found in database!");
+        }
+
+        $class_label = strtolower(urldecode($class));
+        $class_data = (new Table(["text_mining" => "token_class"]))
+            ->where(["class" => $class_label])
+            ->find();
+
+        if (Utils::isDbNull($class_data)) {
+            # add new class tag
+            (new Table(["text_mining" => "token_class"]))->add(["class" => $class_label]);
+
+            $class_data = (new Table(["text_mining" => "token_class"]))
+            ->where(["class" => $class_label])
+            ->find();
+        }
+
+        $this->node->where([
+            "id" => $hash1["id"]
+        ])->save([
+            "class" => $class_data["id"]
+        ]);
 
         controller::success(1);
     }

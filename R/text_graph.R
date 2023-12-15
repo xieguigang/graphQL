@@ -25,9 +25,12 @@ const text_graph = function(text, phase_size = 6) {
 
 const tokens_trim = function(tokens) {
     str(tokens);
-    tokens = sapply(tokens, si -> si |> trim(characters = " ,.?;'():"));
+    tokens = tokens |> sapply(si -> si |> trim(characters = " ,.?;'():[]-&+=<>~"));
+    tokens = tokens |> sapply(si -> si |> trim(characters = ' ,.?;"():[]-&+=<>~'));
     tokens = tokens[nchar(tokens) > 0];
-    tokens = tokens[!(tokens == $"(\[\d+\])+")];
+    tokens = tokens[!(tokens == $"(\[\d+\])+")];  # quot reference number
+    tokens = tokens[!(tokens == $"\d+(\.\d+)?")]; # integer number
+    tokens = tokens[!(tokens == $"\d+[-]\d+")];   # x-x
 
     tolower(tokens);
 }
@@ -86,8 +89,8 @@ const graph_link = function(from, to, w = 1) {
     } else {
         list(
             from   = from, to = to,
-            from_i = FNV1a_hashcode(from),
-            to_i   = FNV1a_hashcode(to),
+            from_i = FNV1a_hashcode(`${md5(from)}+${from}`),
+            to_i   = FNV1a_hashcode(`${md5(to)}+${to}`),
             w      = w
         );
     }

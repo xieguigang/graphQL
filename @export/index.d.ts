@@ -39,6 +39,14 @@ declare namespace graphQL {
    */
    function graph_tokens(graph_df: any): object;
    /**
+     * @param graphdb default value Is ``Call "getOption"("graphdb_web")``.
+   */
+   function import_stopwords(graphdb?: any): object;
+   /**
+     * @param graphdb default value Is ``Call "getOption"("graphdb_web")``.
+   */
+   function import_verbs(graphdb?: any): object;
+   /**
      * @param phase_size default value Is ``3``.
    */
    function one_graph(tokens: any, phase_size?: any): object;

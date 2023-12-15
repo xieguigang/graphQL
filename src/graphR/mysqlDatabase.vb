@@ -2,12 +2,54 @@
 Imports Microsoft.VisualBasic.CommandLine.Reflection
 Imports Microsoft.VisualBasic.Scripting.MetaData
 Imports Oracle.LinuxCompatibility.MySQL
+Imports Oracle.LinuxCompatibility.MySQL.Uri
 Imports SMRUCC.Rsharp.Runtime
 Imports SMRUCC.Rsharp.Runtime.Internal.[Object]
 Imports SMRUCC.Rsharp.Runtime.Interop
 
+''' <summary>
+''' MySQL (/ˌmaɪˌɛsˌkjuːˈɛl/) is an open-source relational database management system (RDBMS).
+''' Its name is a combination of "My", the name of co-founder Michael Widenius's daughter My,
+''' and "SQL", the acronym for Structured Query Language. A relational database organizes data 
+''' into one or more data tables in which data may be related to each other; these relations 
+''' help structure the data. SQL is a language that programmers use to create, modify and extract
+''' data from the relational database, as well as control user access to the database. In 
+''' addition to relational databases and SQL, an RDBMS like MySQL works with an operating system 
+''' to implement a relational database in a computer's storage system, manages users, allows 
+''' for network access and facilitates testing database integrity and creation of backups.
+''' </summary>
 <Package("mysql")>
 Module mysqlDatabase
+
+    ''' <summary>
+    ''' open a mysql connection, construct a database model
+    ''' </summary>
+    ''' <param name="user_name"></param>
+    ''' <param name="password"></param>
+    ''' <param name="dbname"></param>
+    ''' <param name="host"></param>
+    ''' <param name="port"></param>
+    ''' <param name="env"></param>
+    ''' <returns></returns>
+    <ExportAPI("open")>
+    <RApiReturn(GetType(IDatabase))>
+    Public Function open(user_name As String, password As String, dbname As String,
+                         Optional host As String = "localhost",
+                         Optional port As Integer = 3306,
+                         Optional env As Environment = Nothing)
+
+        Dim type As RType = env.globalEnvironment.GetType(dbname)
+        Dim url As New ConnectionUri With {
+            .Database = dbname,
+            .IPAddress = host,
+            .Password = password,
+            .Port = port,
+            .User = user_name
+        }
+        Dim db As IDatabase = Activator.CreateInstance(type:=type.raw, url)
+
+        Return db
+    End Function
 
     ''' <summary>
     ''' dump the inserts transaction mysql file

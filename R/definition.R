@@ -2,6 +2,9 @@ const def_ignores = ["the","a","and","it"];
 
 const definition = function(word, word_size = 6, top = 30, graphdb = getOption("graphdb_web")) {
     const is = get_prompt("is", top = top, graphdb);
+
+    str(is);
+
     const context_cos = is 
     |> which(x -> !((x$token) in def_ignores)) 
     |> lapply(function(t) {
