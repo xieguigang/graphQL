@@ -44,7 +44,7 @@ declare namespace graph_mysql {
      * @param n default value Is ``100000``.
      * @param env default value Is ``null``.
    */
-   function fetch_table(graphdb: any, headers: any, row_builder?: object, n?: object, env?: object): any;
+   function fetch_table(graphdb: any, headers: any, row_builder?: any, n?: object, env?: object): any;
    module open {
       /**
         * @param host default value Is ``'localhost'``.
