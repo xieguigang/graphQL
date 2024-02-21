@@ -1,4 +1,4 @@
-# mysql
+﻿# mysql
 
 MySQL (/ˌmaɪˌɛsˌkjuːˈɛl/) is an open-source relational database management system (RDBMS).
  Its name is a combination of "My", the name of co-founder Michael Widenius's daughter My,
