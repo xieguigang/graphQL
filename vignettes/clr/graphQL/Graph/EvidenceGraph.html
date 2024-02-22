@@ -32,9 +32,9 @@
 export class EvidenceGraph extends <a href="/vignettes/clr/graphQL/Graph/GraphModel.html">GraphModel</a> {
    # evidence data
    evidences: <a href="/vignettes/clr/graphQL/Graph/EvidencePool.html">EvidencePool</a>;
-   graphEdges: <a href="/vignettes/clr/System/Collections/Generic/IEnumerable`1.html">IEnumerable`1</a>;
-   size: <a href="/vignettes/clr/System/ValueTuple`2.html">ValueTuple`2</a>;
-   vertex: <a href="/vignettes/clr/System/Collections/Generic/IEnumerable`1.html">IEnumerable`1</a>;
+   graphEdges: <a href="/vignettes/clr/graphQL/Graph/Association.html">iterates(Association)</a>;
+   size: tuple[integer, integer];
+   vertex: <a href="/vignettes/clr/graphQL/Graph/Knowledge.html">iterates(Knowledge)</a>;
 }
 </code>
         </pre>
@@ -44,9 +44,9 @@ export class EvidenceGraph extends <a href="/vignettes/clr/graphQL/Graph/GraphMo
         <ol>
 <li>this class extends from <a href="/vignettes/clr/graphQL/Graph/GraphModel.html">GraphModel</a> class: <a href="/vignettes/clr/graphQL/Graph/GraphModel.html">GraphModel</a></li>
 <li>use by <i>property</i> member <code>evidences</code>: <a href="/vignettes/clr/graphQL/Graph/EvidencePool.html">EvidencePool</a></li>
-<li>use by <i>property</i> member <code>graphEdges</code>: <a href="/vignettes/clr/System/Collections/Generic/IEnumerable`1.html">IEnumerable`1</a></li>
-<li>use by <i>property</i> member <code>size</code>: <a href="/vignettes/clr/System/ValueTuple`2.html">ValueTuple`2</a></li>
-<li>use by <i>property</i> member <code>vertex</code>: <a href="/vignettes/clr/System/Collections/Generic/IEnumerable`1.html">IEnumerable`1</a></li>
+<li>use by <i>property</i> member <code>graphEdges</code>: <a href="/vignettes/clr/graphQL/Graph/Association.html">iterates(Association)</a></li>
+<li>use by <i>property</i> member <code>size</code>: tuple[integer, integer]</li>
+<li>use by <i>property</i> member <code>vertex</code>: <a href="/vignettes/clr/graphQL/Graph/Knowledge.html">iterates(Knowledge)</a></li>
 </ol>
 
 

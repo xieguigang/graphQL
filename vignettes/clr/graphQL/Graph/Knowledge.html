@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>graphQL.Graph.Knowledge</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+    <link rel="stylesheet" type="text/css" href="../../_assets/page.css">
+</head>
+
+<body>
+    <div class="container">
+
+        <table style="width: 100%;">
+            <tr>
+                <td>Knowledge {graphQL.Graph}</td>
+                <td style="text-align: right;">.NET clr documentation</td>
+            </tr>
+        </table>
+
+        <h2>Knowledge</h2>
+
+        <h3>Description</h3>
+
+        <p>A knowledge node in this graph database</p>
+
+        <h3>Declare</h3>        
+
+        <pre>
+            <code id="clr_ts">
+# namespace graphQL.Graph
+export class Knowledge extends <a href="/vignettes/clr/Microsoft/VisualBasic/Data/GraphTheory/Vertex.html">Vertex</a> {
+   evidence: <a href="/vignettes/clr/graphQL/Graph/Evidence.html">iterates(Evidence)</a>;
+   ID: integer;
+   # current knowledge term is a master source term?
+   isMaster: boolean;
+   label: string;
+   # the count of the current knowledge term 
+   #  has been mentioned in the knowledge 
+   #  network.
+   mentions: integer;
+   # the data source of this knowledge term node
+   source: <a href="/vignettes/clr/System/String.html">iterates(String)</a>;
+   # the data type of the current term data.
+   type: string;
+}
+</code>
+        </pre>
+
+        <h3>.NET clr type reference tree</h3>
+
+        <ol>
+<li>this class extends from <a href="/vignettes/clr/Microsoft/VisualBasic/Data/GraphTheory/Vertex.html">Vertex</a> class: <a href="/vignettes/clr/Microsoft/VisualBasic/Data/GraphTheory/Vertex.html">Vertex</a></li>
+<li>use by <i>property</i> member <code>evidence</code>: <a href="/vignettes/clr/graphQL/Graph/Evidence.html">iterates(Evidence)</a></li>
+<li>use by <i>property</i> member <code>source</code>: <a href="/vignettes/clr/System/String.html">iterates(String)</a></li>
+</ol>
+
+
+        <hr />
+        <div style="text-align: center;">[Package <em>{$package}</em> version {$version} <a
+                href="../{$package}.html">Index</a>]
+        </div>
+    </div>
+</body>
+
+<script type="text/javascript" src="../../_assets/R_syntax.js"></script>
+<script type="text/javascript" src="../../_assets/highlights.js"></script>
+<script type="text/javascript">r_highlights("clr_ts");</script>
+
+</html>
