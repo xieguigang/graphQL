@@ -1,4 +1,4 @@
-@echo off
+REM @echo off
 
 SET Reflector="../../mysqli/App/Reflector.exe"
 SET sql_src="../../web/mysql/graphdb.sql"
