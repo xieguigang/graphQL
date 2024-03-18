@@ -177,8 +177,10 @@ Public Module graphMySQLTool
 
         If Not check Is Nothing Then
 conflicts:
-            Dim load As Object = RJSON.ParseJSONinternal(check.knowledge, raw:=False, env)
-
+            Dim load As Object = RJSON.ParseJSONinternal(check.knowledge,
+                                                         raw:=False,
+                                                         strict_vector_syntax:=True,
+                                                         env:=env)
             If TypeOf load Is Message Then
                 Return load
             End If
