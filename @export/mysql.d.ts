@@ -45,11 +45,15 @@ declare namespace mysql {
      * @param port -
      * 
      * + default value Is ``3306``.
+     * @param error_log 
+     * + default value Is ``null``.
+     * @param timeout 
+     * + default value Is ``-1``.
      * @param env -
      * 
      * + default value Is ``null``.
    */
-   function open(user_name: string, password: string, dbname: string, host?: string, port?: object, env?: object): object;
+   function open(user_name: string, password: string, dbname: string, host?: string, port?: object, error_log?: string, timeout?: object, env?: object): object;
    /**
      * @param env default value Is ``null``.
    */
