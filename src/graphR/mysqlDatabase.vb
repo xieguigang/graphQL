@@ -36,6 +36,8 @@ Module mysqlDatabase
     Public Function open(user_name As String, password As String, dbname As String,
                          Optional host As String = "localhost",
                          Optional port As Integer = 3306,
+                         Optional error_log As String = Nothing,
+                         Optional timeout As Integer = -1,
                          Optional env As Environment = Nothing)
 
         Dim type As RType = env.globalEnvironment.GetType(dbname)
@@ -44,7 +46,9 @@ Module mysqlDatabase
             .IPAddress = host,
             .Password = password,
             .Port = port,
-            .User = user_name
+            .User = user_name,
+            .error_log = error_log,
+            .TimeOut = timeout
         }
         Dim db As IDatabase = Activator.CreateInstance(type:=type.raw, url)
 
