@@ -12,10 +12,10 @@ Public MustInherit Class graphdbMySQL : Inherits IDatabase
     Sub New(uri As ConnectionUri)
         Call MyBase.New(uri)
 
-        graph = New Model("graph", uri)
-        hash_index = New Model("hash_index", uri)
-        knowledge = New Model("knowledge", uri)
-        knowledge_vocabulary = New Model("knowledge_vocabulary", uri)
+        graph = model(Of graphdb.graph)()
+        hash_index = model(Of graphdb.hash_index)()
+        knowledge = model(Of graphdb.knowledge)()
+        knowledge_vocabulary = model(Of graphdb.knowledge_vocabulary)()
     End Sub
 
     Protected Sub New(graph As Model, hash_index As Model, knowledge As Model, knowledge_vocabulary As Model)
