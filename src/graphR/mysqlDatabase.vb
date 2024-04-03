@@ -52,6 +52,16 @@ Module mysqlDatabase
         }
         Dim db As IDatabase = Activator.CreateInstance(type:=type.raw, url)
 
+        If user_name.StringEmpty Then
+            Return Internal.debug.stop("mysql user name could not be empty!", env)
+        ElseIf password.StringEmpty Then
+            Return Internal.debug.stop("mysql user password could not be empty!", env)
+        ElseIf host.StringEmpty Then
+            Return Internal.debug.stop("mysql host should not be empty!", env)
+        ElseIf port <= 0 Then
+            Return Internal.debug.stop("mysql network services tcp port should be a positive number!", env)
+        End If
+
         Return db
     End Function
 
