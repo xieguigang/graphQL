@@ -52,6 +52,10 @@ Module mysqlDatabase
         }
         Dim db As IDatabase
 
+        If type.raw Is GetType(Object) Then
+            Return Internal.debug.stop($"unknow database model({dbname}) for open connection! some package namespace must be imports at first!", env)
+        End If
+
         If user_name.StringEmpty Then
             Return Internal.debug.stop("mysql user name could not be empty!", env)
         ElseIf password.StringEmpty Then
