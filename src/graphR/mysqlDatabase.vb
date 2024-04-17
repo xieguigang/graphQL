@@ -141,7 +141,20 @@ Module mysqlDatabaseTool
     End Function
 
     <ExportAPI("where")>
-    Public Function where(table As Model, <RListObjectArgument> args As list, Optional env As Environment = Nothing) As Object
+    Public Function where(table As Model,
+                          <RListObjectArgument>
+                          <RLazyExpression> args As list,
+                          Optional env As Environment = Nothing) As Object
 
+        Throw New NotImplementedException
+    End Function
+
+    <ExportAPI("select")>
+    Public Function [select](table As Model,
+                             <RListObjectArgument>
+                             Optional args As list = Nothing,
+                             Optional env As Environment = Nothing) As Object
+
+        Throw New NotImplementedException
     End Function
 End Module
