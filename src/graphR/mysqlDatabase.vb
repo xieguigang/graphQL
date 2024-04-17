@@ -8,6 +8,13 @@ Imports SMRUCC.Rsharp.Runtime
 Imports SMRUCC.Rsharp.Runtime.Internal.[Object]
 Imports SMRUCC.Rsharp.Runtime.Interop
 
+Public Class MySqlDatabase : Inherits IDatabase
+
+    Public Sub New(mysqli As ConnectionUri)
+        MyBase.New(mysqli)
+    End Sub
+End Class
+
 ''' <summary>
 ''' MySQL (/ˌmaɪˌɛsˌkjuːˈɛl/) is an open-source relational database management system (RDBMS).
 ''' Its name is a combination of "My", the name of co-founder Michael Widenius's daughter My,
@@ -20,7 +27,7 @@ Imports SMRUCC.Rsharp.Runtime.Interop
 ''' for network access and facilitates testing database integrity and creation of backups.
 ''' </summary>
 <Package("mysql")>
-Module mysqlDatabase
+Module mysqlDatabaseTool
 
     ''' <summary>
     ''' open a mysql connection, construct a database model
@@ -40,9 +47,9 @@ Module mysqlDatabase
                          Optional error_log As String = Nothing,
                          Optional timeout As Integer = -1,
                          Optional connection_uri As String = Nothing,
+                         Optional general As Boolean = False,
                          Optional env As Environment = Nothing)
 
-        Dim type As RType = env.globalEnvironment.GetType(dbname)
         Dim url As ConnectionUri
         Dim db As IDatabase
 
@@ -69,6 +76,12 @@ Module mysqlDatabase
                 Return Internal.debug.stop("mysql network services tcp port should be a positive number!", env)
             End If
         End If
+
+        If general Then
+            Return New MySqlDatabase(url)
+        End If
+
+        Dim type As RType = env.globalEnvironment.GetType(url.Database)
 
         Try
             db = Activator.CreateInstance(type:=type.raw, url)
