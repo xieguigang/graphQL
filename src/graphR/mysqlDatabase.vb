@@ -173,6 +173,18 @@ Module mysqlDatabaseTool
         Return table.where(asserts.ToArray)
     End Function
 
+    <ExportAPI("project")>
+    Public Function project(table As Model, field As String, Optional env As Environment = Nothing) As Object
+        Dim reader As DataTableReader = table.select(field)
+        Dim vals As New List(Of Object)
+
+        Do While reader.Read
+            vals.Add(reader.GetValue(0))
+        Loop
+
+        Return renv.asVector(vals.ToArray, reader.GetFieldType(0), env)
+    End Function
+
     <ExportAPI("select")>
     Public Function [select](table As Model,
                              <RListObjectArgument>
