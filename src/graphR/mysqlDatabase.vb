@@ -57,6 +57,8 @@ Module mysqlDatabaseTool
 
         If Not connection_uri.StringEmpty Then
             url = CType(connection_uri, ConnectionUri)
+            url.error_log = error_log
+            url.TimeOut = timeout
         Else
             url = New ConnectionUri With {
                 .Database = dbname,
