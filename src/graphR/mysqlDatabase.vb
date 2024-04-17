@@ -41,7 +41,9 @@ Module mysqlDatabaseTool
     ''' <returns></returns>
     <ExportAPI("open")>
     <RApiReturn(GetType(IDatabase))>
-    Public Function open(user_name As String, password As String, dbname As String,
+    Public Function open(Optional user_name As String = Nothing,
+                         Optional password As String = Nothing,
+                         Optional dbname As String = Nothing,
                          Optional host As String = "localhost",
                          Optional port As Integer = 3306,
                          Optional error_log As String = Nothing,
@@ -156,5 +158,10 @@ Module mysqlDatabaseTool
                              Optional env As Environment = Nothing) As Object
 
         Throw New NotImplementedException
+    End Function
+
+    <ExportAPI("limit")>
+    Public Function limit(table As Model, m As Integer, Optional n As Integer? = Nothing) As Object
+        Return table.limit(m, n)
     End Function
 End Module
