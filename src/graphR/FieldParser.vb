@@ -11,6 +11,9 @@ Imports SMRUCC.Rsharp.Runtime.Internal.[Object]
 Imports SMRUCC.Rsharp.Runtime.Vectorization
 Imports renv = SMRUCC.Rsharp.Runtime
 
+''' <summary>
+''' convert the R# expression as the mysql expression
+''' </summary>
 Module FieldParser
 
     <Extension>
