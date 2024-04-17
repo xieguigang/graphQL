@@ -184,11 +184,12 @@ Module mysqlDatabaseTool
             Dim bin As BinaryBetweenExpression = DirectCast(field, BinaryBetweenExpression)
             Dim name = ValueAssignExpression.GetSymbol(bin.left)
             Dim range = bin.right.Evaluate(env)
+            Dim fieldName As FieldAssert = table.field(name)
 
             If TypeOf range Is list Then
                 Throw New NotImplementedException
             ElseIf TypeOf range Is vector OrElse range.GetType.IsArray Then
-                Return table.field(name).in(CLRVector.asCharacter(range))
+                Return fieldName.in(CLRVector.asCharacter(range))
             ElseIf TypeOf range Is Message Then
                 Return DirectCast(range, Message)
             Else
