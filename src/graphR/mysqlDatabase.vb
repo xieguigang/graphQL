@@ -7,10 +7,14 @@ Imports Oracle.LinuxCompatibility.MySQL
 Imports Oracle.LinuxCompatibility.MySQL.MySqlBuilder
 Imports Oracle.LinuxCompatibility.MySQL.Uri
 Imports SMRUCC.Rsharp.Interpreter.ExecuteEngine
+Imports SMRUCC.Rsharp.Interpreter.ExecuteEngine.ExpressionSymbols.Closure
+Imports SMRUCC.Rsharp.Interpreter.ExecuteEngine.ExpressionSymbols.DataSets
+Imports SMRUCC.Rsharp.Interpreter.ExecuteEngine.ExpressionSymbols.Operators
 Imports SMRUCC.Rsharp.Runtime
 Imports SMRUCC.Rsharp.Runtime.Components
 Imports SMRUCC.Rsharp.Runtime.Internal.[Object]
 Imports SMRUCC.Rsharp.Runtime.Interop
+Imports SMRUCC.Rsharp.Runtime.Vectorization
 
 Public Class MySqlDatabase : Inherits IDatabase
 
@@ -175,7 +179,27 @@ Module mysqlDatabaseTool
 
     <Extension>
     Private Function conditionField(table As Model, field As Expression, env As Environment) As [Variant](Of Message, FieldAssert)
+        If TypeOf field Is BinaryExpression Then
+        ElseIf TypeOf field Is BinaryBetweenExpression Then
+            Dim bin As BinaryBetweenExpression = DirectCast(field, BinaryBetweenExpression)
+            Dim name = ValueAssignExpression.GetSymbol(bin.left)
+            Dim range = bin.right.Evaluate(env)
 
+            If TypeOf range Is list Then
+                Throw New NotImplementedException
+            ElseIf TypeOf range Is vector OrElse range.GetType.IsArray Then
+                Return table.field(name).in(CLRVector.asCharacter(range))
+            ElseIf TypeOf range Is Message Then
+                Return DirectCast(range, Message)
+            Else
+                Throw New NotImplementedException
+            End If
+        ElseIf TypeOf field Is BinaryInExpression Then
+
+        ElseIf TypeOf field Is FunctionInvoke Then
+        Else
+            Return Internal.debug.stop(New NotImplementedException(field.ToString), env)
+        End If
     End Function
 
     <ExportAPI("select")>
