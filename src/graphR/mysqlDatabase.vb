@@ -1,10 +1,14 @@
 ﻿
+Imports System.Runtime.CompilerServices
 Imports Microsoft.VisualBasic.CommandLine.Reflection
+Imports Microsoft.VisualBasic.Language
 Imports Microsoft.VisualBasic.Scripting.MetaData
 Imports Oracle.LinuxCompatibility.MySQL
 Imports Oracle.LinuxCompatibility.MySQL.MySqlBuilder
 Imports Oracle.LinuxCompatibility.MySQL.Uri
+Imports SMRUCC.Rsharp.Interpreter.ExecuteEngine
 Imports SMRUCC.Rsharp.Runtime
+Imports SMRUCC.Rsharp.Runtime.Components
 Imports SMRUCC.Rsharp.Runtime.Internal.[Object]
 Imports SMRUCC.Rsharp.Runtime.Interop
 
@@ -150,7 +154,28 @@ Module mysqlDatabaseTool
                           <RLazyExpression> args As list,
                           Optional env As Environment = Nothing) As Object
 
-        Throw New NotImplementedException
+        Dim conditions As Expression() = args.data _
+            .Select(Function(e) DirectCast(e, Expression)) _
+            .ToArray
+        Dim asserts As New List(Of FieldAssert)
+        Dim parse As [Variant](Of Message, FieldAssert)
+
+        For Each field As Expression In conditions
+            parse = table.conditionField(field, env)
+
+            If parse Like GetType(Message) Then
+                Return parse.TryCast(Of Message)
+            End If
+
+            asserts.Add(parse.TryCast(Of FieldAssert))
+        Next
+
+        Return table.where(asserts.ToArray)
+    End Function
+
+    <Extension>
+    Private Function conditionField(table As Model, field As Expression, env As Environment) As [Variant](Of Message, FieldAssert)
+
     End Function
 
     <ExportAPI("select")>
