@@ -2,6 +2,7 @@
 Imports Microsoft.VisualBasic.CommandLine.Reflection
 Imports Microsoft.VisualBasic.Scripting.MetaData
 Imports Oracle.LinuxCompatibility.MySQL
+Imports Oracle.LinuxCompatibility.MySQL.MySqlBuilder
 Imports Oracle.LinuxCompatibility.MySQL.Uri
 Imports SMRUCC.Rsharp.Runtime
 Imports SMRUCC.Rsharp.Runtime.Internal.[Object]
@@ -38,35 +39,42 @@ Module mysqlDatabase
                          Optional port As Integer = 3306,
                          Optional error_log As String = Nothing,
                          Optional timeout As Integer = -1,
+                         Optional connection_uri As String = Nothing,
                          Optional env As Environment = Nothing)
 
         Dim type As RType = env.globalEnvironment.GetType(dbname)
-        Dim url As New ConnectionUri With {
-            .Database = dbname,
-            .IPAddress = host,
-            .Password = password,
-            .Port = port,
-            .User = user_name,
-            .error_log = error_log,
-            .TimeOut = timeout
-        }
+        Dim url As ConnectionUri
         Dim db As IDatabase
 
-        If user_name.StringEmpty Then
-            Return Internal.debug.stop("mysql user name could not be empty!", env)
-        ElseIf password.StringEmpty Then
-            Return Internal.debug.stop("mysql user password could not be empty!", env)
-        ElseIf host.StringEmpty Then
-            Return Internal.debug.stop("mysql host should not be empty!", env)
-        ElseIf port <= 0 Then
-            Return Internal.debug.stop("mysql network services tcp port should be a positive number!", env)
+        If Not connection_uri.StringEmpty Then
+            url = CType(connection_uri, ConnectionUri)
         Else
-            Try
-                db = Activator.CreateInstance(type:=type.raw, url)
-            Catch ex As Exception
-                Return Internal.debug.stop(ex, env)
-            End Try
+            url = New ConnectionUri With {
+                .Database = dbname,
+                .IPAddress = host,
+                .Password = password,
+                .Port = port,
+                .User = user_name,
+                .error_log = error_log,
+                .TimeOut = timeout
+            }
+
+            If user_name.StringEmpty Then
+                Return Internal.debug.stop("mysql user name could not be empty!", env)
+            ElseIf password.StringEmpty Then
+                Return Internal.debug.stop("mysql user password could not be empty!", env)
+            ElseIf host.StringEmpty Then
+                Return Internal.debug.stop("mysql host should not be empty!", env)
+            ElseIf port <= 0 Then
+                Return Internal.debug.stop("mysql network services tcp port should be a positive number!", env)
+            End If
         End If
+
+        Try
+            db = Activator.CreateInstance(type:=type.raw, url)
+        Catch ex As Exception
+            Return Internal.debug.stop(ex, env)
+        End Try
 
         Return db
     End Function
@@ -112,5 +120,15 @@ Module mysqlDatabase
         End If
 
         Return dump.DumpRows(pack.populates(Of MySQLTable)(env))
+    End Function
+
+    <ExportAPI("table")>
+    Public Function table(mysql As IDatabase, name As String) As Model
+        Return mysql.CreateModel(name)
+    End Function
+
+    <ExportAPI("where")>
+    Public Function where(table As Model, <RListObjectArgument> args As list, Optional env As Environment = Nothing) As Object
+
     End Function
 End Module
