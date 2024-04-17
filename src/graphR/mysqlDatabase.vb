@@ -1,4 +1,5 @@
-﻿Imports Microsoft.VisualBasic.CommandLine.Reflection
+﻿Imports System.Data
+Imports Microsoft.VisualBasic.CommandLine.Reflection
 Imports Microsoft.VisualBasic.Language
 Imports Microsoft.VisualBasic.Scripting.MetaData
 Imports Oracle.LinuxCompatibility.MySQL
@@ -9,6 +10,7 @@ Imports SMRUCC.Rsharp.Runtime
 Imports SMRUCC.Rsharp.Runtime.Components
 Imports SMRUCC.Rsharp.Runtime.Internal.[Object]
 Imports SMRUCC.Rsharp.Runtime.Interop
+Imports renv = SMRUCC.Rsharp.Runtime
 
 Public Class MySqlDatabase : Inherits IDatabase
 
@@ -174,10 +176,52 @@ Module mysqlDatabaseTool
     <ExportAPI("select")>
     Public Function [select](table As Model,
                              <RListObjectArgument>
+                             <RLazyExpression>
                              Optional args As list = Nothing,
                              Optional env As Environment = Nothing) As Object
 
-        Throw New NotImplementedException
+        Dim project As Expression() = args.data _
+            .Select(Function(e) DirectCast(e, Expression)) _
+            .ToArray
+        Dim fields As New List(Of String)
+        Dim parse As [Variant](Of Message, String)
+
+        For Each field As Expression In project
+            parse = field.projectField(env)
+
+            If parse Like GetType(Message) Then
+                Return parse.TryCast(Of Message)
+            End If
+
+            fields.Add(parse.TryCast(Of String))
+        Next
+
+        Dim reader As DataTableReader = table.select(fields.ToArray)
+        Dim df As New dataframe With {
+            .columns = New Dictionary(Of String, Array)
+        }
+        Dim rows As New List(Of Object())
+        Dim fieldSize As Integer = reader.FieldCount
+
+        Do While reader.Read
+            Dim row As Object() = New Object(fieldSize - 1) {}
+
+            For i As Integer = 0 To row.Length - 1
+                row(i) = reader.GetValue(i)
+            Next
+
+            rows.Add(row)
+        Loop
+
+        For i As Integer = 0 To fieldSize - 1
+            Dim offset As Integer = i
+            Dim v As Object() = rows.Select(Function(r) r(offset)).ToArray
+            Dim name As String = reader.GetName(offset)
+
+            Call df.add(name, renv.UnsafeTryCastGenericArray(v))
+        Next
+
+        Return df
     End Function
 
     <ExportAPI("limit")>
