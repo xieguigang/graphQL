@@ -1,6 +1,7 @@
 ﻿
 Imports System.Runtime.CompilerServices
 Imports Microsoft.VisualBasic.CommandLine.Reflection
+Imports Microsoft.VisualBasic.ComponentModel.DataSourceModel
 Imports Microsoft.VisualBasic.Language
 Imports Microsoft.VisualBasic.Scripting.MetaData
 Imports Oracle.LinuxCompatibility.MySQL
@@ -15,6 +16,7 @@ Imports SMRUCC.Rsharp.Runtime.Components
 Imports SMRUCC.Rsharp.Runtime.Internal.[Object]
 Imports SMRUCC.Rsharp.Runtime.Interop
 Imports SMRUCC.Rsharp.Runtime.Vectorization
+Imports renv = SMRUCC.Rsharp.Runtime
 
 Public Class MySqlDatabase : Inherits IDatabase
 
@@ -189,7 +191,15 @@ Module mysqlDatabaseTool
             If TypeOf range Is list Then
                 Throw New NotImplementedException
             ElseIf TypeOf range Is vector OrElse range.GetType.IsArray Then
-                Return fieldName.in(CLRVector.asCharacter(range))
+                Dim type = MeasureRealElementType(renv.asVector(Of Object)(range))
+
+                If DataFramework.IsNumericType(type) Then
+                    With CLRVector.asNumeric(range)
+                        Return fieldName.between(.Min, .Max)
+                    End With
+                Else
+                    Throw New NotImplementedException
+                End If
             ElseIf TypeOf range Is Message Then
                 Return DirectCast(range, Message)
             Else
