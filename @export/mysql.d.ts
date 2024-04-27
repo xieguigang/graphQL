@@ -2,7 +2,7 @@
 //
 //    imports "mysql" from "graphR";
 //
-// ref=graphR.mysqlDatabase@graphR, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+// ref=graphR.mysqlDatabaseTool@graphR, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 
 /**
  * MySQL (/ˌmaɪˌɛsˌkjuːˈɛl/) is an open-source relational database management system (RDBMS).
@@ -33,12 +33,22 @@ declare namespace mysql {
    */
    function dump_inserts(data: any, dir: string, env?: object): any;
    /**
+     * @param n default value Is ``null``.
+   */
+   function limit(table: object, m: object, n?: object): any;
+   /**
     * open a mysql connection, construct a database model
     * 
     * 
      * @param user_name -
+     * 
+     * + default value Is ``null``.
      * @param password -
+     * 
+     * + default value Is ``null``.
      * @param dbname -
+     * 
+     * + default value Is ``null``.
      * @param host -
      * 
      * + default value Is ``'localhost'``.
@@ -49,11 +59,31 @@ declare namespace mysql {
      * + default value Is ``null``.
      * @param timeout 
      * + default value Is ``-1``.
+     * @param connection_uri 
+     * + default value Is ``null``.
+     * @param general 
+     * + default value Is ``false``.
      * @param env -
      * 
      * + default value Is ``null``.
    */
-   function open(user_name: string, password: string, dbname: string, host?: string, port?: object, error_log?: string, timeout?: object, env?: object): object;
+   function open(user_name?: string, password?: string, dbname?: string, host?: string, port?: object, error_log?: string, timeout?: object, connection_uri?: string, general?: boolean, env?: object): object;
+   /**
+     * @param env default value Is ``null``.
+   */
+   function project(table: object, field: string, env?: object): any;
+   /**
+     * @param args default value Is ``null``.
+     * @param env default value Is ``null``.
+   */
+   function select(table: object, args?: object, env?: object): any;
+   /**
+   */
+   function table(mysql: object, name: string): object;
+   /**
+     * @param env default value Is ``null``.
+   */
+   function where(table: object, args: object, env?: object): any;
    /**
      * @param env default value Is ``null``.
    */

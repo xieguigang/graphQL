@@ -3,13 +3,15 @@
 .SH NAME
 open \- open a mysql connection, construct a database model
 .SH SYNOPSIS
-\fIopen(\fBuser_name\fR as string, 
-\fBpassword\fR as string, 
-\fBdbname\fR as string, 
+\fIopen(\fBuser_name\fR as string = \fB<NULL>\fR, 
+\fBpassword\fR as string = \fB<NULL>\fR, 
+\fBdbname\fR as string = \fB<NULL>\fR, 
 \fBhost\fR as string = "localhost", 
 \fBport\fR as integer = 3306, 
 \fBerror_log\fR as string = \fB<NULL>\fR, 
 \fBtimeout\fR as integer = -1, 
+\fBconnection_uri\fR as string = \fB<NULL>\fR, 
+\fBgeneral\fR as boolean = FALSE, 
 [\fB<Environment>\fR]);\fR
 .SH DESCRIPTION
 .PP
