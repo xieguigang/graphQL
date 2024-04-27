@@ -1,4 +1,55 @@
-﻿Imports System.Data
+﻿#Region "Microsoft.VisualBasic::c4c4f0ceef3a0c49e24f7c9fc9a2c53d, G:/graphQL/src/graphQL//KnowledgeBuilder/CreateNetwork.vb"
+
+    ' Author:
+    ' 
+    '       asuka (amethyst.asuka@gcmodeller.org)
+    '       xie (genetics@smrucc.org)
+    '       xieguigang (xie.guigang@live.com)
+    ' 
+    ' Copyright (c) 2018 GPL3 Licensed
+    ' 
+    ' 
+    ' GNU GENERAL PUBLIC LICENSE (GPL3)
+    ' 
+    ' 
+    ' This program is free software: you can redistribute it and/or modify
+    ' it under the terms of the GNU General Public License as published by
+    ' the Free Software Foundation, either version 3 of the License, or
+    ' (at your option) any later version.
+    ' 
+    ' This program is distributed in the hope that it will be useful,
+    ' but WITHOUT ANY WARRANTY; without even the implied warranty of
+    ' MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    ' GNU General Public License for more details.
+    ' 
+    ' You should have received a copy of the GNU General Public License
+    ' along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+
+
+    ' /********************************************************************************/
+
+    ' Summaries:
+
+
+    ' Code Statistics:
+
+    '   Total Lines: 103
+    '    Code Lines: 78
+    ' Comment Lines: 11
+    '   Blank Lines: 14
+    '     File Size: 4.26 KB
+
+
+    ' Module CreateNetwork
+    ' 
+    '     Function: AssembleLinks, CreateGraph, LoadNodeTable
+    ' 
+    ' /********************************************************************************/
+
+#End Region
+
+Imports System.Data
 Imports System.Runtime.CompilerServices
 Imports graphQL.Graph
 Imports Microsoft.VisualBasic.ComponentModel.Collection
@@ -101,3 +152,4 @@ Public Module CreateNetwork
         Return g
     End Function
 End Module
+
