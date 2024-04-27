@@ -1,3 +1,54 @@
+﻿#Region "Microsoft.VisualBasic::952e0a6829c8a2254086e41d4c1a5633, G:/graphQL/src/graphR//Query.vb"
+
+    ' Author:
+    ' 
+    '       asuka (amethyst.asuka@gcmodeller.org)
+    '       xie (genetics@smrucc.org)
+    '       xieguigang (xie.guigang@live.com)
+    ' 
+    ' Copyright (c) 2018 GPL3 Licensed
+    ' 
+    ' 
+    ' GNU GENERAL PUBLIC LICENSE (GPL3)
+    ' 
+    ' 
+    ' This program is free software: you can redistribute it and/or modify
+    ' it under the terms of the GNU General Public License as published by
+    ' the Free Software Foundation, either version 3 of the License, or
+    ' (at your option) any later version.
+    ' 
+    ' This program is distributed in the hope that it will be useful,
+    ' but WITHOUT ANY WARRANTY; without even the implied warranty of
+    ' MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    ' GNU General Public License for more details.
+    ' 
+    ' You should have received a copy of the GNU General Public License
+    ' along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+
+
+    ' /********************************************************************************/
+
+    ' Summaries:
+
+
+    ' Code Statistics:
+
+    '   Total Lines: 160
+    '    Code Lines: 104
+    ' Comment Lines: 37
+    '   Blank Lines: 19
+    '     File Size: 6.18 KB
+
+
+    ' Module Query
+    ' 
+    '     Function: getKnowledge, ignoreEvidenceLink, insert, isEquals, join
+    ' 
+    ' /********************************************************************************/
+
+#End Region
+
 Imports graphQL
 Imports graphQL.Graph
 Imports Microsoft.VisualBasic.ApplicationServices.Debugging.Logging
@@ -158,3 +209,4 @@ Public Module Query
         Return kb.Similar(x, y, weight.AsGeneric(Of Double)(env))
     End Function
 End Module
+
