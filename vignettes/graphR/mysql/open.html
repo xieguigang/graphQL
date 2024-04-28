@@ -27,11 +27,16 @@
         <h3>Usage</h3>
 
         <div style="width: 100%; padding-left: 3%; color: black;">
-            <pre><code class='language-R' style="color: black; font-weight:normal;"><strong>open</strong>(<i>user.name</i>, <i>password</i>, <i>dbname</i>,
+            <pre><code class='language-R' style="color: black; font-weight:normal;"><strong>open</strong>(
+    <i>user.name</i> = <span style='color: blue !important;'>NULL</span>,
+    <i>password</i> = <span style='color: blue !important;'>NULL</span>,
+    <i>dbname</i> = <span style='color: blue !important;'>NULL</span>,
     <i>host</i> = <span style='color: brown;'><strong>"localhost"</strong></span>,
     <i>port</i> = <span style='color: green;'>3306</span>,
     <i>error.log</i> = <span style='color: blue !important;'>NULL</span>,
-    <i>timeout</i> = <span style='color: green;'>-1</span>);</code></pre>
+    <i>timeout</i> = <span style='color: green;'>-1</span>,
+    <i>connection.uri</i> = <span style='color: blue !important;'>NULL</span>,
+    <i>general</i> = <span style='color: blue !important;'>FALSE</span>);</code></pre>
         </div>
 
         <h3>Arguments</h3>
