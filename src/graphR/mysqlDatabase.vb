@@ -210,14 +210,20 @@ Module mysqlDatabaseTool
                           <RLazyExpression> args As list,
                           Optional env As Environment = Nothing) As Object
 
-        Dim conditions As Expression() = args.data _
-            .Select(Function(e) DirectCast(e, Expression)) _
-            .ToArray
         Dim asserts As New List(Of FieldAssert)
         Dim parse As [Variant](Of Message, FieldAssert)
+        Dim field As Expression = Nothing
 
-        For Each field As Expression In conditions
-            parse = table.conditionField(field, env)
+        For Each ref As String In args.getNames
+            If ref.IsPattern("[$]\d+") Then
+                ' no name, is lazy expression
+                field = args.getByName(ref)
+                parse = table.conditionField(field, env)
+            Else
+                ' has name, is value equals test, example as a = b
+                field = args.getByName(ref)
+                parse = New FieldAssert(ref) = field.Evaluate(env)
+            End If
 
             If parse Like GetType(Message) Then
                 Return parse.TryCast(Of Message)
