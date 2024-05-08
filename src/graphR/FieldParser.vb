@@ -96,9 +96,18 @@ Module FieldParser
 
         Return New FieldAssert With {
             .name = name,
-            .op = bin.operator,
+            .op = mapOperatorSql(bin.operator),
             .val = val
         }
+    End Function
+
+    Private Function mapOperatorSql(op As String) As String
+        Select Case op
+            Case "==" : Return "="
+            Case "!=" : Return "<>"
+            Case Else
+                Return op
+        End Select
     End Function
 
     Private Function getValue(a As Expression) As String
