@@ -84,6 +84,8 @@ declare namespace mysql {
      * @param env -
      * 
      * + default value Is ``null``.
+     * @return the return tuple list data has attribute data ``global_status``, is the raw data 
+     *  for the performance counter which is pulled from the mysql server.
    */
    function performance_counter(mysql: any, task: object, resolution?: number, env?: object): object;
    /**
