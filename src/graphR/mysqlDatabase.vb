@@ -322,7 +322,10 @@ Module mysqlDatabaseTool
     ''' time internal data unit in seconds.
     ''' </param>
     ''' <param name="env"></param>
-    ''' <returns></returns>
+    ''' <returns>
+    ''' the return tuple list data has attribute data ``global_status``, is the raw data 
+    ''' for the performance counter which is pulled from the mysql server.
+    ''' </returns>
     <ExportAPI("performance_counter")>
     <RApiReturn("Bytes_received", "Bytes_sent", "Selects", "Inserts", "Deletes", "Updates", "Client_connections", "timestamp")>
     Public Function performance_counter(mysql As Object, task As TimeSpan,
@@ -344,8 +347,9 @@ Module mysqlDatabaseTool
             Return Message.InCompatibleType(GetType(MySqli), mysql.GetType, env)
         End If
 
-        Return New list With {
-            .slots = New Logger(mysqli, resolution) _
+        Dim logger As New Logger(mysqli, resolution)
+        Dim counter_data As New list With {
+            .slots = logger _
                 .Run(task) _
                 .GetLogging _
                 .ToDictionary(Function(a) a.Key,
@@ -353,6 +357,10 @@ Module mysqlDatabaseTool
                                   Return CObj(a.Value)
                               End Function)
         }
+
+        Call counter_data.setAttribute("global_status", logger.GetGlobalStatus)
+
+        Return counter_data
     End Function
 End Module
 
