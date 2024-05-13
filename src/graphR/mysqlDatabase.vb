@@ -314,13 +314,19 @@ Module mysqlDatabaseTool
     ''' 
     ''' ``hours``, ``minutes``, ``seconds``, ``days``, ``time_span``.
     ''' </param>
+    ''' <param name="resolution">
+    ''' the mysql performance counter data sampling time resolution value, 
+    ''' time internal data unit in seconds.
+    ''' </param>
     ''' <param name="env"></param>
     ''' <returns></returns>
     <ExportAPI("performance_counter")>
     <RApiReturn("Bytes_received", "Bytes_sent", "timestamp")>
-    Public Function performance_counter(table As Model, task As TimeSpan, Optional env As Environment = Nothing) As Object
+    Public Function performance_counter(table As Model, task As TimeSpan,
+                                        Optional resolution As Double = 1,
+                                        Optional env As Environment = Nothing) As Object
         Return New list With {
-            .slots = New Logger(table.getDriver) _
+            .slots = New Logger(table.getDriver, resolution) _
                 .Run(task) _
                 .GetLogging _
                 .ToDictionary(Function(a) a.Key,
