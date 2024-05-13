@@ -1,56 +1,56 @@
 ﻿#Region "Microsoft.VisualBasic::cb99748a3400c145d3341ec5faf5ad23, G:/graphQL/src/graphR//mysqlDatabase.vb"
 
-    ' Author:
-    ' 
-    '       asuka (amethyst.asuka@gcmodeller.org)
-    '       xie (genetics@smrucc.org)
-    '       xieguigang (xie.guigang@live.com)
-    ' 
-    ' Copyright (c) 2018 GPL3 Licensed
-    ' 
-    ' 
-    ' GNU GENERAL PUBLIC LICENSE (GPL3)
-    ' 
-    ' 
-    ' This program is free software: you can redistribute it and/or modify
-    ' it under the terms of the GNU General Public License as published by
-    ' the Free Software Foundation, either version 3 of the License, or
-    ' (at your option) any later version.
-    ' 
-    ' This program is distributed in the hope that it will be useful,
-    ' but WITHOUT ANY WARRANTY; without even the implied warranty of
-    ' MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    ' GNU General Public License for more details.
-    ' 
-    ' You should have received a copy of the GNU General Public License
-    ' along with this program. If not, see <http://www.gnu.org/licenses/>.
+' Author:
+' 
+'       asuka (amethyst.asuka@gcmodeller.org)
+'       xie (genetics@smrucc.org)
+'       xieguigang (xie.guigang@live.com)
+' 
+' Copyright (c) 2018 GPL3 Licensed
+' 
+' 
+' GNU GENERAL PUBLIC LICENSE (GPL3)
+' 
+' 
+' This program is free software: you can redistribute it and/or modify
+' it under the terms of the GNU General Public License as published by
+' the Free Software Foundation, either version 3 of the License, or
+' (at your option) any later version.
+' 
+' This program is distributed in the hope that it will be useful,
+' but WITHOUT ANY WARRANTY; without even the implied warranty of
+' MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+' GNU General Public License for more details.
+' 
+' You should have received a copy of the GNU General Public License
+' along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 
 
-    ' /********************************************************************************/
+' /********************************************************************************/
 
-    ' Summaries:
-
-
-    ' Code Statistics:
-
-    '   Total Lines: 243
-    '    Code Lines: 173
-    ' Comment Lines: 28
-    '   Blank Lines: 42
-    '     File Size: 9.20 KB
+' Summaries:
 
 
-    ' Class MySqlDatabase
-    ' 
-    '     Constructor: (+1 Overloads) Sub New
-    ' 
-    ' Module mysqlDatabaseTool
-    ' 
-    '     Function: [select], createFileDumpTask, dump_inserts, limit, open
-    '               project, table, where, writeRows
-    ' 
-    ' /********************************************************************************/
+' Code Statistics:
+
+'   Total Lines: 243
+'    Code Lines: 173
+' Comment Lines: 28
+'   Blank Lines: 42
+'     File Size: 9.20 KB
+
+
+' Class MySqlDatabase
+' 
+'     Constructor: (+1 Overloads) Sub New
+' 
+' Module mysqlDatabaseTool
+' 
+'     Function: [select], createFileDumpTask, dump_inserts, limit, open
+'               project, table, where, writeRows
+' 
+' /********************************************************************************/
 
 #End Region
 
@@ -58,10 +58,10 @@ Imports System.Data
 Imports Microsoft.VisualBasic.CommandLine.Reflection
 Imports Microsoft.VisualBasic.Language
 Imports Microsoft.VisualBasic.Scripting.MetaData
+Imports Oracle.LinuxCompatibility.LibMySQL.PerformanceCounter
 Imports Oracle.LinuxCompatibility.MySQL
 Imports Oracle.LinuxCompatibility.MySQL.MySqlBuilder
 Imports Oracle.LinuxCompatibility.MySQL.Uri
-Imports PerformanceCounter
 Imports SMRUCC.Rsharp.Interpreter.ExecuteEngine
 Imports SMRUCC.Rsharp.Runtime
 Imports SMRUCC.Rsharp.Runtime.Components
