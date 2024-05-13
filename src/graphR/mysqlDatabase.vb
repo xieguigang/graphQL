@@ -328,7 +328,12 @@ Module mysqlDatabaseTool
     ''' for the performance counter which is pulled from the mysql server.
     ''' </returns>
     <ExportAPI("performance_counter")>
-    <RApiReturn("Bytes_received", "Bytes_sent", "Selects", "Inserts", "Deletes", "Updates", "Client_connections", "Innodb_buffer_pool_read_requests", "Innodb_buffer_pool_write_requests", "timestamp")>
+    <RApiReturn("Bytes_received", "Bytes_sent",
+                "Selects", "Inserts", "Deletes", "Updates",
+                "Client_connections",
+                "Innodb_buffer_pool_read_requests", "Innodb_buffer_pool_write_requests",
+                "Innodb_data_read",
+                "timestamp")>
     Public Function performance_counter(mysql As Object, task As TimeSpan,
                                         Optional resolution As Double = 1,
                                         Optional env As Environment = Nothing) As Object
