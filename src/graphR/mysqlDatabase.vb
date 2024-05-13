@@ -324,7 +324,7 @@ Module mysqlDatabaseTool
     ''' <param name="env"></param>
     ''' <returns></returns>
     <ExportAPI("performance_counter")>
-    <RApiReturn("Bytes_received", "Bytes_sent", "selects", "Client_connections", "timestamp")>
+    <RApiReturn("Bytes_received", "Bytes_sent", "Selects", "Inserts", "Deletes", "Updates", "Client_connections", "timestamp")>
     Public Function performance_counter(mysql As Object, task As TimeSpan,
                                         Optional resolution As Double = 1,
                                         Optional env As Environment = Nothing) As Object
