@@ -1,4 +1,4 @@
-﻿#Region "Microsoft.VisualBasic::f5d0f742e3bb78058712cd86f4620064, G:/graphQL/src/graphQL//Graph/EvidencePool.vb"
+﻿#Region "Microsoft.VisualBasic::fb16c4e14a487ef123c75d851e98c4ee, src\graphQL\Graph\EvidencePool.vb"
 
     ' Author:
     ' 
@@ -34,10 +34,10 @@
 
     ' Code Statistics:
 
-    '   Total Lines: 148
+    '   Total Lines: 147
     '    Code Lines: 116
     ' Comment Lines: 5
-    '   Blank Lines: 27
+    '   Blank Lines: 26
     '     File Size: 5.36 KB
 
 
@@ -59,7 +59,6 @@
     ' /********************************************************************************/
 
 #End Region
-
 
 Imports System.Runtime.CompilerServices
 Imports Microsoft.VisualBasic.ComponentModel.Collection

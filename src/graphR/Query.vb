@@ -1,4 +1,4 @@
-﻿#Region "Microsoft.VisualBasic::952e0a6829c8a2254086e41d4c1a5633, G:/graphQL/src/graphR//Query.vb"
+﻿#Region "Microsoft.VisualBasic::f6e05728dfc18cc488cbc99e6e780df7, src\graphR\Query.vb"
 
     ' Author:
     ' 
@@ -209,4 +209,3 @@ Public Module Query
         Return kb.Similar(x, y, weight.AsGeneric(Of Double)(env))
     End Function
 End Module
-

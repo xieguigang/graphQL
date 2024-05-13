@@ -1,4 +1,4 @@
-﻿#Region "Microsoft.VisualBasic::88ebe7448aba40adafb67cef7cd9054f, G:/graphQL/src/graphMySQL//graphdb/knowledge_vocabulary.vb"
+﻿#Region "Microsoft.VisualBasic::41a5b9f8702d71ca3635869be26646bc, src\graphMySQL\graphdb\knowledge_vocabulary.vb"
 
     ' Author:
     ' 
@@ -38,7 +38,7 @@
     '    Code Lines: 96
     ' Comment Lines: 114
     '   Blank Lines: 22
-    '     File Size: 11.85 KB
+    '     File Size: 11.86 KB
 
 
     ' Class knowledge_vocabulary
@@ -286,4 +286,3 @@ End Class
 
 
 End Namespace
-

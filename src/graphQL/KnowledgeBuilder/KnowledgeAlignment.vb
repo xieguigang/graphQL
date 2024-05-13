@@ -1,4 +1,4 @@
-﻿#Region "Microsoft.VisualBasic::a8e0033998a5de0ad936c460f9267dc7, G:/graphQL/src/graphQL//KnowledgeBuilder/KnowledgeAlignment.vb"
+﻿#Region "Microsoft.VisualBasic::8b2a18e66e11876b67750785e5ddd8eb, src\graphQL\KnowledgeBuilder\KnowledgeAlignment.vb"
 
     ' Author:
     ' 
@@ -38,7 +38,7 @@
     '    Code Lines: 64
     ' Comment Lines: 9
     '   Blank Lines: 15
-    '     File Size: 2.63 KB
+    '     File Size: 2.62 KB
 
 
     ' Class KnowledgeAlignment
@@ -143,4 +143,3 @@ Public Class KnowledgeAlignment : Inherits ComparisonProvider
         Return all(id)
     End Function
 End Class
-

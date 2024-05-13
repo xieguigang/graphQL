@@ -1,4 +1,4 @@
-﻿#Region "Microsoft.VisualBasic::3a810ae202d7f90f97046ce5f3c96bce, G:/graphQL/src/graphMsg//StorageProvider.vb"
+﻿#Region "Microsoft.VisualBasic::9f87ff3a8f756ff0ecaa09a70cc0edbb, src\graphMsg\StorageProvider.vb"
 
     ' Author:
     ' 
@@ -38,7 +38,7 @@
     '    Code Lines: 62
     ' Comment Lines: 11
     '   Blank Lines: 14
-    '     File Size: 3.25 KB
+    '     File Size: 3.24 KB
 
 
     ' Class StorageProvider
@@ -138,4 +138,3 @@ Public Class StorageProvider
     End Function
 
 End Class
-

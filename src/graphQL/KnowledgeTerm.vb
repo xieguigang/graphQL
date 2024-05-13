@@ -1,4 +1,4 @@
-﻿#Region "Microsoft.VisualBasic::105712c4461907a216301ea76d77712b, G:/graphQL/src/graphQL//KnowledgeTerm.vb"
+﻿#Region "Microsoft.VisualBasic::79a8a9df66273007f61c618790f8c1fd, src\graphQL\KnowledgeTerm.vb"
 
     ' Author:
     ' 
@@ -167,4 +167,3 @@ Public Module KnowledgeTerm
         Return checksum
     End Function
 End Module
-

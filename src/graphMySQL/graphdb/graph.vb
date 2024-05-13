@@ -1,4 +1,4 @@
-﻿#Region "Microsoft.VisualBasic::2e35d2d7a7932eda72e70c43743ff662, G:/graphQL/src/graphMySQL//graphdb/graph.vb"
+﻿#Region "Microsoft.VisualBasic::5b67ea33e1e950da6f266bdbc17d3597, src\graphMySQL\graphdb\graph.vb"
 
     ' Author:
     ' 
@@ -38,7 +38,7 @@
     '    Code Lines: 91
     ' Comment Lines: 102
     '   Blank Lines: 22
-    '     File Size: 10.01 KB
+    '     File Size: 10.02 KB
 
 
     ' Class graph
@@ -269,4 +269,3 @@ End Class
 
 
 End Namespace
-

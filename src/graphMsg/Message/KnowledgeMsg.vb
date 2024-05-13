@@ -1,4 +1,4 @@
-﻿#Region "Microsoft.VisualBasic::e3f8cfa0796a53980850fab7acf7668e, G:/graphQL/src/graphMsg//Message/KnowledgeMsg.vb"
+﻿#Region "Microsoft.VisualBasic::e3f8cfa0796a53980850fab7acf7668e, src\graphMsg\Message\KnowledgeMsg.vb"
 
     ' Author:
     ' 

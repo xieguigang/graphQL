@@ -1,4 +1,4 @@
-﻿#Region "Microsoft.VisualBasic::2b0f9d5d1686aeb04f1c404d5c64df45, G:/graphQL/src/graphMySQL//SignatureVerifycation.vb"
+﻿#Region "Microsoft.VisualBasic::e24ea34119681ad7de04b8b5255b1a03, src\graphMySQL\SignatureVerifycation.vb"
 
     ' Author:
     ' 
@@ -38,7 +38,7 @@
     '    Code Lines: 4
     ' Comment Lines: 0
     '   Blank Lines: 3
-    '     File Size: 225 B
+    '     File Size: 223 B
 
 
     ' Class SignatureVerifycation
@@ -56,4 +56,3 @@ Public MustInherit Class SignatureVerifycation
     Public MustOverride Function Verify(seed As NetworkGraph, adjacent As NetworkGraph) As Boolean
 
 End Class
-

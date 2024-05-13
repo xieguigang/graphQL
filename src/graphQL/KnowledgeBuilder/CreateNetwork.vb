@@ -1,4 +1,4 @@
-﻿#Region "Microsoft.VisualBasic::c4c4f0ceef3a0c49e24f7c9fc9a2c53d, G:/graphQL/src/graphQL//KnowledgeBuilder/CreateNetwork.vb"
+﻿#Region "Microsoft.VisualBasic::3ff3fe71ab35210fcd2331a00f5ae1d2, src\graphQL\KnowledgeBuilder\CreateNetwork.vb"
 
     ' Author:
     ' 
@@ -152,4 +152,3 @@ Public Module CreateNetwork
         Return g
     End Function
 End Module
-

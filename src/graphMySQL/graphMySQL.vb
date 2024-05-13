@@ -1,4 +1,4 @@
-﻿#Region "Microsoft.VisualBasic::2b97fc2e6763842dfa30d74e51025c00, G:/graphQL/src/graphMySQL//graphMySQL.vb"
+﻿#Region "Microsoft.VisualBasic::55781c0f1785f15038ac934132013545, src\graphMySQL\graphMySQL.vb"
 
     ' Author:
     ' 
@@ -239,4 +239,3 @@ Public Class graphMySQL : Inherits graphdbMySQL
                        End Function)
     End Function
 End Class
-

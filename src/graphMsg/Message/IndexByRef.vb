@@ -1,4 +1,4 @@
-﻿#Region "Microsoft.VisualBasic::7dfa0967c55e08029c92fa1f042c4e40, G:/graphQL/src/graphMsg//Message/IndexByRef.vb"
+﻿#Region "Microsoft.VisualBasic::7dfa0967c55e08029c92fa1f042c4e40, src\graphMsg\Message\IndexByRef.vb"
 
     ' Author:
     ' 

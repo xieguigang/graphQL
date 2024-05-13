@@ -1,4 +1,4 @@
-﻿#Region "Microsoft.VisualBasic::a672d834814de9102b27957fb7fda7ce, G:/graphQL/src/graphMsg//SeekIndex.vb"
+﻿#Region "Microsoft.VisualBasic::a672d834814de9102b27957fb7fda7ce, src\graphMsg\SeekIndex.vb"
 
     ' Author:
     ' 

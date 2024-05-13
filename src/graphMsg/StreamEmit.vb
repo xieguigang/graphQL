@@ -1,4 +1,4 @@
-﻿#Region "Microsoft.VisualBasic::bd3088c99ba401935cf50e2baff09a4a, G:/graphQL/src/graphMsg//StreamEmit.vb"
+﻿#Region "Microsoft.VisualBasic::11e2c6316770f89718b8e8e948b983a1, src\graphMsg\StreamEmit.vb"
 
     ' Author:
     ' 
@@ -302,4 +302,3 @@ Public Class StreamEmit
         Next
     End Function
 End Class
-

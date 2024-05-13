@@ -1,4 +1,4 @@
-﻿#Region "Microsoft.VisualBasic::d48173784b3edd12feae7e541a289f06, G:/graphQL/src/graphR//MsgFile.vb"
+﻿#Region "Microsoft.VisualBasic::fa7f15a490fe1a33984fa160e29ce303, src\graphR\MsgFile.vb"
 
     ' Author:
     ' 
@@ -38,7 +38,7 @@
     '    Code Lines: 114
     ' Comment Lines: 30
     '   Blank Lines: 19
-    '     File Size: 6.47 KB
+    '     File Size: 6.46 KB
 
 
     ' Module MsgFile
@@ -213,4 +213,3 @@ Module MsgFile
     End Function
 
 End Module
-
