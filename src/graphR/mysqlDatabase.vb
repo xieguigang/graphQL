@@ -308,7 +308,12 @@ Module mysqlDatabaseTool
     ''' run the mysql performance counter in a given timespan perioid.
     ''' </summary>
     ''' <param name="table"></param>
-    ''' <param name="task"></param>
+    ''' <param name="task">
+    ''' the timespan value for run current performance counter task, value could be generates 
+    ''' from the time related R# base function: 
+    ''' 
+    ''' ``hours``, ``minutes``, ``seconds``, ``days``, ``time_span``.
+    ''' </param>
     ''' <param name="env"></param>
     ''' <returns></returns>
     <ExportAPI("performance_counter")>
