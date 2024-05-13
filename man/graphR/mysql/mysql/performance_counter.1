@@ -5,6 +5,7 @@ performance_counter \- run the mysql performance counter in a given timespan per
 .SH SYNOPSIS
 \fIperformance_counter(\fBtable\fR as <generic> Model, 
 \fBtask\fR as <generic> TimeSpan, 
+\fBresolution\fR as double = 1, 
 [\fB<Environment>\fR]);\fR
 .SH DESCRIPTION
 .PP
@@ -20,6 +21,12 @@ run the mysql performance counter in a given timespan perioid.
  from the time related R# base function: 
  
  \fBhours\fR, \fBminutes\fR, \fBseconds\fR, \fBdays\fR, \fBtime_span\fR.
+. 
+.PP
+.PP
+\fBresolution\fB \fR\- 
+ the mysql performance counter data sampling time resolution value, 
+ time internal data unit in seconds.
 . 
 .PP
 .PP

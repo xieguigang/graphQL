@@ -77,11 +77,15 @@ declare namespace mysql {
      *  from the time related R# base function: 
      *  
      *  ``hours``, ``minutes``, ``seconds``, ``days``, ``time_span``.
+     * @param resolution the mysql performance counter data sampling time resolution value, 
+     *  time internal data unit in seconds.
+     * 
+     * + default value Is ``1``.
      * @param env -
      * 
      * + default value Is ``null``.
    */
-   function performance_counter(table: object, task: object, env?: object): object;
+   function performance_counter(table: object, task: object, resolution?: number, env?: object): object;
    /**
      * @param env default value Is ``null``.
    */
