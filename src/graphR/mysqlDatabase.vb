@@ -61,6 +61,7 @@ Imports Microsoft.VisualBasic.Scripting.MetaData
 Imports Oracle.LinuxCompatibility.MySQL
 Imports Oracle.LinuxCompatibility.MySQL.MySqlBuilder
 Imports Oracle.LinuxCompatibility.MySQL.Uri
+Imports PerformanceCounter
 Imports SMRUCC.Rsharp.Interpreter.ExecuteEngine
 Imports SMRUCC.Rsharp.Runtime
 Imports SMRUCC.Rsharp.Runtime.Components
@@ -301,6 +302,27 @@ Module mysqlDatabaseTool
     <ExportAPI("limit")>
     Public Function limit(table As Model, m As Integer, Optional n As Integer? = Nothing) As Object
         Return table.limit(m, n)
+    End Function
+
+    ''' <summary>
+    ''' run the mysql performance counter in a given timespan perioid.
+    ''' </summary>
+    ''' <param name="table"></param>
+    ''' <param name="task"></param>
+    ''' <param name="env"></param>
+    ''' <returns></returns>
+    <ExportAPI("performance_counter")>
+    <RApiReturn("Bytes_received", "Bytes_sent", "timestamp")>
+    Public Function performance_counter(table As Model, task As TimeSpan, Optional env As Environment = Nothing) As Object
+        Return New list With {
+            .slots = New Logger(table.getDriver) _
+                .Run(task) _
+                .GetLogging _
+                .ToDictionary(Function(a) a.Key,
+                              Function(a)
+                                  Return CObj(a.Value)
+                              End Function)
+        }
     End Function
 End Module
 
