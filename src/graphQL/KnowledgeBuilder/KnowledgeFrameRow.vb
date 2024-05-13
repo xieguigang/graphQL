@@ -1,4 +1,4 @@
-﻿#Region "Microsoft.VisualBasic::185ed4d795bf9edba8b67bb4f6b759fb, G:/graphQL/src/graphQL//KnowledgeBuilder/KnowledgeFrameRow.vb"
+﻿#Region "Microsoft.VisualBasic::6dc89087daf5574957282e500250cfbb, src\graphQL\KnowledgeBuilder\KnowledgeFrameRow.vb"
 
     ' Author:
     ' 
@@ -126,4 +126,3 @@ Public Class KnowledgeFrameRow : Inherits DynamicPropertyBase(Of String())
     End Sub
 
 End Class
-

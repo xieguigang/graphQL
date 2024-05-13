@@ -1,4 +1,4 @@
-﻿#Region "Microsoft.VisualBasic::551a9d00e5be2d62e268b54c1ace268e, G:/graphQL/src/graphMsg//Message/LinkMsg.vb"
+﻿#Region "Microsoft.VisualBasic::551a9d00e5be2d62e268b54c1ace268e, src\graphMsg\Message\LinkMsg.vb"
 
     ' Author:
     ' 

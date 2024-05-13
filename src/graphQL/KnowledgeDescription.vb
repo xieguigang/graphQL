@@ -1,4 +1,4 @@
-﻿#Region "Microsoft.VisualBasic::8ccaf462d2cb027a629705a658e163f9, G:/graphQL/src/graphQL//KnowledgeDescription.vb"
+﻿#Region "Microsoft.VisualBasic::759909438295d413f86fce8e74fcebec, src\graphQL\KnowledgeDescription.vb"
 
     ' Author:
     ' 
@@ -34,11 +34,11 @@
 
     ' Code Statistics:
 
-    '   Total Lines: 31
+    '   Total Lines: 30
     '    Code Lines: 25
     ' Comment Lines: 0
-    '   Blank Lines: 6
-    '     File Size: 1.03 KB
+    '   Blank Lines: 5
+    '     File Size: 1.02 KB
 
 
     ' Class KnowledgeDescription
@@ -51,7 +51,6 @@
     ' /********************************************************************************/
 
 #End Region
-
 
 Public Class KnowledgeDescription
 

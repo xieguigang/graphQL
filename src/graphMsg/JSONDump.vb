@@ -1,4 +1,4 @@
-﻿#Region "Microsoft.VisualBasic::2381224b7703fe9d48fa5091a266e174, G:/graphQL/src/graphMsg//JSONDump.vb"
+﻿#Region "Microsoft.VisualBasic::e72b269a67c30f13a50b47accb00eef6, src\graphMsg\JSONDump.vb"
 
     ' Author:
     ' 
@@ -135,4 +135,3 @@ Public Module JSONDump
         Return index
     End Function
 End Module
-

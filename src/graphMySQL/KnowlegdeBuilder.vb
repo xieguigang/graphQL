@@ -1,4 +1,4 @@
-﻿#Region "Microsoft.VisualBasic::6d33ebb28d8a0ca70516dab0c77b4d03, G:/graphQL/src/graphMySQL//KnowlegdeBuilder.vb"
+﻿#Region "Microsoft.VisualBasic::35795a45c0acc496c9dbb415951ef002, src\graphMySQL\KnowlegdeBuilder.vb"
 
     ' Author:
     ' 
@@ -461,4 +461,3 @@ Public Class KnowlegdeBuilder : Inherits graphdbMySQL
     End Function
 
 End Class
-

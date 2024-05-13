@@ -1,4 +1,4 @@
-﻿#Region "Microsoft.VisualBasic::cef80ab4e25edada04cd33dca8119339, G:/graphQL/src/graphQL//KnowledgeBuilder/HubAlignment.vb"
+﻿#Region "Microsoft.VisualBasic::66b806c5f5c5879e969dc5d7c3785cd3, src\graphQL\KnowledgeBuilder\HubAlignment.vb"
 
     ' Author:
     ' 
@@ -38,7 +38,7 @@
     '    Code Lines: 14
     ' Comment Lines: 0
     '   Blank Lines: 6
-    '     File Size: 637 B
+    '     File Size: 635 B
 
 
     ' Class HubAlignment
@@ -70,4 +70,3 @@ Public Class HubAlignment : Inherits ComparisonProvider
         Return matrix(id)
     End Function
 End Class
-

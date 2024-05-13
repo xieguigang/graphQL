@@ -1,4 +1,4 @@
-﻿#Region "Microsoft.VisualBasic::699a3c65ae26873056c5be9d9bdd7391, G:/graphQL/src/graphMySQL//KnowledgeLink.vb"
+﻿#Region "Microsoft.VisualBasic::699a3c65ae26873056c5be9d9bdd7391, src\graphMySQL\KnowledgeLink.vb"
 
     ' Author:
     ' 

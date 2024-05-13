@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>run the mysql performance counter in a given timespan perioid.</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+    <link rel="stylesheet" type="text/css" href="../../_assets/page.css">
+</head>
+
+<body>
+    <div class="container">
+
+        <table style="width: 100%;">
+            <tr>
+                <td>performance_counter {mysql}</td>
+                <td style="text-align: right;">R Documentation</td>
+            </tr>
+        </table>
+
+        <h2>run the mysql performance counter in a given timespan perioid.</h2>
+
+        <h3>Description</h3>
+
+        
+
+        <h3>Usage</h3>
+
+        <div style="width: 100%; padding-left: 3%; color: black;">
+            <pre><code class='language-R' style="color: black; font-weight:normal;"><strong>performance_counter</strong>(<i>mysql</i>, <i>task</i>,
+    <i>resolution</i> = <span style='color: green;'>1</span>);</code></pre>
+        </div>
+
+        <h3>Arguments</h3>
+
+        <table>
+            
+<dt>mysql</dt>
+<dd><p>mysql connection parameters for create a 
+ mysql performance counter @<code>T:Oracle.LinuxCompatibility.LibMySQL.PerformanceCounter.Logger</code> object.</p></dd>
+
+
+<dt>task</dt>
+<dd><p>the timespan value for run current performance counter task, value could be generates 
+ from the time related R# base function: 
+ 
+ <code>hours</code>, <code>minutes</code>, <code>seconds</code>, <code>days</code>, <code>time_span</code>. [as <a href="/vignettes/clr/System/TimeSpan.html">TimeSpan</a>]</p></dd>
+
+
+<dt>resolution</dt>
+<dd><p>the mysql performance counter data sampling time resolution value, 
+ time internal data unit in seconds. [as double]</p></dd>
+
+
+<dt>env</dt>
+<dd><p>[as <a href="/vignettes/clr/SMRUCC/Rsharp/Runtime/Environment.html">Environment</a>]</p></dd>
+
+        </table>
+
+
+        <h3 style="display: none;">Details</h3>
+
+        
+
+        <h3 style="display: block">Authors</h3>
+
+        graphR
+
+        <h3>Value</h3>
+
+        <p>the return tuple list data has attribute data <code>global_status</code>, is the raw data 
+ for the performance counter which is pulled from the mysql server.</p> the list data also has some specificied data fields: <code>list(Bytes_received, Bytes_sent, Selects, Inserts, Deletes, Updates, Client_connections, Innodb_buffer_pool_read_requests, Innodb_buffer_pool_write_requests, Innodb_data_read, timestamp)</code>.<h4>clr value class</h4><ul><li>list</li></ul>
+
+        <h3 style="display: none;">Examples</h3>
+
+        
+
+        <hr />
+        <div style="text-align: center;">[Package <em>mysql</em> version 1.0.0.0 <a
+                href="../mysql.html">Index</a>]
+        </div>
+    </div>
+</body>
+
+<script type="text/javascript" src="../../_assets/R_syntax.js"></script>
+<script type="text/javascript" src="../../_assets/highlights.js"></script>
+<script type="text/javascript">r_highlights("example_r");</script>
+
+</html>
