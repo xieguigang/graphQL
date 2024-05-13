@@ -72,7 +72,7 @@ declare namespace mysql {
     * run the mysql performance counter in a given timespan perioid.
     * 
     * 
-     * @param table -
+     * @param mysql -
      * @param task the timespan value for run current performance counter task, value could be generates 
      *  from the time related R# base function: 
      *  
@@ -85,7 +85,7 @@ declare namespace mysql {
      * 
      * + default value Is ``null``.
    */
-   function performance_counter(table: object, task: object, resolution?: number, env?: object): object;
+   function performance_counter(mysql: any, task: object, resolution?: number, env?: object): object;
    /**
      * @param env default value Is ``null``.
    */
