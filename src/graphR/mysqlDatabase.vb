@@ -69,6 +69,9 @@ Imports SMRUCC.Rsharp.Runtime.Internal.[Object]
 Imports SMRUCC.Rsharp.Runtime.Interop
 Imports renv = SMRUCC.Rsharp.Runtime
 
+''' <summary>
+''' a general mysql database model
+''' </summary>
 Public Class MySqlDatabase : Inherits IDatabase
 
     Public Sub New(mysqli As ConnectionUri)
@@ -307,7 +310,7 @@ Module mysqlDatabaseTool
     ''' <summary>
     ''' run the mysql performance counter in a given timespan perioid.
     ''' </summary>
-    ''' <param name="table"></param>
+    ''' <param name="mysql"></param>
     ''' <param name="task">
     ''' the timespan value for run current performance counter task, value could be generates 
     ''' from the time related R# base function: 
@@ -322,11 +325,27 @@ Module mysqlDatabaseTool
     ''' <returns></returns>
     <ExportAPI("performance_counter")>
     <RApiReturn("Bytes_received", "Bytes_sent", "timestamp")>
-    Public Function performance_counter(table As Model, task As TimeSpan,
+    Public Function performance_counter(mysql As Object, task As TimeSpan,
                                         Optional resolution As Double = 1,
                                         Optional env As Environment = Nothing) As Object
+        Dim mysqli As MySqli = Nothing
+
+        If mysql Is Nothing Then
+            Return Internal.debug.stop("the required mysqli connection object should not be nothing!", env)
+        End If
+
+        If TypeOf mysql Is MySqli Then
+            mysqli = mysql
+        ElseIf TypeOf mysql Is Model Then
+            mysqli = DirectCast(mysql, Model).getDriver
+        ElseIf TypeOf mysql Is MySqlDatabase Then
+            mysqli = DirectCast(mysql, MySqlDatabase).getDriver
+        Else
+            Return Message.InCompatibleType(GetType(MySqli), mysql.GetType, env)
+        End If
+
         Return New list With {
-            .slots = New Logger(table.getDriver, resolution) _
+            .slots = New Logger(mysqli, resolution) _
                 .Run(task) _
                 .GetLogging _
                 .ToDictionary(Function(a) a.Key,
