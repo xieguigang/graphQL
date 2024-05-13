@@ -1,0 +1,33 @@
+.\" man page create by R# package system.
+.TH MYSQL 1 2000-Jan "performance_counter" "performance_counter"
+.SH NAME
+performance_counter \- run the mysql performance counter in a given timespan perioid.
+.SH SYNOPSIS
+\fIperformance_counter(\fBtable\fR as <generic> Model, 
+\fBtask\fR as <generic> TimeSpan, 
+[\fB<Environment>\fR]);\fR
+.SH DESCRIPTION
+.PP
+run the mysql performance counter in a given timespan perioid.
+.PP
+.SH OPTIONS
+.PP
+\fBtable\fB \fR\- -. 
+.PP
+.PP
+\fBtask\fB \fR\- 
+ the timespan value for run current performance counter task, value could be generates 
+ from the time related R# base function: 
+ 
+ \fBhours\fR, \fBminutes\fR, \fBseconds\fR, \fBdays\fR, \fBtime_span\fR.
+. 
+.PP
+.PP
+\fBenv\fB \fR\- -. 
+.PP
+.SH SEE ALSO
+mysql
+.SH FILES
+.PP
+graphR.dll
+.PP

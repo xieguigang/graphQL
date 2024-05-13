@@ -69,6 +69,20 @@ declare namespace mysql {
    */
    function open(user_name?: string, password?: string, dbname?: string, host?: string, port?: object, error_log?: string, timeout?: object, connection_uri?: string, general?: boolean, env?: object): object;
    /**
+    * run the mysql performance counter in a given timespan perioid.
+    * 
+    * 
+     * @param table -
+     * @param task the timespan value for run current performance counter task, value could be generates 
+     *  from the time related R# base function: 
+     *  
+     *  ``hours``, ``minutes``, ``seconds``, ``days``, ``time_span``.
+     * @param env -
+     * 
+     * + default value Is ``null``.
+   */
+   function performance_counter(table: object, task: object, env?: object): object;
+   /**
      * @param env default value Is ``null``.
    */
    function project(table: object, field: string, env?: object): any;
