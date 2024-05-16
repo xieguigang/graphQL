@@ -1,4 +1,4 @@
-﻿#Region "Microsoft.VisualBasic::23951e9baed16537c63dee47d9c0b40b, G:/graphQL/src/graphQL//Relationship.vb"
+﻿#Region "Microsoft.VisualBasic::23951e9baed16537c63dee47d9c0b40b, src\graphQL\Relationship.vb"
 
     ' Author:
     ' 

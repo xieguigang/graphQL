@@ -1,0 +1,46 @@
+.\" man page create by R# package system.
+.TH MYSQL 1 2000-Jan "performance_counter" "performance_counter"
+.SH NAME
+performance_counter \- run the mysql performance counter in a given timespan perioid.
+.SH SYNOPSIS
+\fIperformance_counter(\fBmysql\fR as any, 
+\fBtask\fR as <generic> TimeSpan, 
+\fBresolution\fR as double = 1, 
+[\fB<Environment>\fR]);\fR
+.SH DESCRIPTION
+.PP
+run the mysql performance counter in a given timespan perioid.
+.PP
+.SH OPTIONS
+.PP
+\fBmysql\fB \fR\- mysql connection parameters for create a 
+ mysql performance counter @\fBT:Oracle.LinuxCompatibility.LibMySQL.PerformanceCounter.Logger\fR object.. 
+.PP
+.PP
+\fBtask\fB \fR\- 
+ the timespan value for run current performance counter task, value could be generates 
+ from the time related R# base function: 
+ 
+ \fBhours\fR, \fBminutes\fR, \fBseconds\fR, \fBdays\fR, \fBtime_span\fR.
+. 
+.PP
+.PP
+\fBresolution\fB \fR\- 
+ the mysql performance counter data sampling time resolution value, 
+ time internal data unit in seconds.
+. 
+.PP
+.PP
+\fBenv\fB \fR\- -. 
+.PP
+.SH VALUE
+.PP
+the return tuple list data has attribute data \fBglobal_status\fR, is the raw data 
+ for the performance counter which is pulled from the mysql server.
+.PP
+.SH SEE ALSO
+mysql
+.SH FILES
+.PP
+graphR.dll
+.PP

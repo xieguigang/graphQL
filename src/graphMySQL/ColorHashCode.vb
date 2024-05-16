@@ -1,4 +1,4 @@
-﻿#Region "Microsoft.VisualBasic::fd621a17b127294019e9a2444c15d164, G:/graphQL/src/graphMySQL//ColorHashCode.vb"
+﻿#Region "Microsoft.VisualBasic::05be6154cfd43a32609e976e638a83f2, src\graphMySQL\ColorHashCode.vb"
 
     ' Author:
     ' 
@@ -126,4 +126,3 @@ Public Class ColorHashCode
         Return New HSLColor(h, s, l)
     End Function
 End Class
-

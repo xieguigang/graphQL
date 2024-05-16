@@ -1,4 +1,4 @@
-﻿#Region "Microsoft.VisualBasic::5d670249567005fbba674bf5a9efba88, G:/graphQL/src/graphR//graphMySQL.vb"
+﻿#Region "Microsoft.VisualBasic::e0fe68a1bf7499ec24f02b4a27cc1d46, src\graphR\graphMySQL.vb"
 
     ' Author:
     ' 
@@ -452,4 +452,3 @@ conflicts:
     End Function
 
 End Module
-

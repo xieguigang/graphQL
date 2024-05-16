@@ -1,4 +1,4 @@
-﻿#Region "Microsoft.VisualBasic::cb99748a3400c145d3341ec5faf5ad23, G:/graphQL/src/graphR//mysqlDatabase.vb"
+﻿#Region "Microsoft.VisualBasic::4d28e72a0e94d174091d323bdf97e23f, src\graphR\mysqlDatabase.vb"
 
     ' Author:
     ' 
@@ -34,11 +34,11 @@
 
     ' Code Statistics:
 
-    '   Total Lines: 243
-    '    Code Lines: 173
-    ' Comment Lines: 28
-    '   Blank Lines: 42
-    '     File Size: 9.20 KB
+    '   Total Lines: 315
+    '    Code Lines: 214
+    ' Comment Lines: 53
+    '   Blank Lines: 48
+    '     File Size: 12.26 KB
 
 
     ' Class MySqlDatabase
@@ -48,7 +48,7 @@
     ' Module mysqlDatabaseTool
     ' 
     '     Function: [select], createFileDumpTask, dump_inserts, limit, open
-    '               project, table, where, writeRows
+    '               performance_counter, project, table, where, writeRows
     ' 
     ' /********************************************************************************/
 
@@ -58,6 +58,7 @@ Imports System.Data
 Imports Microsoft.VisualBasic.CommandLine.Reflection
 Imports Microsoft.VisualBasic.Language
 Imports Microsoft.VisualBasic.Scripting.MetaData
+Imports Oracle.LinuxCompatibility.LibMySQL.PerformanceCounter
 Imports Oracle.LinuxCompatibility.MySQL
 Imports Oracle.LinuxCompatibility.MySQL.MySqlBuilder
 Imports Oracle.LinuxCompatibility.MySQL.Uri
@@ -68,6 +69,9 @@ Imports SMRUCC.Rsharp.Runtime.Internal.[Object]
 Imports SMRUCC.Rsharp.Runtime.Interop
 Imports renv = SMRUCC.Rsharp.Runtime
 
+''' <summary>
+''' a general mysql database model
+''' </summary>
 Public Class MySqlDatabase : Inherits IDatabase
 
     Public Sub New(mysqli As ConnectionUri)
@@ -302,5 +306,66 @@ Module mysqlDatabaseTool
     Public Function limit(table As Model, m As Integer, Optional n As Integer? = Nothing) As Object
         Return table.limit(m, n)
     End Function
-End Module
 
+    ''' <summary>
+    ''' run the mysql performance counter in a given timespan perioid.
+    ''' </summary>
+    ''' <param name="mysql">mysql connection parameters for create a 
+    ''' mysql performance counter <see cref="Logger"/> object.</param>
+    ''' <param name="task">
+    ''' the timespan value for run current performance counter task, value could be generates 
+    ''' from the time related R# base function: 
+    ''' 
+    ''' ``hours``, ``minutes``, ``seconds``, ``days``, ``time_span``.
+    ''' </param>
+    ''' <param name="resolution">
+    ''' the mysql performance counter data sampling time resolution value, 
+    ''' time internal data unit in seconds.
+    ''' </param>
+    ''' <param name="env"></param>
+    ''' <returns>
+    ''' the return tuple list data has attribute data ``global_status``, is the raw data 
+    ''' for the performance counter which is pulled from the mysql server.
+    ''' </returns>
+    <ExportAPI("performance_counter")>
+    <RApiReturn("Bytes_received", "Bytes_sent",
+                "Selects", "Inserts", "Deletes", "Updates",
+                "Client_connections",
+                "Innodb_buffer_pool_read_requests", "Innodb_buffer_pool_write_requests",
+                "Innodb_data_read",
+                "timestamp")>
+    Public Function performance_counter(mysql As Object, task As TimeSpan,
+                                        Optional resolution As Double = 1,
+                                        Optional env As Environment = Nothing) As Object
+        Dim mysqli As MySqli = Nothing
+
+        If mysql Is Nothing Then
+            Return Internal.debug.stop("the required mysqli connection object should not be nothing!", env)
+        End If
+
+        If TypeOf mysql Is MySqli Then
+            mysqli = mysql
+        ElseIf TypeOf mysql Is Model Then
+            mysqli = DirectCast(mysql, Model).getDriver
+        ElseIf TypeOf mysql Is MySqlDatabase Then
+            mysqli = DirectCast(mysql, MySqlDatabase).getDriver
+        Else
+            Return Message.InCompatibleType(GetType(MySqli), mysql.GetType, env)
+        End If
+
+        Dim logger As New Logger(mysqli, resolution)
+        Dim counter_data As New list With {
+            .slots = logger _
+                .Run(task) _
+                .GetLogging _
+                .ToDictionary(Function(a) a.Key,
+                              Function(a)
+                                  Return CObj(a.Value)
+                              End Function)
+        }
+
+        Call counter_data.setAttribute("global_status", logger.GetGlobalStatus)
+
+        Return counter_data
+    End Function
+End Module

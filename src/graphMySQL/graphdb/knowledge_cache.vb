@@ -1,4 +1,4 @@
-﻿#Region "Microsoft.VisualBasic::28907e8dc3a11a60fe99f514eb867c6a, G:/graphQL/src/graphMySQL//graphdb/knowledge_cache.vb"
+﻿#Region "Microsoft.VisualBasic::97a37bd4528ead97a4ecc855eb0a66b7, src\graphMySQL\graphdb\knowledge_cache.vb"
 
     ' Author:
     ' 
@@ -38,7 +38,7 @@
     '    Code Lines: 89
     ' Comment Lines: 64
     '   Blank Lines: 22
-    '     File Size: 7.95 KB
+    '     File Size: 7.96 KB
 
 
     ' Class knowledge_cache
@@ -229,4 +229,3 @@ End Class
 
 
 End Namespace
-

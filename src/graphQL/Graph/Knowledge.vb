@@ -1,4 +1,4 @@
-﻿#Region "Microsoft.VisualBasic::3d3e1f2790189f3ec0e45febad8891cd, G:/graphQL/src/graphQL//Graph/Knowledge.vb"
+﻿#Region "Microsoft.VisualBasic::a0248f8f5e578f12ecceb23e9e50740c, src\graphQL\Graph\Knowledge.vb"
 
     ' Author:
     ' 
@@ -111,4 +111,3 @@ Namespace Graph
 
     End Class
 End Namespace
-

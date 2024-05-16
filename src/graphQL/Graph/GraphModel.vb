@@ -1,4 +1,4 @@
-﻿#Region "Microsoft.VisualBasic::65e68475c8615a9f5ee33d29720d7a4d, G:/graphQL/src/graphQL//Graph/GraphModel.vb"
+﻿#Region "Microsoft.VisualBasic::65e68475c8615a9f5ee33d29720d7a4d, src\graphQL\Graph\GraphModel.vb"
 
     ' Author:
     ' 

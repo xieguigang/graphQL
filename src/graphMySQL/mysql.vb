@@ -1,4 +1,4 @@
-﻿#Region "Microsoft.VisualBasic::7cc483f5394be8cce2306cc0b1273221, G:/graphQL/src/graphMySQL//mysql.vb"
+﻿#Region "Microsoft.VisualBasic::0de0e218d1a21395bbdc8d068cdd3fb6, src\graphMySQL\mysql.vb"
 
     ' Author:
     ' 
@@ -38,7 +38,7 @@
     '    Code Lines: 9
     ' Comment Lines: 0
     '   Blank Lines: 4
-    '     File Size: 358 B
+    '     File Size: 356 B
 
 
     ' Class mysql
@@ -64,4 +64,3 @@ Public Class mysql : Inherits graphdbMySQL
     End Sub
 
 End Class
-

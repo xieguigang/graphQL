@@ -1,4 +1,4 @@
-﻿#Region "Microsoft.VisualBasic::a1f2001026acf4e84c2e28900b4cdb2a, G:/graphQL/src/graphQL//KnowledgeBuilder/CreateKnowledge.vb"
+﻿#Region "Microsoft.VisualBasic::668b6353ce21ca7c287f84009ff4dcdd, src\graphQL\KnowledgeBuilder\CreateKnowledge.vb"
 
     ' Author:
     ' 
@@ -247,4 +247,3 @@ Public Module CreateKnowledge
         Return rebuild
     End Function
 End Module
-

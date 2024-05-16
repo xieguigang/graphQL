@@ -1,4 +1,4 @@
-﻿#Region "Microsoft.VisualBasic::61a4810e8759e5fbdfe08405e71e9e6b, G:/graphQL/src/graphR//FieldParser.vb"
+﻿#Region "Microsoft.VisualBasic::29e30bcf1bc485a3f3d41ba476bd1a00, src\graphR\FieldParser.vb"
 
     ' Author:
     ' 
@@ -34,17 +34,17 @@
 
     ' Code Statistics:
 
-    '   Total Lines: 127
-    '    Code Lines: 110
+    '   Total Lines: 136
+    '    Code Lines: 118
     ' Comment Lines: 3
-    '   Blank Lines: 14
-    '     File Size: 5.38 KB
+    '   Blank Lines: 15
+    '     File Size: 5.65 KB
 
 
     ' Module FieldParser
     ' 
     '     Function: betweenParser, conditionField, funcParser, getValue, inParser
-    '               mathParser, projectField
+    '               mapOperatorSql, mathParser, projectField
     ' 
     ' /********************************************************************************/
 
@@ -186,4 +186,3 @@ Module FieldParser
         End If
     End Function
 End Module
-

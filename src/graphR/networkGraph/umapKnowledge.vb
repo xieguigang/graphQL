@@ -1,4 +1,4 @@
-﻿#Region "Microsoft.VisualBasic::130204f0f8ca19f152dde513b8cb391a, G:/graphQL/src/graphR//networkGraph/umapKnowledge.vb"
+﻿#Region "Microsoft.VisualBasic::bc15dd8e5a3193001434e4a9ef6a338e, src\graphR\networkGraph\umapKnowledge.vb"
 
     ' Author:
     ' 
@@ -104,4 +104,3 @@ Module umapKnowledge
         Return umap
     End Function
 End Module
-

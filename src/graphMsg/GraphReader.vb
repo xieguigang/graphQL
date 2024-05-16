@@ -1,4 +1,4 @@
-﻿#Region "Microsoft.VisualBasic::8998429d40990c6b277fe619333c2fd5, G:/graphQL/src/graphMsg//GraphReader.vb"
+﻿#Region "Microsoft.VisualBasic::2c3df2ff604f9f0ea35aafeb91363dca, src\graphMsg\GraphReader.vb"
 
     ' Author:
     ' 
@@ -101,4 +101,3 @@ Public Module GraphReader
     End Function
 
 End Module
-

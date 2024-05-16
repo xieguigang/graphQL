@@ -1,4 +1,4 @@
-﻿#Region "Microsoft.VisualBasic::8e1c377a018e1846dd7aa0577de499a6, G:/graphQL/src/graphMsg//Message/TermIndexMsg.vb"
+﻿#Region "Microsoft.VisualBasic::8e1c377a018e1846dd7aa0577de499a6, src\graphMsg\Message\TermIndexMsg.vb"
 
     ' Author:
     ' 

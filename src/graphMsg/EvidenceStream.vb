@@ -1,4 +1,4 @@
-﻿#Region "Microsoft.VisualBasic::e3decbd39bd060ebd96a6cf6464c8ad9, G:/graphQL/src/graphMsg//EvidenceStream.vb"
+﻿#Region "Microsoft.VisualBasic::281b77ac7de4249c328e23ce4d92b801, src\graphMsg\EvidenceStream.vb"
 
     ' Author:
     ' 
@@ -38,7 +38,7 @@
     '    Code Lines: 53
     ' Comment Lines: 0
     '   Blank Lines: 17
-    '     File Size: 2.41 KB
+    '     File Size: 2.40 KB
 
 
     ' Module EvidenceStream
@@ -121,4 +121,3 @@ Module EvidenceStream
     End Sub
 
 End Module
-

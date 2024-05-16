@@ -69,6 +69,27 @@ declare namespace mysql {
    */
    function open(user_name?: string, password?: string, dbname?: string, host?: string, port?: object, error_log?: string, timeout?: object, connection_uri?: string, general?: boolean, env?: object): object;
    /**
+    * run the mysql performance counter in a given timespan perioid.
+    * 
+    * 
+     * @param mysql mysql connection parameters for create a 
+     *  mysql performance counter @``T:Oracle.LinuxCompatibility.LibMySQL.PerformanceCounter.Logger`` object.
+     * @param task the timespan value for run current performance counter task, value could be generates 
+     *  from the time related R# base function: 
+     *  
+     *  ``hours``, ``minutes``, ``seconds``, ``days``, ``time_span``.
+     * @param resolution the mysql performance counter data sampling time resolution value, 
+     *  time internal data unit in seconds.
+     * 
+     * + default value Is ``1``.
+     * @param env -
+     * 
+     * + default value Is ``null``.
+     * @return the return tuple list data has attribute data ``global_status``, is the raw data 
+     *  for the performance counter which is pulled from the mysql server.
+   */
+   function performance_counter(mysql: any, task: object, resolution?: number, env?: object): object;
+   /**
      * @param env default value Is ``null``.
    */
    function project(table: object, field: string, env?: object): any;
