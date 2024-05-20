@@ -208,12 +208,27 @@ Module mysqlDatabaseTool
         Return mysql.CreateModel(name)
     End Function
 
-    <ExportAPI("where")>
-    Public Function where(table As Model,
-                          <RListObjectArgument>
-                          <RLazyExpression> args As list,
-                          Optional env As Environment = Nothing) As Object
+    <ExportAPI("add")>
+    Public Function add(table As Model,
+                        <RListObjectArgument>
+                        <RLazyExpression> args As list,
+                        Optional env As Environment = Nothing) As Object
 
+        Dim pull = pullFieldSet(table, args, env)
+
+        If pull Like GetType(Message) Then
+            Return pull.TryCast(Of Message)
+        End If
+
+        Return table.add(pull.TryCast(Of FieldAssert()))
+    End Function
+
+    <ExportAPI("count")>
+    Public Function count(table As Model) As Integer
+        Return table.count
+    End Function
+
+    Private Function pullFieldSet(table As Model, args As list, env As Environment) As [Variant](Of FieldAssert(), Message)
         Dim asserts As New List(Of FieldAssert)
         Dim parse As [Variant](Of Message, FieldAssert)
         Dim field As Expression = Nothing
@@ -233,10 +248,25 @@ Module mysqlDatabaseTool
                 Return parse.TryCast(Of Message)
             End If
 
-            asserts.Add(parse.TryCast(Of FieldAssert))
+            Call asserts.Add(parse.TryCast(Of FieldAssert))
         Next
 
-        Return table.where(asserts.ToArray)
+        Return asserts.ToArray
+    End Function
+
+    <ExportAPI("where")>
+    Public Function where(table As Model,
+                          <RListObjectArgument>
+                          <RLazyExpression> args As list,
+                          Optional env As Environment = Nothing) As Object
+
+        Dim pull = pullFieldSet(table, args, env)
+
+        If pull Like GetType(Message) Then
+            Return pull.TryCast(Of Message)
+        End If
+
+        Return table.where(pull.TryCast(Of FieldAssert()))
     End Function
 
     <ExportAPI("project")>
