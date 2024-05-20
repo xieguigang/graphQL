@@ -67,6 +67,7 @@ Imports SMRUCC.Rsharp.Runtime
 Imports SMRUCC.Rsharp.Runtime.Components
 Imports SMRUCC.Rsharp.Runtime.Internal.[Object]
 Imports SMRUCC.Rsharp.Runtime.Interop
+Imports SMRUCC.Rsharp.Runtime.Vectorization
 Imports renv = SMRUCC.Rsharp.Runtime
 
 ''' <summary>
@@ -256,7 +257,7 @@ Module mysqlDatabaseTool
             Else
                 ' has name, is value equals test, example as a = b
                 field = args.getByName(ref)
-                parse = New FieldAssert(ref) = field.Evaluate(env)
+                parse = New FieldAssert(ref) = CLRVector.asCharacter(field.Evaluate(env)).First
             End If
 
             If parse Like GetType(Message) Then
