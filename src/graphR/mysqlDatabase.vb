@@ -223,6 +223,21 @@ Module mysqlDatabaseTool
         Return table.add(pull.TryCast(Of FieldAssert()))
     End Function
 
+    <ExportAPI("save")>
+    Public Function save(table As Model,
+                         <RListObjectArgument>
+                         <RLazyExpression> args As list,
+                         Optional env As Environment = Nothing) As Object
+
+        Dim pull = pullFieldSet(table, args, env)
+
+        If pull Like GetType(Message) Then
+            Return pull.TryCast(Of Message)
+        End If
+
+        Return table.save(pull.TryCast(Of FieldAssert()))
+    End Function
+
     <ExportAPI("count")>
     Public Function count(table As Model) As Integer
         Return table.count
