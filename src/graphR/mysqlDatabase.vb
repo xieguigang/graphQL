@@ -251,16 +251,32 @@ Module mysqlDatabaseTool
         Return renv.asVector(vals.ToArray, reader.GetFieldType(0), env)
     End Function
 
-    <ExportAPI("select")>
-    Public Function [select](table As Model,
-                             <RListObjectArgument>
-                             <RLazyExpression>
-                             Optional args As list = Nothing,
-                             Optional env As Environment = Nothing) As Object
+    <ExportAPI("find")>
+    Public Function find(table As Model,
+                         <RListObjectArgument>
+                         <RLazyExpression>
+                         Optional args As list = Nothing,
+                         Optional env As Environment = Nothing) As Object
 
+        Dim fields = getFields(args, env)
+
+        If fields Like GetType(Message) Then
+            Return fields.TryCast(Of Message)
+        End If
+
+        Dim vals As Dictionary(Of String, Object) = table.find(fields.TryCast(Of String()))
+
+        If vals Is Nothing Then
+            Return Nothing
+        Else
+            Return New list(vals)
+        End If
+    End Function
+
+    Private Function getFields(args As list, env As Environment) As [Variant](Of String(), Message)
         Dim project As Expression() = args.data _
-            .Select(Function(e) DirectCast(e, Expression)) _
-            .ToArray
+           .Select(Function(e) DirectCast(e, Expression)) _
+           .ToArray
         Dim fields As New List(Of String)
         Dim parse As [Variant](Of Message, String)
 
@@ -274,7 +290,23 @@ Module mysqlDatabaseTool
             fields.Add(parse.TryCast(Of String))
         Next
 
-        Dim reader As DataTableReader = table.select(fields.ToArray)
+        Return fields.ToArray
+    End Function
+
+    <ExportAPI("select")>
+    Public Function [select](table As Model,
+                             <RListObjectArgument>
+                             <RLazyExpression>
+                             Optional args As list = Nothing,
+                             Optional env As Environment = Nothing) As Object
+
+        Dim fields = getFields(args, env)
+
+        If fields Like GetType(Message) Then
+            Return fields.TryCast(Of Message)
+        End If
+
+        Dim reader As DataTableReader = table.select(fields.TryCast(Of String()))
         Dim df As New dataframe With {
             .columns = New Dictionary(Of String, Array)
         }
