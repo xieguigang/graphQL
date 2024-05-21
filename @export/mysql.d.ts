@@ -84,6 +84,10 @@ declare namespace mysql {
    */
    function open(user_name?: string, password?: string, dbname?: string, host?: string, port?: object, error_log?: string, timeout?: object, connection_uri?: string, general?: boolean, env?: object): object;
    /**
+     * @param desc default value Is ``false``.
+   */
+   function order_by(table: object, x: any, desc?: boolean): any;
+   /**
     * run the mysql performance counter in a given timespan perioid.
     * 
     * 

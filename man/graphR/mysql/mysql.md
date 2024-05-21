@@ -20,6 +20,7 @@ MySQL (/ˌmaɪˌɛsˌkjuːˈɛl/) is an open-source relational database manageme
 + [save](mysql/save.1) 
 + [count](mysql/count.1) 
 + [where](mysql/where.1) 
++ [order_by](mysql/order_by.1) 
 + [project](mysql/project.1) 
 + [find](mysql/find.1) 
 + [select](mysql/select.1) 

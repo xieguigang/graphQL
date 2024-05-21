@@ -290,6 +290,15 @@ Module mysqlDatabaseTool
         Return table.where(pull.TryCast(Of FieldAssert()))
     End Function
 
+    <ExportAPI("order_by")>
+    Public Function order_by(table As Model, <RRawVectorArgument> x As Object, Optional desc As Boolean = False) As Object
+        Dim fields As String() = CLRVector.asCharacter(x) _
+            .Select(AddressOf FieldAssert.EnsureSafeName) _
+            .ToArray
+
+        Return table.order_by(fields, desc)
+    End Function
+
     <ExportAPI("project")>
     Public Function project(table As Model, field As String, Optional env As Environment = Nothing) As Object
         Dim reader As DataTableReader = table.select(field)
