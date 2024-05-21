@@ -45,6 +45,9 @@ declare namespace mysql {
    */
    function find(table: object, args?: object, env?: object): any;
    /**
+   */
+   function get_last_sql(mysql: object): string;
+   /**
      * @param n default value Is ``null``.
    */
    function limit(table: object, m: object, n?: object): any;

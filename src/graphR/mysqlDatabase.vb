@@ -209,6 +209,11 @@ Module mysqlDatabaseTool
         Return mysql.CreateModel(name)
     End Function
 
+    <ExportAPI("get_last_sql")>
+    Public Function get_last_mysql(mysql As Model) As String
+        Return mysql.GetLastMySql
+    End Function
+
     <ExportAPI("add")>
     Public Function add(table As Model,
                         <RListObjectArgument>
