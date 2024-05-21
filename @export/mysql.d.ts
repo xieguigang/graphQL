@@ -20,6 +20,13 @@ declare namespace mysql {
    /**
      * @param env default value Is ``null``.
    */
+   function add(table: object, args: object, env?: object): any;
+   /**
+   */
+   function count(table: object): object;
+   /**
+     * @param env default value Is ``null``.
+   */
    function create_filedump(dir: string, env?: object): object;
    /**
     * dump the inserts transaction mysql file
@@ -32,6 +39,11 @@ declare namespace mysql {
      * + default value Is ``null``.
    */
    function dump_inserts(data: any, dir: string, env?: object): any;
+   /**
+     * @param args default value Is ``null``.
+     * @param env default value Is ``null``.
+   */
+   function find(table: object, args?: object, env?: object): any;
    /**
      * @param n default value Is ``null``.
    */
@@ -93,6 +105,10 @@ declare namespace mysql {
      * @param env default value Is ``null``.
    */
    function project(table: object, field: string, env?: object): any;
+   /**
+     * @param env default value Is ``null``.
+   */
+   function save(table: object, args: object, env?: object): any;
    /**
      * @param args default value Is ``null``.
      * @param env default value Is ``null``.
