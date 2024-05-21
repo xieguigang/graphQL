@@ -15,8 +15,12 @@ MySQL (/ˌmaɪˌɛsˌkjuːˈɛl/) is an open-source relational database manageme
 + [create_filedump](mysql/create_filedump.1) 
 + [write_dumps](mysql/write_dumps.1) 
 + [table](mysql/table.1) 
++ [add](mysql/add.1) 
++ [save](mysql/save.1) 
++ [count](mysql/count.1) 
 + [where](mysql/where.1) 
 + [project](mysql/project.1) 
++ [find](mysql/find.1) 
 + [select](mysql/select.1) 
 + [limit](mysql/limit.1) 
 + [performance_counter](mysql/performance_counter.1) run the mysql performance counter in a given timespan perioid.

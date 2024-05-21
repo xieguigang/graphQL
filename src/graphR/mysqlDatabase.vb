@@ -67,6 +67,7 @@ Imports SMRUCC.Rsharp.Runtime
 Imports SMRUCC.Rsharp.Runtime.Components
 Imports SMRUCC.Rsharp.Runtime.Internal.[Object]
 Imports SMRUCC.Rsharp.Runtime.Interop
+Imports SMRUCC.Rsharp.Runtime.Vectorization
 Imports renv = SMRUCC.Rsharp.Runtime
 
 ''' <summary>
@@ -208,12 +209,42 @@ Module mysqlDatabaseTool
         Return mysql.CreateModel(name)
     End Function
 
-    <ExportAPI("where")>
-    Public Function where(table As Model,
-                          <RListObjectArgument>
-                          <RLazyExpression> args As list,
-                          Optional env As Environment = Nothing) As Object
+    <ExportAPI("add")>
+    Public Function add(table As Model,
+                        <RListObjectArgument>
+                        <RLazyExpression> args As list,
+                        Optional env As Environment = Nothing) As Object
 
+        Dim pull = pullFieldSet(table, args, env)
+
+        If pull Like GetType(Message) Then
+            Return pull.TryCast(Of Message)
+        End If
+
+        Return table.add(pull.TryCast(Of FieldAssert()))
+    End Function
+
+    <ExportAPI("save")>
+    Public Function save(table As Model,
+                         <RListObjectArgument>
+                         <RLazyExpression> args As list,
+                         Optional env As Environment = Nothing) As Object
+
+        Dim pull = pullFieldSet(table, args, env)
+
+        If pull Like GetType(Message) Then
+            Return pull.TryCast(Of Message)
+        End If
+
+        Return table.save(pull.TryCast(Of FieldAssert()))
+    End Function
+
+    <ExportAPI("count")>
+    Public Function count(table As Model) As Integer
+        Return table.count
+    End Function
+
+    Private Function pullFieldSet(table As Model, args As list, env As Environment) As [Variant](Of FieldAssert(), Message)
         Dim asserts As New List(Of FieldAssert)
         Dim parse As [Variant](Of Message, FieldAssert)
         Dim field As Expression = Nothing
@@ -226,17 +257,32 @@ Module mysqlDatabaseTool
             Else
                 ' has name, is value equals test, example as a = b
                 field = args.getByName(ref)
-                parse = New FieldAssert(ref) = field.Evaluate(env)
+                parse = New FieldAssert(ref) = CLRVector.asCharacter(field.Evaluate(env)).First
             End If
 
             If parse Like GetType(Message) Then
                 Return parse.TryCast(Of Message)
             End If
 
-            asserts.Add(parse.TryCast(Of FieldAssert))
+            Call asserts.Add(parse.TryCast(Of FieldAssert))
         Next
 
-        Return table.where(asserts.ToArray)
+        Return asserts.ToArray
+    End Function
+
+    <ExportAPI("where")>
+    Public Function where(table As Model,
+                          <RListObjectArgument>
+                          <RLazyExpression> args As list,
+                          Optional env As Environment = Nothing) As Object
+
+        Dim pull = pullFieldSet(table, args, env)
+
+        If pull Like GetType(Message) Then
+            Return pull.TryCast(Of Message)
+        End If
+
+        Return table.where(pull.TryCast(Of FieldAssert()))
     End Function
 
     <ExportAPI("project")>
@@ -251,16 +297,32 @@ Module mysqlDatabaseTool
         Return renv.asVector(vals.ToArray, reader.GetFieldType(0), env)
     End Function
 
-    <ExportAPI("select")>
-    Public Function [select](table As Model,
-                             <RListObjectArgument>
-                             <RLazyExpression>
-                             Optional args As list = Nothing,
-                             Optional env As Environment = Nothing) As Object
+    <ExportAPI("find")>
+    Public Function find(table As Model,
+                         <RListObjectArgument>
+                         <RLazyExpression>
+                         Optional args As list = Nothing,
+                         Optional env As Environment = Nothing) As Object
 
+        Dim fields = getFields(args, env)
+
+        If fields Like GetType(Message) Then
+            Return fields.TryCast(Of Message)
+        End If
+
+        Dim vals As Dictionary(Of String, Object) = table.find(fields.TryCast(Of String()))
+
+        If vals Is Nothing Then
+            Return Nothing
+        Else
+            Return New list(vals)
+        End If
+    End Function
+
+    Private Function getFields(args As list, env As Environment) As [Variant](Of String(), Message)
         Dim project As Expression() = args.data _
-            .Select(Function(e) DirectCast(e, Expression)) _
-            .ToArray
+           .Select(Function(e) DirectCast(e, Expression)) _
+           .ToArray
         Dim fields As New List(Of String)
         Dim parse As [Variant](Of Message, String)
 
@@ -274,7 +336,23 @@ Module mysqlDatabaseTool
             fields.Add(parse.TryCast(Of String))
         Next
 
-        Dim reader As DataTableReader = table.select(fields.ToArray)
+        Return fields.ToArray
+    End Function
+
+    <ExportAPI("select")>
+    Public Function [select](table As Model,
+                             <RListObjectArgument>
+                             <RLazyExpression>
+                             Optional args As list = Nothing,
+                             Optional env As Environment = Nothing) As Object
+
+        Dim fields = getFields(args, env)
+
+        If fields Like GetType(Message) Then
+            Return fields.TryCast(Of Message)
+        End If
+
+        Dim reader As DataTableReader = table.select(fields.TryCast(Of String()))
         Dim df As New dataframe With {
             .columns = New Dictionary(Of String, Array)
         }
