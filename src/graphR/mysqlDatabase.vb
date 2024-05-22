@@ -209,6 +209,11 @@ Module mysqlDatabaseTool
         Return mysql.CreateModel(name)
     End Function
 
+    <ExportAPI("get_last_sql")>
+    Public Function get_last_mysql(mysql As Model) As String
+        Return mysql.GetLastMySql
+    End Function
+
     <ExportAPI("add")>
     Public Function add(table As Model,
                         <RListObjectArgument>
@@ -283,6 +288,15 @@ Module mysqlDatabaseTool
         End If
 
         Return table.where(pull.TryCast(Of FieldAssert()))
+    End Function
+
+    <ExportAPI("order_by")>
+    Public Function order_by(table As Model, <RRawVectorArgument> x As Object, Optional desc As Boolean = False) As Object
+        Dim fields As String() = CLRVector.asCharacter(x) _
+            .Select(AddressOf FieldAssert.EnsureSafeName) _
+            .ToArray
+
+        Return table.order_by(fields, desc)
     End Function
 
     <ExportAPI("project")>

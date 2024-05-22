@@ -45,6 +45,9 @@ declare namespace mysql {
    */
    function find(table: object, args?: object, env?: object): any;
    /**
+   */
+   function get_last_sql(mysql: object): string;
+   /**
      * @param n default value Is ``null``.
    */
    function limit(table: object, m: object, n?: object): any;
@@ -80,6 +83,10 @@ declare namespace mysql {
      * + default value Is ``null``.
    */
    function open(user_name?: string, password?: string, dbname?: string, host?: string, port?: object, error_log?: string, timeout?: object, connection_uri?: string, general?: boolean, env?: object): object;
+   /**
+     * @param desc default value Is ``false``.
+   */
+   function order_by(table: object, x: any, desc?: boolean): any;
    /**
     * run the mysql performance counter in a given timespan perioid.
     * 
