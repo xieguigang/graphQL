@@ -40,6 +40,17 @@ declare namespace mysql {
    */
    function dump_inserts(data: any, dir: string, env?: object): any;
    /**
+    * exec sql and fetch result data as dataframe
+    * 
+    * 
+     * @param table -
+     * @param sql -
+     * @param env -
+     * 
+     * + default value Is ``null``.
+   */
+   function exec(table: object, sql: string, env?: object): any;
+   /**
      * @param args default value Is ``null``.
      * @param env default value Is ``null``.
    */
