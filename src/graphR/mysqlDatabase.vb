@@ -353,6 +353,43 @@ Module mysqlDatabaseTool
         Return fields.ToArray
     End Function
 
+    ''' <summary>
+    ''' exec sql and fetch result data as dataframe
+    ''' </summary>
+    ''' <param name="table"></param>
+    ''' <param name="sql"></param>
+    ''' <param name="env"></param>
+    ''' <returns></returns>
+    <ExportAPI("exec")>
+    Public Function exec(table As Model, sql As String, Optional env As Environment = Nothing) As Object
+        Dim reader As DataTableReader = table.getDriver.Fetch(sql).CreateDataReader
+        Dim df As New dataframe With {
+            .columns = New Dictionary(Of String, Array)
+        }
+        Dim rows As New List(Of Object())
+        Dim fieldSize As Integer = reader.FieldCount
+
+        Do While reader.Read
+            Dim row As Object() = New Object(fieldSize - 1) {}
+
+            For i As Integer = 0 To row.Length - 1
+                row(i) = reader.GetValue(i)
+            Next
+
+            rows.Add(row)
+        Loop
+
+        For i As Integer = 0 To fieldSize - 1
+            Dim offset As Integer = i
+            Dim v As Object() = rows.Select(Function(r) r(offset)).ToArray
+            Dim name As String = reader.GetName(offset)
+
+            Call df.add(name, renv.UnsafeTryCastGenericArray(v))
+        Next
+
+        Return df
+    End Function
+
     <ExportAPI("select")>
     Public Function [select](table As Model,
                              <RListObjectArgument>
