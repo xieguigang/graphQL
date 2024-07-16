@@ -10,6 +10,7 @@ MySQL (/ˌmaɪˌɛsˌkjuːˈɛl/) is an open-source relational database manageme
  to implement a relational database in a computer's storage system, manages users, allows 
  for network access and facilitates testing database integrity and creation of backups.
 
++ [close_ssh](mysql/close_ssh.1) 
 + [open](mysql/open.1) open a mysql connection, construct a database model
 + [dump_inserts](mysql/dump_inserts.1) dump the inserts transaction mysql file
 + [create_filedump](mysql/create_filedump.1) 

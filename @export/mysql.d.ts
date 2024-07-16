@@ -23,6 +23,9 @@ declare namespace mysql {
    function add(table: object, args: object, env?: object): any;
    /**
    */
+   function close_ssh(): ;
+   /**
+   */
    function count(table: object): object;
    /**
      * @param env default value Is ``null``.
@@ -89,11 +92,13 @@ declare namespace mysql {
      * + default value Is ``null``.
      * @param general 
      * + default value Is ``false``.
+     * @param ssh 
+     * + default value Is ``null``.
      * @param env -
      * 
      * + default value Is ``null``.
    */
-   function open(user_name?: string, password?: string, dbname?: string, host?: string, port?: object, error_log?: string, timeout?: object, connection_uri?: string, general?: boolean, env?: object): object;
+   function open(user_name?: string, password?: string, dbname?: string, host?: string, port?: object, error_log?: string, timeout?: object, connection_uri?: string, general?: boolean, ssh?: object, env?: object): object;
    /**
      * @param desc default value Is ``false``.
    */
