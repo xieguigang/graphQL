@@ -55,6 +55,7 @@
 #End Region
 
 Imports System.Data
+Imports graph.MySQL
 Imports Microsoft.VisualBasic.CommandLine.Reflection
 Imports Microsoft.VisualBasic.Language
 Imports Microsoft.VisualBasic.Scripting.MetaData
@@ -62,6 +63,7 @@ Imports Oracle.LinuxCompatibility.LibMySQL.PerformanceCounter
 Imports Oracle.LinuxCompatibility.MySQL
 Imports Oracle.LinuxCompatibility.MySQL.MySqlBuilder
 Imports Oracle.LinuxCompatibility.MySQL.Uri
+Imports Renci.SshNet
 Imports SMRUCC.Rsharp.Interpreter.ExecuteEngine
 Imports SMRUCC.Rsharp.Runtime
 Imports SMRUCC.Rsharp.Runtime.Components
@@ -94,6 +96,22 @@ End Class
 <Package("mysql")>
 Module mysqlDatabaseTool
 
+    Dim ssh As SshClient
+
+    <ExportAPI("close_ssh")>
+    Public Sub close_ssh()
+        If ssh Is Nothing Then
+            Call "ssh forward has not been started yet.".Warning
+        Else
+            Try
+                Call ssh.Disconnect()
+                Call ssh.Dispose()
+            Catch ex As Exception
+                ' just ignores of the error
+            End Try
+        End If
+    End Sub
+
     ''' <summary>
     ''' open a mysql connection, construct a database model
     ''' </summary>
@@ -115,6 +133,7 @@ Module mysqlDatabaseTool
                          Optional timeout As Integer = -1,
                          Optional connection_uri As String = Nothing,
                          Optional general As Boolean = False,
+                         Optional ssh As list = Nothing,
                          Optional env As Environment = Nothing)
 
         Dim url As ConnectionUri
@@ -144,6 +163,25 @@ Module mysqlDatabaseTool
             ElseIf port <= 0 Then
                 Return Internal.debug.stop("mysql network services tcp port should be a positive number!", env)
             End If
+        End If
+
+        Dim sshForward As SshClient = Nothing
+
+        If Not list.empty(ssh) Then
+            Dim ssh_forwardPort As Integer = ssh.getValue(Of Integer)("local", env, 3307)
+
+            sshForward = url.ssh_forward(
+                ssh.getValue(Of String)("user", env),
+                ssh.getValue(Of String)("password", env),
+                ssh.getValue("port", env, 22),
+                ssh_forwardPort
+            )
+
+            ' modify connection url string
+            url.IPAddress = "127.0.0.1"
+            url.Port = ssh_forwardPort
+
+            mysqlDatabaseTool.ssh = sshForward
         End If
 
         If general Then
