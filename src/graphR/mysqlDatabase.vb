@@ -120,6 +120,14 @@ Module mysqlDatabaseTool
     ''' <param name="dbname"></param>
     ''' <param name="host"></param>
     ''' <param name="port"></param>
+    ''' <param name="ssh">
+    ''' ssh forward configuration, is a tuple list that has data fields:
+    ''' 
+    ''' 1. user: ssh user name
+    ''' 2. password: ssh password
+    ''' 3. port: ssh server port, default is 22
+    ''' 4. local: ssh local port for forward the connection, default is 3307
+    ''' </param>
     ''' <param name="env"></param>
     ''' <returns></returns>
     <ExportAPI("open")>
