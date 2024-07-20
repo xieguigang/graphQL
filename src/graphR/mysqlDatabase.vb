@@ -299,6 +299,7 @@ Module mysqlDatabaseTool
         Dim asserts As New List(Of FieldAssert)
         Dim parse As [Variant](Of Message, FieldAssert)
         Dim field As Expression = Nothing
+        Dim val As Object
 
         For Each ref As String In args.getNames
             If ref.IsPattern("[$]\d+") Then
@@ -308,7 +309,27 @@ Module mysqlDatabaseTool
             Else
                 ' has name, is value equals test, example as a = b
                 field = args.getByName(ref)
-                parse = New FieldAssert(ref) = CLRVector.asCharacter(field.Evaluate(env)).First
+                val = field.Evaluate(env)
+
+                If TypeOf val Is Message Then
+                    Return DirectCast(val, Message)
+                End If
+
+                If TypeOf val Is vector Then
+                    val = DirectCast(val, vector).data
+                End If
+                If val.GetType.IsArray AndAlso DirectCast(val, Array).Length = 1 Then
+                    val = DirectCast(val, Array)(0)
+                End If
+                If TypeOf val Is Date Then
+                    ' date time should be in correct data format
+                    ' don't cast to string
+                    parse = New FieldAssert(ref) = CDate(val)
+                Else
+                    ' cast to string for other data type value
+                    val = CLRVector.asCharacter(val).First
+                    parse = New FieldAssert(ref) = CStr(val)
+                End If
             End If
 
             If parse Like GetType(Message) Then
