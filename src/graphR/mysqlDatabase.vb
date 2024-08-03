@@ -378,6 +378,29 @@ Module mysqlDatabaseTool
         Return renv.asVector(vals.ToArray, reader.GetFieldType(0), env)
     End Function
 
+    ''' <summary>
+    ''' check of the target record is existsed inside the database or not?
+    ''' </summary>
+    ''' <param name="table"></param>
+    ''' <param name="args">
+    ''' condition test for where closure
+    ''' </param>
+    ''' <returns></returns>
+    <ExportAPI("check")>
+    Public Function check(table As Model,
+                          <RListObjectArgument>
+                          <RLazyExpression> args As list,
+                          Optional env As Environment = Nothing) As Object
+
+        Dim pull = pullFieldSet(table, args, env)
+
+        If pull Like GetType(Message) Then
+            Return pull.TryCast(Of Message)
+        End If
+
+        Return table.where(pull.TryCast(Of FieldAssert())).count > 0
+    End Function
+
     <ExportAPI("find")>
     Public Function find(table As Model,
                          <RListObjectArgument>
