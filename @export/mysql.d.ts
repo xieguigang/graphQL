@@ -22,6 +22,16 @@ declare namespace mysql {
    */
    function add(table: object, args: object, env?: object): any;
    /**
+    * check of the target record is existsed inside the database or not?
+    * 
+    * 
+     * @param table -
+     * @param args condition test for where closure
+     * @param env 
+     * + default value Is ``null``.
+   */
+   function check(table: object, args: object, env?: object): any;
+   /**
    */
    function close_ssh(): ;
    /**

@@ -1,56 +1,56 @@
 ﻿#Region "Microsoft.VisualBasic::4d28e72a0e94d174091d323bdf97e23f, src\graphR\mysqlDatabase.vb"
 
-    ' Author:
-    ' 
-    '       asuka (amethyst.asuka@gcmodeller.org)
-    '       xie (genetics@smrucc.org)
-    '       xieguigang (xie.guigang@live.com)
-    ' 
-    ' Copyright (c) 2018 GPL3 Licensed
-    ' 
-    ' 
-    ' GNU GENERAL PUBLIC LICENSE (GPL3)
-    ' 
-    ' 
-    ' This program is free software: you can redistribute it and/or modify
-    ' it under the terms of the GNU General Public License as published by
-    ' the Free Software Foundation, either version 3 of the License, or
-    ' (at your option) any later version.
-    ' 
-    ' This program is distributed in the hope that it will be useful,
-    ' but WITHOUT ANY WARRANTY; without even the implied warranty of
-    ' MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    ' GNU General Public License for more details.
-    ' 
-    ' You should have received a copy of the GNU General Public License
-    ' along with this program. If not, see <http://www.gnu.org/licenses/>.
+' Author:
+' 
+'       asuka (amethyst.asuka@gcmodeller.org)
+'       xie (genetics@smrucc.org)
+'       xieguigang (xie.guigang@live.com)
+' 
+' Copyright (c) 2018 GPL3 Licensed
+' 
+' 
+' GNU GENERAL PUBLIC LICENSE (GPL3)
+' 
+' 
+' This program is free software: you can redistribute it and/or modify
+' it under the terms of the GNU General Public License as published by
+' the Free Software Foundation, either version 3 of the License, or
+' (at your option) any later version.
+' 
+' This program is distributed in the hope that it will be useful,
+' but WITHOUT ANY WARRANTY; without even the implied warranty of
+' MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+' GNU General Public License for more details.
+' 
+' You should have received a copy of the GNU General Public License
+' along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 
 
-    ' /********************************************************************************/
+' /********************************************************************************/
 
-    ' Summaries:
-
-
-    ' Code Statistics:
-
-    '   Total Lines: 315
-    '    Code Lines: 214
-    ' Comment Lines: 53
-    '   Blank Lines: 48
-    '     File Size: 12.26 KB
+' Summaries:
 
 
-    ' Class MySqlDatabase
-    ' 
-    '     Constructor: (+1 Overloads) Sub New
-    ' 
-    ' Module mysqlDatabaseTool
-    ' 
-    '     Function: [select], createFileDumpTask, dump_inserts, limit, open
-    '               performance_counter, project, table, where, writeRows
-    ' 
-    ' /********************************************************************************/
+' Code Statistics:
+
+'   Total Lines: 315
+'    Code Lines: 214
+' Comment Lines: 53
+'   Blank Lines: 48
+'     File Size: 12.26 KB
+
+
+' Class MySqlDatabase
+' 
+'     Constructor: (+1 Overloads) Sub New
+' 
+' Module mysqlDatabaseTool
+' 
+'     Function: [select], createFileDumpTask, dump_inserts, limit, open
+'               performance_counter, project, table, where, writeRows
+' 
+' /********************************************************************************/
 
 #End Region
 
@@ -155,12 +155,12 @@ Module mysqlDatabaseTool
             url = New ConnectionUri With {
                 .Database = dbname,
                 .IPAddress = host,
-                .Password = password,
-                .Port = port,
+                .password = password,
+                .port = port,
                 .User = user_name,
                 .error_log = error_log,
-                .TimeOut = timeout
-            }
+.timeout = timeout
+}
 
             If user_name.StringEmpty Then
                 Return Internal.debug.stop("mysql user name could not be empty!", env)
@@ -313,18 +313,21 @@ Module mysqlDatabaseTool
 
                 If TypeOf val Is Message Then
                     Return DirectCast(val, Message)
+                ElseIf val IsNot Nothing Then
+                    If TypeOf val Is vector Then
+                        val = DirectCast(val, vector).data
+                    End If
+                    If val.GetType.IsArray AndAlso DirectCast(val, Array).Length = 1 Then
+                        val = DirectCast(val, Array)(0)
+                    End If
                 End If
 
-                If TypeOf val Is vector Then
-                    val = DirectCast(val, vector).data
-                End If
-                If val.GetType.IsArray AndAlso DirectCast(val, Array).Length = 1 Then
-                    val = DirectCast(val, Array)(0)
-                End If
                 If TypeOf val Is Date Then
                     ' date time should be in correct data format
                     ' don't cast to string
                     parse = New FieldAssert(ref) = CDate(val)
+                ElseIf val Is Nothing Then
+                    parse = New FieldAssert(ref).is_nothing
                 Else
                     ' cast to string for other data type value
                     val = CLRVector.asCharacter(val).First
@@ -376,6 +379,29 @@ Module mysqlDatabaseTool
         Loop
 
         Return renv.asVector(vals.ToArray, reader.GetFieldType(0), env)
+    End Function
+
+    ''' <summary>
+    ''' check of the target record is existsed inside the database or not?
+    ''' </summary>
+    ''' <param name="table"></param>
+    ''' <param name="args">
+    ''' condition test for where closure
+    ''' </param>
+    ''' <returns></returns>
+    <ExportAPI("check")>
+    Public Function check(table As Model,
+                          <RListObjectArgument>
+                          <RLazyExpression> args As list,
+                          Optional env As Environment = Nothing) As Object
+
+        Dim pull = pullFieldSet(table, args, env)
+
+        If pull Like GetType(Message) Then
+            Return pull.TryCast(Of Message)
+        End If
+
+        Return table.where(pull.TryCast(Of FieldAssert())).count > 0
     End Function
 
     <ExportAPI("find")>
