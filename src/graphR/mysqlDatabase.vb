@@ -1,60 +1,61 @@
 ﻿#Region "Microsoft.VisualBasic::4d28e72a0e94d174091d323bdf97e23f, src\graphR\mysqlDatabase.vb"
 
-    ' Author:
-    ' 
-    '       asuka (amethyst.asuka@gcmodeller.org)
-    '       xie (genetics@smrucc.org)
-    '       xieguigang (xie.guigang@live.com)
-    ' 
-    ' Copyright (c) 2018 GPL3 Licensed
-    ' 
-    ' 
-    ' GNU GENERAL PUBLIC LICENSE (GPL3)
-    ' 
-    ' 
-    ' This program is free software: you can redistribute it and/or modify
-    ' it under the terms of the GNU General Public License as published by
-    ' the Free Software Foundation, either version 3 of the License, or
-    ' (at your option) any later version.
-    ' 
-    ' This program is distributed in the hope that it will be useful,
-    ' but WITHOUT ANY WARRANTY; without even the implied warranty of
-    ' MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    ' GNU General Public License for more details.
-    ' 
-    ' You should have received a copy of the GNU General Public License
-    ' along with this program. If not, see <http://www.gnu.org/licenses/>.
+' Author:
+' 
+'       asuka (amethyst.asuka@gcmodeller.org)
+'       xie (genetics@smrucc.org)
+'       xieguigang (xie.guigang@live.com)
+' 
+' Copyright (c) 2018 GPL3 Licensed
+' 
+' 
+' GNU GENERAL PUBLIC LICENSE (GPL3)
+' 
+' 
+' This program is free software: you can redistribute it and/or modify
+' it under the terms of the GNU General Public License as published by
+' the Free Software Foundation, either version 3 of the License, or
+' (at your option) any later version.
+' 
+' This program is distributed in the hope that it will be useful,
+' but WITHOUT ANY WARRANTY; without even the implied warranty of
+' MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+' GNU General Public License for more details.
+' 
+' You should have received a copy of the GNU General Public License
+' along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 
 
-    ' /********************************************************************************/
+' /********************************************************************************/
 
-    ' Summaries:
-
-
-    ' Code Statistics:
-
-    '   Total Lines: 315
-    '    Code Lines: 214
-    ' Comment Lines: 53
-    '   Blank Lines: 48
-    '     File Size: 12.26 KB
+' Summaries:
 
 
-    ' Class MySqlDatabase
-    ' 
-    '     Constructor: (+1 Overloads) Sub New
-    ' 
-    ' Module mysqlDatabaseTool
-    ' 
-    '     Function: [select], createFileDumpTask, dump_inserts, limit, open
-    '               performance_counter, project, table, where, writeRows
-    ' 
-    ' /********************************************************************************/
+' Code Statistics:
+
+'   Total Lines: 315
+'    Code Lines: 214
+' Comment Lines: 53
+'   Blank Lines: 48
+'     File Size: 12.26 KB
+
+
+' Class MySqlDatabase
+' 
+'     Constructor: (+1 Overloads) Sub New
+' 
+' Module mysqlDatabaseTool
+' 
+'     Function: [select], createFileDumpTask, dump_inserts, limit, open
+'               performance_counter, project, table, where, writeRows
+' 
+' /********************************************************************************/
 
 #End Region
 
 Imports System.Data
+Imports graph.MySQL
 Imports Microsoft.VisualBasic.CommandLine.Reflection
 Imports Microsoft.VisualBasic.Language
 Imports Microsoft.VisualBasic.Scripting.MetaData
@@ -62,6 +63,7 @@ Imports Oracle.LinuxCompatibility.LibMySQL.PerformanceCounter
 Imports Oracle.LinuxCompatibility.MySQL
 Imports Oracle.LinuxCompatibility.MySQL.MySqlBuilder
 Imports Oracle.LinuxCompatibility.MySQL.Uri
+Imports Renci.SshNet
 Imports SMRUCC.Rsharp.Interpreter.ExecuteEngine
 Imports SMRUCC.Rsharp.Runtime
 Imports SMRUCC.Rsharp.Runtime.Components
@@ -94,6 +96,22 @@ End Class
 <Package("mysql")>
 Module mysqlDatabaseTool
 
+    Dim ssh As SshClient
+
+    <ExportAPI("close_ssh")>
+    Public Sub close_ssh()
+        If ssh Is Nothing Then
+            Call "ssh forward has not been started yet.".Warning
+        Else
+            Try
+                Call ssh.Disconnect()
+                Call ssh.Dispose()
+            Catch ex As Exception
+                ' just ignores of the error
+            End Try
+        End If
+    End Sub
+
     ''' <summary>
     ''' open a mysql connection, construct a database model
     ''' </summary>
@@ -102,6 +120,14 @@ Module mysqlDatabaseTool
     ''' <param name="dbname"></param>
     ''' <param name="host"></param>
     ''' <param name="port"></param>
+    ''' <param name="ssh">
+    ''' ssh forward configuration, is a tuple list that has data fields:
+    ''' 
+    ''' 1. user: ssh user name
+    ''' 2. password: ssh password
+    ''' 3. port: ssh server port, default is 22
+    ''' 4. local: ssh local port for forward the connection, default is 3307
+    ''' </param>
     ''' <param name="env"></param>
     ''' <returns></returns>
     <ExportAPI("open")>
@@ -115,6 +141,7 @@ Module mysqlDatabaseTool
                          Optional timeout As Integer = -1,
                          Optional connection_uri As String = Nothing,
                          Optional general As Boolean = False,
+                         Optional ssh As list = Nothing,
                          Optional env As Environment = Nothing)
 
         Dim url As ConnectionUri
@@ -128,12 +155,12 @@ Module mysqlDatabaseTool
             url = New ConnectionUri With {
                 .Database = dbname,
                 .IPAddress = host,
-                .Password = password,
-                .Port = port,
+                .password = password,
+                .port = port,
                 .User = user_name,
                 .error_log = error_log,
-                .TimeOut = timeout
-            }
+.timeout = timeout
+}
 
             If user_name.StringEmpty Then
                 Return Internal.debug.stop("mysql user name could not be empty!", env)
@@ -144,6 +171,25 @@ Module mysqlDatabaseTool
             ElseIf port <= 0 Then
                 Return Internal.debug.stop("mysql network services tcp port should be a positive number!", env)
             End If
+        End If
+
+        Dim sshForward As SshClient = Nothing
+
+        If Not list.empty(ssh) Then
+            Dim ssh_forwardPort As Integer = ssh.getValue(Of Integer)("local", env, 3307)
+
+            sshForward = url.ssh_forward(
+                ssh.getValue(Of String)("user", env),
+                ssh.getValue(Of String)("password", env),
+                ssh.getValue("port", env, 22),
+                ssh_forwardPort
+            )
+
+            ' modify connection url string
+            url.IPAddress = "127.0.0.1"
+            url.Port = ssh_forwardPort
+
+            mysqlDatabaseTool.ssh = sshForward
         End If
 
         If general Then
@@ -253,6 +299,7 @@ Module mysqlDatabaseTool
         Dim asserts As New List(Of FieldAssert)
         Dim parse As [Variant](Of Message, FieldAssert)
         Dim field As Expression = Nothing
+        Dim val As Object
 
         For Each ref As String In args.getNames
             If ref.IsPattern("[$]\d+") Then
@@ -262,7 +309,30 @@ Module mysqlDatabaseTool
             Else
                 ' has name, is value equals test, example as a = b
                 field = args.getByName(ref)
-                parse = New FieldAssert(ref) = CLRVector.asCharacter(field.Evaluate(env)).First
+                val = field.Evaluate(env)
+
+                If TypeOf val Is Message Then
+                    Return DirectCast(val, Message)
+                ElseIf val IsNot Nothing Then
+                    If TypeOf val Is vector Then
+                        val = DirectCast(val, vector).data
+                    End If
+                    If val.GetType.IsArray AndAlso DirectCast(val, Array).Length = 1 Then
+                        val = DirectCast(val, Array)(0)
+                    End If
+                End If
+
+                If TypeOf val Is Date Then
+                    ' date time should be in correct data format
+                    ' don't cast to string
+                    parse = New FieldAssert(ref) = CDate(val)
+                ElseIf val Is Nothing Then
+                    parse = New FieldAssert(ref).is_nothing
+                Else
+                    ' cast to string for other data type value
+                    val = CLRVector.asCharacter(val).First
+                    parse = New FieldAssert(ref) = CStr(val)
+                End If
             End If
 
             If parse Like GetType(Message) Then
@@ -309,6 +379,29 @@ Module mysqlDatabaseTool
         Loop
 
         Return renv.asVector(vals.ToArray, reader.GetFieldType(0), env)
+    End Function
+
+    ''' <summary>
+    ''' check of the target record is existsed inside the database or not?
+    ''' </summary>
+    ''' <param name="table"></param>
+    ''' <param name="args">
+    ''' condition test for where closure
+    ''' </param>
+    ''' <returns></returns>
+    <ExportAPI("check")>
+    Public Function check(table As Model,
+                          <RListObjectArgument>
+                          <RLazyExpression> args As list,
+                          Optional env As Environment = Nothing) As Object
+
+        Dim pull = pullFieldSet(table, args, env)
+
+        If pull Like GetType(Message) Then
+            Return pull.TryCast(Of Message)
+        End If
+
+        Return table.where(pull.TryCast(Of FieldAssert())).count > 0
     End Function
 
     <ExportAPI("find")>

@@ -22,6 +22,19 @@ declare namespace mysql {
    */
    function add(table: object, args: object, env?: object): any;
    /**
+    * check of the target record is existsed inside the database or not?
+    * 
+    * 
+     * @param table -
+     * @param args condition test for where closure
+     * @param env 
+     * + default value Is ``null``.
+   */
+   function check(table: object, args: object, env?: object): any;
+   /**
+   */
+   function close_ssh(): ;
+   /**
    */
    function count(table: object): object;
    /**
@@ -89,11 +102,19 @@ declare namespace mysql {
      * + default value Is ``null``.
      * @param general 
      * + default value Is ``false``.
+     * @param ssh ssh forward configuration, is a tuple list that has data fields:
+     *  
+     *  1. user: ssh user name
+     *  2. password: ssh password
+     *  3. port: ssh server port, default is 22
+     *  4. local: ssh local port for forward the connection, default is 3307
+     * 
+     * + default value Is ``null``.
      * @param env -
      * 
      * + default value Is ``null``.
    */
-   function open(user_name?: string, password?: string, dbname?: string, host?: string, port?: object, error_log?: string, timeout?: object, connection_uri?: string, general?: boolean, env?: object): object;
+   function open(user_name?: string, password?: string, dbname?: string, host?: string, port?: object, error_log?: string, timeout?: object, connection_uri?: string, general?: boolean, ssh?: object, env?: object): object;
    /**
      * @param desc default value Is ``false``.
    */
