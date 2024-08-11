@@ -65,6 +65,7 @@ Imports Oracle.LinuxCompatibility.MySQL.MySqlBuilder
 Imports Oracle.LinuxCompatibility.MySQL.Uri
 Imports Renci.SshNet
 Imports SMRUCC.Rsharp.Interpreter.ExecuteEngine
+Imports SMRUCC.Rsharp.Interpreter.ExecuteEngine.ExpressionSymbols.Operators
 Imports SMRUCC.Rsharp.Runtime
 Imports SMRUCC.Rsharp.Runtime.Components
 Imports SMRUCC.Rsharp.Runtime.Internal.[Object]
@@ -155,11 +156,11 @@ Module mysqlDatabaseTool
             url = New ConnectionUri With {
                 .Database = dbname,
                 .IPAddress = host,
-                .password = password,
-                .port = port,
+                .Password = password,
+                .Port = port,
                 .User = user_name,
                 .error_log = error_log,
-.timeout = timeout
+.TimeOut = timeout
 }
 
             If user_name.StringEmpty Then
@@ -253,6 +254,31 @@ Module mysqlDatabaseTool
     <ExportAPI("table")>
     Public Function table(mysql As IDatabase, name As String) As Model
         Return mysql.CreateModel(name)
+    End Function
+
+    <ExportAPI("left_join")>
+    Public Function left_join(model As Model, table As String) As Model
+        Return model.left_join(table)
+    End Function
+
+    <ExportAPI("on")>
+    Public Function [on](model As Model,
+                         <RListObjectArgument>
+                         <RLazyExpression> args As list,
+                         Optional env As Environment = Nothing) As Model
+
+        Dim left = args.getNames.Where(Function(s) s <> NameOf(model)).FirstOrDefault
+
+        If left.StringEmpty Then
+            left = NameOf(model)
+        End If
+
+        Dim right As Expression = args.getByName(left)
+        Dim right_symbol As String = ValueAssignExpression.GetSymbol(right)
+        Dim left_table As New FieldAssert(left)
+        Dim right_table As New FieldAssert(right_symbol)
+
+        Return model.on(left_table = right_table)
     End Function
 
     <ExportAPI("get_last_sql")>
