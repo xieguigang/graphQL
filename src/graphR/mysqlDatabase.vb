@@ -282,8 +282,18 @@ Module mysqlDatabaseTool
     End Function
 
     <ExportAPI("get_last_sql")>
-    Public Function get_last_mysql(mysql As Model) As String
-        Return mysql.GetLastMySql
+    Public Function get_last_mysql(mysql As Object) As String
+        If mysql Is Nothing Then
+            Return Nothing
+        End If
+
+        If TypeOf mysql Is Model Then
+            Return DirectCast(mysql, Model).GetLastMySql
+        ElseIf mysql.GetType.IsInheritsFrom(GetType(IDatabase), strict:=False) Then
+            Return DirectCast(mysql, IDatabase).getDriver.LastMySql
+        Else
+            Throw New NotImplementedException(mysql.GetType.FullName)
+        End If
     End Function
 
     <ExportAPI("add")>
