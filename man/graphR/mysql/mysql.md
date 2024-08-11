@@ -16,6 +16,8 @@ MySQL (/ˌmaɪˌɛsˌkjuːˈɛl/) is an open-source relational database manageme
 + [create_filedump](mysql/create_filedump.1) 
 + [write_dumps](mysql/write_dumps.1) 
 + [table](mysql/table.1) 
++ [left_join](mysql/left_join.1) 
++ [on](mysql/on.1) 
 + [get_last_sql](mysql/get_last_sql.1) 
 + [add](mysql/add.1) 
 + [save](mysql/save.1) 

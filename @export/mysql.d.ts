@@ -72,9 +72,16 @@ declare namespace mysql {
    */
    function get_last_sql(mysql: object): string;
    /**
+   */
+   function left_join(model: object, table: string): object;
+   /**
      * @param n default value Is ``null``.
    */
    function limit(table: object, m: object, n?: object): any;
+   /**
+     * @param env default value Is ``null``.
+   */
+   function on(model: object, args: object, env?: object): object;
    /**
     * open a mysql connection, construct a database model
     * 
