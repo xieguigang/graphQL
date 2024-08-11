@@ -70,7 +70,7 @@ declare namespace mysql {
    function find(table: object, args?: object, env?: object): any;
    /**
    */
-   function get_last_sql(mysql: object): string;
+   function get_last_sql(mysql: any): string;
    /**
    */
    function left_join(model: object, table: string): object;
