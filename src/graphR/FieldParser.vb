@@ -117,7 +117,10 @@ Module FieldParser
             If value.isNumeric Then
                 Return value.ValueStr
             ElseIf value.type = TypeCodes.boolean Then
-                Return value.ValueStr.ParseBoolean.ToString.ToLower
+                Return value.ValueStr _
+                    .ParseBoolean _
+                    .ToString _
+                    .ToLower
             Else
                 If value.ValueStr.StartsWith("`") Then
                     Return value.ValueStr
@@ -141,7 +144,10 @@ Module FieldParser
                     End Function) _
             .ToArray
 
-        Return New FieldAssert With {.op = "func", .val = $"{name}({pars.JoinBy(", ")})"}
+        Return New FieldAssert With {
+            .op = "func",
+            .val = $"{name}({pars.JoinBy(", ")})"
+        }
     End Function
 
     Private Function inParser(table As Model, field As Expression, env As Environment) As [Variant](Of Message, FieldAssert)
@@ -150,14 +156,21 @@ Module FieldParser
         Dim range = bin.right.Evaluate(env)
         Dim fieldName As FieldAssert = table.field(name)
 
+        If range Is Nothing Then
+            Throw New InvalidProgramException("empty range collection for mysql IN(...) closure!")
+        End If
+
         If TypeOf range Is list Then
             Throw New NotImplementedException
         ElseIf TypeOf range Is vector OrElse range.GetType.IsArray Then
             Return fieldName.in(CLRVector.asCharacter(range))
         ElseIf TypeOf range Is Message Then
             Return DirectCast(range, Message)
+        ElseIf DataFramework.IsPrimitive(range.GetType) Then
+            ' is a single scalar value
+            Return fieldName.in(CLRVector.asCharacter(range))
         Else
-            Throw New NotImplementedException
+            Throw New NotImplementedException(range.GetType.FullName)
         End If
     End Function
 
