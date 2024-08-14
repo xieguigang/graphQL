@@ -1,8 +1,0 @@
-RewriteEngine On
-
-RewriteRule ^mining/(.+)/$ /mining.php?app=$1
-
-RewriteRule ^([a-zA-Z0-9]+)$ /index.php?app=$1
-RewriteRule ^([a-zA-Z0-9]+)/$ /index.php?app=$1
-
-ErrorDocument 404 /index.php?app=custom_errors&error=404
