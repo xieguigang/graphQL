@@ -4,7 +4,7 @@ Imports Oracle.LinuxCompatibility.MySQL.Uri
 
 Namespace pubmed
 
-Public MustInherit Class db_. : Inherits IDatabase
+Public MustInherit Class db_pubmed : Inherits IDatabase
 Protected ReadOnly m_articles As Model
 Protected ReadOnly m_fulltext As Model
 Protected ReadOnly m_mesh As Model
