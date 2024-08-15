@@ -1,10 +1,19 @@
+imports "mysql" from "graphR";
+
 #' Open the mysql database connection to the pubmed database
 #' 
 const open_pubmed = function(user, passwd, 
                              dbname = "pubmed", 
                              host = "localhost", 
-                             port = 3306) {
+                             port = 3306, 
+                             workdir = "./") {
 
+    mysql::open(user, passwd, 
+        dbname = dbname,
+        host = host,
+        port = port,
+        error_log = file.path(workdir, `pubmed_${md5(toString(now()))}.log`)
+    );
 }
 
 #' load the pubmed article set stream file and push into database
@@ -18,6 +27,6 @@ const load_pubmed = function(pubmed, file) {
     let articles = parse.article_set(file);
 
     for(let article in tqdm(articles)) {
-
+        
     }
 }
