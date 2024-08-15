@@ -1,4 +1,5 @@
 imports "mysql" from "graphR";
+imports "graph_mysql" from "graphR";
 
 #' Open the mysql database connection to the pubmed database
 #' 
@@ -73,7 +74,7 @@ const load_pubmed = function(pubmed, file) {
             } else {
                 if (!(graph |> check(pubmed_id = article$PMID, 
                         mesh_id = term_id$id))) {
-                            
+
                     graph |> add(
                         pubmed_id = article$PMID, 
                         mesh_id = term_id$id
