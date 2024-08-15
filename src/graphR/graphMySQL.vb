@@ -72,6 +72,7 @@ Imports SMRUCC.Rsharp.Runtime.Vectorization
 
 <Package("graph_mysql")>
 <RTypeExport("graphql", GetType(graph.MySQL.mysql))>
+<RTypeExport("pubmed", GetType(graph.MySQL.pubmed.db_pubmed))>
 Public Module graphMySQLTool
 
     <ExportAPI("open.graphdb")>
