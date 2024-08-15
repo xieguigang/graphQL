@@ -47,9 +47,19 @@ declare namespace graphQL {
    */
    function import_verbs(graphdb?: any): object;
    /**
+   */
+   function load_pubmed(pubmed: any, file: any): object;
+   /**
      * @param phase_size default value Is ``3``.
    */
    function one_graph(tokens: any, phase_size?: any): object;
+   /**
+     * @param dbname default value Is ``pubmed``.
+     * @param host default value Is ``localhost``.
+     * @param port default value Is ``3306``.
+     * @param workdir default value Is ``./``.
+   */
+   function open_pubmed(user: any, passwd: any, dbname?: any, host?: any, port?: any, workdir?: any): object;
    /**
      * @param graphdb default value Is ``Call "getOption"("graphdb_web")``.
    */
