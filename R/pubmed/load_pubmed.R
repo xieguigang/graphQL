@@ -33,7 +33,7 @@ const load_pubmed = function(pubmed, file) {
     for(let article in tqdm(articles)) {
         article <- summary(article);
 
-        if (!article_tbl |> check(id = article$PMID)) {
+        if (!(article_tbl |> check(id = article$PMID))) {
             article_tbl |> add(
                 id = article$PMID,
                 authors = paste(article$authors, sep = ", "),
@@ -44,7 +44,7 @@ const load_pubmed = function(pubmed, file) {
             );  
         }
 
-        if (!abstract_tbl |> check(id = article$PMID)) {
+        if (!(abstract_tbl |> check(id = article$PMID))) {
             abstract_tbl |> add(
                 id = article$PMID,
                 abstract = article$abstract
@@ -56,7 +56,7 @@ const load_pubmed = function(pubmed, file) {
         for(let term_id in names(mesh_terms)) {
             let term = mesh_terms[[term_id]];
 
-            if (!mesh_tbl |> check(mesh_id = term_id)) {
+            if (!(mesh_tbl |> check(mesh_id = term_id))) {
                 mesh_tbl |> add(
                     mesh_id = term_id,
                     term = term
@@ -71,7 +71,9 @@ const load_pubmed = function(pubmed, file) {
             if (is.null(term_id)) {
                 print(`save mesh term error: '${term}'.`);
             } else {
-                if (!graph |> check(pubmed_id = article$PMID, mesh_id = term_id$id)) {
+                if (!(graph |> check(pubmed_id = article$PMID, 
+                        mesh_id = term_id$id))) {
+                            
                     graph |> add(
                         pubmed_id = article$PMID, 
                         mesh_id = term_id$id
