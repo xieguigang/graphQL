@@ -1,4 +1,7 @@
 imports ["Query", "MsgFile", "KnowledgeGraph"] from "graphR";
+imports "pubmed" from "kb";
+
+require(GCModeller);
 
 const .onLoad = function() {
 	cat("\n");
