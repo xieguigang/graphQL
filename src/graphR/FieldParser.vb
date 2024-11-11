@@ -181,7 +181,7 @@ Module FieldParser
         Dim fieldName As FieldAssert = table.field(name)
 
         If TypeOf range Is list Then
-            Throw New NotImplementedException
+            Throw New NotImplementedException("unsure how to check of the list range")
         ElseIf TypeOf range Is vector OrElse range.GetType.IsArray Then
             Dim type = MeasureRealElementType(renv.asVector(Of Object)(range))
 
@@ -190,12 +190,12 @@ Module FieldParser
                     Return fieldName.between(.Min, .Max)
                 End With
             Else
-                Throw New NotImplementedException
+                Throw New NotImplementedException("the range data should be numeric type!")
             End If
         ElseIf TypeOf range Is Message Then
             Return DirectCast(range, Message)
         Else
-            Throw New NotImplementedException
+            Throw New NotImplementedException($"invalid range data type: {range.GetType.FullName}")
         End If
     End Function
 End Module
