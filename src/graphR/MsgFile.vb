@@ -63,6 +63,7 @@ Imports SMRUCC.Rsharp.Runtime
 Imports SMRUCC.Rsharp.Runtime.Components
 Imports SMRUCC.Rsharp.Runtime.Internal.Object
 Imports SMRUCC.Rsharp.Runtime.Interop
+Imports RInternal = SMRUCC.Rsharp.Runtime.Internal
 
 ''' <summary>
 ''' the graph database file I/O handler
@@ -196,7 +197,7 @@ Module MsgFile
                          Optional env As Environment = Nothing) As Object
 
         If file Is Nothing Then
-            Return Internal.debug.stop("the required file resource to save data can not be nothing!", env)
+            Return RInternal.debug.stop("the required file resource to save data can not be nothing!", env)
         Else
             Dim buffer = SMRUCC.Rsharp.GetFileStream(file, FileAccess.Write, env)
 

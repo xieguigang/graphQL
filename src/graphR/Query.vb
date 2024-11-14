@@ -60,7 +60,7 @@ Imports SMRUCC.Rsharp.Runtime.Components
 Imports SMRUCC.Rsharp.Runtime.Internal.Object
 Imports SMRUCC.Rsharp.Runtime.Interop
 Imports SMRUCC.Rsharp.Runtime.Vectorization
-Imports REnv = SMRUCC.Rsharp.Runtime
+Imports RInternal = SMRUCC.Rsharp.Runtime.Internal
 
 ''' <summary>
 ''' graph database knowledge data query and insert
@@ -151,7 +151,7 @@ Public Module Query
                                  Optional env As Environment = Nothing) As Object
 
         If kb Is Nothing Then
-            Return Internal.debug.stop("the required knowledge database can not be nothing!", env)
+            Return RInternal.debug.stop("the required knowledge database can not be nothing!", env)
         ElseIf TypeOf kb Is GraphPool Then
             Dim data = DirectCast(kb, GraphPool) _
                 .GetKnowledgeData(term) _

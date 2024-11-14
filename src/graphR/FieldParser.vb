@@ -63,6 +63,7 @@ Imports SMRUCC.Rsharp.Runtime.Components
 Imports SMRUCC.Rsharp.Runtime.Internal.[Object]
 Imports SMRUCC.Rsharp.Runtime.Vectorization
 Imports renv = SMRUCC.Rsharp.Runtime
+Imports RInternal = SMRUCC.Rsharp.Runtime.Internal
 
 ''' <summary>
 ''' convert the R# expression as the mysql expression
@@ -85,7 +86,7 @@ Module FieldParser
         ElseIf TypeOf field Is FunctionInvoke Then
             Return funcParser(table, field, env)
         Else
-            Return Internal.debug.stop(New NotImplementedException(field.ToString), env)
+            Return RInternal.debug.stop(New NotImplementedException(field.ToString), env)
         End If
     End Function
 
