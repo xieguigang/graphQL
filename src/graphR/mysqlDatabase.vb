@@ -72,6 +72,7 @@ Imports SMRUCC.Rsharp.Runtime.Internal.[Object]
 Imports SMRUCC.Rsharp.Runtime.Interop
 Imports SMRUCC.Rsharp.Runtime.Vectorization
 Imports renv = SMRUCC.Rsharp.Runtime
+Imports RInternal = SMRUCC.Rsharp.Runtime.Internal
 
 ''' <summary>
 ''' a general mysql database model
@@ -164,13 +165,13 @@ Module mysqlDatabaseTool
 }
 
             If user_name.StringEmpty Then
-                Return Internal.debug.stop("mysql user name could not be empty!", env)
+                Return RInternal.debug.stop("mysql user name could not be empty!", env)
             ElseIf password.StringEmpty Then
-                Return Internal.debug.stop("mysql user password could not be empty!", env)
+                Return RInternal.debug.stop("mysql user password could not be empty!", env)
             ElseIf host.StringEmpty Then
-                Return Internal.debug.stop("mysql host should not be empty!", env)
+                Return RInternal.debug.stop("mysql host should not be empty!", env)
             ElseIf port <= 0 Then
-                Return Internal.debug.stop("mysql network services tcp port should be a positive number!", env)
+                Return RInternal.debug.stop("mysql network services tcp port should be a positive number!", env)
             End If
         End If
 
@@ -202,7 +203,7 @@ Module mysqlDatabaseTool
         Try
             db = Activator.CreateInstance(type:=type.raw, url)
         Catch ex As Exception
-            Return Internal.debug.stop(ex, env)
+            Return RInternal.debug.stop(ex, env)
         End Try
 
         Return db
@@ -598,7 +599,7 @@ Module mysqlDatabaseTool
         Dim mysqli As MySqli = Nothing
 
         If mysql Is Nothing Then
-            Return Internal.debug.stop("the required mysqli connection object should not be nothing!", env)
+            Return RInternal.debug.stop("the required mysqli connection object should not be nothing!", env)
         End If
 
         If TypeOf mysql Is MySqli Then
