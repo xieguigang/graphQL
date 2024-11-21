@@ -266,6 +266,11 @@ Module mysqlDatabaseTool
         Return mysql.CreateModel(name)
     End Function
 
+    <ExportAPI("group_by")>
+    Public Function group_by(model As Model, <RRawVectorArgument> fields As Object) As Model
+        Return model.group_by(CLRVector.asCharacter(fields))
+    End Function
+
     ''' <summary>
     ''' mysql left join
     ''' </summary>
