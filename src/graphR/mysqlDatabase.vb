@@ -307,6 +307,11 @@ Module mysqlDatabaseTool
         Return model.on(tests.ToArray)
     End Function
 
+    ''' <summary>
+    ''' get the last mysql query that execute
+    ''' </summary>
+    ''' <param name="mysql"></param>
+    ''' <returns></returns>
     <ExportAPI("get_last_sql")>
     Public Function get_last_mysql(mysql As Object) As String
         If mysql Is Nothing Then
@@ -322,6 +327,13 @@ Module mysqlDatabaseTool
         End If
     End Function
 
+    ''' <summary>
+    ''' make insert into of a new record into database
+    ''' </summary>
+    ''' <param name="table"></param>
+    ''' <param name="args"></param>
+    ''' <param name="env"></param>
+    ''' <returns></returns>
     <ExportAPI("add")>
     Public Function add(table As Model,
                         <RListObjectArgument>
@@ -337,6 +349,13 @@ Module mysqlDatabaseTool
         Return table.add(pull.TryCast(Of FieldAssert()))
     End Function
 
+    ''' <summary>
+    ''' make update of the database record
+    ''' </summary>
+    ''' <param name="table"></param>
+    ''' <param name="args"></param>
+    ''' <param name="env"></param>
+    ''' <returns></returns>
     <ExportAPI("save")>
     Public Function save(table As Model,
                          <RListObjectArgument>
@@ -431,6 +450,15 @@ Module mysqlDatabaseTool
         Return table.order_by(fields, desc)
     End Function
 
+    ''' <summary>
+    ''' make project of a single column
+    ''' </summary>
+    ''' <param name="table"></param>
+    ''' <param name="field"></param>
+    ''' <param name="env"></param>
+    ''' <returns>
+    ''' returns a element data vector
+    ''' </returns>
     <ExportAPI("project")>
     Public Function project(table As Model, field As String, Optional env As Environment = Nothing) As Object
         Dim reader As DataTableReader = table.select(field)
@@ -545,6 +573,15 @@ Module mysqlDatabaseTool
         Return df
     End Function
 
+    ''' <summary>
+    ''' make data pull from database
+    ''' </summary>
+    ''' <param name="table"></param>
+    ''' <param name="args"></param>
+    ''' <param name="env"></param>
+    ''' <returns>
+    ''' a dataframe object that contains the data that pull from the database
+    ''' </returns>
     <ExportAPI("select")>
     Public Function [select](table As Model,
                              <RListObjectArgument>
