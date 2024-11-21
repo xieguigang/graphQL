@@ -100,6 +100,9 @@ Module mysqlDatabaseTool
 
     Dim ssh As SshClient
 
+    ''' <summary>
+    ''' Close the ssh proxy connection
+    ''' </summary>
     <ExportAPI("close_ssh")>
     Public Sub close_ssh()
         If ssh Is Nothing Then
@@ -161,8 +164,8 @@ Module mysqlDatabaseTool
                 .Port = port,
                 .User = user_name,
                 .error_log = error_log,
-.TimeOut = timeout
-}
+                .TimeOut = timeout
+            }
 
             If user_name.StringEmpty Then
                 Return RInternal.debug.stop("mysql user name could not be empty!", env)
@@ -252,34 +255,56 @@ Module mysqlDatabaseTool
         Return dump.DumpRows(pack.populates(Of MySQLTable)(env))
     End Function
 
+    ''' <summary>
+    ''' Create a table reference 
+    ''' </summary>
+    ''' <param name="mysql"></param>
+    ''' <param name="name"></param>
+    ''' <returns></returns>
     <ExportAPI("table")>
     Public Function table(mysql As IDatabase, name As String) As Model
         Return mysql.CreateModel(name)
     End Function
 
+    ''' <summary>
+    ''' mysql left join
+    ''' </summary>
+    ''' <param name="model"></param>
+    ''' <param name="table"></param>
+    ''' <returns></returns>
     <ExportAPI("left_join")>
     Public Function left_join(model As Model, table As String) As Model
         Return model.left_join(table)
     End Function
 
+    ''' <summary>
+    ''' on join condition test for left join operation
+    ''' </summary>
+    ''' <param name="model"></param>
+    ''' <param name="args">test condition for left join, multiple expression means AND asserts.</param>
+    ''' <param name="env"></param>
+    ''' <returns></returns>
     <ExportAPI("on")>
     Public Function [on](model As Model,
                          <RListObjectArgument>
                          <RLazyExpression> args As list,
                          Optional env As Environment = Nothing) As Model
 
-        Dim left = args.getNames.Where(Function(s) s <> NameOf(model)).FirstOrDefault
+        Dim tests As New List(Of FieldAssert)
 
-        If left.StringEmpty Then
-            left = NameOf(model)
-        End If
+        For Each __ In args.slots
+            If __.Key <> NameOf(model) Then
+                Dim left As String = __.Key
+                Dim right As Expression = args.getByName(left)
+                Dim right_symbol As String = ValueAssignExpression.GetSymbol(right)
+                Dim left_table As New FieldAssert(left)
+                Dim right_table As New FieldAssert(right_symbol)
 
-        Dim right As Expression = args.getByName(left)
-        Dim right_symbol As String = ValueAssignExpression.GetSymbol(right)
-        Dim left_table As New FieldAssert(left)
-        Dim right_table As New FieldAssert(right_symbol)
+                Call tests.Add(left_table = right_table)
+            End If
+        Next
 
-        Return model.on(left_table = right_table)
+        Return model.on(tests.ToArray)
     End Function
 
     <ExportAPI("get_last_sql")>
