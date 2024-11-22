@@ -18,7 +18,14 @@
 */
 declare namespace mysql {
    /**
-     * @param env default value Is ``null``.
+    * make insert into of a new record into database
+    * 
+    * 
+     * @param table -
+     * @param args -
+     * @param env -
+     * 
+     * + default value Is ``null``.
    */
    function add(table: object, args: object, env?: object): any;
    /**
@@ -32,6 +39,9 @@ declare namespace mysql {
    */
    function check(table: object, args: object, env?: object): any;
    /**
+    * Close the ssh proxy connection
+    * 
+    * 
    */
    function close_ssh(): ;
    /**
@@ -69,9 +79,21 @@ declare namespace mysql {
    */
    function find(table: object, args?: object, env?: object): any;
    /**
+    * get the last mysql query that execute
+    * 
+    * 
+     * @param mysql -
    */
    function get_last_sql(mysql: any): string;
    /**
+   */
+   function group_by(model: object, fields: any): object;
+   /**
+    * mysql left join
+    * 
+    * 
+     * @param model -
+     * @param table -
    */
    function left_join(model: object, table: string): object;
    /**
@@ -79,7 +101,14 @@ declare namespace mysql {
    */
    function limit(table: object, m: object, n?: object): any;
    /**
-     * @param env default value Is ``null``.
+    * on join condition test for left join operation
+    * 
+    * 
+     * @param model -
+     * @param args test condition for left join, multiple expression means AND asserts.
+     * @param env -
+     * 
+     * + default value Is ``null``.
    */
    function on(model: object, args: object, env?: object): object;
    /**
@@ -148,19 +177,48 @@ declare namespace mysql {
    */
    function performance_counter(mysql: any, task: object, resolution?: number, env?: object): object;
    /**
-     * @param env default value Is ``null``.
+    * make project of a single column
+    * 
+    * 
+     * @param table -
+     * @param field -
+     * @param env -
+     * 
+     * + default value Is ``null``.
+     * @return returns a element data vector
    */
    function project(table: object, field: string, env?: object): any;
    /**
-     * @param env default value Is ``null``.
+    * make update of the database record
+    * 
+    * 
+     * @param table -
+     * @param args -
+     * @param env -
+     * 
+     * + default value Is ``null``.
    */
    function save(table: object, args: object, env?: object): any;
    /**
-     * @param args default value Is ``null``.
-     * @param env default value Is ``null``.
+    * make data pull from database
+    * 
+    * 
+     * @param table -
+     * @param args -
+     * 
+     * + default value Is ``null``.
+     * @param env -
+     * 
+     * + default value Is ``null``.
+     * @return a dataframe object that contains the data that pull from the database
    */
    function select(table: object, args?: object, env?: object): any;
    /**
+    * Create a table reference
+    * 
+    * 
+     * @param mysql -
+     * @param name -
    */
    function table(mysql: object, name: string): object;
    /**
