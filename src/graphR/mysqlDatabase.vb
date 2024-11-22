@@ -290,10 +290,11 @@ Module mysqlDatabaseTool
     ''' <param name="env"></param>
     ''' <returns></returns>
     <ExportAPI("on")>
+    <RApiReturn(GetType(Model))>
     Public Function [on](model As Model,
                          <RListObjectArgument>
                          <RLazyExpression> args As list,
-                         Optional env As Environment = Nothing) As Model
+                         Optional env As Environment = Nothing) As Object
 
         Dim tests As New List(Of FieldAssert)
 
@@ -301,11 +302,22 @@ Module mysqlDatabaseTool
             If __.Key <> NameOf(model) Then
                 Dim left As String = __.Key
                 Dim right As Expression = args.getByName(left)
-                Dim right_symbol As String = ValueAssignExpression.GetSymbol(right)
-                Dim left_table As New FieldAssert(left)
-                Dim right_table As New FieldAssert(right_symbol)
 
-                Call tests.Add(left_table = right_table)
+                If left.IsPattern("[$]\d+") Then
+                    Dim parse = model.conditionField(right, env)
+
+                    If parse Like GetType(Message) Then
+                        Return parse.TryCast(Of Message)
+                    End If
+
+                    Call tests.Add(parse.TryCast(Of FieldAssert))
+                Else
+                    Dim right_symbol As String = ValueAssignExpression.GetSymbol(right)
+                    Dim left_table As New FieldAssert(left)
+                    Dim right_table As New FieldAssert(right_symbol)
+
+                    Call tests.Add(left_table = right_table)
+                End If
             End If
         Next
 
