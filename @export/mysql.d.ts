@@ -52,6 +52,9 @@ declare namespace mysql {
    */
    function create_filedump(dir: string, env?: object): object;
    /**
+   */
+   function distinct(table: object): object;
+   /**
     * dump the inserts transaction mysql file
     * 
     * 

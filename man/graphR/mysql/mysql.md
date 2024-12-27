@@ -26,6 +26,7 @@ MySQL (/ˌmaɪˌɛsˌkjuːˈɛl/) is an open-source relational database manageme
 + [where](mysql/where.1) 
 + [order_by](mysql/order_by.1) 
 + [project](mysql/project.1) make project of a single column
++ [distinct](mysql/distinct.1) 
 + [check](mysql/check.1) check of the target record is existsed inside the database or not?
 + [find](mysql/find.1) 
 + [exec](mysql/exec.1) exec sql and fetch result data as dataframe
