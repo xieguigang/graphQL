@@ -488,6 +488,11 @@ Module mysqlDatabaseTool
         Return renv.asVector(vals.ToArray, reader.GetFieldType(0), env)
     End Function
 
+    <ExportAPI("distinct")>
+    Public Function distinct(table As Model) As Model
+        Return table.distinct
+    End Function
+
     ''' <summary>
     ''' check of the target record is existsed inside the database or not?
     ''' </summary>
