@@ -21,6 +21,9 @@ MySQL (/ˌmaɪˌɛsˌkjuːˈɛl/) is an open-source relational database manageme
 + [on](mysql/on.1) on join condition test for left join operation
 + [get_last_sql](mysql/get_last_sql.1) get the last mysql query that execute
 + [add](mysql/add.1) make insert into of a new record into database
++ [delayed](mysql/delayed.1) set delayed options for insert into
++ [batch_insert](mysql/batch_insert.1) Create commit task data for make batch insert into current table
++ [commit](mysql/commit.1) commit the batch insert into database
 + [save](mysql/save.1) make update of the database record
 + [count](mysql/count.1) 
 + [where](mysql/where.1) 

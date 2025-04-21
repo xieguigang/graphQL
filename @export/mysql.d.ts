@@ -27,7 +27,15 @@ declare namespace mysql {
      * 
      * + default value Is ``null``.
    */
-   function add(table: object, args: object, env?: object): any;
+   function add(table: any, args: object, env?: object): any;
+   /**
+    * Create commit task data for make batch insert into current table
+    * 
+    * 
+     * @param delayed 
+     * + default value Is ``false``.
+   */
+   function batch_insert(table: object, delayed?: boolean): object;
    /**
     * check of the target record is existsed inside the database or not?
     * 
@@ -45,12 +53,26 @@ declare namespace mysql {
    */
    function close_ssh(): ;
    /**
+    * commit the batch insert into database
+    * 
+    * 
+     * @param batch -
+   */
+   function commit(batch: object): ;
+   /**
    */
    function count(table: object): object;
    /**
      * @param env default value Is ``null``.
    */
    function create_filedump(dir: string, env?: object): object;
+   /**
+    * set delayed options for insert into
+    * 
+    * > this delayed options will be reste to no-delayed after insert has been called
+    * 
+   */
+   function delayed(table: object): object;
    /**
    */
    function distinct(table: object): object;
