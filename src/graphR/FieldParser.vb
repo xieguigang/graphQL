@@ -76,7 +76,7 @@ Module FieldParser
     End Function
 
     <Extension>
-    Public Function conditionField(table As Model, field As Expression, env As Environment) As [Variant](Of Message, FieldAssert)
+    Public Function conditionField(table As IModel, field As Expression, env As Environment) As [Variant](Of Message, FieldAssert)
         If TypeOf field Is BinaryExpression Then
             Return mathParser(table, field, env)
         ElseIf TypeOf field Is BinaryBetweenExpression Then
@@ -90,7 +90,7 @@ Module FieldParser
         End If
     End Function
 
-    Private Function mathParser(table As Model, field As Expression, env As Environment) As [Variant](Of Message, FieldAssert)
+    Private Function mathParser(table As IModel, field As Expression, env As Environment) As [Variant](Of Message, FieldAssert)
         Dim bin As BinaryExpression = field
         Dim name As String = ValueAssignExpression.GetSymbol(bin.left)
         Dim val As String = getValue(bin.right)
@@ -136,7 +136,7 @@ Module FieldParser
         End If
     End Function
 
-    Private Function funcParser(table As Model, field As Expression, env As Environment) As [Variant](Of Message, FieldAssert)
+    Private Function funcParser(table As IModel, field As Expression, env As Environment) As [Variant](Of Message, FieldAssert)
         Dim invoke As FunctionInvoke = field
         Dim name As String = ValueAssignExpression.GetSymbol(invoke.funcName)
         Dim pars As String() = invoke.parameters _
@@ -151,7 +151,7 @@ Module FieldParser
         }
     End Function
 
-    Private Function inParser(table As Model, field As Expression, env As Environment) As [Variant](Of Message, FieldAssert)
+    Private Function inParser(table As IModel, field As Expression, env As Environment) As [Variant](Of Message, FieldAssert)
         Dim bin As BinaryInExpression = DirectCast(field, BinaryInExpression)
         Dim name = ValueAssignExpression.GetSymbol(bin.left)
         Dim range = bin.right.Evaluate(env)
@@ -175,7 +175,7 @@ Module FieldParser
         End If
     End Function
 
-    Private Function betweenParser(table As Model, field As Expression, env As Environment) As [Variant](Of Message, FieldAssert)
+    Private Function betweenParser(table As IModel, field As Expression, env As Environment) As [Variant](Of Message, FieldAssert)
         Dim bin As BinaryBetweenExpression = DirectCast(field, BinaryBetweenExpression)
         Dim name = ValueAssignExpression.GetSymbol(bin.left)
         Dim range = bin.right.Evaluate(env)

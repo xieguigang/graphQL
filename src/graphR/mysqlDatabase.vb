@@ -352,19 +352,59 @@ Module mysqlDatabaseTool
     ''' <param name="env"></param>
     ''' <returns></returns>
     <ExportAPI("add")>
-    Public Function add(table As Model,
+    Public Function add(table As Object,
                         <RListObjectArgument>
                         <RLazyExpression> args As list,
                         Optional env As Environment = Nothing) As Object
 
-        Dim pull = pullFieldSet(table, args, env)
+        If Not (TypeOf table Is Model OrElse TypeOf table Is CommitInsert) Then
+            Return Message.InCompatibleType(GetType(Model), table.GetType, env)
+        End If
+
+        Dim pull = pullFieldSet(DirectCast(table, IModel), args, env)
 
         If pull Like GetType(Message) Then
             Return pull.TryCast(Of Message)
         End If
 
-        Return table.add(pull.TryCast(Of FieldAssert()))
+        If TypeOf table Is Model Then
+            Return DirectCast(table, Model).add(pull.TryCast(Of FieldAssert()))
+        Else
+            Call DirectCast(table, CommitInsert).add(pull.TryCast(Of FieldAssert()))
+            Return Nothing
+        End If
     End Function
+
+    ''' <summary>
+    ''' set delayed options for insert into
+    ''' </summary>
+    ''' <returns></returns>
+    ''' <remarks>
+    ''' this delayed options will be reste to no-delayed after insert has been called
+    ''' </remarks>
+    <ExportAPI("delayed")>
+    Public Function delayed(table As Model) As Model
+        Return table.delayed
+    End Function
+
+    ''' <summary>
+    ''' Create commit task data for make batch insert into current table
+    ''' </summary>
+    ''' <returns></returns>
+    ''' 
+    <ExportAPI("batch_insert")>
+    Public Function batch_insert(table As Model, Optional delayed As Boolean = False) As CommitInsert
+        Return table.batch_insert(delayed)
+    End Function
+
+    ''' <summary>
+    ''' commit the batch insert into database
+    ''' </summary>
+    ''' <param name="batch"></param>
+    <ExportAPI("commit")>
+    Public Sub commit(batch As CommitInsert)
+        Call batch.commit()
+    End Sub
 
     ''' <summary>
     ''' make update of the database record
@@ -393,7 +433,7 @@ Module mysqlDatabaseTool
         Return table.count
     End Function
 
-    Private Function pullFieldSet(table As Model, args As list, env As Environment) As [Variant](Of FieldAssert(), Message)
+    Private Function pullFieldSet(table As IModel, args As list, env As Environment) As [Variant](Of FieldAssert(), Message)
         Dim asserts As New List(Of FieldAssert)
         Dim parse As [Variant](Of Message, FieldAssert)
         Dim field As Expression = Nothing
