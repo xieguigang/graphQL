@@ -397,13 +397,22 @@ Module mysqlDatabaseTool
         Return table.batch_insert(delayed)
     End Function
 
+    <ExportAPI("open_transaction")>
+    Public Function create_transaction(table As Model) As CommitTransaction
+        Return table.open_transaction
+    End Function
+
     ''' <summary>
     ''' commit the batch insert into database
     ''' </summary>
     ''' <param name="batch"></param>
     <ExportAPI("commit")>
-    Public Sub commit(batch As IDataCommitOperation)
-        Call batch.Commit()
+    Public Sub commit(batch As IDataCommitOperation, Optional transaction As CommitTransaction = Nothing)
+        If transaction IsNot Nothing AndAlso TypeOf batch Is CommitInsert Then
+            Call DirectCast(batch, CommitInsert).commit(transaction)
+        Else
+            Call batch.Commit()
+        End If
     End Sub
 
     ''' <summary>
