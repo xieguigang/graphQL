@@ -402,8 +402,8 @@ Module mysqlDatabaseTool
     ''' </summary>
     ''' <param name="batch"></param>
     <ExportAPI("commit")>
-    Public Sub commit(batch As CommitInsert)
-        Call batch.commit()
+    Public Sub commit(batch As IDataCommitOperation)
+        Call batch.Commit()
     End Sub
 
     ''' <summary>
