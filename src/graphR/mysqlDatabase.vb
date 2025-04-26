@@ -387,6 +387,16 @@ Module mysqlDatabaseTool
         Return table.delayed
     End Function
 
+    <ExportAPI("ignore")>
+    Public Function ignore(table As Model) As Model
+        Return table.ignore
+    End Function
+
+    <ExportAPI("clear_insert_option")>
+    Public Function clear_insert_option(table As Model) As Model
+        Return table.clearOption
+    End Function
+
     ''' <summary>
     ''' Create commit task data for make batch insert into current table
     ''' </summary>
