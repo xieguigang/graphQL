@@ -47,6 +47,10 @@ declare namespace mysql {
    */
    function check(table: object, args: object, env?: object): any;
    /**
+     * @param env default value Is ``null``.
+   */
+   function clear_insert_option(table: any, env?: object): object|object;
+   /**
     * Close the ssh proxy connection
     * 
     * 
@@ -57,8 +61,10 @@ declare namespace mysql {
     * 
     * 
      * @param batch -
+     * @param transaction 
+     * + default value Is ``null``.
    */
-   function commit(batch: object): ;
+   function commit(batch: object, transaction?: object): ;
    /**
    */
    function count(table: object): object;
@@ -71,8 +77,10 @@ declare namespace mysql {
     * 
     * > this delayed options will be reste to no-delayed after insert has been called
     * 
+     * @param env 
+     * + default value Is ``null``.
    */
-   function delayed(table: object): object;
+   function delayed(table: any, env?: object): object|object;
    /**
    */
    function distinct(table: object): object;
@@ -113,6 +121,10 @@ declare namespace mysql {
    /**
    */
    function group_by(model: object, fields: any): object;
+   /**
+     * @param env default value Is ``null``.
+   */
+   function ignore(table: any, env?: object): object|object;
    /**
     * mysql left join
     * 
@@ -176,6 +188,9 @@ declare namespace mysql {
      * + default value Is ``null``.
    */
    function open(user_name?: string, password?: string, dbname?: string, host?: string, port?: object, error_log?: string, timeout?: object, connection_uri?: string, general?: boolean, ssh?: object, env?: object): object;
+   /**
+   */
+   function open_transaction(table: object): object;
    /**
      * @param desc default value Is ``false``.
    */

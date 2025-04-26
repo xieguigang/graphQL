@@ -3,7 +3,8 @@
 .SH NAME
 commit \- commit the batch insert into database
 .SH SYNOPSIS
-\fIcommit(\fBbatch\fR as <generic> IDataCommitOperation);\fR
+\fIcommit(\fBbatch\fR as <generic> IDataCommitOperation, 
+\fBtransaction\fR as <generic> CommitTransaction = \fB<NULL>\fR);\fR
 .SH DESCRIPTION
 .PP
 commit the batch insert into database
