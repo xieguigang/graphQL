@@ -383,8 +383,51 @@ Module mysqlDatabaseTool
     ''' this delayed options will be reste to no-delayed after insert has been called
     ''' </remarks>
     <ExportAPI("delayed")>
-    Public Function delayed(table As Model) As Model
-        Return table.delayed
+    <RApiReturn(GetType(Model), GetType(CommitTransaction))>
+    Public Function delayed(table As Object, Optional env As Environment = Nothing) As Object
+        If table Is Nothing Then
+            Return Nothing
+        End If
+
+        If TypeOf table Is Model Then
+            Return DirectCast(table, Model).delayed
+        ElseIf TypeOf table Is CommitTransaction Then
+            Return DirectCast(table, CommitTransaction).delayed
+        Else
+            Return Message.InCompatibleType(GetType(Model), table.GetType, env)
+        End If
+    End Function
+
+    <ExportAPI("ignore")>
+    <RApiReturn(GetType(Model), GetType(CommitTransaction))>
+    Public Function ignore(table As Object, Optional env As Environment = Nothing) As Object
+        If table Is Nothing Then
+            Return Nothing
+        End If
+
+        If TypeOf table Is Model Then
+            Return DirectCast(table, Model).ignore
+        ElseIf TypeOf table Is CommitTransaction Then
+            Return DirectCast(table, CommitTransaction).ignore
+        Else
+            Return Message.InCompatibleType(GetType(Model), table.GetType, env)
+        End If
+    End Function
+
+    <ExportAPI("clear_insert_option")>
+    <RApiReturn(GetType(Model), GetType(CommitTransaction))>
+    Public Function clear_insert_option(table As Object, Optional env As Environment = Nothing) As Object
+        If table Is Nothing Then
+            Return Nothing
+        End If
+
+        If TypeOf table Is Model Then
+            Return DirectCast(table, Model).clearOption
+        ElseIf TypeOf table Is CommitTransaction Then
+            Return DirectCast(table, CommitTransaction).clearOption
+        Else
+            Return Message.InCompatibleType(GetType(Model), table.GetType, env)
+        End If
     End Function
 
     ''' <summary>
@@ -397,13 +440,22 @@ Module mysqlDatabaseTool
         Return table.batch_insert(delayed)
     End Function
 
+    <ExportAPI("open_transaction")>
+    Public Function create_transaction(table As Model) As CommitTransaction
+        Return table.open_transaction
+    End Function
+
     ''' <summary>
     ''' commit the batch insert into database
     ''' </summary>
     ''' <param name="batch"></param>
     <ExportAPI("commit")>
-    Public Sub commit(batch As CommitInsert)
-        Call batch.commit()
+    Public Sub commit(batch As IDataCommitOperation, Optional transaction As CommitTransaction = Nothing)
+        If transaction IsNot Nothing AndAlso TypeOf batch Is CommitInsert Then
+            Call DirectCast(batch, CommitInsert).commit(transaction)
+        Else
+            Call batch.Commit()
+        End If
     End Sub
 
     ''' <summary>
