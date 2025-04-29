@@ -65,6 +65,7 @@ Imports Oracle.LinuxCompatibility.MySQL.MySqlBuilder
 Imports Oracle.LinuxCompatibility.MySQL.Uri
 Imports Renci.SshNet
 Imports SMRUCC.Rsharp.Interpreter.ExecuteEngine
+Imports SMRUCC.Rsharp.Interpreter.ExecuteEngine.ExpressionSymbols.DataSets
 Imports SMRUCC.Rsharp.Interpreter.ExecuteEngine.ExpressionSymbols.Operators
 Imports SMRUCC.Rsharp.Runtime
 Imports SMRUCC.Rsharp.Runtime.Components
@@ -637,15 +638,19 @@ Module mysqlDatabaseTool
         Dim fields As New List(Of String)
         Dim parse As [Variant](Of Message, String)
 
-        For Each field As Expression In project
-            parse = field.projectField(env)
+        If project.Length = 1 AndAlso TypeOf project(0) Is VectorLiteral Then
+            Call fields.AddRange(CLRVector.asCharacter(project(0).Evaluate(env)))
+        Else
+            For Each field As Expression In project
+                parse = field.projectField(env)
 
-            If parse Like GetType(Message) Then
-                Return parse.TryCast(Of Message)
-            End If
+                If parse Like GetType(Message) Then
+                    Return parse.TryCast(Of Message)
+                End If
 
-            fields.Add(parse.TryCast(Of String))
-        Next
+                fields.Add(parse.TryCast(Of String))
+            Next
+        End If
 
         Return fields.ToArray
     End Function
