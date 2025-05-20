@@ -207,7 +207,7 @@ Module mysqlDatabaseTool
         Try
             db = Activator.CreateInstance(type:=type.raw, url)
         Catch ex As Exception
-            Return RInternal.debug.stop(ex, env)
+            Return RInternal.debug.stop(New Exception("mysql_target: " & url.Database, ex), env)
         End Try
 
         Return db
