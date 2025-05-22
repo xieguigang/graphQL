@@ -574,6 +574,10 @@ Module mysqlDatabaseTool
         Dim reader As DataTableReader = table.select(field)
         Dim vals As New List(Of Object)
 
+        If reader Is Nothing AndAlso table.GetLastError IsNot Nothing Then
+            Return RInternal.debug.stop(table.GetLastError, env)
+        End If
+
         Do While reader.Read
             vals.Add(reader.GetValue(0))
         Loop
@@ -715,6 +719,11 @@ Module mysqlDatabaseTool
         End If
 
         Dim reader As DataTableReader = table.select(fields.TryCast(Of String()))
+
+        If reader Is Nothing AndAlso table.GetLastError IsNot Nothing Then
+            Return RInternal.debug.stop(table.GetLastError, env)
+        End If
+
         Dim df As New dataframe With {
             .columns = New Dictionary(Of String, Array)
         }
