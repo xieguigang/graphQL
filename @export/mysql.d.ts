@@ -83,6 +83,9 @@ declare namespace mysql {
    function delayed(table: any, env?: object): object|object;
    /**
    */
+   function delete(table: object): any;
+   /**
+   */
    function distinct(table: object): object;
    /**
     * dump the inserts transaction mysql file
