@@ -613,6 +613,11 @@ Module mysqlDatabaseTool
         Return table.where(pull.TryCast(Of FieldAssert())).count > 0
     End Function
 
+    <ExportAPI("delete")>
+    Public Function delete(table As Model) As Object
+        Return table.delete
+    End Function
+
     <ExportAPI("find")>
     Public Function find(table As Model,
                          <RListObjectArgument>
