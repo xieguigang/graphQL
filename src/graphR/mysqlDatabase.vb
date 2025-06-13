@@ -702,6 +702,24 @@ Module mysqlDatabaseTool
     End Function
 
     ''' <summary>
+    ''' make random sampling n rows from the given data table
+    ''' </summary>
+    ''' <param name="table"></param>
+    ''' <param name="n"></param>
+    ''' <returns></returns>
+    ''' <remarks>
+    ''' the random sampling of n rows is implemented based on the sql options ``order by rand() limit n``,
+    ''' so do not append the order_by and limit function call to the generated table object, it will break
+    ''' the sampling implementation.
+    ''' </remarks>
+    <ExportAPI("sampling")>
+    Public Function sampling(table As Model, n As Integer) As Model
+        table = table.order_by("RAND()")
+        table = table.limit(n)
+        Return table
+    End Function
+
+    ''' <summary>
     ''' make data pull from database
     ''' </summary>
     ''' <param name="table"></param>
