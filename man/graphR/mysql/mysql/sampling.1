@@ -1,0 +1,30 @@
+.\" man page create by R# package system.
+.TH MYSQL 1 2000-Jan "sampling" "sampling"
+.SH NAME
+sampling \- make random sampling n rows from the given data table
+.SH SYNOPSIS
+\fIsampling(\fBtable\fR as <generic> Model, 
+\fBn\fR as integer);\fR
+.SH DESCRIPTION
+.PP
+make random sampling n rows from the given data table
+.PP
+.SH OPTIONS
+.PP
+\fBtable\fB \fR\- -. 
+.PP
+.PP
+\fBn\fB \fR\- -. 
+.PP
+.SH DETAILS
+.PP
+the random sampling of n rows is implemented based on the sql options \fBorder by rand() limit n\fR,
+ so do not append the order_by and limit function call to the generated table object, it will break
+ the sampling implementation.
+.PP
+.SH SEE ALSO
+mysql
+.SH FILES
+.PP
+graphR.dll
+.PP

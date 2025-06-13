@@ -37,6 +37,7 @@ MySQL (/ˌmaɪˌɛsˌkjuːˈɛl/) is an open-source relational database manageme
 + [delete](mysql/delete.1) 
 + [find](mysql/find.1) 
 + [exec](mysql/exec.1) exec sql and fetch result data as dataframe
++ [sampling](mysql/sampling.1) make random sampling n rows from the given data table
 + [select](mysql/select.1) make data pull from database
 + [limit](mysql/limit.1) 
 + [performance_counter](mysql/performance_counter.1) run the mysql performance counter in a given timespan perioid.

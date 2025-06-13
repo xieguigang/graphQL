@@ -232,6 +232,17 @@ declare namespace mysql {
    */
    function project(table: object, field: string, env?: object): any;
    /**
+    * make random sampling n rows from the given data table
+    * 
+    * > the random sampling of n rows is implemented based on the sql options ``order by rand() limit n``,
+    * >  so do not append the order_by and limit function call to the generated table object, it will break
+    * >  the sampling implementation.
+    * 
+     * @param table -
+     * @param n -
+   */
+   function sampling(table: object, n: object): object;
+   /**
     * make update of the database record
     * 
     * 
