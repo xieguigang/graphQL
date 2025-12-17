@@ -12,6 +12,8 @@
 
 assembly/
 
+.nuget/
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
