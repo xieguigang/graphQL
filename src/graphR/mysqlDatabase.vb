@@ -55,7 +55,7 @@
 #End Region
 
 Imports System.Data
-Imports graph.MySQL
+Imports graphQL.KnowledgeBase.MySQL
 Imports Microsoft.VisualBasic.CommandLine.Reflection
 Imports Microsoft.VisualBasic.Language
 Imports Microsoft.VisualBasic.Scripting.MetaData
@@ -107,7 +107,7 @@ Module mysqlDatabaseTool
     <ExportAPI("close_ssh")>
     Public Sub close_ssh()
         If ssh Is Nothing Then
-            Call "ssh forward has not been started yet.".Warning
+            Call "ssh forward has not been started yet.".warning
         Else
             Try
                 Call ssh.Disconnect()

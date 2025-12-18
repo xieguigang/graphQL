@@ -1,58 +1,58 @@
 ﻿#Region "Microsoft.VisualBasic::e0fe68a1bf7499ec24f02b4a27cc1d46, src\graphR\graphMySQL.vb"
 
-    ' Author:
-    ' 
-    '       asuka (amethyst.asuka@gcmodeller.org)
-    '       xie (genetics@smrucc.org)
-    '       xieguigang (xie.guigang@live.com)
-    ' 
-    ' Copyright (c) 2018 GPL3 Licensed
-    ' 
-    ' 
-    ' GNU GENERAL PUBLIC LICENSE (GPL3)
-    ' 
-    ' 
-    ' This program is free software: you can redistribute it and/or modify
-    ' it under the terms of the GNU General Public License as published by
-    ' the Free Software Foundation, either version 3 of the License, or
-    ' (at your option) any later version.
-    ' 
-    ' This program is distributed in the hope that it will be useful,
-    ' but WITHOUT ANY WARRANTY; without even the implied warranty of
-    ' MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    ' GNU General Public License for more details.
-    ' 
-    ' You should have received a copy of the GNU General Public License
-    ' along with this program. If not, see <http://www.gnu.org/licenses/>.
+' Author:
+' 
+'       asuka (amethyst.asuka@gcmodeller.org)
+'       xie (genetics@smrucc.org)
+'       xieguigang (xie.guigang@live.com)
+' 
+' Copyright (c) 2018 GPL3 Licensed
+' 
+' 
+' GNU GENERAL PUBLIC LICENSE (GPL3)
+' 
+' 
+' This program is free software: you can redistribute it and/or modify
+' it under the terms of the GNU General Public License as published by
+' the Free Software Foundation, either version 3 of the License, or
+' (at your option) any later version.
+' 
+' This program is distributed in the hope that it will be useful,
+' but WITHOUT ANY WARRANTY; without even the implied warranty of
+' MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+' GNU General Public License for more details.
+' 
+' You should have received a copy of the GNU General Public License
+' along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 
 
-    ' /********************************************************************************/
+' /********************************************************************************/
 
-    ' Summaries:
-
-
-    ' Code Statistics:
-
-    '   Total Lines: 402
-    '    Code Lines: 298
-    ' Comment Lines: 38
-    '   Blank Lines: 66
-    '     File Size: 15.43 KB
+' Summaries:
 
 
-    ' Module graphMySQLTool
-    ' 
-    '     Function: add_term, assignTermId, fetch_table, fetchAKnowledgeJson, getKnowledgeCacheModel
-    '               KnowlegdeBuilder, openGraphdb, pullNextGraph, saveKnowledge
-    ' 
-    ' /********************************************************************************/
+' Code Statistics:
+
+'   Total Lines: 402
+'    Code Lines: 298
+' Comment Lines: 38
+'   Blank Lines: 66
+'     File Size: 15.43 KB
+
+
+' Module graphMySQLTool
+' 
+'     Function: add_term, assignTermId, fetch_table, fetchAKnowledgeJson, getKnowledgeCacheModel
+'               KnowlegdeBuilder, openGraphdb, pullNextGraph, saveKnowledge
+' 
+' /********************************************************************************/
 
 #End Region
 
-Imports graph.MySQL
-Imports graph.MySQL.graphdb
 Imports graphQL
+Imports graphQL.KnowledgeBase.MySQL
+Imports graphQL.KnowledgeBase.MySQL.graphdb
 Imports Microsoft.VisualBasic.CommandLine.Reflection
 Imports Microsoft.VisualBasic.Data.Repository
 Imports Microsoft.VisualBasic.Data.visualize.Network.FileStream.Generic
@@ -71,8 +71,8 @@ Imports SMRUCC.Rsharp.Runtime.Interop
 Imports SMRUCC.Rsharp.Runtime.Vectorization
 
 <Package("graph_mysql")>
-<RTypeExport("graphql", GetType(graph.MySQL.mysql))>
-<RTypeExport("pubmed", GetType(graph.MySQL.PubMedKb))>
+<RTypeExport("graphql", GetType(graphQL.KnowledgeBase.MySQL.mysql))>
+<RTypeExport("pubmed", GetType(graphQL.KnowledgeBase.MySQL.PubMedKb))>
 Public Module graphMySQLTool
 
     <ExportAPI("open.graphdb")>
@@ -361,8 +361,8 @@ conflicts:
     Private Function getKnowledgeCacheModel(graphdb As Object, env As Environment) As [Variant](Of Message, MySqlBuilder.Model)
         If TypeOf graphdb Is KnowlegdeBuilder Then
             Return DirectCast(graphdb, KnowlegdeBuilder).knowledge_cache
-        ElseIf TypeOf graphdb Is Global.graph.MySQL.mysql Then
-            Return DirectCast(graphdb, Global.graph.MySQL.mysql).knowledge_cache
+        ElseIf TypeOf graphdb Is graphQL.KnowledgeBase.MySQL.mysql Then
+            Return DirectCast(graphdb, graphQL.KnowledgeBase.MySQL.mysql).knowledge_cache
         Else
             Return Message.InCompatibleType(GetType(KnowlegdeBuilder), graphdb.GetType, env)
         End If
