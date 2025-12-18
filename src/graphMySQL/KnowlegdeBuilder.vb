@@ -1,63 +1,63 @@
 ﻿#Region "Microsoft.VisualBasic::35795a45c0acc496c9dbb415951ef002, src\graphMySQL\KnowlegdeBuilder.vb"
 
-    ' Author:
-    ' 
-    '       asuka (amethyst.asuka@gcmodeller.org)
-    '       xie (genetics@smrucc.org)
-    '       xieguigang (xie.guigang@live.com)
-    ' 
-    ' Copyright (c) 2018 GPL3 Licensed
-    ' 
-    ' 
-    ' GNU GENERAL PUBLIC LICENSE (GPL3)
-    ' 
-    ' 
-    ' This program is free software: you can redistribute it and/or modify
-    ' it under the terms of the GNU General Public License as published by
-    ' the Free Software Foundation, either version 3 of the License, or
-    ' (at your option) any later version.
-    ' 
-    ' This program is distributed in the hope that it will be useful,
-    ' but WITHOUT ANY WARRANTY; without even the implied warranty of
-    ' MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    ' GNU General Public License for more details.
-    ' 
-    ' You should have received a copy of the GNU General Public License
-    ' along with this program. If not, see <http://www.gnu.org/licenses/>.
+' Author:
+' 
+'       asuka (amethyst.asuka@gcmodeller.org)
+'       xie (genetics@smrucc.org)
+'       xieguigang (xie.guigang@live.com)
+' 
+' Copyright (c) 2018 GPL3 Licensed
+' 
+' 
+' GNU GENERAL PUBLIC LICENSE (GPL3)
+' 
+' 
+' This program is free software: you can redistribute it and/or modify
+' it under the terms of the GNU General Public License as published by
+' the Free Software Foundation, either version 3 of the License, or
+' (at your option) any later version.
+' 
+' This program is distributed in the hope that it will be useful,
+' but WITHOUT ANY WARRANTY; without even the implied warranty of
+' MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+' GNU General Public License for more details.
+' 
+' You should have received a copy of the GNU General Public License
+' along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 
 
-    ' /********************************************************************************/
+' /********************************************************************************/
 
-    ' Summaries:
-
-
-    ' Code Statistics:
-
-    '   Total Lines: 405
-    '    Code Lines: 261
-    ' Comment Lines: 88
-    '   Blank Lines: 56
-    '     File Size: 15.99 KB
+' Summaries:
 
 
-    ' Class KnowlegdeBuilder
-    ' 
-    '     Properties: knowledge_cache, verify
-    ' 
-    '     Constructor: (+1 Overloads) Sub New
-    ' 
-    '     Function: getNodeById, loadLinks, loadViaFromNodes, loadViaToNodes, mapNodeTypes
-    '               PullGraphById, PullNextGraph, PullNextGraphInternal, pullNodes, push
-    ' 
-    '     Sub: addNode, pullNextGraph, ReferenceToTerm
-    ' 
-    ' /********************************************************************************/
+' Code Statistics:
+
+'   Total Lines: 405
+'    Code Lines: 261
+' Comment Lines: 88
+'   Blank Lines: 56
+'     File Size: 15.99 KB
+
+
+' Class KnowlegdeBuilder
+' 
+'     Properties: knowledge_cache, verify
+' 
+'     Constructor: (+1 Overloads) Sub New
+' 
+'     Function: getNodeById, loadLinks, loadViaFromNodes, loadViaToNodes, mapNodeTypes
+'               PullGraphById, PullNextGraph, PullNextGraphInternal, pullNodes, push
+' 
+'     Sub: addNode, pullNextGraph, ReferenceToTerm
+' 
+' /********************************************************************************/
 
 #End Region
 
 Imports System.Runtime.CompilerServices
-Imports graph.MySQL.graphdb
+Imports GraphQL.KnowledgeBase.MySQL.graphdb
 Imports Microsoft.VisualBasic.ComponentModel.Collection
 Imports Microsoft.VisualBasic.Data.visualize.Network.Analysis
 Imports Microsoft.VisualBasic.Data.visualize.Network.FileStream.Generic
