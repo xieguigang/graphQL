@@ -1,10 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <RootNamespace>graph.MySQL</RootNamespace>
+    <RootNamespace>GraphQL.KnowledgeBase.MySQL</RootNamespace>
     <TargetFrameworks>net8.0-windows;net8.0;net48</TargetFrameworks>
     <Platforms>AnyCPU;x64</Platforms>
     <Configurations>Debug;Release;Rsharp_app_release</Configurations>
+    <AutoGenerateBindingRedirects>True</AutoGenerateBindingRedirects>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>MySQL storage based Knowledge Graph Database</Title>
+    <AssemblyTitle>MySQL storage based Knowledge Graph Database</AssemblyTitle>
+    <AssemblyName>GraphQL.KnowledgeBase.MySQL</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
