@@ -49,6 +49,7 @@
    Is set to the name of the table to query. This Is illustrated by the 
    following code snippet
 
+
 <pre><code class="vbnet"> ' ...
  Dim cmd As New MySqlCommand()
  cmd.CommandText = "mytable"
@@ -62,22 +63,23 @@
  ' ...
 </code></pre>
 
+</p>
 
- 
- Examples of using the CommandType of StoredProcedure can be found in the section 
+<p>Examples of using the CommandType of StoredProcedure can be found in the section 
  Section 5.10, “Accessing Stored Procedures with Connector/Net”.
  Commands can have a timeout associated With them. This Is useful As you may Not 
  want a situation were a command takes up an excessive amount Of time. 
  A timeout can be Set Using the CommandTimeout Property. The following code snippet
  sets a timeout Of one minute:
 
+
 <pre><code class="vbnet"> Dim cmd As New MySqlCommand()
  cmd.CommandTimeout = 60
 </code></pre>
 
+</p>
 
- 
- The Default value Is 30 seconds. <em></em>Avoid a value Of 0, which indicates an indefinite
+<p>The Default value Is 30 seconds. <em></em>Avoid a value Of 0, which indicates an indefinite
  wait.<em></em> To change the Default command timeout, use the connection String 
  Option Default Command Timeout.
  Prior to MySQL Connector/Net 6.2, MySqlCommand.CommandTimeout included user processing 
@@ -110,12 +112,13 @@ export class ConnectionUri {
    Port: integer;
    # 这个属性会在链接字符串之中设置查询超时的选项，单位为秒：
    # 
+   # 
    # <pre><code class=""> default command timeout={TimeOut};
    # </code></pre>
    # 
    # 
-   #  
-   #  + 假若这个参数值为负数，则不会进行设置，默认值为-1，为负值，则默认不会设置超时选项，即使用默认的超时设置30秒
+   # 
+   # + 假若这个参数值为负数，则不会进行设置，默认值为-1，为负值，则默认不会设置超时选项，即使用默认的超时设置30秒
    #  + 假若这个参数值为0，则会被设置为无限等待
    TimeOut: integer;
    User: string;
