@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>System.Exception</title>
+    <title>Microsoft.VisualBasic.Data.visualize.Network.Graph.EdgeBundling.WayPointVector</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <link rel="stylesheet" type="text/css" href="../../_assets/page.css">
@@ -13,42 +13,39 @@
 
         <table style="width: 100%;">
             <tr>
-                <td>Exception {System}</td>
+                <td>WayPointVector {Microsoft.VisualBasic.Data.visualize.Network.Graph.EdgeBundling}</td>
                 <td style="text-align: right;">.NET clr documentation</td>
             </tr>
         </table>
 
-        <h2>Exception</h2>
+        <h2>WayPointVector</h2>
 
         <h3>Description</h3>
 
-        
+        <p>相对于<a href="/vignettes/clr/Microsoft/VisualBasic/Data/visualize/Network/Graph/EdgeBundling/Handle.html">Handle</a>模型，这个矢量模型则是单纯的以xy偏移比例来进行矢量比例缩放</p>
 
         <h3>Declare</h3>        
 
         <pre>
             <code id="clr_ts">
-# namespace System
-export class Exception {
-   Data: <a href="/vignettes/clr/System/Collections/IDictionary.html">IDictionary</a>;
-   HelpLink: string;
-   HResult: integer;
-   InnerException: <a href="/vignettes/clr/System/Exception.html">Exception</a>;
-   Message: string;
-   Source: string;
-   StackTrace: string;
-   TargetSite: <a href="/vignettes/clr/System/Reflection/MethodBase.html">MethodBase</a>;
+# namespace Microsoft.VisualBasic.Data.visualize.Network.Graph.EdgeBundling
+export class WayPointVector {
+   isNaN: boolean;
+   # X轴方向的绝对像素偏移量 (当两点间X距离为0时使用)
+   xabsoluteshift: double;
+   # X轴方向的比例偏移量 (当两点间X距离不为0时使用)
+   xoffsetscale: double;
+   # Y轴方向的绝对像素偏移量 (当两点间Y距离为0时使用)
+   yabsoluteshift: double;
+   # Y轴方向的比例偏移量 (当两点间Y距离不为0时使用)
+   yoffsetscale: double;
 }
 </code>
         </pre>
 
         <h3>.NET clr type reference tree</h3>
 
-        <ol>
-<li>use by <i>property</i> member <code>Data</code>: <a href="/vignettes/clr/System/Collections/IDictionary.html">IDictionary</a></li>
-<li>use by <i>property</i> member <code>InnerException</code>: <a href="/vignettes/clr/System/Exception.html">Exception</a></li>
-<li>use by <i>property</i> member <code>TargetSite</code>: <a href="/vignettes/clr/System/Reflection/MethodBase.html">MethodBase</a></li>
-</ol>
+        this clr type has no other .net clr type reference.
 
 
         <hr />
