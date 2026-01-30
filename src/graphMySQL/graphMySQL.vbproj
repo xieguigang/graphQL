@@ -29,12 +29,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Google.Protobuf" Version="3.33.2" />
-    <PackageReference Include="MySql.Data" Version="9.5.0" />
+    <PackageReference Include="Google.Protobuf" Version="3.34.0-rc1" />
+    <PackageReference Include="MySql.Data" Version="9.6.0" />
     <PackageReference Include="SSH.NET" Version="2025.1.0" />
-    <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="10.0.1" />
-    <PackageReference Include="System.Security.Permissions" Version="10.0.1" />
-    <PackageReference Include="System.Text.Json" Version="10.0.1" />
+    <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="10.0.2" />
+    <PackageReference Include="System.Security.Permissions" Version="10.0.2" />
+    <PackageReference Include="System.Text.Json" Version="10.0.2" />
   </ItemGroup>
 
   <ItemGroup>
