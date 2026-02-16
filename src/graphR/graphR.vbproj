@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <RootNamespace>graphR</RootNamespace>
-	  <TargetFrameworks>net8.0-windows;net8.0;net48</TargetFrameworks>
+    <TargetFrameworks>net10.0-windows;net10.0</TargetFrameworks>
     <Platforms>AnyCPU;x64</Platforms>
     <Configurations>Debug;Release;Rsharp_app_release</Configurations>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
@@ -80,11 +80,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Google.Protobuf" Version="3.34.0-rc1" />
+    <PackageReference Include="Google.Protobuf" Version="3.34.0-rc2" />
     <PackageReference Include="MySql.Data" Version="9.6.0" />
     <PackageReference Include="SSH.NET" Version="2025.1.0" />
-    <PackageReference Include="System.Security.Permissions" Version="10.0.2" />
-    <PackageReference Include="System.Text.Json" Version="10.0.2" />
+    <PackageReference Include="System.Security.Permissions" Version="11.0.0-preview.1.26104.118" />
+    <PackageReference Include="System.Text.Json" Version="11.0.0-preview.1.26104.118" />
   </ItemGroup>
 
   <Import Project="..\..\..\GCModeller\src\R-sharp\Library\shares\JsonHelper\JsonHelper.projitems" Label="Shared" />
