@@ -98,6 +98,7 @@ End Class
 ''' for network access and facilitates testing database integrity and creation of backups.
 ''' </summary>
 <Package("mysql")>
+<RTypeExport("mysql_uri", GetType(ConnectionUri))>
 Module mysqlDatabaseTool
 
     Dim ssh As SshClient
