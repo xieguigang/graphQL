@@ -851,6 +851,8 @@ Module mysqlDatabaseTool
             importer = New RestoreWorker(DirectCast(uri, ConnectionUri), mysql)
         ElseIf TypeOf uri Is MySqli Then
             importer = New RestoreWorker(DirectCast(uri, MySqli).UriMySQL, mysql)
+        ElseIf uri.GetType.IsInheritsFrom(GetType(IDatabase)) Then
+            importer = New RestoreWorker(DirectCast(uri, IDatabase).getDriver.UriMySQL, mysql)
         Else
             Return Message.InCompatibleType(GetType(ConnectionUri), uri.GetType, env)
         End If
