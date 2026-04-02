@@ -129,6 +129,10 @@ declare namespace mysql {
    */
    function ignore(table: any, env?: object): object|object;
    /**
+     * @param env default value Is ``null``.
+   */
+   function imports_sql(uri: any, sql: any, mysql: string, env?: object): any;
+   /**
     * mysql left join
     * 
     * 
