@@ -841,4 +841,36 @@ Module mysqlDatabaseTool
 
         Return counter_data
     End Function
+
+    <ExportAPI("imports_sql")>
+    Public Function imports_sql(uri As Object, <RRawVectorArgument> sql As Object, mysql As String, Optional env As Environment = Nothing) As Object
+        Dim sqls As String() = CLRVector.asCharacter(sql)
+        Dim importer As RestoreWorker
+
+        If TypeOf uri Is ConnectionUri Then
+            importer = New RestoreWorker(DirectCast(uri, ConnectionUri), mysql)
+        ElseIf TypeOf uri Is MySqli Then
+            importer = New RestoreWorker(DirectCast(uri, MySqli).UriMySQL, mysql)
+        Else
+            Return Message.InCompatibleType(GetType(ConnectionUri), uri.GetType, env)
+        End If
+
+        If sqls.TryCount = 0 Then
+            Return False
+        Else
+            For Each handle As String In sqls
+                If handle.DirectoryExists AndAlso Not handle.ExtensionSuffix("sql") Then
+                    ' is dir
+                    Call importer.ImportsData(dumpDir:=handle)
+                Else
+                    ' is sql file
+                    Call importer.ImportSqlFileAsync(handle).Wait()
+                End If
+            Next
+        End If
+
+        Call importer.Dispose()
+
+        Return Nothing
+    End Function
 End Module
