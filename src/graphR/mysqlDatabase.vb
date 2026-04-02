@@ -63,6 +63,7 @@ Imports Oracle.LinuxCompatibility.LibMySQL.PerformanceCounter
 Imports Oracle.LinuxCompatibility.MySQL
 Imports Oracle.LinuxCompatibility.MySQL.MySqlBuilder
 Imports Oracle.LinuxCompatibility.MySQL.Uri
+Imports Oracle.LinuxCompatibility.MySQL.Workbench
 Imports Renci.SshNet
 Imports SMRUCC.Rsharp.Interpreter.ExecuteEngine
 Imports SMRUCC.Rsharp.Interpreter.ExecuteEngine.ExpressionSymbols.DataSets
