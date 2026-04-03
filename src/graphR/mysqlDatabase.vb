@@ -58,6 +58,7 @@ Imports System.Data
 Imports graphQL.KnowledgeBase.MySQL
 Imports Microsoft.VisualBasic.CommandLine.Reflection
 Imports Microsoft.VisualBasic.Language
+Imports Microsoft.VisualBasic.Linq
 Imports Microsoft.VisualBasic.Scripting.MetaData
 Imports Oracle.LinuxCompatibility.LibMySQL.PerformanceCounter
 Imports Oracle.LinuxCompatibility.MySQL
@@ -843,8 +844,20 @@ Module mysqlDatabaseTool
         Return counter_data
     End Function
 
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="uri"></param>
+    ''' <param name="sql"></param>
+    ''' <param name="mysql"></param>
+    ''' <param name="batch_script">generates the batch script for make mysql script imports</param>
+    ''' <param name="env"></param>
+    ''' <returns></returns>
     <ExportAPI("imports_sql")>
-    Public Function imports_sql(uri As Object, <RRawVectorArgument> sql As Object, mysql As String, Optional env As Environment = Nothing) As Object
+    Public Function imports_sql(uri As Object, <RRawVectorArgument> sql As Object, mysql As String,
+                                Optional batch_script As Boolean = False,
+                                Optional env As Environment = Nothing) As Object
+
         Dim sqls As String() = CLRVector.asCharacter(sql)
         Dim importer As RestoreWorker
 
@@ -860,6 +873,13 @@ Module mysqlDatabaseTool
 
         If sqls.TryCount = 0 Then
             Return False
+        ElseIf batch_script Then
+            Return sqls _
+                .Select(Function(dir)
+                            Return importer.ImportsDataBatchShell(dir)
+                        End Function) _
+                .IteratesALL _
+                .ToArray
         Else
             For Each handle As String In sqls
                 If handle.DirectoryExists AndAlso Not handle.ExtensionSuffix("sql") Then
