@@ -129,9 +129,19 @@ declare namespace mysql {
    */
    function ignore(table: any, env?: object): object|object;
    /**
-     * @param env default value Is ``null``.
+    * 
+    * 
+     * @param uri -
+     * @param sql -
+     * @param mysql -
+     * @param batch_script generates the batch script for make mysql script imports
+     * 
+     * + default value Is ``false``.
+     * @param env -
+     * 
+     * + default value Is ``null``.
    */
-   function imports_sql(uri: any, sql: any, mysql: string, env?: object): any;
+   function imports_sql(uri: any, sql: any, mysql: string, batch_script?: boolean, env?: object): any;
    /**
     * mysql left join
     * 
