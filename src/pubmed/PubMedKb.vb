@@ -1,5 +1,5 @@
-﻿Imports GraphQL.KnowledgeBase.MySQL.pubmed
-Imports Oracle.LinuxCompatibility.MySQL.Uri
+﻿Imports Oracle.LinuxCompatibility.MySQL.Uri
+Imports PubMedMirror.pubmed
 
 Public Class PubMedKb : Inherits db_pubmed
 
