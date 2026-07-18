@@ -5,10 +5,10 @@ Imports Oracle.LinuxCompatibility.MySQL.Uri
 Namespace pubmed
 
 Public MustInherit Class db_pubmed : Inherits IDatabase
-Protected ReadOnly m_articles As Model
-Protected ReadOnly m_fulltext As Model
-Protected ReadOnly m_mesh As Model
-Protected ReadOnly m_metadata As Model
+Protected ReadOnly m_articles As TableModel(Of articles)
+Protected ReadOnly m_fulltext As TableModel(Of fulltext)
+Protected ReadOnly m_mesh As TableModel(Of mesh)
+Protected ReadOnly m_metadata As TableModel(Of metadata)
 Protected Sub New(mysqli As ConnectionUri)
 Call MyBase.New(mysqli)
 
