@@ -217,7 +217,7 @@ declare namespace mysql {
     * 
     * 
      * @param mysql mysql connection parameters for create a 
-     *  mysql performance counter @``T:Oracle.LinuxCompatibility.LibMySQL.PerformanceCounter.Logger`` object.
+     *  mysql performance counter [Logger](cref:T:Oracle.LinuxCompatibility.LibMySQL.PerformanceCounter.Logger) object.
      * @param task the timespan value for run current performance counter task, value could be generates 
      *  from the time related R# base function: 
      *  

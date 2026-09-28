@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Microsoft.VisualBasic.Data.visualize.Network.Graph.EdgeBundling.WayPointVector</title>
+    <title>SMRUCC.Rsharp.Interpreter.DebugInspector</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <link rel="stylesheet" type="text/css" href="../../_assets/page.css">
@@ -13,32 +13,32 @@
 
         <table style="width: 100%;">
             <tr>
-                <td>WayPointVector {Microsoft.VisualBasic.Data.visualize.Network.Graph.EdgeBundling}</td>
+                <td>DebugInspector {SMRUCC.Rsharp.Interpreter}</td>
                 <td style="text-align: right;">.NET clr documentation</td>
             </tr>
         </table>
 
-        <h2>WayPointVector</h2>
+        <h2>DebugInspector</h2>
 
         <h3>Description</h3>
 
-        <p>相对于<a href="cref:T:Microsoft.VisualBasic.Data.visualize.Network.Graph.EdgeBundling.Handle">Handle</a>模型，这个矢量模型则是单纯的以xy偏移比例来进行矢量比例缩放</p>
+        <p>调试器的运行时检查器</p>
+
+<p>这个类型提供了在程序暂停之后所需要用到的各种运行时状态的检查功能, 其内部的实现都是复用的解释器所已经具备的基础设施:</p>
+
+
+<ul>
+<li>变量列表: 复用 <a href="cref:M:SMRUCC.Rsharp.Runtime.Environment.GetSymbolsNames">Environment.GetSymbolsNames()</a> 以及 <a href="cref:M:SMRUCC.Rsharp.Runtime.Environment.FindSymbol(System.String,System.Boolean)">Environment.FindSymbol()</a></li>
+<li>调用堆栈: 复用 <a href="cref:P:SMRUCC.Rsharp.Runtime.Environment.stackTrace">Environment.stackTrace</a></li>
+<li>表达式求值: 复用 <a href="cref:M:SMRUCC.Rsharp.Interpreter.Program.BuildProgram(System.String,System.Boolean,System.String@)">Program.BuildProgram()</a> 的语法解析链路</li>
+</ul>
 
         <h3>Declare</h3>        
 
         <pre>
             <code id="clr_ts">
-# namespace Microsoft.VisualBasic.Data.visualize.Network.Graph.EdgeBundling
-export class WayPointVector {
-   isNaN: boolean;
-   # X轴方向的绝对像素偏移量 (当两点间X距离为0时使用)
-   xabsoluteshift: double;
-   # X轴方向的比例偏移量 (当两点间X距离不为0时使用)
-   xoffsetscale: double;
-   # Y轴方向的绝对像素偏移量 (当两点间Y距离为0时使用)
-   yabsoluteshift: double;
-   # Y轴方向的比例偏移量 (当两点间Y距离不为0时使用)
-   yoffsetscale: double;
+# namespace SMRUCC.Rsharp.Interpreter
+export class DebugInspector {
 }
 </code>
         </pre>

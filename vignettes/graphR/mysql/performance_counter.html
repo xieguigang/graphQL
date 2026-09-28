@@ -36,20 +36,17 @@
         <table>
             
 <dt>mysql</dt>
-<dd><p>mysql connection parameters for create a 
- mysql performance counter @<code>T:Oracle.LinuxCompatibility.LibMySQL.PerformanceCounter.Logger</code> object.</p></dd>
+<dd><p>mysql connection parameters for create a mysql performance counter <a href="cref:T:Oracle.LinuxCompatibility.LibMySQL.PerformanceCounter.Logger">Logger</a> object.</p></dd>
 
 
 <dt>task</dt>
-<dd><p>the timespan value for run current performance counter task, value could be generates 
- from the time related R# base function: 
- 
- <code>hours</code>, <code>minutes</code>, <code>seconds</code>, <code>days</code>, <code>time_span</code>. [as <a href="/vignettes/clr/System/TimeSpan.html">TimeSpan</a>]</p></dd>
+<dd><p>the timespan value for run current performance counter task, value could be generates from the time related R# base function:</p>
+
+<p><code>hours</code>, <code>minutes</code>, <code>seconds</code>, <code>days</code>, <code>time_span</code>. [as <a href="/vignettes/clr/System/TimeSpan.html">TimeSpan</a>]</p></dd>
 
 
 <dt>resolution</dt>
-<dd><p>the mysql performance counter data sampling time resolution value, 
- time internal data unit in seconds. [as double]</p></dd>
+<dd><p>the mysql performance counter data sampling time resolution value, time internal data unit in seconds. [as double]</p></dd>
 
 
 <dt>env</dt>
@@ -68,8 +65,7 @@
 
         <h3>Value</h3>
 
-        <p>the return tuple list data has attribute data <code>global_status</code>, is the raw data 
- for the performance counter which is pulled from the mysql server.</p> the list data also has some specificied data fields: <code>list(Bytes_received, Bytes_sent, Selects, Inserts, Deletes, Updates, Client_connections, Innodb_buffer_pool_read_requests, Innodb_buffer_pool_write_requests, Innodb_data_read, timestamp)</code>.<h4>clr value class</h4><ul><li>list</li></ul>
+        <p>the return tuple list data has attribute data <code>global_status</code>, is the raw data for the performance counter which is pulled from the mysql server.</p> the list data also has some specificied data fields: <code>list(Bytes_received, Bytes_sent, Selects, Inserts, Deletes, Updates, Client_connections, Innodb_buffer_pool_read_requests, Innodb_buffer_pool_write_requests, Innodb_data_read, timestamp)</code>.<h4>clr value class</h4><ul><li>list</li></ul>
 
         <h3 style="display: none;">Examples</h3>
 
