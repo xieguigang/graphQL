@@ -81,11 +81,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Google.Protobuf" Version="3.35.1" />
+    <PackageReference Include="Google.Protobuf" Version="3.36.2" />
     <PackageReference Include="MySql.Data" Version="26.7.0" />
-    <PackageReference Include="SSH.NET" Version="2025.1.0" />
-    <PackageReference Include="System.Security.Permissions" Version="10.0.10" />
-    <PackageReference Include="System.Text.Json" Version="10.0.10" />
+    <PackageReference Include="SSH.NET" Version="2026.0.0" />
+    <PackageReference Include="System.Security.Permissions" Version="10.0.12" />
+    <PackageReference Include="System.Text.Json" Version="10.0.12" />
   </ItemGroup>
 
   <Import Project="..\..\..\GCModeller\src\R-sharp\Library\shares\JsonHelper\JsonHelper.projitems" Label="Shared" />
